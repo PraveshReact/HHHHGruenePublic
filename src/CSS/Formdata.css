@@ -1,12 +1,16 @@
-.capctha {padding: 25px;
+.capctha {
+    /* padding: 25px; */
     border-radius: 0px;
-    box-shadow: 0 1px 20px rgba(0,84, 55, 0.09);
+    /* box-shadow: 0 1px 20px rgba(0,84, 55, 0.09); */
     background: #ffffff;
     clear: both;
-    margin: 10px auto;
-    width: 80%;
+    margin: 25px auto;
+    width: 100%;
 }
-  
+.valign-middle {
+    display: flex;
+    align-items: center;
+}
 input[type=text], select, textarea {
   width: 100%;
   padding: 3px;
@@ -17,7 +21,14 @@ input[type=text], select, textarea {
   resize: vertical;
   height: 36px;
 }
-textarea{
+
+input[type=text]:focus-visible, textarea:focus-visible {
+    border-color:var(--primary-color);
+    box-shadow: none; 
+    outline: none;
+}
+
+    textarea{
     margin-bottom: 15px !important;
 }
 input[type=submit] {
@@ -44,6 +55,7 @@ input[type=submit] {
         outline: none;
         color: var(--text-color);
         width: 70%;
+        margin-bottom: 0;
     }
 
     .c-red {

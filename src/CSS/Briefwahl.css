@@ -1,4 +1,16 @@
-
+a.DC-mapImg {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #BDBDBD;
+  padding: 5px;
+  left: 2%;
+  margin-top: 10px;
+  width: 200px;
+  height: 248px;
+}
+a.DC-mapImg > img.DC-Mapimage {
+  width: 100%;
+}
   svg.right-arrowSvg {
     font-size: 46px;
     line-height: 52px;
@@ -67,6 +79,7 @@
     font-size: 59px !important;
     font-weight: 500;
     font-family: 'GrueneType';
+    color: var(--secondary-color) !important;
   }
 
   ul.scrollToBtns {
@@ -74,6 +87,7 @@
     list-style: none !important;
     display: inline-block;
     width: 100%;
+    padding-left: 0px;
   }
 
   ul.scrollToBtns li {
@@ -211,10 +225,11 @@
     float: left;
     text-align: center;
     margin: 0 auto;
+    padding-left: 2rem !important;
   }
 
   img.Stoerer_Briefwahl_img {
-    width: 60%;
+    width: 70%;
     margin: 20px auto;
   }
 
@@ -255,6 +270,7 @@
     padding: 3px 10px;
     background: #267114 none repeat scroll 0 0;
     font-style: normal !important;
+    margin: 3px 0;
   }
 #box1content .banner, #box2content .banner {
     background: #267114;
@@ -274,21 +290,24 @@
   #stateslist>li:hover>a>h3 {
     color: #FFCB00 !important;
 }
-  #stateslist>li:last-child {
+  /* #stateslist>li:last-child {
     background: #ffffff none repeat scroll 0 0;
     margin-top: 12px;
-
-  }
+  } */
 
   .btn-primary {
-    background-color: #339933 !important;
+    background-color: #008939 !important;
     border-color: #008939  !important;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-family: 'PTSans' !important;
-    padding: 7px 20px !important;
+    padding: 4px 20px !important;
     font-size: 16px !important;
+    border-radius: 0px !important
   }
-
+  .btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    background-color: #918d8d !important;
+    border-color: #918d8d !important;
+}
   .Briefwahl-modal-btn {
     padding-left: 8%;
   }
@@ -426,7 +445,7 @@
     }
 
     img.Stoerer_Briefwahl_img {
-      width: 40%;
+      width: 50%;
       margin: 0px auto;
     }
 

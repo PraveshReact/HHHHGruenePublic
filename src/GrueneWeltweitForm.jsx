@@ -104,17 +104,19 @@ const GrueneWeltweitForm = () => {
                         <div className="col-sm-12">
                             <div className="mainbody">
                                 <div className="row">
-                                    <div className="col-sm-6 mt-10">
-                                        <input type="text" className="form-control searchbox_height" id="entered-captcha" onPaste={(e) => e.preventDefault()} placeholder="Enter the captcha.." autoComplete="off" value={enteredCaptcha} onChange={(e) => setEnteredCaptcha(e.target.value)} />
+                                    <div className="col-sm-5 mt-10">
+                                        <input type="text" id="entered-captcha" onPaste={(e) => e.preventDefault()} placeholder="Enter the captcha.." autoComplete="off" value={enteredCaptcha} onChange={(e) => setEnteredCaptcha(e.target.value)} />
                                     </div>
-                                    <div className="col-sm-4 mt-10 padL-0 PadR0">
+                                    <div className="col-sm-5 mt-10 pad0">
+                                        <div className="col valign-middle">
                                         <input type="text" className="text-center searchbox_height" onCopy={(e) => e.preventDefault()} id="generated-captcha" value={captcha} />
-                                        <a onClick={generateCaptcha} id="newgen" title="Generate new captcha">
+                                        <a onClick={generateCaptcha} id="newgen" title="Generate new captcha" className="ms-1">
                                             <img src="https://www.gruene-washington.de/PublishingImages/Icons/32/Re-load.png" alt="reload icon" />
                                         </a>
                                         <label className="full_width ml-8"><div id="newstatus" className="c-red">{status}</div></label>
                                     </div>
-                                    <div className="col-sm-2 padL-0 text-end">
+                                    </div>
+                                    <div className="col-sm-2 text-end">
                                         <button type="button" className="btn btn-primary pull-right" disabled={!txtName && !txtEmail} onClick={checkCaptcha}>Submit</button>
                                     </div>
                                 </div>

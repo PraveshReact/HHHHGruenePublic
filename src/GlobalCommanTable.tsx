@@ -804,7 +804,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                     />
                     <span className="svg__iconbox svg__icon--setting" style={{ backgroundColor: `${portfolioColor}` }} onClick={() => setSelectedFilterPanelIsOpen(true)}></span>
                     <span className='ms-1'>
-                        <select style={{ height: "32px", color: `${portfolioColor}` }}
+                        <select style={{ height: "40px", color: `${portfolioColor}` }}
                             className="w80"
                             aria-label="Default select example"
                             value={globalSearchType}
@@ -947,7 +947,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                         </tbody>
                     </table>
                     {data?.length === 0 && <div className='mt-2'>
-                        <div className='d-flex justify-content-center' style={{ height: "30px", color: portfolioColor ? `${portfolioColor}` : "#000069" }}>No data available</div>
+                        <div className='d-flex justify-content-center' style={{ height: "30px", color: portfolioColor ? `${portfolioColor}` : "#008939" }}>No data available</div>
                     </div>}
                 </div>
             </div>

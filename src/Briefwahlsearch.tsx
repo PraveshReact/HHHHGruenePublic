@@ -6,15 +6,15 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import GlobalCommanTable from './GlobalCommanTable';
 import './CSS/Briefwahlsearch.css';
-let SelectedTile = 'Berlin'
-let backupdata:any=[]
+let backupdata: any = []
 const Briefwahlsearch = (props: any) => {
+    let State: any;
     const [Briefwahldata, setBriefwahldata]: any = useState([]);
     const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
-    let State: any;
     if (props.stateParam && props.stateParam != undefined && props.stateParam != '') {
-        State = props.stateParam
+        State = decodeURIComponent(props.stateParam)
     }
+    const [SelectedTile, setSelectedTile] = useState(State != undefined && State != '' ? State : 'Alle')
     useEffect(() => {
         getBriefwahldata();
     }, [])
@@ -62,52 +62,52 @@ const Briefwahlsearch = (props: any) => {
                 accessorKey: "Gemeinde",
                 placeholder: "Stadt",
                 header: "",
-                id: "Gemeinde",
+                id: "Gemeinde", size: 150,
                 cell: ({ row }: any) => (
                     <>{row.original.Gemeinde}
                     </>
                 ),
             },
             {
-                accessorKey: "PLZ", placeholder: "PLZ", header: "", id: "PLZ", size: 5,
+                accessorKey: "PLZ", placeholder: "PLZ", header: "", id: "PLZ", size: 75,
                 cell: ({ row }: any) => (
                     <>
-                        <a>{row?.original?.PLZ}</a>
+                        {row?.original?.PLZ}
                     </>
                 ),
             },
 
             {
-                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName",
+                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName", size: 150,
                 cell: ({ row }: any) => (
                     <>
-                        <a>{row?.original?.WKName}</a>
+                        {row?.original?.WKName}
                     </>
                 ),
             },
             {
-                accessorKey: "Wahlkreis", placeholder: "Wahlkreis", header: "", id: "Wahlkreis", size: 55,
+                accessorKey: "Wahlkreis", placeholder: "Wahlkreis", header: "", id: "Wahlkreis", size: 75,
                 cell: ({ row }: any) => (
                     <>
-                        <a>{row?.original?.Wahlkreis}</a>
-                    </>
-                ),
-            },
-
-            {
-                accessorKey: "Email", placeholder: "Email", header: "", id: "Email",
-                cell: ({ row }: any) => (
-                    <>
-                        <a>{row?.original?.Email}</a>
+                        {row?.original?.Wahlkreis}
                     </>
                 ),
             },
 
             {
-                accessorKey: "LinkBundestag", placeholder: "LinkBundestag", header: "", id: "LinkBundestag",
+                accessorKey: "Email", placeholder: "Email", header: "", id: "Email", size: 300,
                 cell: ({ row }: any) => (
                     <>
-                        <a>{row?.original?.LinkBundestag}</a>
+                          <a href={`mailto:${row?.original?.Email}`}>{row?.original?.Email}</a>
+                    </>
+                ),
+            },
+
+            {
+                accessorKey: "LinkBundestag", placeholder: "LinkBundestag", header: "", id: "LinkBundestag", size: 450,
+                cell: ({ row }: any) => (
+                    <>
+                        <div className='word-break'><a href={row?.original?.LinkBundestag} target="_blank" >{row?.original?.LinkBundestag}</a></div>
                     </>
                 ),
             }
@@ -118,7 +118,8 @@ const Briefwahlsearch = (props: any) => {
         console.log(data)
     }
     const ChangeTile = (tile: string) => {
-        let allfilterdata:any=[]
+        let allfilterdata: any = []
+        setSelectedTile(tile)
         if (tile != undefined && tile != undefined) {
             backupdata?.forEach((item: any) => {
                 if (item?.Land == tile) {
@@ -126,19 +127,20 @@ const Briefwahlsearch = (props: any) => {
                 }
             })
         }
-        if(tile!='Alle'){
+        if (tile != 'Alle') {
             setBriefwahldata(allfilterdata)
-        }else{
+        } else {
             setBriefwahldata(backupdata)
         }
     }
     return (
         <div className="container">
             <header className="page-header">
-                <h1 className="page-title heading">OV Washington Briefwahl-Suchmaschine</h1>
+                <h1 className="page-title heading  text-center">OV Washington Briefwahl-Suchmaschine</h1>
             </header>
+            <h3 className=' text-center'>  *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Europawahl 2024 *** </h3>
             <div className="col-12 no-padding topDesign" id="BriefId">
-                <ul id="stateslist" className='p-2'>
+                <ul id="stateslist">
                     <li className={SelectedTile === 'Baden-Württemberg' ? 'active' : ''}>
                         <a className="hreflink" onClick={() => ChangeTile('Baden-Württemberg')}>Baden-Württemberg</a>
                     </li>
@@ -160,11 +162,11 @@ const Briefwahlsearch = (props: any) => {
                     <li className={SelectedTile === 'Hessen' ? 'active' : ''}>
                         <a className="hreflink" onClick={() => ChangeTile('Hessen')}>Hessen</a>
                     </li>
-                    <li className={SelectedTile === 'Niedersachsen' ? 'active' : ''}>
-                        <a className="hreflink" onClick={() => ChangeTile('Niedersachsen')}>Mecklenburg-Vorpommern</a>
+                    <li className={SelectedTile === 'Mecklenburg-Vorpommern' ? 'active' : ''}>
+                        <a className="hreflink" onClick={() => ChangeTile('Mecklenburg-Vorpommern')}>Mecklenburg-Vorpommern</a>
                     </li>
-                    <li className={SelectedTile === 'Berlin' ? 'active' : ''}>
-                        <a className="hreflink" onClick={() => ChangeTile('Berlin')}>Niedersachsen</a>
+                    <li className={SelectedTile === 'Niedersachsen' ? 'active' : ''}>
+                        <a className="hreflink" onClick={() => ChangeTile('Niedersachsen')}>Niedersachsen</a>
                     </li>
                     <li className={SelectedTile === 'Nordrhein-Westfalen' ? 'active' : ''}>
                         <a className="hreflink" onClick={() => ChangeTile('Nordrhein-Westfalen')}>Nordrhein-Westfalen</a>
@@ -190,7 +192,6 @@ const Briefwahlsearch = (props: any) => {
                     <li className={SelectedTile === 'Alle' ? 'active' : ''}>
                         <a className="hreflink" onClick={() => ChangeTile('Alle')}>Alle</a>
                     </li>
-
                 </ul>
             </div>
             <div className="tab-pane show active" id="Contacts" role="tabpanel" aria-labelledby="Contacts">

@@ -4,25 +4,63 @@ import { useEffect, useState, useMemo } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import SmartpageComponent from "./SmartpageComponent";
 import { fetchData } from './service'
-
-const Navbar = () => {
+import Container from 'react-bootstrap/Container';
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { MdMenu, MdClose } from "react-icons/md";
+const Navbarcomponent = () => {
   const [data, setData] = useState([]);
   const [isSticky, setSticky] = useState(false);
   const [clickedTitle, setClickedTitle] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+ // const [searchInput, setSearchInput] = useState("");
 
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  const getPublicServerData = async (tableName: any) => {
+    let results: any = [];
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
+      var raw = JSON.stringify({
+        "table": `${tableName}`
+      });
+
+      var requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+        .then(response => response.text())
+        .then((result: any) => {
+          result = JSON.parse(result)
+          results = result?.data
+          const structuredData = structureData(results);
+          setData(structuredData);
+        })
+        .catch(error => console.log('error', error));
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+    return results;
+  }
   useEffect(() => {
     const topNavigationData = async () => {
       const tableName = "navigation";
       try {
-        const response = await axios.get(`${GetserverUrl}?table=${tableName}`);
-        if (response.status === 200) {
-          const structuredData = structureData(response?.data);
-          setData(structuredData);
-        } else {
-          console.error('Error sending data to server:', response.statusText);
-        }
+        const response: any = await getPublicServerData(`${tableName}`)
+
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -54,28 +92,30 @@ const Navbar = () => {
     return debounce(handleScrollEvent, 100);
   }, []);
 
-  const structureData = (rawData:any) => {
-    rawData.forEach((item:any) => {
+  const structureData = (rawData: any) => {
+    rawData.forEach((item: any) => {
       if (!item.children) {
         item.children = [];
       }
       item.children = [
         ...item.children,
-        ...rawData.filter((child:any) => child.ParentId === item.id),
+        ...rawData.filter((child: any) => child.ParentId === item.id),
       ];
     });
-    return rawData.filter((item:any) => !item.ParentId);
+    return rawData.filter((item: any) => !item.ParentId);
   };
 
-  const handleLinkClick = (title:any) => {
+  const handleLinkClick = (title: any) => {
     console.log(`Clicked on: ${title}`);
     setClickedTitle(title);
   };
-
-  const renderItem = (item:any) => (
+  // const handleSearchChange = (e: any) => {
+  //   setSearchInput(e.target.value);
+  // };
+  const renderItem = (item: any) => (
     <li key={item.id} className="nav-item dropdown">
-      <Link
-        to={`/${item.Title === "Home" ? "" : item.KeyTitle.toLowerCase()}`}
+      <a
+        href={`/${item.Title === "Home" ? "" : item.KeyTitle.toLowerCase()}`}
         id="navbarDropdown"
         role="button"
         data-toggle="dropdown"
@@ -84,94 +124,164 @@ const Navbar = () => {
         onClick={() => handleLinkClick(item?.Title)}
       >
         {item?.Title}
-        {item.children.length > 0 && <span><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m112 184 144 144 144-144"></path></svg></span>}
-       
-      </Link>
+
+      </a>
       {item.children.length > 0 && (
-        <div className="dropdown-menu dropdown-menu-level-0">
-          <div className="dropdown-menu-spacer"></div>
-          <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
-            {item.children.map((child:any) => (
-              <li key={child.id} className="dropdown-submenu">
-                <Link
-                  to={`/${child.KeyTitle.toLowerCase()}`}
-                  className="nav-link dropdown-item"
-                  onClick={() => handleLinkClick(child?.Title)}
-                >
-                  {child?.Title}
-                </Link>
-                {child.children.length > 0 && (
-                  <div className="dropdown-submenu dropdown-menu-level-1">
-                    <div className="dropdown-menu-spacer"> </div>
-                    <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
-                      {child.children.map((subchild:any) => (
-                        <li key={subchild.id} className="dropdown-submenu">
-                          <Link
-                            to={`/${child.KeyTitle.toLowerCase()}/${subchild.KeyTitle.toLowerCase()}`}
-                            className="nav-link dropdown-item"
-                            onClick={() => handleLinkClick(subchild?.Title)}
-                          >
-                            {subchild?.Title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <span onClick={toggleDropdown}>
+          <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+            <path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="48" d="m112 184 144 144 144-144"></path>
+          </svg>
+        </span>
       )}
+      {
+        window.innerWidth < 1200 ? dropdownOpen && item.children.length > 0 && (
+          <div className="dropdown-menu dropdown-menu-level-0">
+            <div className="dropdown-menu-spacer"></div>
+            <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
+              {item.children.map((child: any) => (
+                <li key={child.id} className="dropdown-submenu">
+                  <a
+                    href={`/${child.KeyTitle.toLowerCase()}`}
+                    className="nav-link dropdown-item"
+                    onClick={() => handleLinkClick(child?.Title)}
+                  >
+                    {child?.Title}
+                  </a>
+                  {child.children.length > 0 && (
+                    <div className="dropdown-submenu dropdown-menu-level-1">
+                      <div className="dropdown-menu-spacer"> </div>
+                      <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
+                        {child.children.map((subchild: any) => (
+                          <li key={subchild.id} className="dropdown-submenu">
+                            <a
+                              href={`/${child.KeyTitle.toLowerCase()}/${subchild.KeyTitle.toLowerCase()}`}
+                              className="nav-link dropdown-item"
+                              onClick={() => handleLinkClick(subchild?.Title)}
+                            >
+                              {subchild?.Title}
+
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+          : item.children.length > 0 && (
+            <div className="dropdown-menu dropdown-menu-level-0">
+              <div className="dropdown-menu-spacer"></div>
+              <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
+                {item.children.map((child: any) => (
+                  <li key={child.id} className="dropdown-submenu">
+                    <a
+                      href={`/${child.KeyTitle.toLowerCase()}`}
+                      className="nav-link dropdown-item"
+                      onClick={() => handleLinkClick(child?.Title)}
+                    >
+                      {child?.Title}
+                    </a>
+                    {child.children.length > 0 && (
+                      <div className="dropdown-submenu dropdown-menu-level-1">
+                        <div className="dropdown-menu-spacer"> </div>
+                        <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
+                          {child.children.map((subchild: any) => (
+                            <li key={subchild.id} className="dropdown-submenu">
+                              <a
+                                href={`/${child.KeyTitle.toLowerCase()}/${subchild.KeyTitle.toLowerCase()}`}
+                                className="nav-link dropdown-item"
+                                onClick={() => handleLinkClick(subchild?.Title)}
+                              >
+                                {subchild?.Title}
+
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+
+      }
+
     </li>
   );
 
   return (
     <>
+
+      <div className="headerContainer">
+        {/* <nav className="navbar navbar-top d-none d-lg-block navbar-expand-lg navbar-dark p-0 topmenu">
+          <div className="container">
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topmenu-container" aria-controls="topmenu-container" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse justify-content-between" id="topmenu-container">
+              <div className="some-profiles d-flex"></div>
+              <div className="d-flex">
+                <ul id="topmenu" className="navbar-nav small">
+                  <li className="menu-item nav-item "> <a title="Project page" href="/" className="nav-link">Home</a></li>
+                </ul>
  
-      <div className={`headerContainer${isSticky ? " sticky" : ""}`}>
-      <nav className="navbar navbar-top d-none d-lg-block navbar-expand-lg navbar-dark p-0 topmenu">
-	    <div className="container">
-      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topmenu-container" aria-controls="topmenu-container" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse justify-content-between" id="topmenu-container">
-        <div className="some-profiles d-flex"></div>
-        <div className="d-flex">
-          <ul id="topmenu" className="navbar-nav small">
-            <li className="menu-item nav-item"> <a title="Project page" href="/" className="nav-link">Home</a></li>
-          </ul>
-         
-        </div>
-      </div>
-    </div>
-		</nav>
+              </div>
+            </div>
+          </div>
+        </nav> */}
         <div className="container d-flex align-item-center">
           <div className="nav_logo">
-              <Link
-                to={`/`}
-                role="button"
-                className="nav-link"
-                onClick={() => handleLinkClick("Home")}
-              >
-                <img
-                  src="https://gruene-weltweit.de/SiteAssets/washington-dc_184.png"
-                  className="logo_image"
-                />
-                 <span>GRÜNE WASHINGTON D.C.</span>
-              </Link>
+            <Link
+              to={`/`}
+              role="button"
+              className="nav-link"
+              onClick={() => handleLinkClick("Home")}
+            >
+              <img
+                src="https://gruene-weltweit.de/SiteAssets/washington-dc_184.png"
+                className="logo_image"
+              />
+              <span>GRÜNE WASHINGTON D.C.</span>
+            </Link>
           </div>
         </div>
       </div>
-      <nav className={`navbar navbar-main navbar-light${isSticky ? " fixed-top" : ""}`}>
-        <div className="container">
-          <div className="navbar-collapse collapsed">
-            <ul className="navbar-nav">
+      <Navbar expand="lg" className={`bg-body-tertiary p-0${isSticky ? " sticky" : ""}`}>
+        <Container>
+          <Navbar.Brand href="/"><img src="https://gruene-weltweit.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav">
+            <MdMenu className="open" />
+            <MdClose className="close" />
+          </Navbar.Toggle>
+          <Navbar.Collapse id="basic-navbar-nav">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {data.map((item) => renderItem(item))}
             </ul>
-          </div>
-        </div>
-      </nav>
+            {/* <form className="d-flex">
+              <FormControl>
+                
+                <Input
+                  id="search-input"
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                  value={searchInput}
+                  onChange={handleSearchChange}
+                />
+                <InputLabel htmlFor="search-input" className="mt-5 text-white 3xl">{searchInput}</InputLabel>
+              </FormControl>
+            </form> */}
+
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
     </>
   );
 };
@@ -186,4 +296,4 @@ function debounce(func: any, wait: any) {
 
 
 
-export default Navbar;
+export default Navbarcomponent;

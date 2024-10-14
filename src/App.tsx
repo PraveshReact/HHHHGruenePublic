@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
 import HomeComponent from './HomeComponent';
 import SmartpageComponent from './SmartpageComponent';
-import Navbar from './Navbar'; // Import your Navbar component
+import Navbarcomponent from './Navbar'; // Import your Navbar component
 import './CSS/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState } from 'react';
@@ -10,6 +11,10 @@ import axios from 'axios';
 import NewsHomemainPage from './NewsHome';
 import EventHomemainPage from './EventHome';
 
+// const HomeComponent = lazy(() => import('./HomeComponent'));
+// const SmartpageComponent = lazy(() => import('./SmartpageComponent'));
+// const NewsHomemainPage = lazy(() => import('./NewsHome'));
+// const EventHome = lazy(() => import('./EventHome'));
 const App = () => {
   const [data, setData] = useState<any[]>([]);
   const [clickedTitle, setClickedTitle] = useState<string>('');
@@ -38,6 +43,7 @@ const App = () => {
     getParameterByName();
 
     const fetchData = async () => {
+      
       try {
         const response = await axios.get(
           "https://gruene-weltweit.de/SPPublicAPIs/TopNavigation.php"
@@ -54,29 +60,31 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomeComponent />} />
-        {clickedTitle && clickedTitle.toLowerCase() !== 'neuigkeiten' && clickedTitle.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
-          <Route
-            key={route.Title}
-            path={`/${route.Title}`}
-            element={<SmartpageComponent clickedTitle={clickedTitle} />}
-          />
-        ))}
-        {loadNewshome && loadNewshome == true && (
-          <Route
-            path={`/neuigkeiten`}
-            element={<NewsHomemainPage loadNewshome={loadNewshome} />}
-          />
-        )}
-        {loadEventhome && loadEventhome == true && (
-          <Route
-            path={`/veranstaltungen`}
-            element={<EventHomemainPage loadEventhome={loadEventhome} />}
-          />
-        )}
-      </Routes>
+      <Navbarcomponent />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomeComponent />} />
+          {clickedTitle && clickedTitle.toLowerCase() !== 'neuigkeiten' && clickedTitle.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
+            <Route
+              key={route.Title}
+              path={`/${route.Title}`}
+              element={<SmartpageComponent clickedTitle={clickedTitle} />}
+            />
+          ))}
+          {loadNewshome && loadNewshome == true && (
+            <Route
+              path={`/neuigkeiten`}
+              element={<NewsHomemainPage loadNewshome={loadNewshome} />}
+            />
+          )}
+          {loadEventhome && loadEventhome == true && (
+            <Route
+              path={`/veranstaltungen`}
+              element={<EventHomemainPage loadEventhome={loadEventhome} />}
+            />
+          )}
+        </Routes>
+      </Suspense>
     </>
   );
 };

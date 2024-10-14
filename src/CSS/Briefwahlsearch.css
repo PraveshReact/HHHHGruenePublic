@@ -1,10 +1,11 @@
 
 #stateslist,
 #Stoerer_Briefwahl_imgDiv {
-    width: 19%;
     float: left;
-    text-align: center;
     margin: 0 auto;
+    text-align: center;
+    width: 19%;
+    padding-left: 2rem !important;
 }
 .topDesign ul#stateslist {
     width: 100%;
@@ -12,13 +13,13 @@
     background-color: #f5f5f5;
 }
 .shorticon {
+    line-height: 1.2rem;
     position: absolute;
-top: 0px;
-right: 8px;
-line-height: 1.2rem;
+    right: 10px;
+    top: 2px;
 }
 .shorticon .downArrow>svg, .shorticon .upArrow>svg {
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 11px;
+    line-height: 11px;
     background: #fff;
 }

@@ -6,6 +6,7 @@ import axios from "axios";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Panel, PanelType } from '@fluentui/react';
 import { IoChevronForwardOutline, IoChevronBackOutline, IoCalendarOutline } from "react-icons/io5";
 import "./CSS/App.css";
 
@@ -13,14 +14,16 @@ function Slider_Comp() {
   const sliderRef = useRef<Slider | null>(null);
   const [data, setData] = useState<any>(null);
   const [slidesToShow, setSlidesToShow] = useState<number>(3);
+  const [slidesToScroll, setSlidesToScroll] = useState<number>(3);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
 
   const settings: Settings = {
     dots: false,
     speed: 500,
     slidesToShow: slidesToShow,
-    slidesToScroll: 3,
+    slidesToScroll: slidesToScroll,
     infinite: false,
     autoplay: false,
     autoplaySpeed: 1000,
@@ -42,21 +45,97 @@ function Slider_Comp() {
       sliderRef.current.slickPrev();
     }
   };
+  const handleTitleClick = (newsItem: any) => {
+    setSelectedEvent(newsItem);
+  };
+  const closePanel = () => {
+    setSelectedEvent(null);
+  }
+  const CustomHeader = () => {
+    return (
+      <><h3 className="m-0">Event Detail</h3>
+        <span className="svg__iconbox svg__icon--cross" onClick={closePanel}></span></>
+    );
+  };
+  const replaceUrlsWithNewFormat = (inputString: any) => {
+    try {
+      const urlRegex = /href="[^"]*SmartId\s*=\d+[^"]*Item\s*=[^"]*"|href="[^"]*SmartID\s*=\d+[^"]*item1\s*=[^"]*"/gi;
+
+      let replacedString = inputString?.replace(urlRegex, (match: any) => {
+        let title;
+        if (match.includes('item1=')) {
+          title = match.split('item1=')[1]?.replace(/%20/g, '-');
+        } else if (match.includes('Item=')) {
+          title = match.split('Item=')[1]?.replace(/%20/g, '-');
+        } else {
+          return match;
+        }
+        return `href="https://gruene-washington.de/${title}"`;
+      });
+
+      const urlPattern = /sites\/GrueneWeltweit\/washington\/public\//g;
+      const replacement = "";
+      replacedString = replacedString.replace(urlPattern, replacement);
+      return replacedString;
+    } catch (e) {
+      console.log(e);
+      return inputString; // Return the original string in case of error
+    }
+  }
+
+  const getPublicServerData = async (tableName: any) => {
+    let results: any = [];
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        "table": `${tableName}`
+      });
+
+      var requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+
+      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+        .then(response => response.text())
+        .then((result: any) => {
+          result = JSON.parse(result)
+          results = result?.data
+          const sortedData = results.sort((a: any, b: any) => {
+            if (a.EventDate && b.EventDate) {
+              const dateA: any = new Date(a.EventDate);
+              const dateB: any = new Date(b.EventDate);
+              return dateB - dateA;
+            }
+            return 0; // If EventDate is missing in any of the objects, maintain the order
+          });
+          let finalData = sortedData.map((data: any) => {
+            if (data.Description) {
+
+              data.Description = replaceUrlsWithNewFormat(data.Description)
+            } return data;
+          })
+          setData(finalData);
+        })
+        .catch(error => console.log('error', error));
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+    return results;
+  }
 
   useEffect(() => {
+
     const tableName = "events"
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${GetserverUrl}?table=${tableName}`);
-        const sortedData = response.data.slice().sort((a: any, b: any) => {
-          if (a.EventDate && b.EventDate) {
-            const dateA: any = new Date(a.EventDate);
-            const dateB: any = new Date(b.EventDate);
-            return dateB - dateA;
-          }
-          return 0; // If EventDate is missing in any of the objects, maintain the order
-        });
-        setData(sortedData);
+
+        const response: any = await getPublicServerData(`${tableName}`)
       } catch (error) {
         console.log("An error occurred while fetching data.");
       }
@@ -69,10 +148,13 @@ function Slider_Comp() {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setSlidesToShow(1);
+        setSlidesToScroll(1);
       } else if (window.innerWidth < 1200) {
         setSlidesToShow(2);
+        setSlidesToScroll(2);
       } else {
         setSlidesToShow(3);
+        setSlidesToScroll(3);
       }
     };
     handleResize();
@@ -85,7 +167,7 @@ function Slider_Comp() {
   function formatDate(dateString: string) {
     // Parse the ISO 8601 date string
     const date = new Date(dateString);
-    
+
     // Extract day, month, and year
     const day = date.getDate();
     const month = date.toLocaleString('default', { month: 'short' });
@@ -95,28 +177,29 @@ function Slider_Comp() {
     const formattedDate = `${day} ${month} ${year}`;
 
     return formattedDate;
-}
+  }
 
   return (
-    <div className="section container">
-      <div className="section-header">
-        <h2 className="sectionHeading">Events</h2>
-        <div className="pull-right">
-          <button onClick={handlePrev} className="button_color" disabled={currentSlide === 0}>
-            <IoChevronBackOutline />
-          </button>
-          <button onClick={handleNext} className="button_color" disabled={currentSlide === data?.length - settings.slidesToShow!}>
-            <IoChevronForwardOutline />
-          </button>
-        </div>
-      </div>
+    <div className="section NewsCardSection">
       <div className="container">
+        <div className="section-header">
+          <h2 className="sectionHeading">Events</h2>
+          <div className="pull-right">
+            <button onClick={handlePrev} className="button_color" disabled={currentSlide === 0}>
+              <IoChevronBackOutline />
+            </button>
+            <button onClick={handleNext} className="button_color" disabled={currentSlide === data?.length - settings.slidesToShow!}>
+              <IoChevronForwardOutline />
+            </button>
+          </div>
+        </div>
         <Slider ref={sliderRef} {...settings}>
           {data &&
             data.map((item: any) => (
               <div key={item.id} className="">
                 <div className="card border-0">
-                  <img className="card-img-top" src={item?.ItemCover} />
+                  <img className="card-img-top" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+
                   <div className="card-body">
                     <div className="entry-meta">
                       <IoCalendarOutline />
@@ -124,18 +207,48 @@ function Slider_Comp() {
                         {item?.EventDate ? formatDate(item.EventDate) : ''}
                       </span>
                     </div>
-                    <h4 className="card-title">
-                      <a target="_blank">{item?.Title}</a>
+                    <h4 className="card-title" onClick={() => handleTitleClick(item)}>
+                      <a> {item?.Title}</a>
                     </h4>
-                    <div className="eventItemDesc cutoff-text" dangerouslySetInnerHTML={{ __html: item?.Description }}>
-                    </div>
-                    <input className="expand-btn" type="checkbox" />
+                    {item?.Description?.length > 0 && <>
+                      <div className="eventItemDesc cutoff-text">
+                        <div dangerouslySetInnerHTML={{ __html: item?.Description }}></div>
+                      </div>
+                      {!(item?.Description?.length <= 200) && <input className="expand-btn" type="checkbox" />}
+                    </>
+                    }
+
                   </div>
                 </div>
               </div>
             ))}
         </Slider>
       </div>
+      {selectedEvent && (
+        <Panel
+          type={PanelType.medium}
+          customWidth="550px"
+          isOpen={selectedEvent}
+          isBlocking={false}
+          isFooterAtBottom={true}
+          onRenderHeader={CustomHeader}
+        >
+          <div>
+            <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+              <h4 className="alignCenter">{selectedEvent?.Title}</h4>
+              <div className="imagedetail">
+                <img className="image" src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+
+              </div>
+              <div className="eventItemDesc">
+                <span>
+                  <p dangerouslySetInnerHTML={{ __html: selectedEvent?.Description }}></p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </Panel>
+      )}
     </div>
   );
 }

@@ -18,7 +18,7 @@ import Layout from './Layout';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<><Layout /></>}>
-      <Route path='' element={<HomeComponent />} />
+      <Route path='/' element={<HomeComponent />} />
       <Route path=':SmartPage' element={<SmartpageComponent />}>
         <Route path=':SmartPage' element={<SmartpageComponent />} />
       </Route>

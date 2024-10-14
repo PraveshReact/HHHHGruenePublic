@@ -32,13 +32,13 @@ svg.right-arrowSvgMini {
     display: none;
 }
 
-
-
-.bg-red {
+.bg-red p, .html-content .bg-red p{
+    color: #fff !important;
+}
+.bg-red{
     background: #003399;
     padding: 20px;
 }
-
 
 .red_block i.icon-arrow-right {
     margin-left: 16px;
@@ -83,13 +83,13 @@ details {
     font-weight: 400;
     font-family: 'GrueneType';
     color: #ffffff !important;
-    margin: 10px;
+    margin: 10px 0;
 }
 
 
 .accordionPlus .accordion__header {
     padding: 1em;
-    background-color: #393;
+    background-color: #008939;
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
@@ -117,7 +117,7 @@ details {
 }
 
 .accordionPlus .accordion__header.is-active {
-    background-color: #393;
+    background-color: #008939;
     color: #fff;
 }
 
@@ -164,14 +164,14 @@ details {
     display: none;
     padding: 0em 1em 2em 1em;
     border-top: 0;
-    background: #393;
+    background: #008939;
     color: #fff;
 }
 
 .accordionPlus .accordion__body.is-active {
     display: block;
 }
-
+.key-documents__content .key-documents__header {display: flex;gap: 2px;align-items: center;}
 @media screen and (max-width:766.5px) {
 
     #content p {

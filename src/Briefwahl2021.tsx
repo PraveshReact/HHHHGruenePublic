@@ -21,8 +21,10 @@ const Briefwahl2021 = () => {
     }, []);
 
     const handleMouseOver = (event: any) => {
+
         const target = event.target.closest('path');
-        if (target && target.getAttribute('stroke') !== '#ffffff') {
+        console.log(event)
+        if (target && target.getAttribute('stroke') !== '#ffffff' && target.getAttribute('stroke') !== '#dddddd') {
             if (!target.getAttribute('data-original-color')) {
                 const originalColor = target.getAttribute('fill');
                 target.setAttribute('data-original-color', originalColor);
@@ -42,6 +44,20 @@ const Briefwahl2021 = () => {
         }
     };
 
+    const generateUrl = (stateName: string) => {
+    if (stateName === "DE-BB") {
+      return `/BriefwahlSearch/State=Brandenburg`;
+    } else {
+      return `/BriefwahlSearch/State=${encodeURIComponent(stateName)}`;
+    }
+  };
+  
+    const states = [
+        "Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen",
+        "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen",
+        "Nordrhein-Westfalen", "Rheinland-Pfalz", "Saarland", "Sachsen",
+        "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "Belgium"
+      ];
 
     const data = [
         ['Provinces', 'Provinces'],
@@ -63,27 +79,53 @@ const Briefwahl2021 = () => {
         ['Thüringen', 'Thüringen'],
         ['Belgium', 'Belgium'],
     ];
+    
+    const handleClick = (event: {
+        chartWrapper: {
+          getChart: () => { getSelection: () => { row?: number }[] };
+        };
+        controlWrapper?: any;
+        props: any;
+        google: any;
+        eventArgs: any;
+      }) => {
+        const chart = event.chartWrapper.getChart();
+        const selection = chart.getSelection();
+        if (selection.length > 0 && selection[0].row !== undefined) {
+          const selectedProvinceIndex = selection[0].row + 1; // Adjusting for header
+          const selectedProvinceName = data[selectedProvinceIndex][0];
+          const provinceUrl = generateUrl(selectedProvinceName);
+          if (provinceUrl) {
+            window.open(provinceUrl, "_self");
+          } else {
+            console.error(
+              "URL not found for the selected province:",
+              selectedProvinceName
+            );
+          }
+        }
+      };
 
-    const options = {
-        region: 'DE',
-        displayMode: 'regions',
-        resolution: 'provinces',
-        colorAxis: { colors: ['#e0e0e0', '#267114'] },
-        backgroundColor: '#ffffff',
-        datalessRegionColor: '#f5f5f5',
-        defaultColor: '#267114',
-        tooltip: { trigger: 'hover' },
-        icons: {
-            default: {
-                normal: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // Default icon for provinces
-                selected: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // Selected icon for provinces
-            },
-            Capital: {
-                normal: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', // Icon for capital cities
-                selected: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', // Selected icon for capital cities
-            },
-        },
-    };
+     const options = {
+    region: "DE",
+    displayMode: "regions",
+    resolution: "provinces",
+    colorAxis: { colors: ["#e0e0e0", "#267114"] },
+    backgroundColor: "#ffffff",
+    datalessRegionColor: "#f5f5f5",
+    defaultColor: "#267114",
+    tooltip: { trigger: "hover" },
+    icons: {
+      default: {
+        normal: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Default icon for provinces
+        selected: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Selected icon for provinces
+      },
+      Capital: {
+        normal: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Icon for capital cities
+        selected: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Selected icon for capital cities
+      },
+    },
+  };
 
     const openModal = (modal: any) => {
         if (modal === "modal")
@@ -94,7 +136,17 @@ const Briefwahl2021 = () => {
     const cancelbox = () => {
         setShowModal(false);
         setShowModal1(false);
-    }
+    };
+    const [isHovered, setIsHovered] = useState(false);
+ 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+ 
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  }
+
     return (
         <>
             <div className="container">
@@ -110,13 +162,8 @@ const Briefwahl2021 = () => {
                 <section className="section container  Briefwahl2021">
                     <div className="form-group clearfix">
                         <div id="BriefwahlTitleDiv">
-                            <h1 className="privacypageTitle">Europawahl 2024- Briefwahl Suchmaschine</h1>
-                            <ul className="scrollToBtns" id="web-view-btns">
-                                <li><a className='gap-3 valign-middle' onClick={() => openModal("modal")}>Anleitung Briefwahl - Bin in Deutschland gemeldet <IoChevronForwardOutline /></a>
-                                </li>
-                                <li><a className='gap-3 valign-middle' onClick={() => openModal("modal1")}>Anleitung Briefwahl - Nicht mehr in Deutschland
-                                    gemeldet <IoChevronForwardOutline /></a></li>
-                            </ul>
+                            <h1 className="privacypageTitle">Europawahl 2024 - Briefwahl Suchmaschine</h1>
+                            
                             <ul className="scrollToBtns" id="mobile-view-btns">
                                 <li>
                                     <span onClick={() => openModal("modal1")}>
@@ -137,7 +184,7 @@ const Briefwahl2021 = () => {
                             </ul>
                         </div>
                         <div id="Stoerer_Briefwahl_imgDiv">
-                            <a href="https://gruene-weltweit.de/BriefwahlSearch" target="blank"><img
+                            <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank"><img
                                 className="Stoerer_Briefwahl_img"
                                 src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/Stoerer_Briefwahl_RGB.png"></img></a>
                         </div>
@@ -152,133 +199,34 @@ const Briefwahl2021 = () => {
                                     chartType="GeoChart"
                                     data={data}
                                     options={options}
+                                    chartEvents={[
+                                        {
+                                          eventName: "select",
+                                          callback: handleClick,
+                                        },
+                                      ]}
                                 />
                             </div>
                         </div>
+                    
+                            <a className="DC-mapImg" href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank" data-interception="off">
+      <img src={isHovered ? "https://gruene-weltweit.de/Site%20Collection%20Images/DC-MapBlue.png" : "https://gruene-weltweit.de/Site%20Collection%20Images/DC-Map.png"}
+        alt="DC-Mapimage"
+        className="DC-Mapimage"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      />
+    </a>
+
                         <ul id="stateslist" style={{}}>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Baden-Württemberg`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Baden-Württemberg</h3>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Bayern`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Bayern</h3>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Berlin`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Berlin</h3>
-                                </Link>
-
-                            </li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Brandenburg`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Brandenburg</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Bremen`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Bremen</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Hamburg`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Hamburg</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Hessen`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Hessen</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Mecklenburg-Vorpommern`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Mecklenburg-Vorpommern</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Niedersachsen`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Niedersachsen</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Nordrhein-Westfalen`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Nordrhein-Westfalen</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Rheinland-Pfalz`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Rheinland-Pfalz</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Saarland`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Saarland</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Sachsen`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Sachsen</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Sachsen-Anhalt`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Sachsen-Anhalt</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Schleswig-Holstein`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Schleswig-Holstein</h3>
-                                </Link></li>
-                            <li>
-                                <Link
-                                    to={`/BriefwahlSearch/State=Thüringen`}
-                                    className="nav-link"
-                                >
-                                    <h3 className="state-list-text">Thüringen</h3>
-                                </Link></li>
-
-                            <li>
-
-                                <a href="https://gruene-weltweit.de/BriefwahlSearch" target="blank">
-                                    <img style={{ width: '99%' }} alt="DC-Map" src="https://gruene-weltweit.de/Site%20Collection%20Images/DC-Map.png" />
-                                </a>
-                            </li>
+                        {states.map((state: any) => (
+                <li key={state}>
+                <a href={generateUrl(state)}>
+                  <h3 className="state-list-text">{state}</h3>
+                </a>
+              </li>
+              ))}
+   
                         </ul>
                     </div>
                 </section>

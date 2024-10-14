@@ -5,6 +5,7 @@ import { IoChevronForwardOutline, IoCloseOutline } from "react-icons/io5";
 import { PiUploadSimple, PiDownloadSimple  } from "react-icons/pi";
 import { BiSolidError } from "react-icons/bi";
 
+
 const BriefwahlPopup = (props:any) => {
     const [showModal, setShowModal] = useState(props.showModal);
     const [showModal1, setShowModal1] = useState(props.showModal1);
@@ -28,12 +29,16 @@ const BriefwahlPopup = (props:any) => {
                                 <img className="AnleitungDesktopImg" src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/AnleitungDesktop.jpg" />
                                 <img className="AnleitungMobileImg" src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/AnleitungMobile.jpg" />
                                 <p className="mb-20">Online-Formular der Melde-Gemeinde in <strong>OV Washington Briefwahl-Datenbank</strong> finden:</p>
-                                <div className="banner col-lg-4 col-md-6 col-sm-12 justify-content-between valign-middle">Per Online-Antrag <IoChevronForwardOutline /></div>
+                                <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank">
+                                    <div className="banner col-lg-4 col-md-6 col-sm-12 justify-content-between valign-middle">Per Online-Antrag <IoChevronForwardOutline /></div>
+                                    </a>
                                 <ul className="banner-list">
                                     <li>- Online-Formular ausfüllen</li>
                                     <li>- Unterlagen werden kostenlos zugeschickt</li>
                                 </ul>
+                                <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank">
                                 <div className="banner col-lg-4 col-md-6 col-sm-12 justify-content-between valign-middle">Per formloser Email <PiUploadSimple /></div>
+                                </a>
                                 <ul className="banner-list">
                                     <li>- Inhalt: Familienname, Vorname(n), Geburtsdatum, Anschrift</li>
                                     <li>- Unterlagen werken kostenlos zugeschickt</li>
@@ -55,7 +60,7 @@ const BriefwahlPopup = (props:any) => {
                                     <h3>Anleitung zum Eintrag ins Wähler*innenverzeichnis</h3>
                                     <p className="mb-20">Wer nicht mehr in Deutschland gemeldet ist muss den Eintrag ins Wähler*innenverzeichnis beantragen. Zuständig ist die Gemeinde, bei der man zuletzt gemeldet war.</p>
                                     <ul className="banner-list">
-                                        <li className="mb-20 gap-2 valign-middle"> <BiSolidError  style={{color: '#f06564'}} /><span lang="DE">Muss bei jeder Wahl neu gemacht werden!</span></li>
+                                        <li className="mb-20 gap-2 valign-middle"> <BiSolidError  style={{color: '#f06564'}} /> <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank"><span lang="DE">Muss bei jeder Wahl neu gemacht werden!</span></a></li>
                                         <li className="gap-2 valign-middle"><PiDownloadSimple /><a target="_blank" href="https://www.bundeswahlleiter.de/dam/jcr/dc589523-d709-4c43-adbc-9342dda468ad/bwo_anlage-2_ausfuellbar.pdf"><span lang="DE">Der Antrag als Download</span></a></li>
                                     </ul>
                                     <p>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde.</p>

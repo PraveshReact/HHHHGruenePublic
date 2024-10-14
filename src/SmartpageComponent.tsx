@@ -12,8 +12,12 @@ import RelevantEvent from "./RelevantEvent";
 import { truncate } from "fs/promises";
 import Briefwahlsearch from "./Briefwahlsearch";
 import { useLocation } from 'react-router-dom';
+import { IoCalendarOutline } from "react-icons/io5";
+import { RelevantWebPart } from "./RelevantWebPart";
+import NewsHome from "./NewsHome";
+import EventHomemainPage from "./EventHome";
 let FlagSmartPage = false
-let showBriefflag=false;
+let showBriefflag = false;
 const SmartpageComponent = ({ clickedTitle }: any) => {
   const { SmartPage: smartPage } = useParams(); // Destructure the SmartPage parameter from useParams
   const [EventData, setEventData]: any = useState([]);
@@ -36,39 +40,116 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       showBriefflag = true
     }
   }
+  else if (location.pathname.indexOf('/BriefwahlSearch') > -1) {
+    const pathParts = location.pathname.split('/');
+    stateParam = pathParts[pathParts.length - 1].split('=')[1];
+    if (stateParam == undefined || stateParam == '') {
+      showBriefflag = true
+    }
+  }
 
   const urlParamsString = smartPage;
-  // Parse the URL parameters into an object
+
   const urlParams = new URLSearchParams(urlParamsString);
-  // Get the value of the 'ItemID' parameter
+
   const itemId = urlParams.get('ItemID');
 
-  const getNewsdata = async function () {
+  function formatDate(dateString: string, format: 'D-M-YYYY' | 'YYYY-M-D') {
+    // Parse the date string
+    const date = new Date(dateString);
+    // Extract day, month, and year, and add leading zeros if needed
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns month from 0-11, so we add 1
+    const year = date.getFullYear();
+    // Construct the formatted date string based on the specified format
+    let formattedDate;
+
+    if (format === 'D-M-YYYY') {
+      formattedDate = `${day}-${month}-${year}`;
+    } else if (format === 'YYYY-M-D') {
+      formattedDate = `${year}-${month}-${day}`;
+    }
+
+    return formattedDate;
+  }
+
+
+  const getPublicServerData = async (tableName: string): Promise<any[]> => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({ "table": `${tableName}` });
+
+      const requestOptions: RequestInit = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const result = await response.json();
+      return result?.data || [];
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return [];
+    }
+  };
+
+  const getNewsdata = async () => {
     const tableName = "Announcements";
     try {
-      const response = await axios.get(`${newsEventserverUrl}?table=${tableName}`);
-      if (response.status === 200) {
-        setNewsData(response.data);
+      const response = await getPublicServerData(`${tableName}`);
+      if (response.length > 0) {
+        const sortedData = response.sort((a, b) => {
+          if (a.PublishingDate && b.PublishingDate) {
+            const dateA = new Date(a.PublishingDate).getTime();
+            const dateB = new Date(b.PublishingDate).getTime();
+            return dateB - dateA;
+          }
+          return 0;
+        });
+        let finalData = sortedData.map((data: any) => {
+          if (data.Body) {
+
+            data.Body = replaceUrlsWithNewFormat(data.Body)
+          } return data;
+        })
+        setNewsData(finalData);
         console.log('Get data from server successfully');
-        console.log(response);
+        console.log(sortedData);
       } else {
-        console.error('Error sending data to server:', response.statusText);
+        console.error('No data received from the server.');
       }
     } catch (error) {
       console.error('An error occurred:', error);
     }
   };
 
-  const getEventdata = async function () {
+  const getEventdata = async () => {
     const tableName = "events";
     try {
-      const response = await axios.get(`${newsEventserverUrl}?table=${tableName}`);
-      if (response.status === 200) {
-        setEventData(response.data);
+      const response = await getPublicServerData(`${tableName}`);
+      if (response.length > 0) {
+        const sortedData = response.sort((a, b) => {
+          if (a.EventDate && b.EventDate) {
+            const dateA = new Date(a.EventDate).getTime();
+            const dateB = new Date(b.EventDate).getTime();
+            return dateB - dateA;
+          }
+          return 0; // If EventDate is missing in any of the objects, maintain the order
+        }); let finalData = sortedData.map((data: any) => {
+          if (data.Description) {
+
+            data.Description = replaceUrlsWithNewFormat(data.Description)
+          } return data;
+        })
+        setEventData(finalData);
         console.log('Get data from server successfully');
-        console.log(response);
+        console.log(sortedData);
       } else {
-        console.error('Error sending data to server:', response.statusText);
+        console.error('No data received from the server.');
       }
     } catch (error) {
       console.error('An error occurred:', error);
@@ -77,14 +158,76 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const showwebpart = () => {
     setShowwebpart(true)
   }
+  const getPublicServerSmartMetaData = async (tableName: any, Title: any) => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "table": tableName,
+        "title": Title
+      });
+
+      const requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getSmartPageData.php", requestOptions);
+      const result = await response.json();
+
+      // Filter the results to match the specific KeyTitle
+      const smartPageData = result?.data?.id != undefined ? [result?.data] : [];
+
+      return smartPageData;
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return [];
+    }
+  }
+  const replaceUrlsWithNewFormat = (inputString: any) => {
+    try {
+      const urlRegex = /href="[^"]*SmartId\s*=\d+[^"]*Item\s*=[^"]*"|href="[^"]*SmartID\s*=\d+[^"]*item1\s*=[^"]*"/gi;
+
+      let replacedString = inputString?.replace(urlRegex, (match: any) => {
+        let title;
+        if (match.includes('item1=')) {
+          title = match.split('item1=')[1]?.replace(/%20/g, '-');
+        } else if (match.includes('Item=')) {
+          title = match.split('Item=')[1]?.replace(/%20/g, '-');
+        } else {
+          return match;
+        }
+        return `href="https://gruene-washington.de/${title}"`;
+      });
+
+      const urlPattern = /sites\/GrueneWeltweit\/washington\/public\//g;
+      const replacement = "";
+      replacedString = replacedString.replace(urlPattern, replacement);
+      return replacedString;
+    } catch (e) {
+      console.log(e);
+      return inputString; // Return the original string in case of error
+    }
+  }
 
   const fetchData = async () => {
     const tableName = "SmartMetaData";
     let Title = smartPage
     try {
-      const response = await axios.get(`${KeyTitleFilterKeyTitle}?table=${tableName}&Title=${smartPage}`);
-      if (response.status === 200) {
-        setData(response?.data);
+      const response: any = await getPublicServerSmartMetaData(tableName, Title)
+
+      if (response.length > 0) {
+        setData(undefined)
+        let finalData = response.map((data: any) => {
+          if (data.PageContentProfile) {
+
+            data.PageContentProfile = replaceUrlsWithNewFormat(data.PageContentProfile)
+          } return data;
+        })
+        setData(finalData);
         FlagSmartPage = true
         console.log('Get data from server successfully');
         console.log(response);
@@ -135,7 +278,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const HTMLRenderer = ({ content }: any) => {
     return (
       <div
-        className="html-content container"
+        className="html-content container starcolor"
         dangerouslySetInnerHTML={{ __html: content }}
       />
     );
@@ -149,13 +292,13 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
             data.map((item: any, index: number) => {
               console.log("Item:", item);
               return (
-                item.KeyTitle !== "Warum-aus-dem-Ausland-wählen" && item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false? (
+                item.KeyTitle !== "Warum-aus-dem-Ausland-wählen" && item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
                   <div key={index}>
                     <section
                       id="page-title"
                       className="page-title-parallax page-title-dark skrollable skrollable-between"
                       style={{
-                        backgroundImage: `url("https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg")`,
+                        backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
                         backgroundPosition: `0px -117.949px`
                       }}
                       data-bottom-top="background-position:0px 300px;"
@@ -165,7 +308,9 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                         <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
                           {item.AlternativeTitle}
                         </h1>
-                        <span><HTMLRenderer content={item.ShortDescription} /></span>
+                        {item.ShortDescription ?
+                          <div className="SmartPages-Description"><HTMLRenderer content={item.ShortDescription} /></div> : ""
+                        }
                       </div>
                     </section>
                     <section className="section container">
@@ -173,9 +318,11 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                         <div className={!Showwebpart ? "col-12" : "col-9"}>
                           <HTMLRenderer content={item.PageContentProfile} />
                           {item.KeyTitle == "Grüne-Weltweit" ? (<GrueneWeltweitForm />) : ''}
+                          {/* {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />} */}
                         </div>
                         <div className={Showwebpart ? "col-3" : ""}>
                           {data.length > 0 && <RelevantNews newsItem={data} showwebpart={showwebpart} />}
+                          {/* {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'relDoc'} showwebpart={showwebpart} />} */}
                           {data.length > 0 && <RelevantEvent newsItem={data} showwebpart={showwebpart} />}
                         </div>
                       </div>
@@ -183,27 +330,41 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                   </div>
                 ) :
                   item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
-                    <WahlWeltweit />
+                    <>
+                      <WahlWeltweit />
+                      {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
+                      {/* <HTMLRenderer content={item.PageContent} /> */}
+                    </>
                   ) : item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
                     <Briefwahl2021 />
                   ) : (
-                    <Briefwahlsearch stateParam={stateParam}/>
+                    <Briefwahlsearch stateParam={stateParam} />
                   )
               );
             })
           )}
-          {Newsflag && (
+          {Newsflag &&
+            <NewsHome />
+          }
+
+          {Eventflag &&
+            <EventHomemainPage />
+          }
+          {/* {Newsflag && (
             <div className="container">
               <header className='page-header text-center'><h1 className='page-title'>OV Washington News</h1></header>
               {NewsData.map((item: any) => (
                 <div key={item.Id} className='news_home publicationItem has-shadow clearfix'>
-                  <div className='entry-meta'><span>{item.PublishingDate}</span></div>
+                  <div className='entry-meta'>  <IoCalendarOutline />
+                    <span>{item?.PublishingDate ? formatDate(item.PublishingDate, 'D-M-YYYY') : ''}</span></div>
                   <div className='valign-middle'>
-                    <h4><a>{item.Title}</a></h4>
+                    <h4>{item.Title}</h4>
                   </div>
                   <div className='entry-content clearfix'>
                     <div className='Coverimage'>
-                      <img className='image' src={item.ItemCover} />
+
+                      <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+
                     </div>
                     <p>
                       <HTMLRenderer content={item.Body} />
@@ -212,32 +373,34 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                 </div>
               ))}
             </div>
-          )}
-          {Eventflag && (
+          )} */}
+          {/* {Eventflag && (
             <div className='container'>
               <header className='page-header text-center'><h1 className='page-title'>Events Home</h1></header>
               <section>
                 {EventData.map((item: any) => (
                   <div key={item.Id} className='my-3 news_home publicationItem has-shadow clearfix'>
-                    <div className='entry-meta'><span>{item.PublishingDate}</span></div>
+                    <div className='entry-meta'><IoCalendarOutline /> <span>{item?.EventDate ? formatDate(item?.EventDate, 'YYYY-M-D') : ''}</span></div>
                     <div className='valign-middle'>
-                      <h4><a>{item.Title}</a></h4>
+                      <h4>{item.Title}</h4>
                     </div>
                     <div className='entry-content clearfix'>
                       <div className='Coverimage'>
-                        <img className='image' src={item.ItemCover} />
+
+                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+
                       </div>
-                      <p>
-                        {item.Description}
-                      </p>
+
+                      <p dangerouslySetInnerHTML={{ __html: item?.Description?.replaceAll(/&#160;/g, ' ') }} />
+
                     </div>
                   </div>
                 ))}
               </section>
             </div>
-          )}
+          )} */}
           {showBriefflag && (
-           <Briefwahlsearch stateParam={stateParam}/>
+            <Briefwahlsearch stateParam={stateParam} />
           )}
         </div>
       </div>

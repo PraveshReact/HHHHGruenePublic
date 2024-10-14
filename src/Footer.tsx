@@ -1,5 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Footer = () => {
   const [data, setData] = useState<any>([]);
@@ -11,17 +15,43 @@ const Footer = () => {
       children: rawData.filter((child: any) => child.ParentId === parent.id)
     }));
   };
+  const getPublicServerData = async (tableName: any) => {
+    let results: any = [];
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+       
+      var raw = JSON.stringify({
+        "table": `${tableName}`
+      });
+       
+      var requestOptions:any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+        .then(response => response.text())
+        .then((result:any) =>  {
+          result = JSON.parse(result)
+          results = result?.data
+          const footerItems = organizeData(results);
+          setData(footerItems);
+        })
+        .catch(error => console.log('error', error));
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+    return results;
+  }
   useEffect(() => {
     const footerData = async () => {
       const tableName = "Footer";
       try {
-        const response = await axios.get(`${GetserverUrl}?table=${tableName}`);
-        if (response.status === 200) {
-          const footerItems = organizeData(response?.data);
-          setData(footerItems);
-        } else {
-          console.error('Error sending data to server:', response.statusText);
-        }
+        const response:any = await getPublicServerData(`${tableName}`)
+
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -35,13 +65,13 @@ const Footer = () => {
     <div>
       <footer className="bg-sitecolor">
         <section className="footer-widgets-wrap">
-          <div className="container">
-            <div className="row">
+          <Container>
+            <Row>
               {data
                 .slice() // Create a copy of the array to avoid mutating the original data
                 .sort((a:any, b:any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of parent
                 .map((parent:any) => (
-                  <div key={parent.id} className="col">
+                  <Col xs={12} sm={6} md={4}  key={parent.id} className='mb-5'>
                     <h4>{parent.Title}</h4>
                     <ul className="list-unstyled">
                       {parent.children
@@ -49,35 +79,46 @@ const Footer = () => {
                         .sort((a:any, b:any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of children
                         .map((child:any) => (
                           <li key={child.id} className="widget_links">
-                            <a href={child.href} target="_blank" rel="noopener noreferrer">
-                              {child.Title}
-                            </a>
+                            {child.Title === "Impressum" ? (
+                              <Link to={child.Title}>
+                                {child.Title}
+                              </Link>
+                            ) : child.Title === "Pressekontakt" ? (
+                              <Link
+                                to="/OV-in-den-Medien"
+                                
+                              >
+                                {child.Title}
+                              </Link>
+                            ) : (
+                              <Link to={child.href} rel="noopener noreferrer">
+                                {child.Title}
+                              </Link>
+                            )}
                           </li>
                         ))}
                     </ul>
-                  </div>
+                  </Col>
                 ))}
-            </div>
-          </div>
+            </Row>
+          </Container>
         </section>
         <section className="copyrights p-2">
           <div className="container">
             <div className="row">
-              <div className="col-12 mt-4 mb-4">
+              <div className="col-12 mb-3">
                 <hr></hr>
               </div>
             </div>
             <div className="row">
-              <div className="col-8 col-md-10">
-                <p>Powered By: <a href="https://hochhuth-consulting.de/">Hochhuth Consulting GmbH</a></p>
-              </div>
-              <div className="col-4 col-md-2">
-                <a href="https://gruene-weltweit.de"><img
+              <div className="col-12 valign-middle position-relative">
+                <p className='alignCenter mb-0'><span className='me-1'> Powered By : </span> <a className='m-gmbh' href="https://hochhuth-consulting.de/"> Hochhuth Consulting GmbH </a></p>
+                <a className="gap4 ms-2 px-4 valign-middle footerSignIn-Link" href='https://grueneweltweit.sharepoint.com/sites/GrueneWeltweit/Washington/Public/SitePages/HomeGruene.aspx'><span className="svg__iconbox svg__icon--signin light"></span><span className='footerSignIn-LinkText'>Sign In</span></a>
+                <a className="ml-auto" href="https://www.gruene-washington.de"><img
                   src="https://gruene-weltweit.de/SiteAssets/logo2.png"
                   alt="Gruene Logo" className="footer-logo"></img></a>
               </div>
             </div>
-
           </div>
         </section>
       </footer>
