@@ -85,7 +85,7 @@ export const RelevantWebPart = (props: any) => {
     }
     return (
         <div className='html-content container'>
-            {reldoc?.length > 0 && props?.usedFor == 'relDoc' && <div>
+            {/* {reldoc?.length > 0 && props?.usedFor == 'relDoc' && <div>
                 <div className="container">
                     <div className="panel panel-default">
                         <div className="panel-heading">Relevant Documents</div>
@@ -96,37 +96,101 @@ export const RelevantWebPart = (props: any) => {
                         ))}
                     </div>
                 </div>
-            </div>}
+            </div>} */}
+            <div className='row'>
+                <div>
+                    {keyDoc?.length > 0 && <div>
+                        <header className="page-header "><h1 className="page-title">KEY DOCUMENTS</h1></header>
+                        <div className="col-12 justify-content-center mb-0">
+                            {
+                                keyDoc?.map((keyitem: any) => {
+                                    return (
+                                        <div className="key-documents">
+                                            <div className="key-documents__wrp">
+                                                <div className="key-documents__item">
+                                                    <div className="key-documents__img">
+                                                        <a>
+                                                            <img
+                                                                src={
+                                                                    (keyitem?.Item_x0020_Cover && keyitem?.Item_x0020_Cover !== "")
+                                                                        ? keyitem?.Item_x0020_Cover
+                                                                        : (keyitem?.ItemCover && keyitem?.ItemCover !== "")
+                                                                            ? keyitem?.ItemCover
+                                                                            : "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"
+                                                                }
+                                                                data-themekey="#"
+                                                                alt=""
+                                                            />
+                                                        </a>
+                                                        &nbsp;</div><div className="key-documents__content"><div className="key-documents__header">
 
-            {keyDoc?.length > 0 && props?.usedFor == 'keyDoc' && <div>
-                <header className="page-header "><h1 className="page-title">KEY DOCUMENTS</h1></header>
-                <div className="col-12 justify-content-center mb-0">
-                    {
-                        keyDoc?.map((keyitem: any) => {
-                            return (
-                                <div className="key-documents"><div className="key-documents__wrp"><div className="key-documents__item"><div className="key-documents__img">
-                                    <a><img src={keyitem?.Item_x0020_Cover != undefined && keyitem?.Item_x0020_Cover != "" ? keyitem?.Item_x0020_Cover : keyitem?.ItemCover} data-themekey="#" alt="" /></a>
-                                    &nbsp;</div><div className="key-documents__content"><div className="key-documents__header">
+                                                            <span className="key-documents__documentTitle">
+                                                                <a target="_blank" href={`${keyitem?.Path}?web=1`}>
 
-                                        <span className="key-documents__documentTitle">
-                                            <a target="_blank" href={`${keyitem?.Path}?web=1`}>
-                                                <span className="documentTitle">                                                    {/* <span className="key-documents__documentYear">(2011)</span> */}
-                                                </span>
-                                            </a>
-                                        </span>
-                                        <span>
-                                            <em className="ms-Icon ms-Icon--WindowEdit" aria-hidden="true"></em>
-                                        </span>
-                                    </div><div className="key-documents__size">
-                                            <span>[{keyitem?.FileSize}]</span>
-                                        </div><div className="key-documents__text">
-                                            <span><div className="toAlignListElmntOnPage" dangerouslySetInnerHTML={{ __html: keyitem?.Item_x0020_Description }}></div></span>
-                                        </div></div></div></div></div>
-                            )
-                        })
-                    }
+                                                                    {/* <span className="key-documents__documentYear">(2011)</span> */}
+                                                                    {keyitem?.Title}
+
+                                                                </a>
+                                                            </span>
+                                                            <span>
+                                                                <em className="ms-Icon ms-Icon--WindowEdit" aria-hidden="true"></em>
+                                                            </span>
+                                                        </div>
+                                                        <div className="key-documents__size">
+                                                            <span>[{keyitem?.FileSize ? `${keyitem.FileSize}` : "0 KB"}]</span>
+                                                        </div>
+                                                        <div className="key-documents__text">
+                                                            <span><div className="toAlignListElmntOnPage" dangerouslySetInnerHTML={{ __html: keyitem?.Item_x0020_Description }}></div></span>
+                                                        </div>
+                                                    </div></div></div></div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>}
+                    <div >
+                        {reldoc?.length > 0 && <div>
+
+                            <section className="section col-3">
+                                <div className="mb-3 card commentsection">
+                                    <div className="card-header">
+                                        <div className="card-title h5 d-flex justify-content-between align-items-center mb-0">
+                                            Relevant Documents
+                                        </div>
+
+                                    </div>
+
+
+                                    {
+                                        reldoc?.map((keyitem: any) => {
+                                            return (
+                                                <div className="card-body">
+                                                    <ul className="alignCenter list-none text-break mb-0">
+                                                        <li className="mb-10 ">
+                                                            <a target="_blank" href={`${keyitem?.Path}?web=1`}>
+
+                                                                {/* <span className="key-documents__documentYear">(2011)</span> */}
+                                                                {keyitem?.Title}.{keyitem?.File_x0020_Type}
+
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            )
+                                        })
+                                    }
+
+
+                                </div>
+
+                            </section>
+
+
+                        </div>}
+                    </div>
                 </div>
-            </div>}
+
+            </div>
         </div>
     )
 }

@@ -30,7 +30,7 @@ const WahlWeltweit = () => {
                 </div>
             </section>
             <div className="red_block ">
-                <a className="gap-3 valign-middle justify-center" href="https://www.gruene-washington.de/europawahl-2024">OV Washington - Briefwahl Suchmaschine
+                <a className="gap-3 valign-middle justify-center" href="https://www.gruene-washington.de/Europawahl-2024">OV Washington - Briefwahl Suchmaschine
                     <IoChevronForwardOutline />
                 </a>
             </div>

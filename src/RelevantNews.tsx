@@ -62,16 +62,21 @@ export default function RelevantNews(props: any) {
     };
     return (
         <>
-            {allAnnouncements && allAnnouncements.length > 0 && (
+            {allAnnouncements && allAnnouncements?.length > 0 && (
                 <div className="container">
                     <div className="panel panel-default">
                         <div className="panel-heading">Relevant News</div>
-                        {allAnnouncements.map((news: any) => (
+                        {allAnnouncements?.map((news: any) => (
+
+
                             <div key={news.Id} className="panel-body">
                                 <div className="entry-meta">
-                                    <span>{news.PublishingDate}</span>
+                                    <div className="publishdata">
+                                        <span className="small">{news.PublishingDate}</span>
+                                        <span>{news.Title}</span>
+                                    </div>
                                 </div>
-                                <div>{news.Title}</div>
+
                             </div>
                         ))}
                     </div>
@@ -82,3 +87,4 @@ export default function RelevantNews(props: any) {
 
 
 }
+

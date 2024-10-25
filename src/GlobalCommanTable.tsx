@@ -31,40 +31,40 @@ import { SlArrowDown, SlArrowRight, SlArrowUp } from 'react-icons/sl';
 declare module "@tanstack/table-core" {
     interface FilterFns {
         fuzzy: FilterFn<unknown>
-    ;
+        ;
     }
     interface FilterMeta {
-    itemRank: RankingInfo;
+        itemRank: RankingInfo;
     }
-    }
-    const fuzzyFilter: FilterFn<any>
-        = (row, columnId, value, addMeta) => {
+}
+const fuzzyFilter: FilterFn<any>
+    = (row, columnId, value, addMeta) => {
         // Rank the item
         const itemRank = rankItem(row.getValue(columnId), value);
 
         // Store the itemRank info
         addMeta({
-        itemRank
+            itemRank
         });
 
         // Return if the item should be filtered in/out
         return itemRank.passed;
-        };
+    };
 
-        ///Global Filter Parts//////
-        // A debounced input react component
-        function DebouncedInput({
-        value: initialValue,
-        onChange,
-        debounce = 500,
-        portfolioColor,
-        ...props
-        }: {
-        value: string | number;
-        onChange: (value: string | number) => void;
-        debounce?: number;
-        portfolioColor: any
-        } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
+///Global Filter Parts//////
+// A debounced input react component
+function DebouncedInput({
+    value: initialValue,
+    onChange,
+    debounce = 500,
+    portfolioColor,
+    ...props
+}: {
+    value: string | number;
+    onChange: (value: string | number) => void;
+    debounce?: number;
+    portfolioColor: any
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
     const [value, setValue] = React.useState(initialValue);
 
     React.useEffect(() => {
@@ -276,13 +276,13 @@ const GlobalCommanTable = (items: any, ref: any) => {
         descriptionsSearch: { descriptionsSearch: 'descriptionsSearch', Selected: true },
     });
     const customGlobalSearch = (row: any, id: any, query: any) => {
-        query = query.replace(/\s+/g, " ").trim().toLowerCase();
+        query = query.replace(/\s+/g, " ").trim()?.toLowerCase();
         if (String(query).trim() === "") return true;
 
         if ((selectedFilterPannelData?.Title?.Title === id && selectedFilterPannelData?.Title?.Selected === true) || (selectedFilterPannelData?.commentsSearch?.commentsSearch === id && selectedFilterPannelData?.commentsSearch?.Selected === true) ||
             (selectedFilterPannelData?.descriptionsSearch?.descriptionsSearch === id && selectedFilterPannelData?.descriptionsSearch?.Selected === true)) {
 
-            const cellValue: any = String(row.getValue(id)).toLowerCase();
+            const cellValue: any = String(row.getValue(id))?.toLowerCase();
 
             if (globalSearchType === "ALL") {
                 let found = true;

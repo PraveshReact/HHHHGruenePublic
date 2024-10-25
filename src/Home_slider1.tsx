@@ -8,6 +8,7 @@ import "./CSS/App.css";
 import { IoChevronForwardOutline, IoChevronBackOutline, IoCalendarOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import SocialMediaIcon from "./SocialMediaIcon";
 
 function Home_slider1() {
   const sliderRef = useRef<Slider | null>(null);
@@ -17,6 +18,7 @@ function Home_slider1() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
   const [selectedNews, setSelectedNews] = useState<any>(null);
+  const [url, setUrl] = useState('');
 
   const settings: Settings = {
     dots: false,
@@ -110,6 +112,7 @@ function Home_slider1() {
 
   const handleTitleClick = (newsItem: any) => {
     setSelectedNews(newsItem);
+    setUrl(`https://www.gruene-washington.de/Neuigkeiten/${newsItem?.Title}`);
   };
   const closePanel = () => {
     setSelectedNews(null);
@@ -117,8 +120,20 @@ function Home_slider1() {
 
   const CustomHeader = () => {
     return (
-      <><h3 className="m-0">News Details</h3>
-        <span className="svg__iconbox svg__icon--cross" onClick={closePanel}></span></>
+      <>
+        <div className="align-items-center d-flex justify-content-between w-100">
+          <h3 className="m-0">News Details</h3>
+          <div className="Shareon align-items-baseline d-flex mb-0">
+            <h6>Share :</h6>
+            <SocialMediaIcon platform="facebook" postUrl={url} />
+            <SocialMediaIcon platform="twitter" postUrl={url} />
+            <SocialMediaIcon platform="linkedin" postUrl={url} />
+            <SocialMediaIcon platform="copy-link" postUrl={url} />
+            <span className="svg__iconbox svg__icon--cross" style={{ position: "relative", top: "6px" }} onClick={closePanel}></span>
+          </div>
+        </div>
+
+      </>
     );
   };
 
@@ -154,8 +169,8 @@ function Home_slider1() {
     return formattedDate;
   }
   return (
-    <div>
-      <div className="container pt-4">
+    <div className="section EventsCardSection">
+      <div className="container">
         <div className="section-header">
           <h2 className="sectionHeading">NEUIGKEITEN</h2>
           <div className="pull-right">
@@ -227,7 +242,9 @@ function Home_slider1() {
           isFooterAtBottom={true}
           onRenderHeader={CustomHeader}
         >
+
           <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+
             <h4 className="alignCenter">{selectedNews?.Title}</h4>
             <div className="imagedetail">
 

@@ -14,13 +14,24 @@ import axios from 'axios';
 import NewsHomemainPage from './NewsHome';
 import EventHomemainPage from './EventHome';
 import Layout from './Layout';
+import NewsDetailPage from './NewsDetailPage'
+import EventDetailPage from './EventDetailPage'
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<><Layout /></>}>
       <Route path='/' element={<HomeComponent />} />
       <Route path=':SmartPage' element={<SmartpageComponent />}>
-        <Route path=':SmartPage' element={<SmartpageComponent />} />
+        <Route path=':SmartPage' element={<SmartpageComponent />} >
+          <Route path=':SmartPage' element={<SmartpageComponent />} />
+        </Route>
+      </Route>
+      {/* <Route path=':NewsDetailPage' element={<SmartpageComponent />}>
+      </Route> */}
+      <Route path='Neuigkeiten/:newsId' element={<NewsDetailPage />} />
+      <Route path='Veranstaltungen/:newsId' element={<EventDetailPage />}>
       </Route>
     </Route>
   )

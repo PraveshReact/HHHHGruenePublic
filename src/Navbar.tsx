@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import SmartpageComponent from "./SmartpageComponent";
@@ -17,8 +17,12 @@ const Navbarcomponent = () => {
   const [data, setData] = useState([]);
   const [isSticky, setSticky] = useState(false);
   const [clickedTitle, setClickedTitle] = useState('');
+  const [clickItem, setClickItem] = useState();
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
- // const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
+
+  const navigate = useNavigate();
 
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
   const toggleDropdown = () => {
@@ -47,6 +51,8 @@ const Navbarcomponent = () => {
           result = JSON.parse(result)
           results = result?.data
           const structuredData = structureData(results);
+          console.log(structuredData, "structuredData")
+          structuredData.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
           setData(structuredData);
         })
         .catch(error => console.log('error', error));
@@ -105,27 +111,50 @@ const Navbarcomponent = () => {
     return rawData.filter((item: any) => !item.ParentId);
   };
 
-  const handleLinkClick = (title: any) => {
-    console.log(`Clicked on: ${title}`);
+  // const handleLinkClick = (title: any, item: any) => {
+  //   console.log(`Clicked on: ${title}`);
+  //   setClickedTitle(title);
+  //   setClickItem(item)
+
+  // };
+  const handleLinkClick = (title: any, item: any) => {
+    console.log("Clicked on", item);
     setClickedTitle(title);
+    setClickItem(item);
+
+    // Navigate to the Smartpage with clickItem as state
+    // if (item.KeyTitle) {
+    //   navigate(`/${removeSpacialChar(title)}/${item.KeyTitle}`, { state: { clickItem: item } });
+    // }
   };
+  const removeSpacialChar = (Title: any) => {
+    return Title.replace(/ /g, '-');
+  }
   // const handleSearchChange = (e: any) => {
   //   setSearchInput(e.target.value);
   // };
   const renderItem = (item: any) => (
     <li key={item.id} className="nav-item dropdown">
-      <a
-        href={`/${item.Title === "Home" ? "" : item.KeyTitle.toLowerCase()}`}
+      <Link
+        to={{
+          pathname: `/${item.Title === "Home" ? "" : removeSpacialChar(item.Title)}`,
+        }}
+        state={{ item: item }}  // This is the new way in React Router v6
         id="navbarDropdown"
         role="button"
         data-toggle="dropdown"
         className="nav-link"
-        //onMouseEnter={() => handleLinkHover(item.KeyTitle)}
-        onClick={() => handleLinkClick(item?.Title)}
       >
         {item?.Title}
+      </Link>
+      {/* <a
+        href={`/${item.Title === "Home" ? "" : removeSpacialChar(item.Title)}`}
+        className="nav-link dropdown-item"
+        onClick={() => handleLinkClick(item?.Title, item)}
+      >
+        {item?.Title}
+      </a> */}
 
-      </a>
       {item.children.length > 0 && (
         <span onClick={toggleDropdown}>
           <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -141,12 +170,13 @@ const Navbarcomponent = () => {
               {item.children.map((child: any) => (
                 <li key={child.id} className="dropdown-submenu">
                   <a
-                    href={`/${child.KeyTitle.toLowerCase()}`}
+                    href={`/${removeSpacialChar(child.KeyTitle)}`}
                     className="nav-link dropdown-item"
-                    onClick={() => handleLinkClick(child?.Title)}
+                    onClick={() => handleLinkClick(child?.Title, child)}
                   >
                     {child?.Title}
                   </a>
+
                   {child.children.length > 0 && (
                     <div className="dropdown-submenu dropdown-menu-level-1">
                       <div className="dropdown-menu-spacer"> </div>
@@ -154,9 +184,9 @@ const Navbarcomponent = () => {
                         {child.children.map((subchild: any) => (
                           <li key={subchild.id} className="dropdown-submenu">
                             <a
-                              href={`/${child.KeyTitle.toLowerCase()}/${subchild.KeyTitle.toLowerCase()}`}
+                              href={`/${removeSpacialChar(subchild.KeyTitle)}`}
                               className="nav-link dropdown-item"
-                              onClick={() => handleLinkClick(subchild?.Title)}
+                              onClick={() => handleLinkClick(subchild?.Title, subchild)}
                             >
                               {subchild?.Title}
 
@@ -178,22 +208,22 @@ const Navbarcomponent = () => {
                 {item.children.map((child: any) => (
                   <li key={child.id} className="dropdown-submenu">
                     <a
-                      href={`/${child.KeyTitle.toLowerCase()}`}
+                      href={`/${removeSpacialChar(child.KeyTitle)}`}
                       className="nav-link dropdown-item"
-                      onClick={() => handleLinkClick(child?.Title)}
+                      onClick={() => handleLinkClick(child?.Title, child)}
                     >
                       {child?.Title}
                     </a>
-                    {child.children.length > 0 && (
+                    {child?.children?.length > 0 && (
                       <div className="dropdown-submenu dropdown-menu-level-1">
                         <div className="dropdown-menu-spacer"> </div>
                         <ul className="dropdown-menu-item" aria-labelledby="navbarDropdown">
-                          {child.children.map((subchild: any) => (
+                          {child?.children?.map((subchild: any) => (
                             <li key={subchild.id} className="dropdown-submenu">
                               <a
-                                href={`/${child.KeyTitle.toLowerCase()}/${subchild.KeyTitle.toLowerCase()}`}
+                                href={`/${removeSpacialChar(subchild.KeyTitle)}`}
                                 className="nav-link dropdown-item"
-                                onClick={() => handleLinkClick(subchild?.Title)}
+                                onClick={() => handleLinkClick(subchild?.Title, subchild)}
                               >
                                 {subchild?.Title}
 
@@ -240,7 +270,7 @@ const Navbarcomponent = () => {
               to={`/`}
               role="button"
               className="nav-link"
-              onClick={() => handleLinkClick("Home")}
+              onClick={() => handleLinkClick("Home", "")}
             >
               <img
                 src="https://gruene-weltweit.de/SiteAssets/washington-dc_184.png"
@@ -251,7 +281,7 @@ const Navbarcomponent = () => {
           </div>
         </div>
       </div>
-      <Navbar expand="lg" className={`bg-body-tertiary p-0${isSticky ? " sticky" : ""}`}>
+      <Navbar expand="lg" className={`p-0${isSticky ? " sticky" : ""}`}>
         <Container>
           <Navbar.Brand href="/"><img src="https://gruene-weltweit.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav">

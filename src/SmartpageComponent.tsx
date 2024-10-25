@@ -28,10 +28,13 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const [Eventdetailflag, setEventdetailflag]: any = useState(false);
   const [Smartpageflag, setSmartpageflag]: any = useState(false);
   const [data, setData] = useState<any>([]);
+  const [breadcrumsdata, setbreadcrumsdata] = useState<any>([]);
   const newsEventserverUrl = 'https://eventservers.onrender.com/api/getData';
   const GetserverUrl = 'https://eventservers.onrender.com/api/getDataFilterbase';
   const KeyTitleFilterKeyTitle = 'https://eventservers.onrender.com/api/getFilterKeyTitle'
   const location = useLocation();
+  const { item } = location.state || {};
+  console.log(item, "clickItem")
   let stateParam: any;
   if (location.pathname.indexOf('/BriefwahlSearch/State=') > -1) {
     const pathParts = location.pathname.split('/');
@@ -47,12 +50,21 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       showBriefflag = true
     }
   }
+  const decodeArray = (arr: any) => {
+    return arr.map((item: string) => decodeURIComponent(item));
+  };
 
   const urlParamsString = smartPage;
 
   const urlParams = new URLSearchParams(urlParamsString);
 
   const itemId = urlParams.get('ItemID');
+  const pathPartssss = location.pathname.split('/');
+  console.log(pathPartssss, "itemId")
+  const decodedArray = decodeArray(pathPartssss);
+
+  console.log(decodedArray, "urlParamssss")
+
 
   function formatDate(dateString: string, format: 'D-M-YYYY' | 'YYYY-M-D') {
     // Parse the date string
@@ -78,9 +90,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     try {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-
       const raw = JSON.stringify({ "table": `${tableName}` });
-
       const requestOptions: RequestInit = {
         method: 'POST',
         headers: myHeaders,
@@ -117,7 +127,8 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
           } return data;
         })
         setNewsData(finalData);
-        console.log('Get data from server successfully');
+        getPublicBreadCumsNewsAndEvent(item?.id);
+        console.log('Get data from server successfully', finalData);
         console.log(sortedData);
       } else {
         console.error('No data received from the server.');
@@ -146,6 +157,8 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
           } return data;
         })
         setEventData(finalData);
+        getPublicBreadCumsNewsAndEvent(item?.id);
+
         console.log('Get data from server successfully');
         console.log(sortedData);
       } else {
@@ -158,15 +171,17 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const showwebpart = () => {
     setShowwebpart(true)
   }
-  const getPublicServerSmartMetaData = async (tableName: any, Title: any) => {
+  const getPublicServerSmartMetaData = async (tableName: any, Title: any, smartid: any) => {
     try {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
       const raw = JSON.stringify({
         "table": tableName,
-        "title": Title
+        "keyTitle": Title,
+        "id": smartid
       });
+      console.log(raw, "rawrawrawraw")
 
       const requestOptions: any = {
         method: 'POST',
@@ -175,9 +190,9 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
         redirect: 'follow'
       };
 
-      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getSmartPageData.php", requestOptions);
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
       const result = await response.json();
-
+      console.log(result, "resultresultresultresult")
       // Filter the results to match the specific KeyTitle
       const smartPageData = result?.data?.id != undefined ? [result?.data] : [];
 
@@ -214,23 +229,25 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   }
 
   const fetchData = async () => {
+    setData(undefined)
     const tableName = "SmartMetaData";
     let Title = smartPage
+    console.log(Title, "TitleTitle");
     try {
-      const response: any = await getPublicServerSmartMetaData(tableName, Title)
+      const response: any = await getPublicServerSmartMetaData(tableName, Title, item?.smartId)
+      console.log(response, "responseresponse");
 
       if (response.length > 0) {
-        setData(undefined)
         let finalData = response.map((data: any) => {
-          if (data.PageContentProfile) {
-
-            data.PageContentProfile = replaceUrlsWithNewFormat(data.PageContentProfile)
+          if (data?.PageContentProfile) {
+            data.PageContentProfile = replaceUrlsWithNewFormat(data?.PageContentProfile)
           } return data;
         })
+        console.log('Get data from server successfully', finalData);
+
+        getPublicBreadCums(finalData[0]?.id);
         setData(finalData);
         FlagSmartPage = true
-        console.log('Get data from server successfully');
-        console.log(response);
       } else {
         console.error('Error sending data to server:', response.statusText);
       }
@@ -244,14 +261,31 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     console.log("Newsflag:", Newsflag);
     console.log("Eventflag:", Eventflag);
     console.log("Smartpageflag:", Smartpageflag);
+    if (item?.SmartPage && item?.SmartPage.trim() !== "") {
+      fetchData();
+      setSmartpageflag(true);
+      setNewsflag(false);
+      setEventflag(false);
+      setEventdetailflag(false);
 
-    if (smartPage === 'neuigkeiten') {
+    }
+    else if (smartPage?.toLowerCase() === 'neuigkeiten') {
       getNewsdata();
       setNewsflag(true);
       setEventflag(false);
       setSmartpageflag(false);
       setEventdetailflag(false);
-    } else if (smartPage === 'veranstaltungen') {
+    }
+    else if (smartPage?.toLowerCase() == 'mitmachen' || smartPage == 'Über-Uns') {
+      console.log(smartPage?.toLowerCase(), "smartPage?.toLowerCase()")
+      fetchData();
+      setSmartpageflag(true);
+      setNewsflag(false);
+      setEventflag(false);
+      setEventdetailflag(false);
+
+    }
+    else if (smartPage?.toLowerCase() === 'veranstaltungen') {
       getEventdata();
       setEventflag(true);
       setNewsflag(false);
@@ -262,23 +296,90 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       setEventflag(false);
       setNewsflag(false);
       setSmartpageflag(false);
-    } else if (smartPage !== 'neuigkeiten' && smartPage !== 'veranstaltungen') {
+    } else if (smartPage?.toLowerCase() !== 'neuigkeiten' && smartPage?.toLowerCase() !== 'veranstaltungen') {
       fetchData();
       setSmartpageflag(true);
       setNewsflag(false);
       setEventflag(false);
       setEventdetailflag(false);
     }
+
+    else if (Smartpageflag) {
+      fetchData();
+      setSmartpageflag(true);
+      setNewsflag(false);
+      setEventflag(false);
+      setEventdetailflag(false);
+
+    }
+
+
   }, [smartPage, Newsflag, Eventflag, Smartpageflag, Eventdetailflag]);
 
+
   // Rest of your component code...
+  const removeSpacialChar = (Title: any) => {
+    return Title?.replace(/ /g, '-');
+  }
+  const removeSpacialChar2 = (Title: string) => {
+    return Title?.replace(/-/g, ' ');
+  }
 
 
+  const getPublicBreadCums = async (smartid: any) => {
+    setbreadcrumsdata([])
+    console.log(smartid, "smartidsmartid")
+
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      // Construct the URL with the query parameters
+      const url = `https://gruene-weltweit.de/SPPublicAPIs/getBreadcrumsdata.php?smartId=${smartid}`;
+
+      const requestOptions: any = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+      const response = await fetch(url, requestOptions);
+      const result = await response.json();
+      console.log(result, "result")
+      setbreadcrumsdata(result?.data)
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return [];
+    }
+  }
+  const getPublicBreadCumsNewsAndEvent = async (smartid: any) => {
+    setbreadcrumsdata([])
+    console.log(smartid, "smartidsmartid")
+
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      // Construct the URL with the query parameters
+      const url = `https://gruene-weltweit.de/SPPublicAPIs/getBreadcrumdataByid.php?id=${smartid}`;
+
+      const requestOptions: any = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+      const response = await fetch(url, requestOptions);
+      const result = await response.json();
+      console.log(result, "result")
+      setbreadcrumsdata(result?.data)
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return [];
+    }
+  }
 
   const HTMLRenderer = ({ content }: any) => {
     return (
       <div
-        className="html-content container starcolor"
         dangerouslySetInnerHTML={{ __html: content }}
       />
     );
@@ -286,13 +387,63 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
   return (
     <><section className='SmartPages'>
+      <div className="container">
+        <div className="col-sm-12 p-0 ">
+          <ul className="spfxbreadcrumb m-0 p-0">
+            {breadcrumsdata.length > 0 && (
+              <li>
+                <a href="https://www.gruene-washington.de/">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    strokeWidth="0"
+                    viewBox="0 0 576 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>
+                  </svg>
+                </a>
+              </li>
+            )}
+
+            {breadcrumsdata?.map((item: any, index: any) => (
+              item && item !== '' && (
+                <li key={index}>
+                  <a
+                    title={removeSpacialChar2(item.Title)}
+                    href={`https://www.gruene-washington.de/${removeSpacialChar(item.KeyTitle)}`}
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent default anchor action
+                      // Collect values up to the clicked index and filter out empty values
+                      // const allValues = decodedArray?.slice(0, index + 1).filter(Boolean).join('/');
+                      // Navigate to the new URL with the concatenated string
+                      window.location.href = `https://www.gruene-washington.de/${item.KeyTitle}`;
+                    }}
+                  >
+                    {removeSpacialChar2(item?.Title)}
+                  </a>
+                </li>
+              )
+            ))}
+
+          </ul>
+        </div>
+
+      </div>
+
+
+
       <div className='row'>
+
         <div className='col-12'>
+
           {Smartpageflag && (
-            data.map((item: any, index: number) => {
+            data?.map((item: any, index: number) => {
               console.log("Item:", item);
               return (
-                item.KeyTitle !== "Warum-aus-dem-Ausland-wählen" && item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
                   <div key={index}>
                     <section
                       id="page-title"
@@ -306,10 +457,10 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                     >
                       <div className="container text-center clearfix">
                         <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
-                          {item.AlternativeTitle}
+                          {item?.Title}
                         </h1>
                         {item.ShortDescription ?
-                          <div className="SmartPages-Description"><HTMLRenderer content={item.ShortDescription} /></div> : ""
+                          <div className="SmartPages-Description"><HTMLRenderer content={item?.ShortDescription} /></div> : ""
                         }
                       </div>
                     </section>
@@ -318,24 +469,27 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                         <div className={!Showwebpart ? "col-12" : "col-9"}>
                           <HTMLRenderer content={item.PageContentProfile} />
                           {item.KeyTitle == "Grüne-Weltweit" ? (<GrueneWeltweitForm />) : ''}
-                          {/* {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />} */}
+                          {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
                         </div>
-                        <div className={Showwebpart ? "col-3" : ""}>
+                        <div className={!Showwebpart ? "col-3" : "col-3"}>
                           {data.length > 0 && <RelevantNews newsItem={data} showwebpart={showwebpart} />}
-                          {/* {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'relDoc'} showwebpart={showwebpart} />} */}
                           {data.length > 0 && <RelevantEvent newsItem={data} showwebpart={showwebpart} />}
                         </div>
+                        <div className={!Showwebpart ? "col-12" : "col-9"}>
+                          {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'relDoc'} showwebpart={showwebpart} />}
+                        </div>
+
                       </div>
                     </section>
                   </div>
                 ) :
-                  item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                  item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
                     <>
                       <WahlWeltweit />
                       {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
                       {/* <HTMLRenderer content={item.PageContent} /> */}
                     </>
-                  ) : item.KeyTitle.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                  ) : item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
                     <Briefwahl2021 />
                   ) : (
                     <Briefwahlsearch stateParam={stateParam} />
@@ -404,7 +558,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
           )}
         </div>
       </div>
-    </section></>
+    </section ></>
   );
 };
 

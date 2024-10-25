@@ -23,16 +23,16 @@ const App = () => {
 
   function getParameterByName() {
     const searchParams = window?.location?.pathname?.split("/").pop()?.replace(/%20/g, ' ');
-    if (searchParams && searchParams.toLowerCase() !== 'neuigkeiten' && searchParams.toLowerCase() !== 'veranstaltungen') {
+    if (searchParams && searchParams?.toLowerCase() !== 'neuigkeiten' && searchParams?.toLowerCase() !== 'veranstaltungen') {
       setClickedTitle(searchParams);
       setLoadNewshome(false);
       setLoadEventhome(false);
-    } if (searchParams && searchParams.toLowerCase() === 'neuigkeiten') {
+    } if (searchParams && searchParams?.toLowerCase() === 'neuigkeiten') {
       setLoadNewshome(true);
       setLoadEventhome(false);
       setClickedTitle('');
     }
-    if (searchParams && searchParams.toLowerCase() === 'veranstaltungen') {
+    if (searchParams && searchParams?.toLowerCase() === 'veranstaltungen') {
       setLoadEventhome(true);
       setLoadNewshome(false);
       setClickedTitle('');
@@ -43,7 +43,7 @@ const App = () => {
     getParameterByName();
 
     const fetchData = async () => {
-      
+
       try {
         const response = await axios.get(
           "https://gruene-weltweit.de/SPPublicAPIs/TopNavigation.php"
@@ -64,7 +64,7 @@ const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<HomeComponent />} />
-          {clickedTitle && clickedTitle.toLowerCase() !== 'neuigkeiten' && clickedTitle.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
+          {clickedTitle && clickedTitle?.toLowerCase() !== 'neuigkeiten' && clickedTitle?.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
             <Route
               key={route.Title}
               path={`/${route.Title}`}

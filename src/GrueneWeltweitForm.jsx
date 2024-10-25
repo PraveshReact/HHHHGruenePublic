@@ -13,6 +13,7 @@ const GrueneWeltweitForm = () => {
     const [isAllowed, setIsAllowed] = useState(false);
     const [status, setStatus] = useState('');
     const serverUrl = 'https://eventservers.onrender.com/api/tableCreationdata';
+
     useEffect(() => {
         generateCaptcha();
     }, []);
@@ -29,29 +30,96 @@ const GrueneWeltweitForm = () => {
         setStatus('');
     };
 
-    const checkCaptcha = () => {
+    const validateEmail = (email) => {
+        // Simple email regex pattern
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    };
+
+    const checkCaptcha = async () => {
         if (enteredCaptcha === captcha) {
-            setIsAllowed(true);
-            addItemClickCount();
+            if (validateEmail(txtEmail)) {
+                setIsAllowed(true);
+                try {
+                    await sendEmailNotification();
+                    await addItemClickCount();
+                } catch (error) {
+
+                }
+
+            } else {
+                setStatus("Invalid email format");
+            }
         } else {
             setStatus("Invalid captcha.....");
             setEnteredCaptcha('');
             setIsAllowed(false);
+
+        }
+    };
+    function getCurrentDateTime() {
+        const now = new Date();
+
+        // Define an array of month names
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Get the date components
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = monthNames[now.getMonth()];
+        const year = now.getFullYear();
+
+        // Get the time components
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+
+        // Return the formatted date and time
+        return `${day} ${month} ${year} ${hours}:${minutes}`;
+    }
+
+    // Example usage
+    console.log(getCurrentDateTime());
+
+    const sendEmailNotification = async () => {
+        const formData = new FormData();
+        formData.append("name", txtName);
+        formData.append("email", txtEmail);
+        formData.append("country", txtCountry);
+        formData.append("occupation", txtOccupation);
+        formData.append("interest", txtComment);
+
+        try {
+            const response = await axios.post("https://gruene-weltweit.de/SPPublicAPIs/php-mailer-api/mail.php", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('FormData:', formData);
+            console.log('Response data:', response.data);
+            if (response.status === 200) {
+                console.log(response.data); // handle success
+            } else {
+                console.error('Error to send:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Request failed:', error); // handle error
         }
     };
 
+
+
     const addItemClickCount = async () => {
-        const postDataArray =[{
+        const postDataArray = [{
             Name: txtName,
             Email: txtEmail,
             Country: txtCountry,
             Occupation: txtOccupation,
-            GrueneWeltweitInterested: txtComment
+            GrueneWeltweitInterested: txtComment,
+            Created: getCurrentDateTime()
         }]
         const postData = {
             data: postDataArray,
             tableName: 'FormData'
-          };
+        };
         try {
             const response = await axios.post(serverUrl, postData);
             console.log('Response status:', response.status);
@@ -65,6 +133,8 @@ const GrueneWeltweitForm = () => {
                 setTxtName('');
                 setTxtEmail('');
                 setEnteredCaptcha('');
+
+
             } else {
                 console.error('Error sending data to server:', response.statusText);
             }
@@ -109,12 +179,12 @@ const GrueneWeltweitForm = () => {
                                     </div>
                                     <div className="col-sm-5 mt-10 pad0">
                                         <div className="col valign-middle">
-                                        <input type="text" className="text-center searchbox_height" onCopy={(e) => e.preventDefault()} id="generated-captcha" value={captcha} />
-                                        <a onClick={generateCaptcha} id="newgen" title="Generate new captcha" className="ms-1">
-                                            <img src="https://www.gruene-washington.de/PublishingImages/Icons/32/Re-load.png" alt="reload icon" />
-                                        </a>
-                                        <label className="full_width ml-8"><div id="newstatus" className="c-red">{status}</div></label>
-                                    </div>
+                                            <input type="text" className="text-center searchbox_height" onCopy={(e) => e.preventDefault()} id="generated-captcha" value={captcha} />
+                                            <a onClick={generateCaptcha} id="newgen" title="Generate new captcha" className="ms-1">
+                                                <img src="https://www.gruene-washington.de/PublishingImages/Icons/32/Re-load.png" alt="reload icon" />
+                                            </a>
+                                            <label className="full_width ml-8"><div id="newstatus" className="c-red">{status}</div></label>
+                                        </div>
                                     </div>
                                     <div className="col-sm-2 text-end">
                                         <button type="button" className="btn btn-primary pull-right" disabled={!txtName && !txtEmail} onClick={checkCaptcha}>Submit</button>

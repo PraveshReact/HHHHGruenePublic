@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 import { green } from '@mui/material/colors';
+import { Panel, PanelType } from '@fluentui/react';
+import SocialMediaIcon from './SocialMediaIcon';
 
 const NewsHomemainPage = (props: any) => {
     const [EventData, setEventData]: any = useState([]);
@@ -13,7 +15,22 @@ const NewsHomemainPage = (props: any) => {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [isFlatView, setIsFlatView] = useState<boolean>(true);
     const [FilterData, setFilterData]: any = useState([]);
+    const [selectedNews, setSelectedNews] = useState<any>(null);
 
+    const [url, setUrl] = useState('');
+    const removeSpacialChar = (Title: any) => {
+        return Title?.replace(/ /g, '-');
+    }
+    const handleTitleClick = (newsItem: any) => {
+        // Navigate to the new page and pass the newsItem as state
+        setSelectedNews(newsItem);
+        setUrl(`https://www.gruene-washington.de/Neuigkeiten/${newsItem?.Title}`);
+    };
+    const handleCopy = () => {
+        navigator.clipboard.writeText(url)
+            .then(() => alert('URL copied to clipboard!'))
+            .catch((err) => console.error('Failed to copy: ', err));
+    };
     const HTMLRenderer = ({ content }: any) => {
 
         return (
@@ -21,6 +38,31 @@ const NewsHomemainPage = (props: any) => {
                 className="html-content container"
                 dangerouslySetInnerHTML={{ __html: content }}
             />
+        );
+    };
+    // const handleTitleClick = (newsItem: any) => {
+    //     setSelectedNews(newsItem);
+    // };
+    const closePanel = () => {
+        setSelectedNews(null);
+    }
+
+    const CustomHeader = () => {
+        return (
+            <>
+                <div className="align-items-center d-flex justify-content-between w-100">
+                    <h3 className="m-0">News Details</h3>
+                    <div className="Shareon align-items-baseline d-flex mb-0">
+                        <h6>Share :</h6>
+                        <SocialMediaIcon platform="facebook" postUrl={url} />
+                        <SocialMediaIcon platform="twitter" postUrl={url} />
+                        <SocialMediaIcon platform="linkedin" postUrl={url} />
+                        <SocialMediaIcon platform="copy-link" postUrl={url} />
+                        <span className="svg__iconbox svg__icon--cross" style={{ position: "relative", top: "6px" }} onClick={closePanel}></span>
+                    </div>
+                </div>
+
+            </>
         );
     };
 
@@ -65,7 +107,6 @@ const NewsHomemainPage = (props: any) => {
                 body: raw,
                 redirect: 'follow'
             };
-
             fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
                 .then(response => response.text())
                 .then((result: any) => {
@@ -75,6 +116,7 @@ const NewsHomemainPage = (props: any) => {
                     //   const footerItems = organizeData(results);
                     //   setData(footerItems);
                     const sortedEventData = [...results];
+
                     sortedEventData.sort((a: any, b: any) => {
                         const dateA: any = new Date(a.PublishingDate);
                         const dateB: any = new Date(b.PublishingDate);
@@ -125,14 +167,23 @@ const NewsHomemainPage = (props: any) => {
     function formatDate(dateString: string) {
         // Parse the date string
         const date = new Date(dateString);
+
         // Extract day, month, and year
         const day = date.getDate();
-        const month = date.getMonth() + 1; // getMonth() returns month from 0-11, so we add 1
         const year = date.getFullYear();
+
+        // Array of month names
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Get the month name
+        const month = months[date.getMonth()]; // getMonth() returns month from 0-11
+
         // Construct the formatted date string
-        const formattedDate = `${day}-${month}-${year}`;
+        const formattedDate = `${day.toString().padStart(2, '0')} ${month} ${year}`;
+
         return formattedDate;
     }
+
     const filterEventsByYear = (events: any, year: any) => {
         if (year == "All") {
             return events
@@ -178,16 +229,16 @@ const NewsHomemainPage = (props: any) => {
             setSearchTerm(search)
             if (isFlatView) {
                 const filteredEvents = EventData.filter((event: { Title: string; Body: string }) =>
-                    event?.Title?.toLowerCase()?.includes(searchTerm.toLowerCase()) ||
-                    event?.Body?.toLowerCase()?.includes(searchTerm.toLowerCase())
+                    event?.Title?.toLowerCase()?.includes(search?.toLowerCase()) ||
+                    event?.Body?.toLowerCase()?.includes(search?.toLowerCase())
                 );
                 setFilterData(filteredEvents)
             }
             else {
                 const data: any = filterEventsByYear(EventData, selectedYear)
                 const filteredEvents = data.filter((event: { Title: string; EventDescription: string }) =>
-                    event?.Title?.toLowerCase()?.includes(searchTerm.toLowerCase()) ||
-                    event?.EventDescription?.toLowerCase().includes(searchTerm.toLowerCase())
+                    event?.Title?.toLowerCase()?.includes(search?.toLowerCase()) ||
+                    event?.EventDescription?.toLowerCase().includes(search?.toLowerCase())
                 );
                 setFilterData(filteredEvents)
             }
@@ -199,8 +250,8 @@ const NewsHomemainPage = (props: any) => {
     return (
         <>
             <div className="container">
-                <header className='page-header text-center'><h1 className='page-title'>News Home</h1></header>
-                <div className="align-item-center d-flex gap-2 mb-4">
+                <header className='page-header text-center'><h1 className='page-title'>OV Washington News</h1></header>
+                <div className="align-item-center align-items-baseline d-flex fs-6 gap-2 mb-4 searchFilter">
                     {/* <span>Search in all News Data:</span> */}
                     <div className="col">
                         <input
@@ -260,9 +311,13 @@ const NewsHomemainPage = (props: any) => {
                     {FilterData?.map((item: any) => (
                         <>
                             <div key={item.Id} className='events_home publicationItem has-shadow clearfix'>
-                                <div className='entry-meta'><span>  {item?.Created ? formatDate(item.Created) : ''}</span></div>
+                                <div className='entry-meta'>
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
+                                    <span>  {item?.Created ? formatDate(item.Created) : ''}</span></div>
                                 <div className='valign-middle'>
-                                    <h4>{item.Title}</h4>
+                                    <h4 className="card-title" onClick={() => handleTitleClick(item)}>
+                                        <a> {item?.Title}</a>
+                                    </h4>
                                 </div>
                                 <div className='entry-content clearfix'>
                                     <div className='Coverimage'>
@@ -281,6 +336,61 @@ const NewsHomemainPage = (props: any) => {
                         </>
 
                     ))}
+
+                    {selectedNews && (
+                        <Panel
+                            type={PanelType.medium}
+                            customWidth="550px"
+                            isOpen={selectedNews}
+                            isBlocking={false}
+                            isFooterAtBottom={true}
+                            onRenderHeader={CustomHeader}
+                        >
+                            <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+                                {/* <input
+                                    type="text"
+                                    value={url}
+                                    onChange={(e) => setUrl(e.target.value)}
+                                    style={{
+                                        border: '2px solid #ccc',
+                                        borderRadius: '4px',
+                                        padding: '8px',
+                                        marginRight: '10px',
+                                        width: '300px',
+                                    }}
+                                    readOnly
+                                />
+                                <button onClick={handleCopy} style={{
+                                    padding: '8px 16px',
+                                    backgroundColor: '#4CAF50',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '0px',
+                                    cursor: 'pointer',
+                                }}
+                                >
+                                    Copy
+                                </button> */}
+
+
+                            </div>
+                            <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+                                <h4 className="alignCenter">{selectedNews?.Title}</h4>
+                                <div className="imagedetail">
+
+                                    <img className="image" src={selectedNews?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedNews?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+
+                                </div>
+                                <div className="eventItemDesc">
+                                    <span>
+                                        <p dangerouslySetInnerHTML={{ __html: selectedNews?.Body }}></p>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                        </Panel>
+                    )}
 
                 </section>
             </div>

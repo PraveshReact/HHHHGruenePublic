@@ -20,12 +20,12 @@ const Footer = () => {
     try {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-       
+
       var raw = JSON.stringify({
         "table": `${tableName}`
       });
-       
-      var requestOptions:any = {
+
+      var requestOptions: any = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
@@ -34,7 +34,7 @@ const Footer = () => {
 
       fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
-        .then((result:any) =>  {
+        .then((result: any) => {
           result = JSON.parse(result)
           results = result?.data
           const footerItems = organizeData(results);
@@ -50,7 +50,7 @@ const Footer = () => {
     const footerData = async () => {
       const tableName = "Footer";
       try {
-        const response:any = await getPublicServerData(`${tableName}`)
+        const response: any = await getPublicServerData(`${tableName}`)
 
       } catch (error) {
         console.error('An error occurred:', error);
@@ -69,15 +69,15 @@ const Footer = () => {
             <Row>
               {data
                 .slice() // Create a copy of the array to avoid mutating the original data
-                .sort((a:any, b:any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of parent
-                .map((parent:any) => (
-                  <Col xs={12} sm={6} md={4}  key={parent.id} className='mb-5'>
+                .sort((a: any, b: any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of parent
+                .map((parent: any) => (
+                  <Col key={parent.id}>
                     <h4>{parent.Title}</h4>
                     <ul className="list-unstyled">
                       {parent.children
                         .slice() // Create a copy of the children array to avoid mutating the original data
-                        .sort((a:any, b:any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of children
-                        .map((child:any) => (
+                        .sort((a: any, b: any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of children
+                        .map((child: any) => (
                           <li key={child.id} className="widget_links">
                             {child.Title === "Impressum" ? (
                               <Link to={child.Title}>
@@ -86,7 +86,7 @@ const Footer = () => {
                             ) : child.Title === "Pressekontakt" ? (
                               <Link
                                 to="/OV-in-den-Medien"
-                                
+
                               >
                                 {child.Title}
                               </Link>
@@ -104,22 +104,29 @@ const Footer = () => {
           </Container>
         </section>
         <section className="copyrights p-2">
-          <div className="container">
-            <div className="row">
-              <div className="col-12 mb-3">
+          <Container>
+            <Row>
+              <div className="col-12 mb-4 mt-4">
                 <hr></hr>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-12 valign-middle position-relative">
-                <p className='alignCenter mb-0'><span className='me-1'> Powered By : </span> <a className='m-gmbh' href="https://hochhuth-consulting.de/"> Hochhuth Consulting GmbH </a></p>
-                <a className="gap4 ms-2 px-4 valign-middle footerSignIn-Link" href='https://grueneweltweit.sharepoint.com/sites/GrueneWeltweit/Washington/Public/SitePages/HomeGruene.aspx'><span className="svg__iconbox svg__icon--signin light"></span><span className='footerSignIn-LinkText'>Sign In</span></a>
-                <a className="ml-auto" href="https://www.gruene-washington.de"><img
+            </Row>
+            <Row>
+              <Col md="10" xs="8" >
+                <p><span className='me-1'> Powered By : </span> <a href="https://hochhuth-consulting.de/"> Hochhuth Consulting GmbH </a></p>
+                {/* <a className="gap4 ms-2 px-4 valign-middle footerSignIn-Link" 
+                href='https://grueneweltweit.sharepoint.com/sites/GrueneWeltweit/Washington/Public/SitePages/HomeGruene.aspx'>
+                  <span className="svg__iconbox svg__icon--signin light">
+                    </span>
+                    <span className='footerSignIn-LinkText'>Sign In</span>
+                    </a> */}
+              </Col>
+              <Col md="2" xs="4">
+                <a href="https://www.gruene-washington.de"><img
                   src="https://gruene-weltweit.de/SiteAssets/logo2.png"
                   alt="Gruene Logo" className="footer-logo"></img></a>
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </section>
       </footer>
     </div>

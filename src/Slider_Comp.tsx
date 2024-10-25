@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Panel, PanelType } from '@fluentui/react';
 import { IoChevronForwardOutline, IoChevronBackOutline, IoCalendarOutline } from "react-icons/io5";
 import "./CSS/App.css";
+import SocialMediaIcon from "./SocialMediaIcon";
 
 function Slider_Comp() {
   const sliderRef = useRef<Slider | null>(null);
@@ -18,6 +19,7 @@ function Slider_Comp() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [url, setUrl] = useState('');
 
   const settings: Settings = {
     dots: false,
@@ -47,16 +49,31 @@ function Slider_Comp() {
   };
   const handleTitleClick = (newsItem: any) => {
     setSelectedEvent(newsItem);
+    setUrl(`https://www.gruene-washington.de/Veranstaltungen/${newsItem?.Title}`);
+
   };
   const closePanel = () => {
     setSelectedEvent(null);
   }
   const CustomHeader = () => {
     return (
-      <><h3 className="m-0">Event Detail</h3>
-        <span className="svg__iconbox svg__icon--cross" onClick={closePanel}></span></>
+      <>
+        <div className="align-items-center d-flex justify-content-between w-100">
+          <h3 className="m-0">News Details</h3>
+          <div className="Shareon align-items-baseline d-flex mb-0">
+            <h6>Share :</h6>
+            <SocialMediaIcon platform="facebook" postUrl={url} />
+            <SocialMediaIcon platform="twitter" postUrl={url} />
+            <SocialMediaIcon platform="linkedin" postUrl={url} />
+            <SocialMediaIcon platform="copy-link" postUrl={url} />
+            <span className="svg__iconbox svg__icon--cross" style={{ position: "relative", top: "6px" }} onClick={closePanel}></span>
+          </div>
+        </div>
+
+      </>
     );
   };
+
   const replaceUrlsWithNewFormat = (inputString: any) => {
     try {
       const urlRegex = /href="[^"]*SmartId\s*=\d+[^"]*Item\s*=[^"]*"|href="[^"]*SmartID\s*=\d+[^"]*item1\s*=[^"]*"/gi;
@@ -235,6 +252,7 @@ function Slider_Comp() {
         >
           <div>
             <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+
               <h4 className="alignCenter">{selectedEvent?.Title}</h4>
               <div className="imagedetail">
                 <img className="image" src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />

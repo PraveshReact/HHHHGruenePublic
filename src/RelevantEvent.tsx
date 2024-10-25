@@ -7,6 +7,8 @@ export default function RelevantEvent(props: any) {
     const newsWebpartId = props.newsItem[0].id
     //const GetserverUrl = 'http://localhost:4000/api/getData';
     const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
+
+
     useEffect(() => {
         getNewsListData();
     }, [])
@@ -49,6 +51,7 @@ export default function RelevantEvent(props: any) {
                     return item.SmartPagesId.includes(parseInt(newsWebpartId));
                 }
             });
+
             if (eventdata && eventdata.length > 0) {
                 props.showwebpart()
             }
@@ -74,16 +77,19 @@ export default function RelevantEvent(props: any) {
 
     return (
         <>
-            {allEvents && allEvents.length > 0 && (
+            {allEvents && allEvents?.length > 0 && (
                 <div className="container">
                     <div className="panel panel-default">
-                        <div className="panel-heading">Relevant Event</div>
-                        {allEvents.map((event: any) => (
+                        <div className="panel-heading">Relevant Events</div>
+                        {allEvents?.map((event: any) => (
                             <div key={event.Id} className="panel-body">
                                 <div className="entry-meta">
-                                    <span>{event.EventDate}</span>
+                                    <div className="publishdata">
+                                        <span className="small">{event?.EventDate}</span>
+                                        <span>{event?.Title}</span>
+                                    </div>
                                 </div>
-                                <div>{event.Title}</div>
+
                             </div>
                         ))}
                     </div>
