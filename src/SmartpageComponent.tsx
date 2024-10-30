@@ -173,35 +173,72 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   }
   const getPublicServerSmartMetaData = async (tableName: any, Title: any, smartid: any) => {
     try {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
+      let url = '';
+      // Construct the URL with query parameters
+      if (smartid != null) {
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+      }
+      else {
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+      }
 
-      const raw = JSON.stringify({
-        "table": tableName,
-        "keyTitle": Title,
-        "id": smartid
-      });
-      console.log(raw, "rawrawrawraw")
-
+      // Define the GET request options
       const requestOptions: any = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
+        },
         redirect: 'follow'
       };
 
-      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
+      console.log(url, "Request URL");
+
+      // Send the GET request
+      const response = await fetch(url, requestOptions);
       const result = await response.json();
-      console.log(result, "resultresultresultresult")
+      console.log(result, "Result from GET request");
+
       // Filter the results to match the specific KeyTitle
-      const smartPageData = result?.data?.id != undefined ? [result?.data] : [];
+      const smartPageData = result?.data?.id !== undefined ? [result?.data] : [];
 
       return smartPageData;
     } catch (error) {
       console.error('An error occurred:', error);
       return [];
     }
-  }
+  };
+
+  // const getPublicServerSmartMetaData = async (tableName: any, Title: any, smartid: any) => {
+  //   try {
+  //     const myHeaders = new Headers();
+  //     myHeaders.append("Content-Type", "application/json");
+
+  //     const raw = JSON.stringify({
+  //       "table": tableName,
+  //       "keyTitle": Title,
+  //       "id": smartid
+  //     });
+  //     console.log(raw, "rawrawrawraw")
+
+  //     const requestOptions: any = {
+  //       method: 'POST',
+  //       headers: myHeaders,
+  //       body: raw,
+  //       redirect: 'follow'
+  //     };
+
+  //     const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
+  //     const result = await response.json();
+  //     console.log(result, "resultresultresultresult")
+  //     // Filter the results to match the specific KeyTitle
+  //     const smartPageData = result?.data?.id != undefined ? [result?.data] : [];
+
+  //     return smartPageData;
+  //   } catch (error) {
+  //     console.error('An error occurred:', error);
+  //     return [];
+  //   }
+  // }
   const replaceUrlsWithNewFormat = (inputString: any) => {
     try {
       const urlRegex = /href="[^"]*SmartId\s*=\d+[^"]*Item\s*=[^"]*"|href="[^"]*SmartID\s*=\d+[^"]*item1\s*=[^"]*"/gi;
@@ -234,7 +271,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     let Title = smartPage
     console.log(Title, "TitleTitle");
     try {
-      const response: any = await getPublicServerSmartMetaData(tableName, Title, item?.smartId)
+      const response: any = await getPublicServerSmartMetaData(tableName, Title, item?.id)
       console.log(response, "responseresponse");
 
       if (response.length > 0) {
@@ -455,9 +492,9 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       data-bottom-top="background-position:0px 300px;"
                       data-top-bottom="background-position:0px -300px;"
                     >
-                      <div className="container text-center clearfix">
+                      <div className="container  clearfix">
                         <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
-                          {item?.Title}
+                          <h1>{item?.PageTitle || item?.Title}</h1>
                         </h1>
                         {item.ShortDescription ?
                           <div className="SmartPages-Description"><HTMLRenderer content={item?.ShortDescription} /></div> : ""
@@ -490,7 +527,26 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       {/* <HTMLRenderer content={item.PageContent} /> */}
                     </>
                   ) : item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
-                    <Briefwahl2021 />
+                    <div>
+                      <section
+                        id="page-title"
+                        className="page-title-parallax page-title-dark skrollable skrollable-between"
+                        style={{
+                          backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
+                          backgroundPosition: `0px -117.949px`
+                        }}
+                        data-bottom-top="background-position:0px 300px;"
+                        data-top-bottom="background-position:0px -300px;"
+                      >
+                        <div className="container  clearfix">
+                          <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
+                            {item?.AlternativeTitle}
+                          </h1>
+                        </div>
+                      </section>
+                      <Briefwahl2021 />
+
+                    </div>
                   ) : (
                     <Briefwahlsearch stateParam={stateParam} />
                   )

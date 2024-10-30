@@ -1,8 +1,19 @@
 import React from 'react'
+import "./CSS/custom.css";
 
 export const RelevantWebPart = (props: any) => {
     const [reldoc, setRelDoc] = React.useState([])
     const [keyDoc, setKeyDoc] = React.useState([])
+    function getFileIconClass(fileType: string) {
+
+        switch (fileType) {
+            case ' ':
+                return "svg__iconbox svg__icon--unknownFile"; // Default class for unknown file types
+            default:
+                return `svg__iconbox svg__icon--${fileType}`;
+
+        }
+    }
     React.useEffect(() => {
         getPublicServerData('Documents')
     }, [])
@@ -83,6 +94,19 @@ export const RelevantWebPart = (props: any) => {
         }
         return results;
     }
+    const extractHrefValue = (path: any) => {
+        const hrefPattern = /href="([^"]+)"/; // Regular expression to extract the value inside href="..."
+
+        const match = path.match(hrefPattern); // Find the href pattern in the path
+
+        if (match && match[1]) {
+            // Return the value inside href="..."
+            return match[1];
+        }
+
+        // If href="..." not found, return the original path
+        return path;
+    };
     return (
         <div className='html-content container'>
             {/* {reldoc?.length > 0 && props?.usedFor == 'relDoc' && <div>
@@ -104,6 +128,8 @@ export const RelevantWebPart = (props: any) => {
                         <div className="col-12 justify-content-center mb-0">
                             {
                                 keyDoc?.map((keyitem: any) => {
+                                    const iconClass = getFileIconClass(keyitem?.File_x0020_Type);
+                                    console.log(iconClass)
                                     return (
                                         <div className="key-documents">
                                             <div className="key-documents__wrp">
@@ -125,9 +151,13 @@ export const RelevantWebPart = (props: any) => {
                                                         &nbsp;</div><div className="key-documents__content"><div className="key-documents__header">
 
                                                             <span className="key-documents__documentTitle">
-                                                                <a target="_blank" href={`${keyitem?.Path}?web=1`}>
+                                                                <a target="_blank" href={`${extractHrefValue(keyitem?.Path)}?web=1`}>
+                                                                    {/* <span className={getFileIconClass(iconClass)}></span> */}
 
+                                                                    {/* svg__iconbox svg__icon--pdf */}
                                                                     {/* <span className="key-documents__documentYear">(2011)</span> */}
+                                                                    <span className={iconClass} aria-label={`${keyitem?.File_x0020_Type} icon`}>
+                                                                    </span>
                                                                     {keyitem?.Title}
 
                                                                 </a>
@@ -167,7 +197,7 @@ export const RelevantWebPart = (props: any) => {
                                                 <div className="card-body">
                                                     <ul className="alignCenter list-none text-break mb-0">
                                                         <li className="mb-10 ">
-                                                            <a target="_blank" href={`${keyitem?.Path}?web=1`}>
+                                                            <a target="_blank" href={`${extractHrefValue(keyitem?.Path)}?web=1`}>
 
                                                                 {/* <span className="key-documents__documentYear">(2011)</span> */}
                                                                 {keyitem?.Title}.{keyitem?.File_x0020_Type}

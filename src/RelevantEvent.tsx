@@ -1,13 +1,51 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import moment from "moment";
+import SocialMediaIcon from "./SocialMediaIcon";
+import { Panel, PanelType } from '@fluentui/react';
 
 export default function RelevantEvent(props: any) {
     const [allEvents, setallEvents]: any = useState([]);
     const newsWebpartId = props.newsItem[0].id
     //const GetserverUrl = 'http://localhost:4000/api/getData';
     const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
+    const [selectedEvent, setSelectedEvent] = useState<any>(null);
+    const [url, setUrl] = useState('');
+    const handleTitleClick = (newsItem: any) => {
+        // Navigate to the new page and pass the newsItem as state
+        setSelectedEvent(newsItem);
+        setUrl(`https://www.gruene-washington.de/Veranstaltungen/${newsItem?.Title}`);
+    };
+    const closePanel = () => {
+        setSelectedEvent(null);
+    }
+    const formatDate = (dateString: any) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        });
+    };
 
+    const CustomHeader = () => {
+        return (
+            <>
+                <div className="align-items-center d-flex justify-content-between w-100">
+                    <h3 className="m-0">Event Details</h3>
+                    <div className="Shareon align-items-baseline d-flex mb-0">
+                        <h6>Share :</h6>
+                        <SocialMediaIcon platform="facebook" postUrl={url} />
+                        <SocialMediaIcon platform="twitter" postUrl={url} />
+                        <SocialMediaIcon platform="linkedin" postUrl={url} />
+                        <SocialMediaIcon platform="copy-link" postUrl={url} />
+                        <span className="svg__iconbox svg__icon--cross" style={{ position: "relative", top: "6px" }} onClick={closePanel}></span>
+                    </div>
+                </div>
+
+            </>
+        );
+    };
 
     useEffect(() => {
         getNewsListData();
@@ -25,6 +63,7 @@ export default function RelevantEvent(props: any) {
                     if (item.SmartPagesId && item.SmartPagesId.trim() !== '') {
                         smartPagesIdArray = JSON.parse(item.SmartPagesId);
                     }
+
                 } catch (error) {
                     console.error('Error parsing SmartPagesId:', error);
                     // Handle the error, such as setting to an empty array
@@ -35,12 +74,12 @@ export default function RelevantEvent(props: any) {
                     SmartPagesId: smartPagesIdArray
                 };
             });
-            parsedData.map((item: any) => {
-                if (item?.EventDate != null && item?.EventDate != undefined) {
-                    item.EventDate = moment(item?.EventDate, "DD-MM-YYYY").format("DD MMM YYYY");
-                }
-                return item; // Return the modified item
-            });
+            // parsedData.map((item: any) => {
+            //     if (item?.EventDate != null && item?.EventDate != undefined) {
+            //         item.EventDate = moment(item?.EventDate, "DD-MM-YYYY").format("DD MMM YYYY");
+            //     }
+            //     return item; // Return the modified item
+            // });
             // Filter data based on newsWebpartId
             const eventdata = parsedData.filter((item: any) => {
                 // Check if SmartPagesId is an array and includes newsWebpartId
@@ -56,7 +95,7 @@ export default function RelevantEvent(props: any) {
                 props.showwebpart()
             }
             setallEvents(eventdata);
-            console.log(allEvents);
+            console.log(allEvents, "smartPagesIdArray");
         } catch (error) {
             console.error(error);
         }
@@ -83,10 +122,13 @@ export default function RelevantEvent(props: any) {
                         <div className="panel-heading">Relevant Events</div>
                         {allEvents?.map((event: any) => (
                             <div key={event.Id} className="panel-body">
-                                <div className="entry-meta">
+                                <div className="relavantpanel">
                                     <div className="publishdata">
-                                        <span className="small">{event?.EventDate}</span>
-                                        <span>{event?.Title}</span>
+                                        <span className="small"> {event?.EventDate ? formatDate(event?.EventDate) : ''}</span>
+                                        <span onClick={() => handleTitleClick(event)}>{event?.Title}</span>
+                                        {/* <h4 onClick={() => handleTitleClick(event)}>
+                                            <a> {event?.Title}</a>
+                                        </h4> */}
                                     </div>
                                 </div>
 
@@ -94,6 +136,41 @@ export default function RelevantEvent(props: any) {
                         ))}
                     </div>
                 </div>
+            )}
+            {selectedEvent && (
+                <Panel
+                    type={PanelType.medium}
+                    customWidth="550px"
+                    isOpen={selectedEvent}
+                    isBlocking={false}
+                    isFooterAtBottom={true}
+                    onRenderHeader={CustomHeader}
+                >
+
+                    <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+                        <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
+                            <div className='entry-meta'>
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
+                                <span>  {selectedEvent?.EventDate ? formatDate(selectedEvent?.EventDate) : ''}</span></div>
+                            <h4>{selectedEvent?.Title}</h4>
+
+                            <div className="imagedetail">
+
+                                <img className="image"
+                                    src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" :
+                                        selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+
+                            </div>
+                            <div className="eventItemDesc">
+                                <span>
+                                    <p dangerouslySetInnerHTML={{ __html: selectedEvent?.Description?.replaceAll(/&#160;/g, ' ') }} />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </Panel>
             )}
         </>
     );

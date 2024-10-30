@@ -54,6 +54,7 @@ a.DC-mapImg > img.DC-Mapimage {
     text-align: center;
     font-size: 16px;
     padding: 20px;
+    margin-top: 10px;
   }
 
   .red_block a {

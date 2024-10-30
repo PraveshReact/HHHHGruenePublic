@@ -22,7 +22,7 @@ const WahlWeltweit = () => {
                 data-bottom-top="background-position:0px 300px;"
                 data-top-bottom="background-position:0px -300px;"
             >
-                <div className="container text-center clearfix">
+                <div className="container clearfix">
                     <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
                         Warum Aus Dem Ausland Wählen?
                     </h1>

@@ -503,6 +503,9 @@ nav.navbar.navbar-main.navbar-light.fixed-top {
     position: relative;
     z-index: 1;
 }
+.sliderDescription a.text-white:hover {
+  color: #fff !important;
+}
 .container.top_slider_container.text-center {
   z-index: 2;
 }
@@ -593,6 +596,18 @@ body a:not([href]):not([class]):hover, body a:hover {
     font-family: 'GrueneType';
     font-size: 16px;
 }
+.relavantpanel {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-family: 'PTSans';
+  font-size: 16px;
+}
+.relavantpanel-meta > svg {
+  width: 18px;
+  height: 18px;
+}
+
  
 .entry-meta > svg {
     width: 18px;
@@ -626,7 +641,7 @@ margin-bottom: 0px;
   background: none !important;
 }
 .cutoff-text {
-  --max-lines: 5;
+  --max-lines: 5 ;
   --line-height: 1.4;
   max-height: calc(var(--max-lines) * 1em * var(--line-height));
   /* display: -webkit-box; */
@@ -1632,3 +1647,35 @@ button {
 }
   /*--------------- breadcrumb end------------------
     --------------------------------------------*/
+    .SearchInput-container {
+      position: relative;
+  
+  }
+    .searchinput-searchclear {
+      font-size: 17px;
+      cursor: pointer;
+      color: #ccc;
+      position: absolute;
+      padding: 0;
+      background-color: #FFF;
+      right: 15px;
+      top: 7px;
+    }
+    
+    .input-search-btn {
+      background-color: var(--siteColor);
+      padding: 4px 12px;
+      height: 100%;
+      position: absolute;
+      font-size: 14px;
+      right: 1px;
+      color: #fff;
+      top: 0px;
+      line-height: 28px;
+    }
+
+    .red_block a:hover, .bg-red h3 a:hover {
+      color: #fff !important;
+  }
+
+  
