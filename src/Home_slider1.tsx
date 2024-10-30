@@ -71,24 +71,29 @@ function Home_slider1() {
           console.log(result, "ddddd")
           result = JSON.parse(result)
           results = result?.data
-          const sortedData = results.sort((a: any, b: any) => {
-            if (a.PublishingDate && b.PublishingDate) {
-              const format = "MMMM DD, YYYY"; // Define the date format
-              const dateA: any = moment(a.PublishingDate, format);
-              const dateB: any = moment(b.PublishingDate, format);
-              console.log("Date A:", dateA);
-              console.log("Date B:", dateB);
-              if (dateA.isBefore(dateB)) {
-                return 1; // Date A is before Date B, return 1 for descending order
-              } else if (dateA.isAfter(dateB)) {
-                return -1; // Date A is after Date B, return -1 for descending order
-              } else {
-                return 0; // Dates are equal, so return 0
-              }
-            }
-            return 0; // If either date is missing, maintain the order
+          results.sort((a: any, b: any) => {
+            const dateA: any = new Date(a.PublishingDate);
+            const dateB: any = new Date(b.PublishingDate);
+            return dateB - dateA;
           });
-          setData(sortedData);
+          // const sortedData = results.sort((a: any, b: any) => {
+          //   if (a.PublishingDate && b.PublishingDate) {
+          //     const format = "MMMM DD, YYYY"; // Define the date format
+          //     const dateA: any = moment(a.PublishingDate, format);
+          //     const dateB: any = moment(b.PublishingDate, format);
+          //     console.log("Date A:", dateA);
+          //     console.log("Date B:", dateB);
+          //     if (dateA.isBefore(dateB)) {
+          //       return 1; // Date A is before Date B, return 1 for descending order
+          //     } else if (dateA.isAfter(dateB)) {
+          //       return -1; // Date A is after Date B, return -1 for descending order
+          //     } else {
+          //       return 0; // Dates are equal, so return 0
+          //     }
+          //   }
+          //   return 0; // If either date is missing, maintain the order
+          // });
+          setData(results);
         })
         .catch(error => console.log('error', error));
     } catch (error) {
@@ -156,18 +161,16 @@ function Home_slider1() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  function formatDate(dateString: string) {
-    // Parse the date string
-    const date = new Date(dateString);
-    // Extract day, month, and year
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' }); // getMonth() returns month from 0-11, so we add 1
-    const year = date.getFullYear();
-    // Construct the formatted date string
-    const formattedDate = `${day} ${month} ${year}`;
 
-    return formattedDate;
-  }
+  const formatDate = (dateString: any) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   return (
     <div className="section EventsCardSection">
       <div className="container">
@@ -194,7 +197,7 @@ function Home_slider1() {
                     <div className="entry-meta">
                       <IoCalendarOutline />
                       <span>
-                        {item?.PublishingDate ? formatDate(item.PublishingDate) : ''}
+                        {formatDate(item?.PublishingDate)}
                       </span>
                     </div>
                     <h4 className="card-title" onClick={() => handleTitleClick(item)}>
@@ -244,8 +247,13 @@ function Home_slider1() {
         >
 
           <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-
-            <h4 className="alignCenter">{selectedNews?.Title}</h4>
+            <div className="entry-meta">
+              <IoCalendarOutline />
+              <span>
+                {formatDate(selectedNews?.PublishingDate)}
+              </span>
+            </div>
+            <h4>{selectedNews?.Title}</h4>
             <div className="imagedetail">
 
               <img className="image" src={selectedNews?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedNews?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
