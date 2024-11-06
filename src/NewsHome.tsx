@@ -5,6 +5,7 @@ import axios from 'axios';
 import { green } from '@mui/material/colors';
 import { Panel, PanelType } from '@fluentui/react';
 import SocialMediaIcon from './SocialMediaIcon';
+import { cleanData } from 'jquery';
 
 const NewsHomemainPage = (props: any) => {
     const [EventData, setEventData]: any = useState([]);
@@ -164,25 +165,14 @@ const NewsHomemainPage = (props: any) => {
     // });
 
     //To Correct the Format of The Date DD-MM-YYYY
-    function formatDate(dateString: string) {
-        // Parse the date string
+    const formatDate = (dateString: any) => {
         const date = new Date(dateString);
-
-        // Extract day, month, and year
-        const day = date.getDate();
-        const year = date.getFullYear();
-
-        // Array of month names
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        // Get the month name
-        const month = months[date.getMonth()]; // getMonth() returns month from 0-11
-
-        // Construct the formatted date string
-        const formattedDate = `${day.toString().padStart(2, '0')} ${month} ${year}`;
-
-        return formattedDate;
-    }
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        });
+    };
 
     const filterEventsByYear = (events: any, year: any) => {
         if (year == "All") {
@@ -196,7 +186,9 @@ const NewsHomemainPage = (props: any) => {
         }
 
     };
-
+    const handleClear = () => {
+        setSearchTerm(''); // Clear the search term
+    };
     const handleClearSearch = () => {
         setSearchTerm('');
         if (isFlatView) {
@@ -253,15 +245,17 @@ const NewsHomemainPage = (props: any) => {
                 <header className='page-header text-center'><h1 className='page-title'>OV Washington News</h1></header>
                 <div className="align-item-center align-items-baseline d-flex fs-6 gap-2 mb-4 searchFilter">
                     {/* <span>Search in all News Data:</span> */}
-                    <div className="col">
+                    <div className="col position-relative">
                         <input
                             type="text"
                             placeholder="Search All..."
                             value={searchTerm}
                             onChange={(e) => handleSearch(e.target.value)}
                         />
+                        {searchTerm && ( // Show the clear icon only if there is a value in searchTerm
+                            <span onClick={handleClearSearch} className="searchinput-searchclear">X</span>
+                        )}
                     </div>
-
                     <span>Showing {FilterData?.length} of {EventData?.length} News</span>
                     {/* <button
                             onClick={() => setIsFlatView(!isFlatView)}
@@ -307,13 +301,13 @@ const NewsHomemainPage = (props: any) => {
 
                     </div>
                 </div>}
-                <section className={!isFlatView ? "border-top-0 border clearfix p-3 tab-content" : ''}>
+                <section className={!isFlatView ? "border-top-0 border clearfix p-3 tab-content mb-3" : ''}>
                     {FilterData?.map((item: any) => (
                         <>
                             <div key={item.Id} className='events_home publicationItem has-shadow clearfix'>
                                 <div className='entry-meta'>
                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
-                                    <span>  {item?.Created ? formatDate(item.Created) : ''}</span></div>
+                                    <span>  {item?.PublishingDate ? formatDate(item?.PublishingDate) : ' '}</span></div>
                                 <div className='valign-middle'>
                                     <h4 className="card-title" onClick={() => handleTitleClick(item)}>
                                         <a> {item?.Title}</a>
@@ -347,35 +341,12 @@ const NewsHomemainPage = (props: any) => {
                             onRenderHeader={CustomHeader}
                         >
                             <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-                                {/* <input
-                                    type="text"
-                                    value={url}
-                                    onChange={(e) => setUrl(e.target.value)}
-                                    style={{
-                                        border: '2px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        marginRight: '10px',
-                                        width: '300px',
-                                    }}
-                                    readOnly
-                                />
-                                <button onClick={handleCopy} style={{
-                                    padding: '8px 16px',
-                                    backgroundColor: '#4CAF50',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '0px',
-                                    cursor: 'pointer',
-                                }}
-                                >
-                                    Copy
-                                </button> */}
-
-
                             </div>
                             <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-                                <h4 className="alignCenter">{selectedNews?.Title}</h4>
+                                <div className='entry-meta'>
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
+                                    <span>  {formatDate(selectedNews?.PublishingDate)}</span></div>
+                                <h4>{selectedNews?.Title}</h4>
                                 <div className="imagedetail">
 
                                     <img className="image" src={selectedNews?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedNews?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />

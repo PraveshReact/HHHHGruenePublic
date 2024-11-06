@@ -22,6 +22,15 @@ const EventHomemainPage = (props: any) => {
     const removeSpacialChar = (Title: any) => {
         return Title?.replace(/ /g, '-');
     }
+    const HTMLRenderer = ({ content }: any) => {
+
+        return (
+            <div
+                className="html-content container"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        );
+    };
     const handleTitleClick = (newsItem: any) => {
         // Navigate to the new page and pass the newsItem as state
         setSelectedEvent(newsItem);
@@ -40,7 +49,7 @@ const EventHomemainPage = (props: any) => {
         return (
             <>
                 <div className="align-items-center d-flex justify-content-between w-100">
-                    <h3 className="m-0">News Details</h3>
+                    <h3 className="m-0">Event Details</h3>
                     <div className="Shareon align-items-baseline d-flex mb-0">
                         <h6>Share :</h6>
                         <SocialMediaIcon platform="facebook" postUrl={url} />
@@ -158,25 +167,14 @@ const EventHomemainPage = (props: any) => {
     // });
 
     //To Correct the Format of The Date DD-MM-YYYY
-    function formatDate(dateString: string) {
-        // Parse the date string
+    const formatDate = (dateString: any) => {
         const date = new Date(dateString);
-
-        // Extract day, month, and year
-        const day = date.getDate();
-        const year = date.getFullYear();
-
-        // Array of month names
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        // Get the month name
-        const month = months[date.getMonth()]; // getMonth() returns month from 0-11
-
-        // Construct the formatted date string
-        const formattedDate = `${day.toString().padStart(2, '0')} ${month} ${year}`;
-
-        return formattedDate;
-    }
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        });
+    };
     const filterEventsByYear = (events: any, year: any) => {
         if (year == "All") {
             return events
@@ -248,7 +246,7 @@ const EventHomemainPage = (props: any) => {
                 <header className='page-header text-center'><h1 className='page-title'>Events Home</h1></header>
                 <div className="align-item-center align-items-baseline d-flex fs-6 gap-2 mb-4 searchFilter">
                     {/* <span>Search in all News Data:</span> */}
-                    <div className="col">
+                    <div className="col position-relative">
                         <input
                             type="text"
                             placeholder="Search All..."
@@ -256,6 +254,9 @@ const EventHomemainPage = (props: any) => {
                             onChange={(e) => handleSearch(e.target.value)}
 
                         />
+                        {searchTerm && ( // Show the clear icon only if there is a value in searchTerm
+                            <span onClick={handleClearSearch} className="searchinput-searchclear">X</span>
+                        )}
                     </div>
 
                     <span>Showing {FilterData?.length} of {EventData?.length} Event</span>
@@ -303,7 +304,7 @@ const EventHomemainPage = (props: any) => {
 
                     </div>
                 </div>}
-                <section className={!isFlatView ? "border-top-0 border clearfix p-3 tab-content" : ''}>
+                <section className={!isFlatView ? "border-top-0 border clearfix p-3 tab-content mb-3" : ''}>
                     {FilterData?.map((item: any) => (
                         <>
                             <div key={item.Id} className='events_home publicationItem has-shadow clearfix'>
@@ -319,10 +320,13 @@ const EventHomemainPage = (props: any) => {
                                     <div className='Coverimage'>
                                         <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
                                     </div>
+
                                     <p>
-                                        {/* { item.Description.replaceAll(/&#160;/g, ' '} */}
+                                        <HTMLRenderer content={item?.Description} />
                                     </p>
-                                    <p dangerouslySetInnerHTML={{ __html: item.Description?.replaceAll(/&#160;/g, ' ') }} />
+                                    {/* <div className="eventItemDesc cutoff-text">
+                                        <div dangerouslySetInnerHTML={{ __html: item?.Description }}></div>
+                                    </div> */}
                                 </div>
                             </div>
 
@@ -341,33 +345,11 @@ const EventHomemainPage = (props: any) => {
                         >
 
                             <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-                                {/* <input
-                                    type="text"
-                                    value={url}
-                                    onChange={(e) => setUrl(e.target.value)}
-                                    style={{
-                                        border: '2px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        marginRight: '10px',
-                                        width: '300px',
-                                    }}
-                                    readOnly
-                                />
-                                <button onClick={handleCopy} style={{
-                                    padding: '8px 16px',
-                                    backgroundColor: '#4CAF50',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '0px',
-                                    cursor: 'pointer',
-                                }}
-                                >
-                                    Copy
-                                </button> */}
-
                                 <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-                                    <h4 className="alignCenter">{selectedEvent?.Title}</h4>
+                                    <div className='entry-meta'>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
+                                        <span>  {selectedEvent?.EventDate ? formatDate(selectedEvent.EventDate) : ''}</span></div>
+                                    <h4>{selectedEvent?.Title}</h4>
                                     <div className="imagedetail">
 
                                         <img className="image"
@@ -377,7 +359,7 @@ const EventHomemainPage = (props: any) => {
                                     </div>
                                     <div className="eventItemDesc">
                                         <span>
-                                            <p dangerouslySetInnerHTML={{ __html: selectedEvent?.Description?.replaceAll(/&#160;/g, ' ') }} />
+                                            <p dangerouslySetInnerHTML={{ __html: selectedEvent?.Description }} />
                                         </span>
                                     </div>
                                 </div>

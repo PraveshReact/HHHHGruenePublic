@@ -503,6 +503,9 @@ nav.navbar.navbar-main.navbar-light.fixed-top {
     position: relative;
     z-index: 1;
 }
+.sliderDescription a.text-white:hover {
+  color: #fff !important;
+}
 .container.top_slider_container.text-center {
   z-index: 2;
 }
@@ -593,6 +596,18 @@ body a:not([href]):not([class]):hover, body a:hover {
     font-family: 'GrueneType';
     font-size: 16px;
 }
+.relavantpanel {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-family: 'PTSans';
+  font-size: 16px;
+}
+.relavantpanel-meta > svg {
+  width: 18px;
+  height: 18px;
+}
+
  
 .entry-meta > svg {
     width: 18px;
@@ -626,7 +641,7 @@ margin-bottom: 0px;
   background: none !important;
 }
 .cutoff-text {
-  --max-lines: 5;
+  --max-lines: 5 ;
   --line-height: 1.4;
   max-height: calc(var(--max-lines) * 1em * var(--line-height));
   /* display: -webkit-box; */
@@ -914,7 +929,7 @@ color: var(--text-color)!important;
   font-size: 23px;
   color: var(--text-color);
 }
-.eventItemDesc p, .eventItemDesc span, .entry-content p, .entry-content span, .entry-content p > a .Card-row-text-container-desc, .entry-content p > a {
+.eventItemDesc p, .eventItemDesc span, .entry-content p, .entry-content span .Card-row-text-container-desc {
   margin-bottom: 0px;
   text-align: left;
   font-size: 19px !important;
@@ -1632,3 +1647,146 @@ button {
 }
   /*--------------- breadcrumb end------------------
     --------------------------------------------*/
+    .SearchInput-container {
+      position: relative;
+  
+  }
+    .searchinput-searchclear {
+      font-size: 17px;
+      cursor: pointer;
+      color: #ccc;
+      position: absolute;
+      padding: 0;
+      background-color: #FFF;
+      right: 15px;
+      top: 7px;
+    }
+    
+    .input-search-btn {
+      background-color: var(--siteColor);
+      padding: 4px 12px;
+      height: 100%;
+      position: absolute;
+      font-size: 14px;
+      right: 1px;
+      color: #fff;
+      top: 0px;
+      line-height: 28px;
+    }
+
+    .red_block a:hover, .bg-red h3 a:hover {
+      color: #fff !important;
+  }
+
+
+
+
+  summary {
+    outline: none;
+    display: block;
+    background: var(--primary-color);
+    color: var(--light);
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .AccordionContent {
+    border: 1px solid #ddd;
+    border-top: none;
+    background: var(--white);
+  }
+  
+  summary::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 12px;
+    height: 12px;
+    transition: transform .3s;
+    transform: translateY(-100%) rotate(45deg);
+    border-right: 1.5px solid #ffffff;
+    border-bottom: 1.5px solid #ffffff;
+    top: 24px;
+    right: 20px;
+  }
+  
+  summary.primary-color::before {
+    border-right: 1.5px solid var(--primary-color);
+    border-top: 1.5px solid var(--primary-color);
+  }
+  
+  details[open]>summary:before {
+    transform: translateY(-45%) rotate(224deg) !important;
+    transition: 0.45s transform ease !important;
+  }
+  
+  summary.bg-primary-color:hover strong,
+  details[open] summary.bg-primary-color strong,
+  summary:hover::before,
+  details[open] summary.bg-primary-color::before {
+    color: var(--white);
+  }
+  
+  /* # The Sliding Summary # */
+  details {
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
+  
+  details summary {
+    /* position: relative; */
+    z-index: 10;
+    font-family: var(--body-font);
+    display: inline-block;
+    width: 100%;
+    font-size: 1.1875rem;
+    padding: 8px 20px;
+    background: var(--primary-color);
+  }
+  
+  details[open]>summary {
+    background: var(--hover-color);
+  }
+  
+  details[open] .expand-AccordionContent.clearfix {
+    padding: 16px 20px;
+  }
+  
+  @keyframes details-show {
+    from {
+      margin-bottom: -80%;
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+  }
+  
+  details>*:not(summary) {
+    /*animation: details-show 100ms ease-in-out;*/
+    /* position: relative;
+    z-index: 1; */
+    transition: all 0.2s ease-in-out;
+    color: transparent;
+    overflow: hidden;
+  }
+  
+  details[open]>*:not(summary) {
+    color: inherit;
+  }
+  
+  a.accordion-Btn-right {
+    position: absolute;
+    width: auto;
+    right: 2%;
+    cursor: pointer;
+    z-index: 99999;
+  }
+  .capctha label{
+    color:#242424;
+  }
+  .svg__icon--pdf{
+    width: 24px;
+    height: 24px;
+  }
+  

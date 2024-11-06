@@ -45,22 +45,32 @@ const Navbarcomponent = () => {
         redirect: 'follow'
       };
 
-      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
-        .then(response => response.text())
-        .then((result: any) => {
-          result = JSON.parse(result)
-          results = result?.data
-          const structuredData = structureData(results);
-          console.log(structuredData, "structuredData")
-          structuredData.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
-          setData(structuredData);
-        })
-        .catch(error => console.log('error', error));
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const result = await response.text();
+      const parsedResult = JSON.parse(result);
+      results = parsedResult?.data;
+
+      const structuredData = structureData(results);
+
+      // Recursive sorting function
+      const sortData = (data: any[]) => {
+        return data.sort((a: any, b: any) => a.SortOrder - b.SortOrder).map((item: any) => {
+          if (item.children && Array.isArray(item.children)) {
+            item.children = sortData(item.children); // Recursively sort children
+          }
+          return item;
+        });
+      };
+
+      const sortedData: any = sortData(structuredData);
+      console.log(sortedData, "sortedData");
+      setData(sortedData);
     } catch (error) {
       console.error('An error occurred:', error);
     }
     return results;
-  }
+  };
+
   useEffect(() => {
     const topNavigationData = async () => {
       const tableName = "navigation";

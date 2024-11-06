@@ -59,7 +59,7 @@ function Slider_Comp() {
     return (
       <>
         <div className="align-items-center d-flex justify-content-between w-100">
-          <h3 className="m-0">News Details</h3>
+          <h3 className="m-0">Event Details</h3>
           <div className="Shareon align-items-baseline d-flex mb-0">
             <h6>Share :</h6>
             <SocialMediaIcon platform="facebook" postUrl={url} />
@@ -181,20 +181,15 @@ function Slider_Comp() {
     };
   }, []);
 
-  function formatDate(dateString: string) {
-    // Parse the ISO 8601 date string
+  const formatDate = (dateString: any) => {
     const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
-    // Extract day, month, and year
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' });
-    const year = date.getFullYear();
-
-    // Construct the formatted date string
-    const formattedDate = `${day} ${month} ${year}`;
-
-    return formattedDate;
-  }
 
   return (
     <div className="section NewsCardSection">
@@ -221,7 +216,7 @@ function Slider_Comp() {
                     <div className="entry-meta">
                       <IoCalendarOutline />
                       <span>
-                        {item?.EventDate ? formatDate(item.EventDate) : ''}
+                        {item?.EventDate ? formatDate(item?.EventDate) : ''}
                       </span>
                     </div>
                     <h4 className="card-title" onClick={() => handleTitleClick(item)}>
@@ -252,8 +247,13 @@ function Slider_Comp() {
         >
           <div>
             <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-
-              <h4 className="alignCenter">{selectedEvent?.Title}</h4>
+              <div className="entry-meta">
+                <IoCalendarOutline />
+                <span>
+                  {selectedEvent?.EventDate ? formatDate(selectedEvent?.EventDate) : ''}
+                </span>
+              </div>
+              <h4 >{selectedEvent?.Title}</h4>
               <div className="imagedetail">
                 <img className="image" src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
 
