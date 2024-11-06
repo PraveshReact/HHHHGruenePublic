@@ -1,9 +1,20 @@
 import React from 'react'
 import "./CSS/custom.css";
+import "./CSS/custom.css";
 
 export const RelevantWebPart = (props: any) => {
     const [reldoc, setRelDoc] = React.useState([])
     const [keyDoc, setKeyDoc] = React.useState([])
+    function getFileIconClass(fileType: string) {
+
+        switch (fileType) {
+            case ' ':
+                return "svg__iconbox svg__icon--unknownFile"; // Default class for unknown file types
+            default:
+                return `svg__iconbox svg__icon--${fileType}`;
+
+        }
+    }
     function getFileIconClass(fileType: string) {
 
         switch (fileType) {
@@ -107,6 +118,19 @@ export const RelevantWebPart = (props: any) => {
         // If href="..." not found, return the original path
         return path;
     };
+    const extractHrefValue = (path: any) => {
+        const hrefPattern = /href="([^"]+)"/; // Regular expression to extract the value inside href="..."
+
+        const match = path.match(hrefPattern); // Find the href pattern in the path
+
+        if (match && match[1]) {
+            // Return the value inside href="..."
+            return match[1];
+        }
+
+        // If href="..." not found, return the original path
+        return path;
+    };
     return (
         <div className='html-content container'>
             {/* {reldoc?.length > 0 && props?.usedFor == 'relDoc' && <div>
@@ -128,6 +152,8 @@ export const RelevantWebPart = (props: any) => {
                         <div className="col-12 justify-content-center mb-0">
                             {
                                 keyDoc?.map((keyitem: any) => {
+                                    const iconClass = getFileIconClass(keyitem?.File_x0020_Type);
+                                    console.log(iconClass)
                                     const iconClass = getFileIconClass(keyitem?.File_x0020_Type);
                                     console.log(iconClass)
                                     return (
@@ -155,7 +181,10 @@ export const RelevantWebPart = (props: any) => {
                                                                     {/* <span className={getFileIconClass(iconClass)}></span> */}
 
                                                                     {/* svg__iconbox svg__icon--pdf */}
+                                                                    {/* svg__iconbox svg__icon--pdf */}
                                                                     {/* <span className="key-documents__documentYear">(2011)</span> */}
+                                                                    <span className={iconClass} aria-label={`${keyitem?.File_x0020_Type} icon`}>
+                                                                    </span>
                                                                     <span className={iconClass} aria-label={`${keyitem?.File_x0020_Type} icon`}>
                                                                     </span>
                                                                     {keyitem?.Title}
