@@ -6,6 +6,7 @@ import { green } from '@mui/material/colors';
 import { Panel, PanelType } from '@fluentui/react';
 import { useNavigate } from "react-router-dom";
 import SocialMediaIcon from './SocialMediaIcon';
+import EventPanel from './EventPanel';
 
 const EventHomemainPage = (props: any) => {
     const [EventData, setEventData]: any = useState([]);
@@ -333,8 +334,11 @@ const EventHomemainPage = (props: any) => {
                         </>
 
                     ))}
-
                     {selectedEvent && (
+                        <EventPanel selectedEvent={selectedEvent} onClose={closePanel} url={url} />
+
+                    )}
+                    {/* {selectedEvent && (
                         <Panel
                             type={PanelType.medium}
                             customWidth="550px"
@@ -367,7 +371,7 @@ const EventHomemainPage = (props: any) => {
 
 
                         </Panel>
-                    )}
+                    )} */}
 
 
                 </section>

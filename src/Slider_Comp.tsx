@@ -1,6 +1,3 @@
-
-
-
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import Slider, { Settings } from "react-slick";
@@ -10,6 +7,7 @@ import { Panel, PanelType } from '@fluentui/react';
 import { IoChevronForwardOutline, IoChevronBackOutline, IoCalendarOutline } from "react-icons/io5";
 import "./CSS/App.css";
 import SocialMediaIcon from "./SocialMediaIcon";
+import EventPanel from './EventPanel';
 
 function Slider_Comp() {
   const sliderRef = useRef<Slider | null>(null);
@@ -19,6 +17,7 @@ function Slider_Comp() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
+
   const [url, setUrl] = useState('');
 
   const settings: Settings = {
@@ -236,36 +235,10 @@ function Slider_Comp() {
             ))}
         </Slider>
       </div>
-      {selectedEvent && (
-        <Panel
-          type={PanelType.medium}
-          customWidth="550px"
-          isOpen={selectedEvent}
-          isBlocking={false}
-          isFooterAtBottom={true}
-          onRenderHeader={CustomHeader}
-        >
-          <div>
-            <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-              <div className="entry-meta">
-                <IoCalendarOutline />
-                <span>
-                  {selectedEvent?.EventDate ? formatDate(selectedEvent?.EventDate) : ''}
-                </span>
-              </div>
-              <h4 >{selectedEvent?.Title}</h4>
-              <div className="imagedetail">
-                <img className="image" src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
 
-              </div>
-              <div className="eventItemDesc">
-                <span>
-                  <p dangerouslySetInnerHTML={{ __html: selectedEvent?.Description }}></p>
-                </span>
-              </div>
-            </div>
-          </div>
-        </Panel>
+      {selectedEvent && (
+        <EventPanel selectedEvent={selectedEvent} onClose={closePanel} url={url} />
+
       )}
     </div>
   );

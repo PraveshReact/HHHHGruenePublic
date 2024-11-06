@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import moment from "moment";
 import SocialMediaIcon from "./SocialMediaIcon";
 import { Panel, PanelType } from '@fluentui/react';
+import EventPanel from "./EventPanel";
 
 export default function RelevantEvent(props: any) {
     const [allEvents, setallEvents]: any = useState([]);
@@ -138,6 +139,10 @@ export default function RelevantEvent(props: any) {
                 </div>
             )}
             {selectedEvent && (
+                <EventPanel selectedEvent={selectedEvent} onClose={closePanel} url={url} />
+
+            )}
+            {/* {selectedEvent && (
                 <Panel
                     type={PanelType.medium}
                     customWidth="550px"
@@ -171,7 +176,7 @@ export default function RelevantEvent(props: any) {
 
 
                 </Panel>
-            )}
+            )} */}
         </>
     );
 

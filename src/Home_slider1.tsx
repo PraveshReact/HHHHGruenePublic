@@ -9,6 +9,7 @@ import { IoChevronForwardOutline, IoChevronBackOutline, IoCalendarOutline } from
 import { Link } from "react-router-dom";
 import moment from "moment";
 import SocialMediaIcon from "./SocialMediaIcon";
+import NewsPanel from "./NewsPanel";
 
 function Home_slider1() {
   const sliderRef = useRef<Slider | null>(null);
@@ -237,37 +238,7 @@ function Home_slider1() {
 
       </div>
       {selectedNews && (
-        <Panel
-          type={PanelType.medium}
-          customWidth="550px"
-          isOpen={selectedNews}
-          isBlocking={false}
-          isFooterAtBottom={true}
-          onRenderHeader={CustomHeader}
-        >
-
-          <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-            <div className="entry-meta">
-              <IoCalendarOutline />
-              <span>
-                {formatDate(selectedNews?.PublishingDate)}
-              </span>
-            </div>
-            <h4>{selectedNews?.Title}</h4>
-            <div className="imagedetail">
-
-              <img className="image" src={selectedNews?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedNews?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
-
-            </div>
-            <div className="eventItemDesc">
-              <span>
-                <p dangerouslySetInnerHTML={{ __html: selectedNews?.Body }}></p>
-              </span>
-            </div>
-          </div>
-
-
-        </Panel>
+        <NewsPanel selectedNews={selectedNews} onClose={closePanel} url={url} />
       )}
     </div>
   );

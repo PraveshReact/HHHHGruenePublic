@@ -6,6 +6,7 @@ import { green } from '@mui/material/colors';
 import { Panel, PanelType } from '@fluentui/react';
 import SocialMediaIcon from './SocialMediaIcon';
 import { cleanData } from 'jquery';
+import NewsPanel from './NewsPanel';
 
 const NewsHomemainPage = (props: any) => {
     const [EventData, setEventData]: any = useState([]);
@@ -332,35 +333,7 @@ const NewsHomemainPage = (props: any) => {
                     ))}
 
                     {selectedNews && (
-                        <Panel
-                            type={PanelType.medium}
-                            customWidth="550px"
-                            isOpen={selectedNews}
-                            isBlocking={false}
-                            isFooterAtBottom={true}
-                            onRenderHeader={CustomHeader}
-                        >
-                            <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-                            </div>
-                            <div className="p-0 news_home publicationItem clearfix bg-white  border-0 ">
-                                <div className='entry-meta'>
-                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
-                                    <span>  {formatDate(selectedNews?.PublishingDate)}</span></div>
-                                <h4>{selectedNews?.Title}</h4>
-                                <div className="imagedetail">
-
-                                    <img className="image" src={selectedNews?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : selectedNews?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
-
-                                </div>
-                                <div className="eventItemDesc">
-                                    <span>
-                                        <p dangerouslySetInnerHTML={{ __html: selectedNews?.Body }}></p>
-                                    </span>
-                                </div>
-                            </div>
-
-
-                        </Panel>
+                        <NewsPanel selectedNews={selectedNews} onClose={closePanel} url={url} />
                     )}
 
                 </section>
