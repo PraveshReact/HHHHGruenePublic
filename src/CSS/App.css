@@ -506,9 +506,6 @@ nav.navbar.navbar-main.navbar-light.fixed-top {
 .sliderDescription a.text-white:hover {
   color: #fff !important;
 }
-.sliderDescription a.text-white:hover {
-  color: #fff !important;
-}
 .container.top_slider_container.text-center {
   z-index: 2;
 }
@@ -611,18 +608,6 @@ body a:not([href]):not([class]):hover, body a:hover {
   height: 18px;
 }
 
-.relavantpanel {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  font-family: 'PTSans';
-  font-size: 16px;
-}
-.relavantpanel-meta > svg {
-  width: 18px;
-  height: 18px;
-}
-
  
 .entry-meta > svg {
     width: 18px;
@@ -656,7 +641,6 @@ margin-bottom: 0px;
   background: none !important;
 }
 .cutoff-text {
-  --max-lines: 5 ;
   --max-lines: 5 ;
   --line-height: 1.4;
   max-height: calc(var(--max-lines) * 1em * var(--line-height));
