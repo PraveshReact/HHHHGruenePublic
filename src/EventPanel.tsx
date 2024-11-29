@@ -13,23 +13,43 @@ const EventPanel = ({ selectedEvent, onClose, url }: any) => {
             year: "numeric",
         });
     };
+    const HTMLRenderer = ({ content }: any) => {
+
+        return (
+            <div
+                className="html-content container"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        );
+    };
 
     const CustomHeader = () => {
         return (
-            <div className="align-items-center d-flex justify-content-between w-100">
-                <h3 className="m-0">Event Details</h3>
-                <div className="Shareon align-items-baseline d-flex mb-0">
-                    <h6>Share :</h6>
-                    <SocialMediaIcon platform="facebook" postUrl={url} />
-                    <SocialMediaIcon platform="twitter" postUrl={url} />
-                    <SocialMediaIcon platform="linkedin" postUrl={url} />
-                    <SocialMediaIcon platform="copy-link" postUrl={url} />
-                    <span
-                        className="svg__iconbox svg__icon--cross"
-                        style={{ position: "relative", top: "6px" }}
-                        onClick={onClose}>
-                    </span>
+            <div className="w-100">
+                <div className="align-items-center d-flex justify-content-between w-100">                    {/* <h3 className="m-0">Event Details</h3> */}
+
+                    <div className="entry-meta">
+                        <IoCalendarOutline />
+                        <span>{selectedEvent?.EventDate ? formatDate(selectedEvent.EventDate) : ''}</span>
+                    </div>
+
+                    <div className="Shareon align-items-baseline d-flex mb-0">
+                        <h6>Share :</h6>
+                        <SocialMediaIcon platform="facebook" postUrl={url} />
+                        <SocialMediaIcon platform="twitter" postUrl={url} />
+                        <SocialMediaIcon platform="linkedin" postUrl={url} />
+                        <SocialMediaIcon platform="copy-link" postUrl={url} />
+                        <span
+                            className="svg__iconbox svg__icon--cross"
+                            style={{ position: "relative", top: "6px" }}
+                            onClick={onClose}>
+                        </span>
+                    </div>
+
                 </div>
+                <h4>
+                    <a> {selectedEvent?.Title}</a>
+                </h4>
             </div>
         );
     };
@@ -45,12 +65,9 @@ const EventPanel = ({ selectedEvent, onClose, url }: any) => {
                 onDismiss={onClose}
                 onRenderHeader={CustomHeader}
             >
-                <div className="p-0 news_home publicationItem clearfix bg-white border-0">
-                    <div className="entry-meta">
-                        <IoCalendarOutline />
-                        <span>{selectedEvent?.EventDate ? formatDate(selectedEvent.EventDate) : ''}</span>
-                    </div>
-                    <h4>{selectedEvent?.Title}</h4>
+                <div className="px-0 py-12 news_home publicationItem clearfix bg-white border-0">
+
+                    {/* <h4>{selectedEvent?.Title}</h4> */}
                     <div className="imagedetail">
                         <img
                             className="image"
@@ -58,11 +75,9 @@ const EventPanel = ({ selectedEvent, onClose, url }: any) => {
                             alt="Event cover"
                         />
                     </div>
-                    <div className="eventItemDesc">
-                        <span>
-                            <p dangerouslySetInnerHTML={{ __html: selectedEvent?.Description }}></p>
-                        </span>
-                    </div>
+                    <p>
+                        <HTMLRenderer content={selectedEvent?.Description} />
+                    </p>
                 </div>
             </Panel>
         )

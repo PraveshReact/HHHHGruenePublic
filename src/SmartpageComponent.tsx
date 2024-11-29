@@ -85,7 +85,6 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     return formattedDate;
   }
 
-
   const getPublicServerData = async (tableName: string): Promise<any[]> => {
     try {
       const myHeaders = new Headers();
@@ -152,7 +151,6 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
           return 0; // If EventDate is missing in any of the objects, maintain the order
         }); let finalData = sortedData.map((data: any) => {
           if (data.Description) {
-
             data.Description = replaceUrlsWithNewFormat(data.Description)
           } return data;
         })
@@ -413,6 +411,29 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       return [];
     }
   }
+  // API function to fetch KeyTitle from the server
+  const getPublicServerSmartMetaDataTitle = async (Title: any, smartid: any) => {
+    try {
+      let url = '';
+      if (smartid != null) {
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+      } else {
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+      }
+
+      const response = await fetch(url);
+      const result = await response.json();
+
+      if (result?.success && result?.data) {
+        return result?.data?.KeyTitle || Title; // Return cleaned title from API
+      } else {
+        return Title; // Fallback to original title
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return Title; // Return original title in case of error
+    }
+  };
 
   const HTMLRenderer = ({ content }: any) => {
     return (
@@ -421,11 +442,16 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       />
     );
   };
+  const handleHref = async (title: any) => {
+    const smarttitle = await getPublicServerSmartMetaDataTitle(title, "")
+    window.location.href = `https://www.gruene-washington.de/${smarttitle}`;
+
+  }
 
   return (
-    <><section className='SmartPages'>
-      <div className="container">
-        <div className="col-sm-12 p-0 ">
+    <>
+      <div className="fixedbreadcrump">
+        <div className="container">
           <ul className="spfxbreadcrumb m-0 p-0">
             {breadcrumsdata.length > 0 && (
               <li>
@@ -456,7 +482,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       // Collect values up to the clicked index and filter out empty values
                       // const allValues = decodedArray?.slice(0, index + 1).filter(Boolean).join('/');
                       // Navigate to the new URL with the concatenated string
-                      window.location.href = `https://www.gruene-washington.de/${item.KeyTitle}`;
+                      handleHref(item.KeyTitle)
                     }}
                   >
                     {removeSpacialChar2(item?.Title)}
@@ -467,72 +493,25 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
           </ul>
         </div>
-
       </div>
 
+      <section className='SmartPages mt-5'>
 
+        <div className='row'>
 
-      <div className='row'>
+          <div className='col-12'>
 
-        <div className='col-12'>
-
-          {Smartpageflag && (
-            data?.map((item: any, index: number) => {
-              console.log("Item:", item);
-              return (
-                item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
-                  <div key={index}>
-                    <section
-                      id="page-title"
-                      className="page-title-parallax page-title-dark skrollable skrollable-between"
-                      style={{
-                        backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : ""})`,
-                        backgroundPosition: `0px -117.949px`
-                      }}
-                      data-bottom-top="background-position:0px 300px;"
-                      data-top-bottom="background-position:0px -300px;"
-                    >
-                      <div className="container  clearfix">
-                        <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
-                          <h1>{item?.PageTitle || item?.Title}</h1>
-                        </h1>
-                        {item.ShortDescription ?
-                          <div className="SmartPages-Description"><HTMLRenderer content={item?.ShortDescription} /></div> : ""
-                        }
-                      </div>
-                    </section>
-                    <section className="section container">
-                      <div className="row">
-                        <div className={!Showwebpart ? "col-12" : "col-9"}>
-                          <HTMLRenderer content={item.PageContentProfile} />
-                          {item.KeyTitle == "Grüne-Weltweit" ? (<GrueneWeltweitForm />) : ''}
-                          {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
-                        </div>
-                        <div className={!Showwebpart ? "col-3" : "col-3"}>
-                          {data.length > 0 && <RelevantNews newsItem={data} showwebpart={showwebpart} />}
-                          {data.length > 0 && <RelevantEvent newsItem={data} showwebpart={showwebpart} />}
-                        </div>
-                        <div className={!Showwebpart ? "col-12" : "col-9"}>
-                          {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'relDoc'} showwebpart={showwebpart} />}
-                        </div>
-
-                      </div>
-                    </section>
-                  </div>
-                ) :
-                  item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
-                    <>
-                      <WahlWeltweit />
-                      {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
-                      {/* <HTMLRenderer content={item.PageContent} /> */}
-                    </>
-                  ) : item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
-                    <div>
+            {Smartpageflag && (
+              data?.map((item: any, index: number) => {
+                console.log("Item:", item);
+                return (
+                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                    <div key={index}>
                       <section
                         id="page-title"
                         className="page-title-parallax page-title-dark skrollable skrollable-between"
                         style={{
-                          backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
+                          backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : ""})`,
                           backgroundPosition: `0px -117.949px`
                         }}
                         data-bottom-top="background-position:0px 300px;"
@@ -540,27 +519,74 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       >
                         <div className="container  clearfix">
                           <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
-                            {item?.AlternativeTitle}
+                            <h1>{item?.PageTitle || item?.Title}</h1>
                           </h1>
+                          {item.ShortDescription ?
+                            <div className="SmartPages-Description"><HTMLRenderer content={item?.ShortDescription} /></div> : ""
+                          }
                         </div>
                       </section>
-                      <Briefwahl2021 />
+                      <section className="section container">
+                        <div className="row">
+                          <div className={!Showwebpart ? "col-12" : "col-9"}>
+                            <HTMLRenderer content={item.PageContentProfile} />
+                            {item.KeyTitle == "Grüne-Weltweit" ? (<GrueneWeltweitForm />) : ''}
+                            {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
+                            <div className={!Showwebpart ? "col-12" : "col-12"}>
+                              {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'relDoc'} showwebpart={showwebpart} />}
+                            </div>
+                          </div>
+                          <div className={!Showwebpart ? "col-3 pt-2" : "col-3 pt-2"}>
+                            {data.length > 0 && <RelevantNews newsItem={data} showwebpart={showwebpart} />}
+                            {data.length > 0 && <RelevantEvent newsItem={data} showwebpart={showwebpart} />}
+                          </div>
 
+
+                        </div>
+                      </section>
                     </div>
-                  ) : (
-                    <Briefwahlsearch stateParam={stateParam} />
-                  )
-              );
-            })
-          )}
-          {Newsflag &&
-            <NewsHome />
-          }
+                  ) :
+                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                      <>
+                        <WahlWeltweit />
+                        {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
+                        {/* <HTMLRenderer content={item.PageContent} /> */}
+                      </>
+                    ) : item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                      <div>
+                        <section
+                          id="page-title"
+                          className="page-title-parallax page-title-dark skrollable skrollable-between"
+                          style={{
+                            backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
+                            backgroundPosition: `0px -117.949px`
+                          }}
+                          data-bottom-top="background-position:0px 300px;"
+                          data-top-bottom="background-position:0px -300px;"
+                        >
+                          <div className="container  clearfix">
+                            <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
+                              {item?.AlternativeTitle}
+                            </h1>
+                          </div>
+                        </section>
+                        <Briefwahl2021 />
 
-          {Eventflag &&
-            <EventHomemainPage />
-          }
-          {/* {Newsflag && (
+                      </div>
+                    ) : (
+                      <Briefwahlsearch stateParam={stateParam} />
+                    )
+                );
+              })
+            )}
+            {Newsflag &&
+              <NewsHome />
+            }
+
+            {Eventflag &&
+              <EventHomemainPage />
+            }
+            {/* {Newsflag && (
             <div className="container">
               <header className='page-header text-center'><h1 className='page-title'>OV Washington News</h1></header>
               {NewsData.map((item: any) => (
@@ -584,7 +610,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
               ))}
             </div>
           )} */}
-          {/* {Eventflag && (
+            {/* {Eventflag && (
             <div className='container'>
               <header className='page-header text-center'><h1 className='page-title'>Events Home</h1></header>
               <section>
@@ -609,12 +635,12 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
               </section>
             </div>
           )} */}
-          {showBriefflag && (
-            <Briefwahlsearch stateParam={stateParam} />
-          )}
+            {showBriefflag && (
+              <Briefwahlsearch stateParam={stateParam} />
+            )}
+          </div>
         </div>
-      </div>
-    </section ></>
+      </section ></>
   );
 };
 

@@ -54,6 +54,15 @@ function Slider_Comp() {
   const closePanel = () => {
     setSelectedEvent(null);
   }
+  const HTMLRenderer = ({ content }: any) => {
+
+    return (
+      <div
+        className="html-content container"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  };
   const CustomHeader = () => {
     return (
       <>
@@ -223,7 +232,9 @@ function Slider_Comp() {
                     </h4>
                     {item?.Description?.length > 0 && <>
                       <div className="eventItemDesc cutoff-text">
-                        <div dangerouslySetInnerHTML={{ __html: item?.Description }}></div>
+                        <p>
+                          <HTMLRenderer content={item?.Description} />
+                        </p>
                       </div>
                       {!(item?.Description?.length <= 200) && <input className="expand-btn" type="checkbox" />}
                     </>

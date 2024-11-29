@@ -4,23 +4,47 @@ import PropTypes from 'prop-types';
 import { IoCalendarOutline } from 'react-icons/io5';
 import SocialMediaIcon from './SocialMediaIcon';
 const NewsPanel = ({ selectedNews, onClose, url }: any) => {
-    const CustomHeader = () => (
-        <div className="align-items-center d-flex justify-content-between w-100">
-            <h3 className="m-0">News Details</h3>
-            <div className="Shareon align-items-baseline d-flex mb-0">
-                <h6>Share :</h6>
-                <SocialMediaIcon platform="facebook" postUrl={url} />
-                <SocialMediaIcon platform="twitter" postUrl={url} />
-                <SocialMediaIcon platform="linkedin" postUrl={url} />
-                <SocialMediaIcon platform="copy-link" postUrl={url} />
-                <span
-                    className="svg__iconbox svg__icon--cross"
-                    style={{ position: "relative", top: "6px" }}
-                    onClick={onClose}
-                ></span>
+    const HTMLRenderer = ({ content }: any) => {
+
+        return (
+            <div
+                className="html-content container"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        );
+    };
+
+    const CustomHeader = () => {
+        return (
+            <div className="w-100">
+                <div className="align-items-center d-flex justify-content-between w-100">                    {/* <h3 className="m-0">Event Details</h3> */}
+
+                    <div className="entry-meta">
+                        <IoCalendarOutline />
+                        <span>{formatDate(selectedNews?.PublishingDate)}</span>
+                    </div>
+
+                    <div className="Shareon align-items-baseline d-flex mb-0">
+                        <h6>Share :</h6>
+                        <SocialMediaIcon platform="facebook" postUrl={url} />
+                        <SocialMediaIcon platform="twitter" postUrl={url} />
+                        <SocialMediaIcon platform="linkedin" postUrl={url} />
+                        <SocialMediaIcon platform="copy-link" postUrl={url} />
+                        <span
+                            className="svg__iconbox svg__icon--cross"
+                            style={{ position: "relative", top: "6px" }}
+                            onClick={onClose}>
+                        </span>
+                    </div>
+
+                </div>
+                <h4>
+                    <a>  {selectedNews?.Title}</a>
+                </h4>
             </div>
-        </div>
-    );
+        );
+    };
+
 
     return (
         selectedNews && (
@@ -33,12 +57,7 @@ const NewsPanel = ({ selectedNews, onClose, url }: any) => {
                 onDismiss={onClose}
                 onRenderHeader={CustomHeader}
             >
-                <div className="p-0 news_home publicationItem clearfix bg-white border-0">
-                    <div className="entry-meta">
-                        <IoCalendarOutline />
-                        <span>{formatDate(selectedNews?.PublishingDate)}</span>
-                    </div>
-                    <h4>{selectedNews?.Title}</h4>
+                <div className="px-0 py-12 news_home publicationItem clearfix bg-white border-0">
                     <div className="imagedetail">
                         <img
                             className="image"
@@ -49,11 +68,9 @@ const NewsPanel = ({ selectedNews, onClose, url }: any) => {
                             alt="News cover"
                         />
                     </div>
-                    <div className="eventItemDesc">
-                        <span>
-                            <p dangerouslySetInnerHTML={{ __html: selectedNews?.Body }}></p>
-                        </span>
-                    </div>
+                    <p>
+                        <HTMLRenderer content={selectedNews?.Body} />
+                    </p>
                 </div>
             </Panel>
         )

@@ -74,6 +74,7 @@
     "@types/google.visualization": "0.0.74",
     "@types/jquery": "^3.5.29",
     "@types/jspdf": "^2.0.0",
+    "@types/lodash": "^4.17.13",
     "@types/react-bootstrap": "^0.32.36",
     "@types/react-slick": "^0.23.13"
   }

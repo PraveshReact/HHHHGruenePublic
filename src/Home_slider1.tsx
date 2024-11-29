@@ -34,6 +34,15 @@ function Home_slider1() {
     }
 
   };
+  const HTMLRenderer = ({ content }: any) => {
+
+    return (
+      <div
+        className="html-content container"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  };
 
   const handleNext = () => {
     if (sliderRef.current && currentSlide < data.length - settings.slidesToShow!) {
@@ -225,7 +234,9 @@ function Home_slider1() {
 
                     {item?.Body?.length > 0 && <>
                       <div className="eventItemDesc cutoff-text">
-                        <div dangerouslySetInnerHTML={{ __html: item?.Body }}></div>
+                        <p>
+                          <HTMLRenderer content={item.Body} />
+                        </p>
                       </div>
                       {!(item?.Body?.length <= 200) && <input className="expand-btn" type="checkbox" />}
                     </>}

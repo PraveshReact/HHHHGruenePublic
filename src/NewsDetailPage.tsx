@@ -45,6 +45,15 @@ export const NewsDetailPage = ({ selectedNews }: any) => {
             return [];
         }
     }
+    const HTMLRenderer = ({ content }: any) => {
+
+        return (
+            <div
+                className="html-content container"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        );
+    };
     // function formatDate(dateString: string) {
     //     // Parse the date string
     //     const date = new Date(dateString);
@@ -101,11 +110,9 @@ export const NewsDetailPage = ({ selectedNews }: any) => {
                     alt={data?.Title}
                 />
             </div>
-            <div className="eventItemDesc">
-                <span>
-                    <p dangerouslySetInnerHTML={{ __html: data?.Body }} />
-                </span>
-            </div>
+            <p>
+                <HTMLRenderer content={data?.Body} />
+            </p>
         </div>
     );
 };

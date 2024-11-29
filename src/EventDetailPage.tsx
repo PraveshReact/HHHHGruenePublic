@@ -58,6 +58,15 @@ export const EventDetailPage = ({ selectedNews }: any) => {
             year: "numeric",
         });
     };
+    const HTMLRenderer = ({ content }: any) => {
+
+        return (
+            <div
+                className="html-content container"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        );
+    };
 
     return (
         <div className="p-4 news_home publicationItem clearfix bg-white  border-0 ">
@@ -77,9 +86,9 @@ export const EventDetailPage = ({ selectedNews }: any) => {
                 />
             </div>
             <div className="eventItemDesc">
-                <span>
-                    <p dangerouslySetInnerHTML={{ __html: data?.EventDescription }} />
-                </span>
+                <p>
+                    <HTMLRenderer content={data?.Description} />
+                </p>
             </div>
         </div>
     );
