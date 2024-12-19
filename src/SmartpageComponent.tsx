@@ -495,7 +495,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
         </div>
       </div>
 
-      <section className='SmartPages mt-5'>
+      <section className='SmartPages '>
 
         <div className='row'>
 
@@ -509,7 +509,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                     <div key={index}>
                       <section
                         id="page-title"
-                        className="page-title-parallax page-title-dark skrollable skrollable-between"
+                        className="page-banner page-title-parallax page-title-dark skrollable skrollable-between"
                         style={{
                           backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : ""})`,
                           backgroundPosition: `0px -117.949px`

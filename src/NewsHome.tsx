@@ -37,7 +37,7 @@ const NewsHomemainPage = (props: any) => {
 
         return (
             <div
-                className="html-content container"
+                className="html-content "
                 dangerouslySetInnerHTML={{ __html: content }}
             />
         );

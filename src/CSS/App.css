@@ -340,10 +340,13 @@ nav.navbar.navbar-main {
 }
 .slick-slide .card-body .entry-meta>i, .slick-slide .card-body .entry-meta > span {
     color: #999;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 24px;
    
+}
+.navbar-nav .dropdown >.nav-link:nth-child(1) {
+  padding-left: 0px;
 }
  
 /******** Foooter ************/
@@ -383,7 +386,7 @@ footer#footer .footer-widgets-wrap a > small {
 .navbar-light .navbar-nav > .nav-item {
   border-bottom: 4px solid transparent;
   margin-right: 10px;
-  margin-bottom: 1px;
+  margin-bottom: 0px;
 }
 .navbar-light .navbar-nav .nav-link {
   font-weight: normal;
@@ -392,8 +395,8 @@ footer#footer .footer-widgets-wrap a > small {
   text-transform: uppercase;
   margin:0px;
   font-family: 'PTSans';
-  padding-top: 12px;
-  padding-bottom: 8px;
+  padding-top: 9px;
+  padding-bottom: 0px;
   border-bottom: none;
   align-items: center;
   display: flex;
@@ -637,6 +640,9 @@ margin-bottom: 0px;
     font-family: "PTSans";
 }
 
+.SmartPages p {
+  font-size: 19px !important;
+}
 .eventItemDesc a {
     color: #46962b !important;
 }
@@ -891,6 +897,7 @@ color: var(--secondary-color) !important;
   font-size: 26px;
   margin-left: 10px !important;
 }
+
  
 .publicationItem {padding: 10px 20px;border-radius: 3px;background: #ffffff;clear: both;margin-bottom: 20px;}
 .entry-content .Coverimage {width: 20%;height: auto;margin-right: 15px;overflow: hidden;float:left;}
@@ -968,7 +975,7 @@ color: var(--text-color)!important;
 }
 .navbar-nav > li.nav-item.dropdown > .dropdown-menu
 {
-  top: 35px;
+  top: 24px;
 }
 .navbar-toggler.collapsed > .close, .navbar-toggler:not(.collapsed) > .open {
   display: none;
@@ -1099,10 +1106,7 @@ color: var(--text-color)!important;
   .navbar-nav > li.nav-item.dropdown:hover > .dropdown-menu {
   width: 100%;
 }
-.navbar-nav > li.nav-item.dropdown > .dropdown-menu{
-  position: relative;
-  top:0px;
-}
+
 .navbar-toggler:focus{
   box-shadow: none;
 }
@@ -1299,12 +1303,14 @@ input[type=text], select, textarea{
   height: 38px;
 }
 .page-title-parallax {
-
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: 100vh 100vh;
   background-position: top center !important;
+}
+.page-banner {
+  margin-top: 36px;
 }
 
 
@@ -1321,6 +1327,13 @@ input[type=text], select, textarea{
     right: 15%;
     top: -14px;
   }
+  .sliderDescription .subhead .html-content p{
+    font-size: 21px !important;
+  }
+  .containerDetail {
+    padding: 0px 35px;
+ 
+}
 }
 
 
@@ -1820,7 +1833,7 @@ button {
 }
 .fixedbreadcrump{
   position: fixed;
-  top: 143px;
+  top: 131px;
   z-index: 99;
   left: 0px;
   background: #fff;

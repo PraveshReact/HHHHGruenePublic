@@ -38,7 +38,7 @@ function Home_slider1() {
 
     return (
       <div
-        className="html-content container"
+        className="html-content "
         dangerouslySetInnerHTML={{ __html: content }}
       />
     );

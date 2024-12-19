@@ -108,7 +108,7 @@ export const RelevantWebPart = (props: any) => {
         return path;
     };
     return (
-        <div className='html-content container'>
+        <div className='html-content '>
             {/* {reldoc?.length > 0 && props?.usedFor == 'relDoc' && <div>
                 <div className="container">
                     <div className="panel panel-default">

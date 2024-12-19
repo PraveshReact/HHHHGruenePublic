@@ -62,7 +62,7 @@ export const EventDetailPage = ({ selectedNews }: any) => {
 
         return (
             <div
-                className="html-content container"
+                className="html-content "
                 dangerouslySetInnerHTML={{ __html: content }}
             />
         );

@@ -58,7 +58,7 @@ function Slider_Comp() {
 
     return (
       <div
-        className="html-content container"
+       
         dangerouslySetInnerHTML={{ __html: content }}
       />
     );
