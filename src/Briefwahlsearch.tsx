@@ -10,7 +10,6 @@ let backupdata: any = []
 const Briefwahlsearch = (props: any) => {
     let State: any;
     const [Briefwahldata, setBriefwahldata]: any = useState([]);
-    const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
     if (props.stateParam && props.stateParam != undefined && props.stateParam != '') {
         State = decodeURIComponent(props.stateParam)
     }
@@ -22,11 +21,26 @@ const Briefwahlsearch = (props: any) => {
         const tableName = "Briefwahl";
         let allfilterdata: any = []
         try {
-            const response = await axios.get(`${GetserverUrl}?table=${tableName}`);
-            if (response.status === 200) {
-                backupdata = response?.data;
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+      
+            var raw = JSON.stringify({
+              "table": `${tableName}`
+            });
+      
+            var requestOptions: any = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+            fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+            .then(response => response.text())
+            .then((result: any) => {
+                result = JSON.parse(result)
+                backupdata = result?.data;
                 if (State != undefined && State != undefined) {
-                    response?.data?.forEach((item: any) => {
+                    result?.data?.forEach((item: any) => {
                         if (item?.Land == State) {
                             allfilterdata.push(item)
                         }
@@ -35,13 +49,13 @@ const Briefwahlsearch = (props: any) => {
                 if (State != undefined && State != undefined) {
                     setBriefwahldata(allfilterdata)
                 } else {
-                    setBriefwahldata(response?.data)
+                    setBriefwahldata(result?.data)
                 }
                 console.log('Get data from server successfully');
-                console.log(response)
-            } else {
-                console.error('Error sending data to server:', response.statusText);
-            }
+                console.log(result)
+             
+            })
+            .catch(error => console.log('error', error));              
         } catch (error) {
             console.error('An error occurred:', error);
         }
