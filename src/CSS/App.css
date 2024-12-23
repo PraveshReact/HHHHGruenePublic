@@ -64,7 +64,7 @@ html, body {width: 100%;scroll-behavior: smooth; overflow-x: hidden;}
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */color: #979797 !important; opacity: 1; /* Firefox */}
   :-ms-input-placeholder { /* Internet Explorer 10-11 */color: #979797 !important; }
   ::-ms-input-placeholder { /* Microsoft Edge */color: #979797 !important; }
-  h3 {font-family:  var(--heading-font);font-size: 31px;line-height: 1.3em;}
+  h3 {font-family:  var(--heading-font);font-size: 30px;line-height: 1.3em;}
   .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{font-family: var(--heading-font) !important;}
 .heading-font {font-family: var(--heading-font);}
 .has-shadow {box-shadow: 0 1px 20px rgba(0, 84, 55, 0.09);}
@@ -902,7 +902,7 @@ color: var(--secondary-color) !important;
 .publicationItem {padding: 10px 20px;border-radius: 3px;background: #ffffff;clear: both;margin-bottom: 20px;}
 .entry-content .Coverimage {width: 20%;height: auto;margin-right: 15px;overflow: hidden;float:left;}
 .entry-content .Coverimage > img.image {width: 100%;height: auto;object-fit: cover;}
-header.page-header {padding: 15px 0;}
+header.page-header {padding: 20px 0;}
 h1.page-title {
     color: var(--secondary-color);
 }
