@@ -219,7 +219,7 @@ const Briefwahlsearch = (props: any) => {
                                     customHeaderButtonAvailable={true}
                                     data={Briefwahldata}
                                     showHeader={true}
-                                    hideTeamIcon={true} hideOpenNewTableIcon={true}
+                                    hideTeamIcon={true} hideOpenNewTableIcon={true} hideExcelIcon={false} hidePrintsIcon={false}
                                     callBackData={callBackData}
                                 />
                             </div>
