@@ -594,7 +594,7 @@ h4 {font-size: 1.4rem;}
 /********************************************GlobalTable Css****************************************************/
 /*---------- Table secation---------------- */
 .Alltable .table > tbody tr.f-bg td, .Alltable .table > tbody tr.a-bg td, .Alltable .table > tbody tr.w-bg td, .borderBottomWhite {border-bottom: 1px solid #fff;}
-.Alltable {width: 100%;float: left;position: relative;border: 1px solid #ccc;}
+.Alltable {width: 100%;float: left;position: relative;border: 1px solid #ccc; font-size: 16px;}
 .Alltable .smart .section-event {padding-top: 45px;border: 0px;position: relative;}
 .Alltable .section-event th .smart-relative {position: absolute;background: transparent;/* color: #fff; */padding: 5px 4px;top: 0;line-height: normal;}
 .Alltable .smart-relative .searchbox_height {height: 35px;color: #444;padding-right: 14px;}
