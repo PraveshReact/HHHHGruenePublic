@@ -65,7 +65,7 @@ const Briefwahlsearch = (props: any) => {
             {
                 accessorKey: "",
                 placeholder: "",
-                hasCheckbox: true,
+                hasCheckbox: false,
                 hasCustomExpanded: false,
                 hasExpanded: false,
                 isHeaderNotAvlable: true,
@@ -83,7 +83,7 @@ const Briefwahlsearch = (props: any) => {
                 ),
             },
             {
-                accessorKey: "PLZ", placeholder: "PLZ", header: "", id: "PLZ", size: 75,
+                accessorKey: "PLZ", placeholder: "PLZ", header: "", id: "PLZ", size: 100,
                 cell: ({ row }: any) => (
                     <>
                         {row?.original?.PLZ}
@@ -92,7 +92,7 @@ const Briefwahlsearch = (props: any) => {
             },
 
             {
-                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName", size: 150,
+                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName", size: 145,
                 cell: ({ row }: any) => (
                     <>
                         {row?.original?.WKName}
@@ -109,7 +109,7 @@ const Briefwahlsearch = (props: any) => {
             },
 
             {
-                accessorKey: "Email", placeholder: "Email", header: "", id: "Email", size: 300,
+                accessorKey: "Email", placeholder: "Email", header: "", id: "Email", size: 295,
                 cell: ({ row }: any) => (
                     <>
                           <a href={`mailto:${row?.original?.Email}`}>{row?.original?.Email}</a>
@@ -118,7 +118,7 @@ const Briefwahlsearch = (props: any) => {
             },
 
             {
-                accessorKey: "LinkBundestag", placeholder: "LinkBundestag", header: "", id: "LinkBundestag", size: 450,
+                accessorKey: "LinkBundestag", placeholder: "LinkBundestag", header: "", id: "LinkBundestag", size: 435,
                 cell: ({ row }: any) => (
                     <>
                         <div className='word-break'><a href={row?.original?.LinkBundestag} target="_blank" >{row?.original?.LinkBundestag}</a></div>
