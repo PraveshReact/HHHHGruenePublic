@@ -859,14 +859,19 @@ const GlobalCommanTable = (items: any, ref: any) => {
                             <a onClick={() => openTaskAndPortfolioMulti()} title='Open in New Tab' className="openWebIcon p-0"><span style={{ color: `${portfolioColor}`, backgroundColor: `${portfolioColor}` }} className="svg__iconbox svg__icon--openWeb"></span></a>
                             : <a className="openWebIcon p-0" title='Open in New Tab'><span className="svg__iconbox svg__icon--openWeb" style={{ backgroundColor: "gray" }}></span></a>}
                     </> : ''}
-                    <a className='excal' title='Export to excel' onClick={() => exportToExcel()}><RiFileExcel2Fill style={{ color: `${portfolioColor}` }} /></a>
-
+                    {items?.hideExcelIcon != true ? <>
+                        {table?.getSelectedRowModel()?.flatRows?.length > 0 ? <a className='excal' title='Export to excel' onClick={() => exportToExcel()}><RiFileExcel2Fill style={{ color: `${portfolioColor}` }} /></a>
+                            : ''}
+                    </> : ''}
                     <a className='brush'><i className="fa fa-paint-brush hreflink" style={{ color: `${portfolioColor}` }} aria-hidden="true" title="Clear All" onClick={() => { setGlobalFilter(''); setColumnFilters([]); }}></i></a>
 
+                    {items?.hidePrintsIcon != true ? <>
+                        {table?.getSelectedRowModel()?.flatRows?.length > 0 ? <a className='Prints' onClick={() => downloadPdf()}>
+                            <i className="fa fa-print" aria-hidden="true" style={{ color: `${portfolioColor}` }} title="Print"></i>
+                        </a>
+                            : ''}
+                    </> : ''}
 
-                    <a className='Prints' onClick={() => downloadPdf()}>
-                        <i className="fa fa-print" aria-hidden="true" style={{ color: `${portfolioColor}` }} title="Print"></i>
-                    </a>
 
                 </span>
             </div>}
