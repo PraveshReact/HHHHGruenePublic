@@ -16,7 +16,7 @@
     line-height: 1.2rem;
     position: absolute;
     right: 10px;
-    top: 2px;
+    top: 0px;
 }
 .shorticon .downArrow>svg, .shorticon .upArrow>svg {
     font-size: 11px;
