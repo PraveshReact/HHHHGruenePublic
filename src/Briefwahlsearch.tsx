@@ -150,9 +150,9 @@ const Briefwahlsearch = (props: any) => {
     return (
         <div className="container">
             <header className="page-header">
-                <h1 className="page-title heading  text-center">OV Washington Briefwahl-Suchmaschine</h1>
+                <h1 className="page-title heading  text-center">Grüne Weltweit Briefwahl-Suchmaschine</h1>
             </header>
-            <h3 className=' text-center'>  *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Europawahl 2024 *** </h3>
+            <h3 className=' text-center'>  *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Bundestagswahl 2025 *** </h3>
             <div className="col-12 no-padding topDesign" id="BriefId">
                 <ul id="stateslist">
                     <li className={SelectedTile === 'Baden-Württemberg' ? 'active' : ''}>
