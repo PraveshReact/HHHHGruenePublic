@@ -206,7 +206,9 @@ const Briefwahlsearch = (props: any) => {
             <header className="page-header">
                 <h1 className="page-title heading  text-center">Grüne Weltweit Briefwahl-Suchmaschine</h1>
             </header>
-            <h3 className=' text-center'>   *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Bundestagswahl 2025 ***  </h3>
+
+            <h3 className=' text-center'>  *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Bundestagswahl 2025 *** </h3>
+
             <div>
                 <div className='align-item-center d-flex mb-1 position-relative alignCenter'>
                     <input
