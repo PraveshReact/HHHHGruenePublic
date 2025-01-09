@@ -10,9 +10,6 @@ const Briefwahlsearch = (props: any) => {
     let State: any;
     const [Briefwahldata, setBriefwahldata]: any = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredItems, setFilteredItems] = useState<any[]>([]);
-    const [selectedItem, setSelectedItem] = useState<any | null>(null); // State to store selected item for the modal
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal visibility
 
     if (props.stateParam && props.stateParam != undefined && props.stateParam != '') {
         State = decodeURIComponent(props.stateParam)
@@ -54,9 +51,9 @@ const Briefwahlsearch = (props: any) => {
                         })
                     }
                     if (State != undefined && State != undefined) {
-                        setBriefwahldata(allfilterdata)
+                        // setBriefwahldata(allfilterdata)
                     } else {
-                        setBriefwahldata(result?.data)
+                        // setBriefwahldata(result?.data)
                     }
                     console.log('Get data from server successfully');
                     console.log(result)
@@ -184,117 +181,70 @@ const Briefwahlsearch = (props: any) => {
         const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
 
         if (trimmedSearchTerm === '') {
-            setFilteredItems([]);  // If search term is empty, clear the results
+            setBriefwahldata([]);  // If search term is empty, clear the results
         } else {
             // Perform the search: filter based on the search term matching any value in the object
-            const filtered = Briefwahldata.filter((item: any) =>
+            const filtered = backupdata.filter((item: any) =>
                 Object.values(item).some((val) =>
                     String(val).toLowerCase().includes(trimmedSearchTerm.toLowerCase())
                 )
             );
-            setFilteredItems(filtered); // Update filtered items
+            setBriefwahldata(filtered); // Update filtered items
         }
     };
 
-    const renderTable = filteredItems.length > 0 || searchTerm === '';
+    const clearSearchBar = () => {
+        setSearchTerm('');
+        setBriefwahldata([]);
+    }
 
-    // Open modal with selected item
-    const openModal = (item: any) => {
-        setSelectedItem(item);
-        setIsModalOpen(true);
-    };
 
-    // Close modal
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedItem(null);
-    };
+
+
     return (
         <div className="container">
             <header className="page-header">
                 <h1 className="page-title heading  text-center">Grüne Weltweit Briefwahl-Suchmaschine</h1>
             </header>
-            <h3 className=' text-center'>  *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Europawahl 2024 *** </h3>
+            <h3 className=' text-center'>   *** Links und Adressen sind von Bundestagswahl 2021 - viele funktionieren aber auch für Bundestagswahl 2025 ***  </h3>
             <div>
-                <div className='align-item-center d-flex mb-1 position-relative' style={{ alignItems: 'center' }}>
+                <div className='align-item-center d-flex mb-1 position-relative alignCenter'>
                     <input
-                        type="text" className='m-0'
+                        type="text" className='border-end-0 form-control p-1 mb-0 rounded-0'
                         placeholder="Search All..."
                         value={searchTerm}
                         onChange={(e) => {
-                            setSearchTerm(e.target.value);  // Update searchTerm on typing
-                            handleSearch(e.target.value);   // Call handleSearch whenever typing
+                            setSearchTerm(e.target.value);
                         }}
-                        style={{ flex: 1, padding: '8px', marginRight: '10px' }}
+
                     />
                     {searchTerm && (
-                        <button
+                        <a
                             className="clear-btn"
-                            onClick={() => setSearchTerm('')}
                             style={{
                                 background: 'none',
                                 border: 'none',
                                 cursor: 'pointer',
                                 fontSize: '18px',
-                                color: '#888',
                                 position: 'absolute',
                                 right: '90px',
                                 top: '50%',
-                                transform: 'translateY(-50%)',
+                                transform: 'translateY(-50%)'
                             }}
+                            onClick={clearSearchBar}
                         >
-                            &#10005; {/* Unicode for cross mark */}
-                        </button>
+                            &#10005;
+                        </a>
                     )}
                     <button
-                        className='ms-1'
-                        onClick={() => handleSearch(searchTerm)}  // Trigger handleSearch on button click
-                        style={{
-                            padding: '3px 15px',
-                            backgroundColor: '#4CAF50',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                        }}
+                        className='btn btn-success p-1 px-3 rounded-0'
+                        onClick={() => handleSearch(searchTerm)}
                     >
                         Search
                     </button>
                 </div>
-
-                {searchTerm !== '' && filteredItems.length > 0 ? (
-                    <div className='Alltable mb-2'>
-                        <table border={1} cellPadding="10" className='m-0 table' style={{ width: '1295px' }}>
-
-                            <tbody
-                                style={{
-                                    maxHeight: filteredItems.length > 20 ? '300px' : 'auto',
-                                    overflowY: filteredItems.length > 20 ? 'scroll' : 'auto',
-                                    display: 'block',
-                                    width: '100%',
-                                }}
-                            >
-                                {filteredItems.map((item, index) => (
-                                    <tr key={index} onClick={() => openModal(item)} style={{ cursor: 'pointer' }}>
-                                        <td className='p-1'>{item.Gemeinde}</td>
-                                        <td className='p-1' style={{ width: '100px' }}>{item.PLZ}</td>
-                                        <td className='p-1' style={{ width: '145px' }}>{item.WKName}</td>
-                                        <td className='p-1' style={{ width: '75px' }}>{item.Wahlkreis}</td>
-                                        <td className='p-1' style={{ width: '295px' }}><a>{item.Email}</a></td>
-                                        <td className='p-1' style={{ width: '435px' }}>
-                                            <a style={{ wordBreak: 'break-all' }} href={item.LinkBundestag} target="_blank" rel="noopener noreferrer">
-                                                {item.LinkBundestag}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table></div>
-                ) : (
-                    searchTerm !== '' && filteredItems.length == 0 && <p>No matching results found.</p>
-                )}
             </div>
-            <div className="col-12 no-padding topDesign" id="BriefId">
+            {/* <div className="col-12 no-padding topDesign" id="BriefId">
                 <ul id="stateslist">
                     <li className={SelectedTile === 'Baden-Württemberg' ? 'active' : ''}>
                         <a className="hreflink" onClick={() => ChangeTile('Baden-Württemberg')}>Baden-Württemberg</a>
@@ -348,7 +298,7 @@ const Briefwahlsearch = (props: any) => {
                         <a className="hreflink" onClick={() => ChangeTile('Alle')}>Alle</a>
                     </li>
                 </ul>
-            </div>
+            </div> */}
             <div className="tab-pane show active" id="Contacts" role="tabpanel" aria-labelledby="Contacts">
                 <div>
                     <div className="TableContentSection">
@@ -368,7 +318,7 @@ const Briefwahlsearch = (props: any) => {
                     </div>
                 </div>
             </div>
-            {isModalOpen && (
+            {/* {isModalOpen && (
                 <div
                     style={{
                         position: 'fixed',
@@ -433,7 +383,7 @@ const Briefwahlsearch = (props: any) => {
                             </button></div>
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
 
     )
