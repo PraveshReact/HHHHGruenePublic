@@ -26,8 +26,8 @@ const BriefwahlPopup = (props:any) => {
                             <div className="col-sm-12">
                                 <h1>Anleitung Briefwahl - Bin in Deutschland gemeldet</h1>
                                 <h3>Anleitung zur Beantragung von Briefwahlunterlagen</h3>
-                                <img className="AnleitungDesktopImg" src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/AnleitungDesktop.jpg" />
-                                <img className="AnleitungMobileImg" src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/AnleitungMobile.jpg" />
+                                <img className="AnleitungDesktopImg" src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/AnleitungDesktop.jpg" />
+                                <img className="AnleitungMobileImg" src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/AnleitungMobile.jpg" />
                                 <p className="mb-20">Online-Formular der Melde-Gemeinde in <strong>OV Washington Briefwahl-Datenbank</strong> finden:</p>
                                 <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank">
                                     <div className="banner col-lg-4 col-md-6 col-sm-12 justify-content-between valign-middle">Per Online-Antrag <IoChevronForwardOutline /></div>

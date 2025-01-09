@@ -45,7 +45,7 @@ const Navbarcomponent = () => {
         redirect: 'follow'
       };
 
-      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
       const result = await response.text();
       const parsedResult = JSON.parse(result);
       results = parsedResult?.data;
@@ -121,9 +121,9 @@ const Navbarcomponent = () => {
     try {
       let url = '';
       if (smartid != null) {
-        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
       } else {
-        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       }
 
       const response = await fetch(url);
@@ -239,7 +239,7 @@ const Navbarcomponent = () => {
                 onClick={() => handleLinkClick("Home", "")}
               >
                 <img
-                  src="https://gruene-weltweit.de/SiteAssets/washington-dc_184.png"
+                  src="https://gruene-washington.de/SiteAssets/washington-dc_184.png"
                   className="logo_image"
                 />
                 <span>GRÜNE WASHINGTON D.C.</span>
@@ -249,7 +249,7 @@ const Navbarcomponent = () => {
         </div>
         <Navbar expand="lg">
           <Container>
-            <Navbar.Brand href="/"><img src="https://gruene-weltweit.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
+            <Navbar.Brand href="/"><img src="https://gruene-washington.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav">
               <MdMenu className="open" />
               <MdClose className="close" />

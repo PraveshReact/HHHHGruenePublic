@@ -109,7 +109,7 @@ const NewsHomemainPage = (props: any) => {
                 body: raw,
                 redirect: 'follow'
             };
-            fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+            fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
                 .then(response => response.text())
                 .then((result: any) => {
                     result = JSON.parse(result)

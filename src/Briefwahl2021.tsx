@@ -186,7 +186,7 @@ const Briefwahl2021 = () => {
             <div id="Stoerer_Briefwahl_imgDiv">
               <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank"><img
                 className="Stoerer_Briefwahl_img"
-                src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/Stoerer_Briefwahl_RGB.png"></img></a>
+                src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/Stoerer_Briefwahl_RGB.png"></img></a>
             </div>
           </div>
 
@@ -210,7 +210,7 @@ const Briefwahl2021 = () => {
             </div>
 
             <a className="DC-mapImg" href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank" data-interception="off">
-              <img src={isHovered ? "https://gruene-weltweit.de/Site%20Collection%20Images/DC-MapBlue.png" : "https://gruene-weltweit.de/Site%20Collection%20Images/DC-Map.png"}
+              <img src={isHovered ? "https://gruene-washington.de/Site%20Collection%20Images/DC-MapBlue.png" : "https://gruene-washington.de/Site%20Collection%20Images/DC-Map.png"}
                 alt="DC-Mapimage"
                 className="DC-Mapimage"
                 onMouseEnter={handleMouseEnter}

@@ -46,7 +46,7 @@ const App = () => {
 
       try {
         const response = await axios.get(
-          "https://gruene-weltweit.de/SPPublicAPIs/TopNavigation.php"
+          "https://gruene-washington.de/SPPublicAPIs/TopNavigation.php"
         );
         const structuredData = response?.data?.data;
         setData(structuredData);
