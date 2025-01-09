@@ -183,7 +183,7 @@ const Briefwahlsearch = (props: any) => {
         if (trimmedSearchTerm === '') {
             setBriefwahldata([]);  // If search term is empty, clear the results
         } else {
-            // Perform the search: filter based on the search term matching any value in the object
+            
             const filtered = backupdata.filter((item: any) =>
                 Object.values(item).some((val) =>
                     String(val).toLowerCase().includes(trimmedSearchTerm.toLowerCase())
