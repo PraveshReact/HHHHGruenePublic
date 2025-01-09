@@ -34,7 +34,7 @@ const HomeComponent: React.FC = () => {
         body: raw,
       };
 
-      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
       const result = await response.json();
       setData(result?.data || []);
     } catch (error) {

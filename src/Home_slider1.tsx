@@ -75,7 +75,7 @@ function Home_slider1() {
         redirect: 'follow'
       };
 
-      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+      fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
         .then((result: any) => {
           console.log(result, "ddddd")

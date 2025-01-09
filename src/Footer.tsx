@@ -32,7 +32,7 @@ const Footer = () => {
         redirect: 'follow'
       };
 
-      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+      fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
         .then((result: any) => {
           result = JSON.parse(result)
@@ -122,7 +122,7 @@ const Footer = () => {
               </Col>
               <Col md="2" xs="4">
                 <a href="https://www.gruene-washington.de"><img
-                  src="https://gruene-weltweit.de/SiteAssets/logo2.png"
+                  src="https://gruene-washington.de/SiteAssets/logo2.png"
                   alt="Gruene Logo" className="footer-logo"></img></a>
               </Col>
             </Row>

@@ -97,7 +97,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
         redirect: 'follow'
       };
 
-      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
       const result = await response.json();
       return result?.data || [];
     } catch (error) {
@@ -174,10 +174,10 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       let url = '';
       // Construct the URL with query parameters
       if (smartid != null) {
-        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
       }
       else {
-        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       }
 
       // Define the GET request options
@@ -225,7 +225,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   //       redirect: 'follow'
   //     };
 
-  //     const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
+  //     const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
   //     const result = await response.json();
   //     console.log(result, "resultresultresultresult")
   //     // Filter the results to match the specific KeyTitle
@@ -370,7 +370,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       myHeaders.append("Content-Type", "application/json");
 
       // Construct the URL with the query parameters
-      const url = `https://gruene-weltweit.de/SPPublicAPIs/getBreadcrumsdata.php?smartId=${smartid}`;
+      const url = `https://gruene-washington.de/SPPublicAPIs/getBreadcrumsdata.php?smartId=${smartid}`;
 
       const requestOptions: any = {
         method: 'GET',
@@ -395,7 +395,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       myHeaders.append("Content-Type", "application/json");
 
       // Construct the URL with the query parameters
-      const url = `https://gruene-weltweit.de/SPPublicAPIs/getBreadcrumdataByid.php?id=${smartid}`;
+      const url = `https://gruene-washington.de/SPPublicAPIs/getBreadcrumdataByid.php?id=${smartid}`;
 
       const requestOptions: any = {
         method: 'GET',
@@ -416,9 +416,9 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     try {
       let url = '';
       if (smartid != null) {
-        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
       } else {
-        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       }
 
       const response = await fetch(url);
@@ -558,7 +558,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                           id="page-title"
                           className="page-title-parallax page-title-dark skrollable skrollable-between"
                           style={{
-                            backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
+                            backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-washington.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
                             backgroundPosition: `0px -117.949px`
                           }}
                           data-bottom-top="background-position:0px 300px;"

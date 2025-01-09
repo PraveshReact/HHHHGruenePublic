@@ -29,7 +29,7 @@ export const NewsDetailPage = ({ selectedNews }: any) => {
                 redirect: 'follow'
             };
 
-            const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByTitle.php", requestOptions);
+            const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataByTitle.php", requestOptions);
             const result = await response.json();
             if (result?.status == 200) {
                 setData(result?.data);
