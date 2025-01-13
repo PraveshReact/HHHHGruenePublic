@@ -5,6 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useParams } from 'react-router-dom';
 import GlobalCommanTable from './GlobalCommanTable';
 import './CSS/Briefwahlsearch.css';
+import Highlighter from "react-highlight-words";
 
 
 let backupdata: any = [];
@@ -25,23 +26,22 @@ const Briefwahlsearch = (props: any) => {
 
     const StateDataArray: any = [
         { Title: 'Deutschlandweit', src: 'https://gruene-weltweit.de/assets/Deutschlandweit.png', IsSelected: false },
-        { Title: 'Sachsen', src: 'https://gruene-weltweit.de/assets/Sachsen.png', IsSelected: false },
-        { Title: 'Nordrhein-Westfalen', src: 'https://gruene-weltweit.de/assets/Nordrhein-Westfalen.png', IsSelected: false },
-        { Title: 'Berlin', src: 'https://gruene-weltweit.de/assets/Berlin.png', IsSelected: false },
-        { Title: 'Hamburg', src: 'https://gruene-weltweit.de/assets/Hamburg.png', IsSelected: false },
         { Title: 'Baden-Württemberg', src: 'https://gruene-weltweit.de/assets/Baden-Wurttemberg.png', IsSelected: false },
         { Title: 'Bayern', src: 'https://gruene-weltweit.de/assets/Bayern.png', IsSelected: false },
-        { Title: 'Bremen', src: 'https://gruene-weltweit.de/assets/Bremen.png', IsSelected: false },
-        { Title: 'Niedersachen', src: 'https://gruene-weltweit.de/assets/Niedersachen.png', IsSelected: false },
+        { Title: 'Berlin', src: 'https://gruene-weltweit.de/assets/Berlin.png', IsSelected: false },
         { Title: 'Brandenburg', src: 'https://gruene-weltweit.de/assets/Brandenburg.png', IsSelected: false },
+        { Title: 'Bremen', src: 'https://gruene-weltweit.de/assets/Bremen.png', IsSelected: false },
+        { Title: 'Hamburg', src: 'https://gruene-weltweit.de/assets/Hamburg.png', IsSelected: false },
         { Title: 'Hessen', src: 'https://gruene-weltweit.de/assets/Hessen.png', IsSelected: false },
-        { Title: 'Rheinland-Pfalz', src: 'https://gruene-weltweit.de/assets/Rheinland-Pfalz.png', IsSelected: false },
-        { Title: 'Schleswig-Holstein', src: 'https://gruene-weltweit.de/assets/Schleswig-Holstein.png', IsSelected: false },
         { Title: 'Mecklenburg-Vorpommern', src: 'https://gruene-weltweit.de/assets/Mecklenburg-Vorpommern.png', IsSelected: false },
-        { Title: 'Sachen-Anhalt', src: 'https://gruene-weltweit.de/assets/Sachen-Anhalt.png', IsSelected: false },
+        { Title: 'Nordrhein-Westfalen', src: 'https://gruene-weltweit.de/assets/Nordrhein-Westfalen.png', IsSelected: false },
+        { Title: 'Niedersachen', src: 'https://gruene-weltweit.de/assets/Niedersachen.png', IsSelected: false },
+        { Title: 'Rheinland-Pfalz', src: 'https://gruene-weltweit.de/assets/Rheinland-Pfalz.png', IsSelected: false },
         { Title: 'Saarland', src: 'https://gruene-weltweit.de/assets/Saarland.png', IsSelected: false },
-        { Title: 'Thüringen', src: 'https://gruene-weltweit.de/assets/Thuringen.png', IsSelected: false },
-
+        { Title: 'Sachsen', src: 'https://gruene-weltweit.de/assets/Sachsen.png', IsSelected: false },
+        { Title: 'Sachen-Anhalt', src: 'https://gruene-weltweit.de/assets/Sachen-Anhalt.png', IsSelected: false },
+        { Title: 'Schleswig-Holstein', src: 'https://gruene-weltweit.de/assets/Schleswig-Holstein.png', IsSelected: false },
+        { Title: 'Thüringen', src: 'https://gruene-weltweit.de/assets/Thuringen.png', IsSelected: false }
     ]
 
     useEffect(() => {
@@ -297,8 +297,18 @@ const Briefwahlsearch = (props: any) => {
                                         key={index}
                                         onClick={() => openModal(item)}
                                         style={{ cursor: 'pointer' }}
-                                    >
-                                        <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.WKName || 'n/a'} || {item.Wahlkreis || 'n/a'}</span>
+                                    ><span>
+                                    <Highlighter
+                                      searchWords={[searchTerm]} // Highlight the search term
+                                      autoEscape={true}           // Escape special characters
+                                      textToHighlight={`${item.PLZ || 'n/a'} ${item.Gemeinde || ''}, &nbsp;${item.WKName || 'n/a'} || ${item.Wahlkreis || 'n/a'}`}
+                                      highlightStyle={{
+                                        backgroundColor: "yellow", // Highlight color
+                                        fontWeight: "bold",         // Bold text for highlighted words
+                                      }}
+                                    />
+                                  </span>
+                                        {/* <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.WKName || 'n/a'} || {item.Wahlkreis || 'n/a'}</span> */}
                                         {/* <span className='me-2'>{item.Gemeinde},</span>
                                         <span className='me-2'>{item.WKName || 'n/a'} || </span>
                                         <span className='me-2'>{item.Wahlkreis || 'n/a'},</span> */}
@@ -360,7 +370,6 @@ const Briefwahlsearch = (props: any) => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '20px',
-                                alignItems: 'flex-end',
                             }}
 
                         >
