@@ -83,7 +83,7 @@ ul.stateListTiles > li.state {
 }
 
 ul.stateListTiles > li.active {
-    background: #013399;
+    background: #008939;
 }
 
 ul.stateListTiles > li.active > span.stateName {
