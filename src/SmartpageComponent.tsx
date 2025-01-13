@@ -17,13 +17,14 @@ import { RelevantWebPart } from "./RelevantWebPart";
 import NewsHome from "./NewsHome";
 import EventHomemainPage from "./EventHome";
 let FlagSmartPage = false
-let showBriefflag = false;
+//let showBriefflag = false;
 const SmartpageComponent = ({ clickedTitle }: any) => {
   const { SmartPage: smartPage } = useParams(); // Destructure the SmartPage parameter from useParams
   const [EventData, setEventData]: any = useState([]);
   const [NewsData, setNewsData]: any = useState([]);
   const [Newsflag, setNewsflag]: any = useState(false);
   const [Eventflag, setEventflag]: any = useState(false);
+  const [showBriefflag, setShowBriefflag]: any = useState(false);
   const [Showwebpart, setShowwebpart]: any = useState(false);
   const [Eventdetailflag, setEventdetailflag]: any = useState(false);
   const [Smartpageflag, setSmartpageflag]: any = useState(false);
@@ -34,22 +35,30 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const KeyTitleFilterKeyTitle = 'https://eventservers.onrender.com/api/getFilterKeyTitle'
   const location = useLocation();
   const { item } = location.state || {};
-  console.log(item, "clickItem")
   let stateParam: any;
-  if (location.pathname.indexOf('/Briefwahl/State=') > -1) {
-    const pathParts = location.pathname.split('/');
-    stateParam = pathParts[pathParts.length - 1].split('=')[1];
-    if (stateParam) {
-      showBriefflag = true
+  useEffect(() => {
+    // Ensure stateParam is scoped inside the effect
+    // Check for '/Briefwahl/State=' in the pathname
+    if (location.pathname.indexOf('/Briefwahl/State=') > -1) {
+      const pathParts = location.pathname.split('/');
+      stateParam = pathParts[pathParts.length - 1].split('=')[1];
+      if (stateParam) {
+        setShowBriefflag(true);
+      }
+    } 
+    // Check for '/Briefwahl' if no stateParam is present
+    else if (location.pathname.indexOf('/Briefwahl') > -1) {
+      const pathParts = location.pathname.split('/');
+      stateParam = pathParts[pathParts.length - 1].split('=')[1];
+      if (!stateParam) {
+        setShowBriefflag(true);
+      }
+    }else if (location.pathname.indexOf('/') > -1) {
+      
+        setShowBriefflag(false);
+      
     }
-  }
-  else if (location.pathname.indexOf('/Briefwahl') > -1) {
-    const pathParts = location.pathname.split('/');
-    stateParam = pathParts[pathParts.length - 1].split('=')[1];
-    if (stateParam == undefined || stateParam == '') {
-      showBriefflag = true
-    }
-  }
+  }, [location.pathname]); 
   const decodeArray = (arr: any) => {
     return arr.map((item: string) => decodeURIComponent(item));
   };

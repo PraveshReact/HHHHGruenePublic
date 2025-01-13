@@ -29,7 +29,7 @@ const Briefwahl2021 = () => {
         const originalColor = target.getAttribute('fill');
         target.setAttribute('data-original-color', originalColor);
       }
-      target.setAttribute('fill', '#003399'); // Change fill color to yellow on hover
+      target.setAttribute('fill', '#008939'); // Change fill color to yellow on hover
     }
   };
 
@@ -46,14 +46,14 @@ const Briefwahl2021 = () => {
 
   const generateUrl = (stateName: string) => {
     if (stateName === "DE-BB") {
-      return `/BriefwahlSearch/State=Brandenburg`;
-    } else {
-      return `/BriefwahlSearch/State=${encodeURIComponent(stateName)}`;
+      return `/Briefwahl/State=Brandenburg`;
+    }else {
+      return `/Briefwahl/State=${encodeURIComponent(stateName)}`;
     }
   };
 
   const states = [
-    "Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen",
+    "Deutschlandweit", "Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen",
     "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen",
     "Nordrhein-Westfalen", "Rheinland-Pfalz", "Saarland", "Sachsen",
     "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"
@@ -109,10 +109,10 @@ const Briefwahl2021 = () => {
     region: "DE",
     displayMode: "regions",
     resolution: "provinces",
-    colorAxis: { colors: ["#e0e0e0", "#267114"] },
+    colorAxis: { colors: ["#e0e0e0", "#005437"] },
     backgroundColor: "#ffffff",
     datalessRegionColor: "#f5f5f5",
-    defaultColor: "#267114",
+    defaultColor: "#005437",
     tooltip: { trigger: "hover" },
     icons: {
       default: {
@@ -187,7 +187,7 @@ const Briefwahl2021 = () => {
               </ul>
             </div>
             <div id="Stoerer_Briefwahl_imgDiv">
-              <a href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank"><img
+              <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank"><img
                 className="Stoerer_Briefwahl_img"
                 src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/Stoerer_Briefwahl_RGBRed.png"></img></a>
             </div>
@@ -212,7 +212,7 @@ const Briefwahl2021 = () => {
               </div>
             </div>
 
-            {/* <a className="DC-mapImg" href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank" data-interception="off">
+            {/* <a className="DC-mapImg" href="https://www.gruene-weltweit.de/Briefwahl" target="_blank" data-interception="off">
               <img src={isHovered ? "https://gruene-weltweit.de/Site%20Collection%20Images/DC-MapBlue.png" : "https://gruene-weltweit.de/Site%20Collection%20Images/DC-Map.png"}
                 alt="DC-Mapimage"
                 className="DC-Mapimage"

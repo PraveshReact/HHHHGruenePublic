@@ -50,7 +50,7 @@ a.DC-mapImg > img.DC-Mapimage {
   }
 
   .red_block {
-    background: #003399;
+    background: #008939;
     text-align: center;
     font-size: 16px;
     padding: 20px;
@@ -101,7 +101,7 @@ a.DC-mapImg > img.DC-Mapimage {
     padding: 10px 20px;
     text-align: center;
     vertical-align: middle;
-    background: #003399;
+    background: #008939;
     color: #ffffff !important;
     font-family: 'PTSans';
     /* letter-spacing: 0.5px; */
@@ -112,7 +112,7 @@ a.DC-mapImg > img.DC-Mapimage {
   }
 
   ul.scrollToBtns li a:hover {
-    background: #012671;
+    background: #005437;
     color: #ffffff !important;
   }
   ul.scrollToBtns li > a:not([href]):not([class]):hover {
@@ -147,7 +147,7 @@ a.DC-mapImg > img.DC-Mapimage {
 
   #AnleitungBriefwahl-1 .banner,
   #AnleitungBriefwahl-2 .banner{
-    background: #393;
+    background: #008939;
     color: #fff;
     padding: 10px 15px;
     font-family: 'GrueneType';
@@ -261,12 +261,12 @@ a.DC-mapImg > img.DC-Mapimage {
     display: inherit;
     font-size: 16px;
     padding: 3px 10px;
-    background: #267114 none repeat scroll 0 0;
+    background: #005437 none repeat scroll 0 0;
     font-style: normal !important;
     margin: 3px 0;
   }
 #box1content .banner, #box2content .banner {
-    background: #267114;
+    background: #008939;
     color: #fff;
     padding: 10px 15px;
     font-family: 'PTSans';
@@ -276,7 +276,7 @@ a.DC-mapImg > img.DC-Mapimage {
     cursor: pointer;
 }
   #stateslist>li:hover, #box1content .banner:hover {
-    background: #003399 none repeat scroll 0 0;
+    background: #008939 none repeat scroll 0 0;
     cursor: pointer;
     color: #FFCB00 !important;
   }
