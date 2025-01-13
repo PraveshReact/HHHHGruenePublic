@@ -47,6 +47,8 @@ const Briefwahl2021 = () => {
   const generateUrl = (stateName: string) => {
     if (stateName === "DE-BB") {
       return `/Briefwahl/State=Brandenburg`;
+    }else if (stateName === "Deutschlandweit") {
+      return `/Briefwahl`;
     }else {
       return `/Briefwahl/State=${encodeURIComponent(stateName)}`;
     }

@@ -5,6 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useParams } from 'react-router-dom';
 import GlobalCommanTable from './GlobalCommanTable';
 import './CSS/Briefwahlsearch.css';
+import Highlighter from "react-highlight-words";
 
 
 let backupdata: any = [];
@@ -25,23 +26,22 @@ const Briefwahlsearch = (props: any) => {
 
     const StateDataArray: any = [
         { Title: 'Deutschlandweit', src: 'https://gruene-weltweit.de/assets/Deutschlandweit.png', IsSelected: false },
-        { Title: 'Sachsen', src: 'https://gruene-weltweit.de/assets/Sachsen.png', IsSelected: false },
-        { Title: 'Nordrhein-Westfalen', src: 'https://gruene-weltweit.de/assets/Nordrhein-Westfalen.png', IsSelected: false },
-        { Title: 'Berlin', src: 'https://gruene-weltweit.de/assets/Berlin.png', IsSelected: false },
-        { Title: 'Hamburg', src: 'https://gruene-weltweit.de/assets/Hamburg.png', IsSelected: false },
         { Title: 'Baden-Württemberg', src: 'https://gruene-weltweit.de/assets/Baden-Wurttemberg.png', IsSelected: false },
         { Title: 'Bayern', src: 'https://gruene-weltweit.de/assets/Bayern.png', IsSelected: false },
-        { Title: 'Bremen', src: 'https://gruene-weltweit.de/assets/Bremen.png', IsSelected: false },
-        { Title: 'Niedersachen', src: 'https://gruene-weltweit.de/assets/Niedersachen.png', IsSelected: false },
+        { Title: 'Berlin', src: 'https://gruene-weltweit.de/assets/Berlin.png', IsSelected: false },
         { Title: 'Brandenburg', src: 'https://gruene-weltweit.de/assets/Brandenburg.png', IsSelected: false },
+        { Title: 'Bremen', src: 'https://gruene-weltweit.de/assets/Bremen.png', IsSelected: false },
+        { Title: 'Hamburg', src: 'https://gruene-weltweit.de/assets/Hamburg.png', IsSelected: false },
         { Title: 'Hessen', src: 'https://gruene-weltweit.de/assets/Hessen.png', IsSelected: false },
-        { Title: 'Rheinland-Pfalz', src: 'https://gruene-weltweit.de/assets/Rheinland-Pfalz.png', IsSelected: false },
-        { Title: 'Schleswig-Holstein', src: 'https://gruene-weltweit.de/assets/Schleswig-Holstein.png', IsSelected: false },
         { Title: 'Mecklenburg-Vorpommern', src: 'https://gruene-weltweit.de/assets/Mecklenburg-Vorpommern.png', IsSelected: false },
-        { Title: 'Sachen-Anhalt', src: 'https://gruene-weltweit.de/assets/Sachen-Anhalt.png', IsSelected: false },
+        { Title: 'Nordrhein-Westfalen', src: 'https://gruene-weltweit.de/assets/Nordrhein-Westfalen.png', IsSelected: false },
+        { Title: 'Niedersachen', src: 'https://gruene-weltweit.de/assets/Niedersachen.png', IsSelected: false },
+        { Title: 'Rheinland-Pfalz', src: 'https://gruene-weltweit.de/assets/Rheinland-Pfalz.png', IsSelected: false },
         { Title: 'Saarland', src: 'https://gruene-weltweit.de/assets/Saarland.png', IsSelected: false },
-        { Title: 'Thüringen', src: 'https://gruene-weltweit.de/assets/Thuringen.png', IsSelected: false },
-
+        { Title: 'Sachsen', src: 'https://gruene-weltweit.de/assets/Sachsen.png', IsSelected: false },
+        { Title: 'Sachen-Anhalt', src: 'https://gruene-weltweit.de/assets/Sachen-Anhalt.png', IsSelected: false },
+        { Title: 'Schleswig-Holstein', src: 'https://gruene-weltweit.de/assets/Schleswig-Holstein.png', IsSelected: false },
+        { Title: 'Thüringen', src: 'https://gruene-weltweit.de/assets/Thuringen.png', IsSelected: false }
     ]
 
     useEffect(() => {
@@ -297,14 +297,22 @@ const Briefwahlsearch = (props: any) => {
                                         key={index}
                                         onClick={() => openModal(item)}
                                         style={{ cursor: 'pointer' }}
-                                    >
-                                        <span className="d-flex flex-column">
+                                    ><span>
+                                    <Highlighter
+                                      searchWords={[searchTerm]} // Highlight the search term
+                                      autoEscape={true}           // Escape special characters
+                                      textToHighlight={`${item.PLZ || 'n/a'} ${item.Gemeinde || ''},\u00A0WK:${item.Wahlkreis || 'n/a'},\n\nWK Name: ${item.WKName || 'n/a'}`}
+                                      highlightStyle={{
+                                        backgroundColor: "yellow", // Highlight color
+                                        fontWeight: "bold",         // Bold text for highlighted words
+                                      }}
+                                    />
+                                  </span>
+                                  
+                                  {/* <span className="d-flex flex-column">
                                         <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.Wahlkreis || 'n/a'}</span>
                                         <span className=''>{item.WKName || 'n/a'}</span>
-                                        </span>
-                                        {/* <span className='me-2'>{item.Gemeinde},</span>
-                                        <span className='me-2'>{item.WKName || 'n/a'} || </span>
-                                        <span className='me-2'>{item.Wahlkreis || 'n/a'},</span> */}
+                                        </span> */}
                                         <span className='align-content-start d-flex'>Email:
                                             &nbsp; {item.Email ? <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z" fill="#00893A" />
