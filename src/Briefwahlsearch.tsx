@@ -20,7 +20,7 @@ const Briefwahlsearch = (props: any) => {
     if (props.stateParam && props.stateParam != undefined && props.stateParam != '') {
         State = decodeURIComponent(props.stateParam)
     }
-    const [SelectedTile, setSelectedTile] = useState(State != undefined && State != '' ? State : 'Alle');
+    const [SelectedTile, setSelectedTile] = useState(State != undefined && State != '' ? State : 'Deutschlandweit');
 
     const StateDataArray: any = [
         { Title: 'Deutschlandweit', src: 'https://gruene-weltweit.de/assets/Deutschlandweit.png', IsSelected: false },
@@ -71,14 +71,16 @@ const Briefwahlsearch = (props: any) => {
                 .then((result: any) => {
                     result = JSON.parse(result)
                     backupdata = result?.data;
-                    if (State != undefined && State != undefined) {
+                    if (State != undefined && State != undefined && State.toLowerCase() == 'deutschlandweit') {
+                        BriefwahldataBackup = result?.data;
+                    } else if (State != undefined && State != undefined) {
                         result?.data?.forEach((item: any) => {
                             if (item?.Land == State) {
                                 allfilterdata.push(item)
                             }
                         })
                     }
-                    if (State != undefined && State != undefined) {
+                    if (State != undefined && State != undefined && State.toLowerCase() != 'deutschlandweit') {
                         BriefwahldataBackup = allfilterdata;
                     } else {
                         BriefwahldataBackup = result?.data;
@@ -199,8 +201,10 @@ const Briefwahlsearch = (props: any) => {
                 }
             })
         }
-        if (tile != 'Alle') {
+        if (tile != 'Alle'&& tile.toLowerCase() != 'deutschlandweit') {
             BriefwahldataBackup = allfilterdata;
+        } else if (tile != undefined && tile != undefined && tile.toLowerCase() == 'deutschlandweit') {
+            BriefwahldataBackup = backupdata;
         } else {
             BriefwahldataBackup = allfilterdata;
         }
@@ -375,12 +379,12 @@ const Briefwahlsearch = (props: any) => {
                                 <div className="modal-body">
                                     <div className='infoBox'>
                                         <div className="infoBox-itemBox">
-                                        <div className='infoBox-itemBox-item'><strong>PLZ: </strong> {selectedItem?.PLZ}</div>
-                                        <div className='infoBox-itemBox-item'><strong>Gemeinde: </strong> {selectedItem?.Gemeinde}</div>
+                                            <div className='infoBox-itemBox-item'><strong>PLZ: </strong> {selectedItem?.PLZ}</div>
+                                            <div className='infoBox-itemBox-item'><strong>Gemeinde: </strong> {selectedItem?.Gemeinde}</div>
                                         </div>
                                         <div className="infoBox-itemBox">
-                                        <div className='infoBox-itemBox-item'><strong>WK Name: </strong> {selectedItem?.Wahlkreis}</div>
-                                        <div className='infoBox-itemBox-item'><strong>Wahlkreis: </strong> {selectedItem?.WKName}</div>
+                                            <div className='infoBox-itemBox-item'><strong>WK Name: </strong> {selectedItem?.Wahlkreis}</div>
+                                            <div className='infoBox-itemBox-item'><strong>Wahlkreis: </strong> {selectedItem?.WKName}</div>
                                         </div>
                                     </div>
                                     <div className='infoBox'>
