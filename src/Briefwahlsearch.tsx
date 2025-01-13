@@ -357,23 +357,6 @@ const Briefwahlsearch = (props: any) => {
                             }}
 
                         >
-                            {/* <button
-                                onClick={closeModal}
-                                style={{
-                                    position: 'absolute',
-                                    top: '10px',
-                                    right: '10px',
-                                    background: 'none',
-                                    border: 'none',
-                                    fontSize: '20px',
-                                    fontWeight: 'bold',
-                                    color: 'black',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                &times;
-                            </button> */}
-
                             <div className='BriefwahlInformationPopup'>
                                 <div className='modal-header'>Briefwahl Information - {selectedItem?.Gemeinde}</div>
                                 <div className="modal-body">
