@@ -18,7 +18,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ftp.gruene-weltweit.de  # FTP server URL
-        username: deploygruene.com  # FTP username
+        username: deploygrueneweltweit  # FTP username
         password: ${{ secrets.FTP_PASSWORD }}  # Using a secret for security
         local-dir: ./  # Sync all files from the root directory of your repo
         
