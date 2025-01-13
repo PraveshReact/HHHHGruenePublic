@@ -1219,6 +1219,9 @@ input[type=text], select, textarea{
 .NewsCardSection .card .card-body h4.card-title, .EventsCardSection .card .card-body h4.card-title{
   text-align: left;
 }
+.text-right {
+  text-align: right;
+}
 .tbl-headings {
   display: inline-block;
   vertical-align: middle;

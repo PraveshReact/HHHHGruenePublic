@@ -64,6 +64,15 @@ const Footer = () => {
   return (
     <div>
       <footer className="bg-sitecolor">
+      <section className="copyrights">
+          <Container>
+            <Row>
+              <Col md="12" xs="12" >
+                <p className='text-right pt-1'><span className='me-1'> Powered By : </span> <a target='_blank' href="https://hochhuth-consulting.de/"> Hochhuth Consulting GmbH </a></p>
+              </Col>
+            </Row>
+          </Container>
+        </section>
         <section className="footer-widgets-wrap">
           <Container>
             <Row>
@@ -71,7 +80,7 @@ const Footer = () => {
                 .slice() // Create a copy of the array to avoid mutating the original data
                 .sort((a: any, b: any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of parent
                 .map((parent: any) => (
-                  <Col key={parent.id}>
+                  <Col sm={12} md={6} lg={4} key={parent.id}>
                     <h4>{parent.Title}</h4>
                     <ul className="list-unstyled">
                       {parent.children
@@ -103,31 +112,7 @@ const Footer = () => {
             </Row>
           </Container>
         </section>
-        <section className="copyrights p-2">
-          <Container>
-            <Row>
-              <div className="col-12 mb-4 mt-4">
-                <hr></hr>
-              </div>
-            </Row>
-            <Row>
-              <Col md="10" xs="12" >
-                <p><span className='me-1'> Powered By : </span> <a href="https://hochhuth-consulting.de/"> Hochhuth Consulting GmbH </a></p>
-                {/* <a className="gap4 ms-2 px-4 valign-middle footerSignIn-Link" 
-                href='https://grueneweltweit.sharepoint.com/sites/GrueneWeltweit/Washington/Public/SitePages/HomeGruene.aspx'>
-                  <span className="svg__iconbox svg__icon--signin light">
-                    </span>
-                    <span className='footerSignIn-LinkText'>Sign In</span>
-                    </a> */}
-              </Col>
-              {/* <Col md="2" xs="4">
-                <a href="https://www.gruene-weltweit.de"><img
-                  src="https://gruene-weltweit.de/SiteAssets/logo2.png"
-                  alt="Gruene Logo" className="footer-logo"></img></a>
-              </Col> */}
-            </Row>
-          </Container>
-        </section>
+       
       </footer>
     </div>
   );
