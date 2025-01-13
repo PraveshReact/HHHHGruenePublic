@@ -646,6 +646,11 @@ margin-bottom: 0px;
 .SmartPages p {
   font-size: 19px !important;
 }
+.SmartPages ul.custom-list > li {list-style: disc;}
+
+.SmartPages ul.custom-list {
+    padding-left: 3rem;
+}
 .eventItemDesc a {
     color: #46962b !important;
 }
@@ -1546,7 +1551,7 @@ button {
   width: 100%;
 }
 .SmartPages ul li {
-  list-style: square;
+  list-style: disc;
   /* padding-bottom: 5px; */
   font-size: 19px;
   line-height: 1.8rem;

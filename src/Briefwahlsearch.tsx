@@ -298,7 +298,10 @@ const Briefwahlsearch = (props: any) => {
                                         onClick={() => openModal(item)}
                                         style={{ cursor: 'pointer' }}
                                     >
-                                        <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.WKName || 'n/a'} || {item.Wahlkreis || 'n/a'}</span>
+                                        <span className="d-flex flex-column">
+                                        <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.Wahlkreis || 'n/a'}</span>
+                                        <span className=''>{item.WKName || 'n/a'}</span>
+                                        </span>
                                         {/* <span className='me-2'>{item.Gemeinde},</span>
                                         <span className='me-2'>{item.WKName || 'n/a'} || </span>
                                         <span className='me-2'>{item.Wahlkreis || 'n/a'},</span> */}
@@ -360,7 +363,6 @@ const Briefwahlsearch = (props: any) => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '20px',
-                                alignItems: 'flex-end',
                             }}
 
                         >
