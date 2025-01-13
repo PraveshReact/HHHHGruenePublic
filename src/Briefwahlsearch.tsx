@@ -374,7 +374,7 @@ const Briefwahlsearch = (props: any) => {
 
                         >
                             <div className='BriefwahlInformationPopup'>
-                                <div className='modal-header'>Briefwahl Information - {selectedItem?.Gemeinde}</div>
+                                <div className='modal-header'>Briefwahl Information  {selectedItem?.Gemeinde}</div>
                                 <div className="modal-body">
                                     <div className='infoBox'>
                                         <div className="infoBox-itemBox">
