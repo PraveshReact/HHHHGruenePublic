@@ -379,12 +379,12 @@ const Briefwahlsearch = (props: any) => {
                                 <div className="modal-body">
                                     <div className='infoBox'>
                                         <div className="infoBox-itemBox">
-                                            <div className='infoBox-itemBox-item'><strong>PLZ: </strong> {selectedItem?.PLZ}</div>
-                                            <div className='infoBox-itemBox-item'><strong>Gemeinde: </strong> {selectedItem?.Gemeinde}</div>
+                                            <div className='infoBox-itemBox-item'><strong>PLZ:</strong>{selectedItem?.PLZ}</div>
+                                            <div className='infoBox-itemBox-item'><strong>Gemeinde:</strong>{selectedItem?.Gemeinde}</div>
                                         </div>
                                         <div className="infoBox-itemBox">
-                                            <div className='infoBox-itemBox-item'><strong>WK Name: </strong> {selectedItem?.Wahlkreis}</div>
-                                            <div className='infoBox-itemBox-item'><strong>Wahlkreis: </strong> {selectedItem?.WKName}</div>
+                                            <div className='infoBox-itemBox-item'><strong>Wahlkreis:</strong>{selectedItem?.Wahlkreis}</div>
+                                            <div className='infoBox-itemBox-item'><strong>WK Name:</strong>{selectedItem?.WKName}</div>
                                         </div>
                                     </div>
                                     <div className='infoBox'>
