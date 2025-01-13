@@ -124,16 +124,27 @@ input.CustomSearchInput {
     border-radius: 0 !important;
     font-weight: 700;
 }
-.CustomSearchInputWithBtn > span.BtnCrossIcon {
+.CustomSearchInputWithBtn > span.BtnSearchIcon {
     position: absolute;
     left: 12px;
 }
-.searchItemList {
-    border-bottom: 1px solid #E4E4E4;
+.CustomSearchInputWithBtn > span.BtnCrossIcon {
+    position: absolute;
+    right: 18%;
+    display: none; /* Hide the icon by default */
+    cursor: pointer; /* Adjust spacing as needed */
+  }
+  
+  .CustomSearchInput:not(:placeholder-shown) + .BtnCrossIcon {
+    display: inline-block; /* Show the icon when input has a value */
+  }
+  
+.SmartTableOnTaskPopup tr.searchItemList {
+    border-bottom: 1px solid #E4E4E4 !important;
     display: flex;
-    padding: 12px;
+    padding: 6px 12px !important;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
     width: 100%;
 }
 .BriefwahlInformationPopup .modal-header {
