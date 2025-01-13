@@ -56,7 +56,7 @@ const Briefwahl2021 = () => {
     "Baden-Württemberg", "Bayern", "Berlin", "Brandenburg", "Bremen",
     "Hamburg", "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen",
     "Nordrhein-Westfalen", "Rheinland-Pfalz", "Saarland", "Sachsen",
-    "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen", "Belgium"
+    "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"
   ];
 
   const data = [
@@ -77,7 +77,6 @@ const Briefwahl2021 = () => {
     ['Sachsen-Anhalt', 'Sachsen-Anhalt'],
     ['Schleswig-Holstein', 'Schleswig-Holstein'],
     ['Thüringen', 'Thüringen'],
-    ['Belgium', 'Belgium'],
   ];
 
   const handleClick = (event: {
@@ -128,7 +127,7 @@ const Briefwahl2021 = () => {
   };
 
   const openModal = (modal: any) => {
-    if (modal === "modal")
+    if (modal === "modal2")
       setShowModal(true);
     else
       setShowModal1(true);
@@ -159,34 +158,38 @@ const Briefwahl2021 = () => {
           </Link>
 
         </div>
-        <section className="section container  Briefwahl2021">
+        <section className="section Briefwahl2021">
           <div className="form-group clearfix">
             <div id="BriefwahlTitleDiv">
-              <h1 className="privacypageTitle">Europawahl 2024 - Briefwahl Suchmaschine</h1>
+              <h1 className="privacypageTitle">Bundestagswahl 2025 - Briefwahl Suchmaschine</h1>
 
-              <ul className="scrollToBtns" id="mobile-view-btns">
+              <ul className="scrollToBtns">
                 <li>
-                  <span onClick={() => openModal("modal1")}>
+                  <a>
+                  <span onClick={() => openModal("modal2")}>
                     Anleitung Briefwahl - Bin in Deutschland gemeldet
                     <svg className="right-arrowSvgMini" width="31" height="22" viewBox="0 0 31 22" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19.266 20.32l1.468 1.36 9.795-10.58L20.734.523 19.266 1.88 26.784 10H0v2h26.97l-7.704 8.32z" />
                     </svg>
                   </span>
+                  </a>
                 </li>
                 <li>
+                <a>
                   <span onClick={() => openModal("modal1")}>
                     Anleitung Briefwahl - Nicht mehr in Deutschland gemeldet
                     <svg className="right-arrowSvgMini" width="31" height="22" viewBox="0 0 31 22" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19.266 20.32l1.468 1.36 9.795-10.58L20.734.523 19.266 1.88 26.784 10H0v2h26.97l-7.704 8.32z" />
                     </svg>
                   </span>
+                  </a>
                 </li>
               </ul>
             </div>
             <div id="Stoerer_Briefwahl_imgDiv">
-              <a href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank"><img
+              <a href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank"><img
                 className="Stoerer_Briefwahl_img"
-                src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/Stoerer_Briefwahl_RGB.png"></img></a>
+                src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/Stoerer_Briefwahl_RGBRed.png"></img></a>
             </div>
           </div>
 
@@ -209,14 +212,14 @@ const Briefwahl2021 = () => {
               </div>
             </div>
 
-            <a className="DC-mapImg" href="https://www.gruene-washington.de/BriefwahlSearch" target="_blank" data-interception="off">
-              <img src={isHovered ? "https://gruene-washington.de/Site%20Collection%20Images/DC-MapBlue.png" : "https://gruene-washington.de/Site%20Collection%20Images/DC-Map.png"}
+            {/* <a className="DC-mapImg" href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank" data-interception="off">
+              <img src={isHovered ? "https://gruene-weltweit.de/Site%20Collection%20Images/DC-MapBlue.png" : "https://gruene-weltweit.de/Site%20Collection%20Images/DC-Map.png"}
                 alt="DC-Mapimage"
                 className="DC-Mapimage"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               />
-            </a>
+            </a> */}
 
             <ul id="stateslist" style={{}}>
               {states.map((state: any) => (

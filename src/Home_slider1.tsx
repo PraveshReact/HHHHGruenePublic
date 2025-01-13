@@ -75,7 +75,7 @@ function Home_slider1() {
         redirect: 'follow'
       };
 
-      fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
+      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
         .then((result: any) => {
           console.log(result, "ddddd")
@@ -127,7 +127,7 @@ function Home_slider1() {
 
   const handleTitleClick = (newsItem: any) => {
     setSelectedNews(newsItem);
-    setUrl(`https://www.gruene-washington.de/Neuigkeiten/${newsItem?.Title}`);
+    setUrl(`https://www.gruene-weltweit.de/Neuigkeiten/${newsItem?.Title}`);
   };
   const closePanel = () => {
     setSelectedNews(null);
@@ -202,7 +202,7 @@ function Home_slider1() {
             data.map((item: any) => (
               <div key={item.id} className="">
                 <div className="card border-0" style={{ position: "relative" }}>
-                  <img className="card-img-top" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                  <img className="card-img-top" src={item?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
                   <div className="card-body">
                     <div className="entry-meta">
                       <IoCalendarOutline />

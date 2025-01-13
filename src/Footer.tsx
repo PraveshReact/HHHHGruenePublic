@@ -32,7 +32,7 @@ const Footer = () => {
         redirect: 'follow'
       };
 
-      fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
+      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
         .then((result: any) => {
           result = JSON.parse(result)
@@ -111,7 +111,7 @@ const Footer = () => {
               </div>
             </Row>
             <Row>
-              <Col md="10" xs="8" >
+              <Col md="10" xs="12" >
                 <p><span className='me-1'> Powered By : </span> <a href="https://hochhuth-consulting.de/"> Hochhuth Consulting GmbH </a></p>
                 {/* <a className="gap4 ms-2 px-4 valign-middle footerSignIn-Link" 
                 href='https://grueneweltweit.sharepoint.com/sites/GrueneWeltweit/Washington/Public/SitePages/HomeGruene.aspx'>
@@ -120,11 +120,11 @@ const Footer = () => {
                     <span className='footerSignIn-LinkText'>Sign In</span>
                     </a> */}
               </Col>
-              <Col md="2" xs="4">
-                <a href="https://www.gruene-washington.de"><img
-                  src="https://gruene-washington.de/SiteAssets/logo2.png"
+              {/* <Col md="2" xs="4">
+                <a href="https://www.gruene-weltweit.de"><img
+                  src="https://gruene-weltweit.de/SiteAssets/logo2.png"
                   alt="Gruene Logo" className="footer-logo"></img></a>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </section>

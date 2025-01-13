@@ -63,7 +63,7 @@ const NewsPanel = ({ selectedNews, onClose, url }: any) => {
                             className="image"
                             src={
                                 selectedNews?.ItemCover ||
-                                "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"
+                                "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"
                             }
                             alt="News cover"
                         />

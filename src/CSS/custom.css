@@ -102,10 +102,11 @@ margin-top: 0px;
   text-align: left;
 }
 
-.modal-dialog {
+/* .modal-dialog {
   left: 0px !important;
   margin: 0 auto;
-}
+  top: 25%;
+} */
 .modal label span {
   margin-left: 3px;
 }

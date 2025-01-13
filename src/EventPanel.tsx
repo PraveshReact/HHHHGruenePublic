@@ -71,7 +71,7 @@ const EventPanel = ({ selectedEvent, onClose, url }: any) => {
                     <div className="imagedetail">
                         <img
                             className="image"
-                            src={selectedEvent?.ItemCover || "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"}
+                            src={selectedEvent?.ItemCover || "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"}
                             alt="Event cover"
                         />
                     </div>

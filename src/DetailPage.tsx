@@ -17,8 +17,8 @@ const DetailPage = () => {
                         className="image"
                         src={
                             selectedEvent?.ItemCover === ""
-                                ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"
-                                : selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"
+                                ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"
+                                : selectedEvent?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"
                         }
                         alt="Event Cover"
                     />

@@ -34,7 +34,7 @@ export const RelevantWebPart = (props: any) => {
                 redirect: 'follow'
             };
 
-            fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
+            fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
                 .then(response => response.text())
                 .then((result: any) => {
                     result = JSON.parse(result)
@@ -142,7 +142,7 @@ export const RelevantWebPart = (props: any) => {
                                                                         ? keyitem?.Item_x0020_Cover
                                                                         : (keyitem?.ItemCover && keyitem?.ItemCover !== "")
                                                                             ? keyitem?.ItemCover
-                                                                            : "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"
+                                                                            : "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"
                                                                 }
                                                                 data-themekey="#"
                                                                 alt=""

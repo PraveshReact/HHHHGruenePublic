@@ -15,7 +15,7 @@ export default function RelevantNews(props: any) {
     const handleTitleClick = (newsItem: any) => {
         // Navigate to the new page and pass the newsItem as state
         setSelectedNews(newsItem);
-        setUrl(`https://www.gruene-washington.de/Neuigkeiten/${newsItem?.Title}`);
+        setUrl(`https://www.gruene-weltweit.de/Neuigkeiten/${newsItem?.Title}`);
     };
     const closePanel = () => {
         setSelectedNews(null);

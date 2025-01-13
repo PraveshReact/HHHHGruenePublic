@@ -46,7 +46,7 @@ const App = () => {
 
       try {
         const response = await axios.get(
-          "https://gruene-washington.de/SPPublicAPIs/TopNavigation.php"
+          "https://gruene-weltweit.de/SPPublicAPIs/TopNavigation.php"
         );
         const structuredData = response?.data?.data;
         setData(structuredData);
@@ -63,11 +63,11 @@ const App = () => {
       <Navbarcomponent />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<HomeComponent />} />
+          <Route path="/" element={<SmartpageComponent clickedTitle={'Europawahl-2024'} />} />
           {clickedTitle && clickedTitle?.toLowerCase() !== 'neuigkeiten' && clickedTitle?.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
             <Route
               key={route.Title}
-              path={`/${route.Title}`}
+              path={route.Title === "Briefwahl Suchmaschine" ? "/Briefwahl" : `/${route.Title}`}
               element={<SmartpageComponent clickedTitle={clickedTitle} />}
             />
           ))}

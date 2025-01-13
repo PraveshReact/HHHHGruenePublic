@@ -16,7 +16,7 @@ const WahlWeltweit = () => {
                 id="page-title"
                 className="page-title-parallax page-title-dark skrollable skrollable-between"
                 style={{
-                    backgroundImage: `url("https://gruene-washington.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg")`,
+                    backgroundImage: `url("https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg")`,
                     backgroundPosition: `0px -117.949px`
                 }}
                 data-bottom-top="background-position:0px 300px;"
@@ -30,7 +30,7 @@ const WahlWeltweit = () => {
                 </div>
             </section>
             <div className="red_block ">
-                <a className="gap-3 valign-middle justify-center" href="https://www.gruene-washington.de/Europawahl-2024">OV Washington - Briefwahl Suchmaschine
+                <a className="gap-3 valign-middle justify-center" href="https://www.gruene-weltweit.de/Europawahl-2024">OV Washington - Briefwahl Suchmaschine
                     <IoChevronForwardOutline />
                 </a>
             </div>
@@ -65,13 +65,13 @@ const WahlWeltweit = () => {
                                 Deutschlands in unserem Briefwahl-Tool zusammengetragen. Hier könnt ihr mit wenigen Klicks online
                                 Eure
                                 Briefwahl-Unterlagen anfordern:</p>
-                            <h3 className='m-0'><a className="m-0 gap-2 valign-middle " href="https://www.gruene-washington.de/SitePages/BriefwahlSearch.aspx">OV Washington
+                            <h3 className='m-0'><a className="m-0 gap-2 valign-middle " href="https://www.gruene-weltweit.de/SitePages/BriefwahlSearch.aspx">OV Washington
                                 Briefwahl-Suchmaschine <IoChevronForwardOutline /></a></h3>
 
                         </section>
                         <div className="accordionPlus">
                             <div className={`accordion__header ${activeIndex === 0 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(0)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/01.png" />1. Weil Dich
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/01.png" />1. Weil Dich
                                     Politik, die in Deutschland gemacht wird auch im Ausland
                                     betrifft</h2>
                                 <span className="accordion__toggle"></span>
@@ -92,7 +92,7 @@ const WahlWeltweit = () => {
                                     Richtung durch unsere Wahl mitzubestimmen – auch im Ausland.</p>
                             </div>
                             <div className={`accordion__header ${activeIndex === 1 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(1)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/02.png" />2. Weil
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/02.png" />2. Weil
                                     Probleme wie der Klimaschutz nicht an Grenzen aufhören</h2>
                                 <span className="accordion__toggle"></span>
                             </div>
@@ -104,7 +104,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 2 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(2)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/03.png" />3. Weil es
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/03.png" />3. Weil es
                                     Dir nicht egal sein kann, wer Dich als Deutsche*r politisch
                                     repräsentiert</h2>
                                 <span className="accordion__toggle"></span>
@@ -116,7 +116,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 3 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(3)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/04.png" />4. Weil Du
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/04.png" />4. Weil Du
                                     Familie und Freunde in Deutschland hast</h2>
                                 <span className="accordion__toggle"></span>
                             </div>
@@ -128,7 +128,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 4 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(4)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/05.png" />5. Weil Du
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/05.png" />5. Weil Du
                                     oder deine Familie vielleicht einmal nach Deutschland
                                     zurückwollen</h2>
                                 <span className="accordion__toggle"></span>
@@ -143,7 +143,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 5 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(5)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/06.png" />6. Weil
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/06.png" />6. Weil
                                     Deutschland eine international Perspektive braucht</h2>
                                 <span className="accordion__toggle"></span>
                             </div>
@@ -159,7 +159,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 6 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(6)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/07.png" />7. Weil das
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/07.png" />7. Weil das
                                     Wahlrecht ein hohes, lange erkämpftes Gut ist</h2>
                                 <span className="accordion__toggle"></span>
                             </div>
@@ -175,7 +175,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 7 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(7)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/08.png" />8. Weil Du
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/08.png" />8. Weil Du
                                     am politischen Prozess teilhaben kannst.</h2>
                                 <span className="accordion__toggle"></span>
                             </div>
@@ -189,7 +189,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 8 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(8)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/09.png" />9. Weil Du
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/09.png" />9. Weil Du
                                     gute Ideen und deine Werte unterstützen möchtest, egal wo auf der Welt</h2>
                                 <span className="accordion__toggle"></span>
                             </div>
@@ -204,7 +204,7 @@ const WahlWeltweit = () => {
                             </div>
 
                             <div className={`accordion__header ${activeIndex === 9 ? 'is-active' : ''}`} onClick={() => handleAccordionClick(9)}>
-                                <h2><img src="https://gruene-washington.de/Site%20Collection%20Images/ICONS/10.png" />10. Weil Du
+                                <h2><img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/10.png" />10. Weil Du
                                     nicht andere für Dich entscheiden lassen willst</h2>
                                 <span className="accordion__toggle"></span>
                             </div>

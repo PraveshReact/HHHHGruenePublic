@@ -48,7 +48,7 @@ function Slider_Comp() {
   };
   const handleTitleClick = (newsItem: any) => {
     setSelectedEvent(newsItem);
-    setUrl(`https://www.gruene-washington.de/Veranstaltungen/${newsItem?.Title}`);
+    setUrl(`https://www.gruene-weltweit.de/Veranstaltungen/${newsItem?.Title}`);
 
   };
   const closePanel = () => {
@@ -95,7 +95,7 @@ function Slider_Comp() {
         } else {
           return match;
         }
-        return `href="https://gruene-washington.de/${title}"`;
+        return `href="https://gruene-weltweit.de/${title}"`;
       });
 
       const urlPattern = /sites\/GrueneWeltweit\/washington\/public\//g;
@@ -126,7 +126,7 @@ function Slider_Comp() {
       };
 
 
-      fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
+      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
         .then((result: any) => {
           result = JSON.parse(result)
@@ -218,7 +218,7 @@ function Slider_Comp() {
             data.map((item: any) => (
               <div key={item.id} className="">
                 <div className="card border-0">
-                  <img className="card-img-top" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                  <img className="card-img-top" src={item?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
 
                   <div className="card-body">
                     <div className="entry-meta">

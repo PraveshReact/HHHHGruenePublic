@@ -15,7 +15,7 @@ export default function RelevantEvent(props: any) {
     const handleTitleClick = (newsItem: any) => {
         // Navigate to the new page and pass the newsItem as state
         setSelectedEvent(newsItem);
-        setUrl(`https://www.gruene-washington.de/Veranstaltungen/${newsItem?.Title}`);
+        setUrl(`https://www.gruene-weltweit.de/Veranstaltungen/${newsItem?.Title}`);
     };
     const closePanel = () => {
         setSelectedEvent(null);
@@ -162,8 +162,8 @@ export default function RelevantEvent(props: any) {
                             <div className="imagedetail">
 
                                 <img className="image"
-                                    src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" :
-                                        selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                                    src={selectedEvent?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" :
+                                        selectedEvent?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
 
                             </div>
                             <div className="eventItemDesc">

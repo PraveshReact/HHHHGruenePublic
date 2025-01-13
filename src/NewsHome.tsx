@@ -26,7 +26,7 @@ const NewsHomemainPage = (props: any) => {
     const handleTitleClick = (newsItem: any) => {
         // Navigate to the new page and pass the newsItem as state
         setSelectedNews(newsItem);
-        setUrl(`https://www.gruene-washington.de/Neuigkeiten/${newsItem?.Title}`);
+        setUrl(`https://www.gruene-weltweit.de/Neuigkeiten/${newsItem?.Title}`);
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(url)
@@ -109,7 +109,7 @@ const NewsHomemainPage = (props: any) => {
                 body: raw,
                 redirect: 'follow'
             };
-            fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
+            fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
                 .then(response => response.text())
                 .then((result: any) => {
                     result = JSON.parse(result)
@@ -316,7 +316,7 @@ const NewsHomemainPage = (props: any) => {
                                 </div>
                                 <div className='entry-content clearfix'>
                                     <div className='Coverimage'>
-                                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
                                     </div>
                                     <p>
                                         {/* { item.Description.replaceAll(/&#160;/g, ' '} */}

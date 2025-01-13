@@ -22,7 +22,8 @@ import EventDetailPage from './EventDetailPage'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<><Layout /></>}>
-      <Route path='/' element={<HomeComponent />} />
+      {/* <Route path='/' element={<HomeComponent />} /> */}
+      <Route path='/' element={<SmartpageComponent clickedTitle = {'Europawahl-2024'}/>} />
       <Route path=':SmartPage' element={<SmartpageComponent />}>
         <Route path=':SmartPage' element={<SmartpageComponent />} >
           <Route path=':SmartPage' element={<SmartpageComponent />} />

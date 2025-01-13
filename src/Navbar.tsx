@@ -45,14 +45,14 @@ const Navbarcomponent = () => {
         redirect: 'follow'
       };
 
-      const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
       const result = await response.text();
       const parsedResult = JSON.parse(result);
       results = parsedResult?.data;
 
       const structuredData = structureData(results);
 
-      // Recursive sorting function
+
       const sortData = (data: any[]) => {
         return data.sort((a: any, b: any) => a.SortOrder - b.SortOrder).map((item: any) => {
           if (item.children && Array.isArray(item.children)) {
@@ -121,13 +121,21 @@ const Navbarcomponent = () => {
     try {
       let url = '';
       if (smartid != null) {
-        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        //url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       } else {
-        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       }
 
       const response = await fetch(url);
-      const result = await response.json();
+      const text = await response.text();
+      const jsonStartIndex = text.indexOf('{');  // Find the start of JSON
+      const jsonEndIndex = text.lastIndexOf('}'); // Find the end of JSON
+
+      // Extract the JSON part by slicing the string between the first "{" and the last "}"
+      const jsonText = text.slice(jsonStartIndex, jsonEndIndex + 1);
+
+      const result = JSON.parse(jsonText);
 
       if (result?.success && result?.data) {
         return result?.data?.KeyTitle || Title; // Return cleaned title from API
@@ -168,8 +176,14 @@ const Navbarcomponent = () => {
     <li key={item.id} className="nav-item dropdown">
       <Link
         to={{
-          pathname: `/${item.Title === "Home" ? "" : removeSpacialChar(item.Title)}`,
+          pathname:
+            item.Title === "Home"
+              ? "/"
+              : item.Title === "Briefwahl Suchmaschine"
+                ? "/Briefwahl"
+                : `/${removeSpacialChar(item.Title)}`,
         }}
+
         state={{ item: item }}
         id="navbarDropdown"
         role="button"
@@ -239,17 +253,17 @@ const Navbarcomponent = () => {
                 onClick={() => handleLinkClick("Home", "")}
               >
                 <img
-                  src="https://gruene-washington.de/SiteAssets/washington-dc_184.png"
+                  src="https://gruene-weltweit.de/SiteAssets/Gruene_logo.png"
                   className="logo_image"
                 />
-                <span>GRÜNE WASHINGTON D.C.</span>
+                <span>GRÜNE WELTWEIT</span>
               </Link>
             </div>
           </div>
         </div>
         <Navbar expand="lg">
           <Container>
-            <Navbar.Brand href="/"><img src="https://gruene-washington.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
+            <Navbar.Brand href="/"><img src="https://gruene-weltweit.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav">
               <MdMenu className="open" />
               <MdClose className="close" />

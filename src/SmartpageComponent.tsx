@@ -36,14 +36,14 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const { item } = location.state || {};
   console.log(item, "clickItem")
   let stateParam: any;
-  if (location.pathname.indexOf('/BriefwahlSearch/State=') > -1) {
+  if (location.pathname.indexOf('/Briefwahl/State=') > -1) {
     const pathParts = location.pathname.split('/');
     stateParam = pathParts[pathParts.length - 1].split('=')[1];
     if (stateParam) {
       showBriefflag = true
     }
   }
-  else if (location.pathname.indexOf('/BriefwahlSearch') > -1) {
+  else if (location.pathname.indexOf('/Briefwahl') > -1) {
     const pathParts = location.pathname.split('/');
     stateParam = pathParts[pathParts.length - 1].split('=')[1];
     if (stateParam == undefined || stateParam == '') {
@@ -97,7 +97,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
         redirect: 'follow'
       };
 
-      const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
       const result = await response.json();
       return result?.data || [];
     } catch (error) {
@@ -170,14 +170,18 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     setShowwebpart(true)
   }
   const getPublicServerSmartMetaData = async (tableName: any, Title: any, smartid: any) => {
+    if(clickedTitle!=undefined){
+      Title = clickedTitle
+    }
     try {
       let url = '';
       // Construct the URL with query parameters
       if (smartid != null) {
-        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+       // url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?title=${Title}`;
       }
       else {
-        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?title=${Title}`;
       }
 
       // Define the GET request options
@@ -193,7 +197,15 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
       // Send the GET request
       const response = await fetch(url, requestOptions);
-      const result = await response.json();
+      const text = await response.text();
+      const jsonStartIndex = text.indexOf('{');  // Find the start of JSON
+      const jsonEndIndex = text.lastIndexOf('}'); // Find the end of JSON
+  
+      // Extract the JSON part by slicing the string between the first "{" and the last "}"
+      const jsonText = text.slice(jsonStartIndex, jsonEndIndex + 1);
+  
+      const result = JSON.parse(jsonText);
+      //const result = await response.json();
       console.log(result, "Result from GET request");
 
       // Filter the results to match the specific KeyTitle
@@ -225,7 +237,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   //       redirect: 'follow'
   //     };
 
-  //     const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
+  //     const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByIdandTitle.php", requestOptions);
   //     const result = await response.json();
   //     console.log(result, "resultresultresultresult")
   //     // Filter the results to match the specific KeyTitle
@@ -250,7 +262,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
         } else {
           return match;
         }
-        return `href="https://gruene-washington.de/${title}"`;
+        return `href="https://gruene-weltweit.de/${title}"`;
       });
 
       const urlPattern = /sites\/GrueneWeltweit\/washington\/public\//g;
@@ -370,7 +382,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       myHeaders.append("Content-Type", "application/json");
 
       // Construct the URL with the query parameters
-      const url = `https://gruene-washington.de/SPPublicAPIs/getBreadcrumsdata.php?smartId=${smartid}`;
+      const url = `https://gruene-weltweit.de/SPPublicAPIs/getBreadcrumsdata.php?smartId=${smartid}`;
 
       const requestOptions: any = {
         method: 'GET',
@@ -395,7 +407,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       myHeaders.append("Content-Type", "application/json");
 
       // Construct the URL with the query parameters
-      const url = `https://gruene-washington.de/SPPublicAPIs/getBreadcrumdataByid.php?id=${smartid}`;
+      const url = `https://gruene-weltweit.de/SPPublicAPIs/getBreadcrumdataByid.php?id=${smartid}`;
 
       const requestOptions: any = {
         method: 'GET',
@@ -416,9 +428,10 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     try {
       let url = '';
       if (smartid != null) {
-        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        //url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       } else {
-        url = `https://gruene-washington.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
+        url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=&title=${Title}`;
       }
 
       const response = await fetch(url);
@@ -444,7 +457,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   };
   const handleHref = async (title: any) => {
     const smarttitle = await getPublicServerSmartMetaDataTitle(title, "")
-    window.location.href = `https://www.gruene-washington.de/${smarttitle}`;
+    window.location.href = `https://www.gruene-weltweit.de/${smarttitle}`;
 
   }
 
@@ -455,7 +468,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
           <ul className="spfxbreadcrumb m-0 p-0">
             {breadcrumsdata.length > 0 && (
               <li>
-                <a href="https://www.gruene-washington.de/">
+                <a href="https://www.gruene-weltweit.de/">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
@@ -476,7 +489,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                 <li key={index}>
                   <a
                     title={removeSpacialChar2(item.Title)}
-                    href={`https://www.gruene-washington.de/${removeSpacialChar(item.KeyTitle)}`}
+                    href={`https://www.gruene-weltweit.de/${removeSpacialChar(item.KeyTitle)}`}
                     onClick={(e) => {
                       e.preventDefault(); // Prevent default anchor action
                       // Collect values up to the clicked index and filter out empty values
@@ -505,7 +518,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
               data?.map((item: any, index: number) => {
                 console.log("Item:", item);
                 return (
-                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl' && showBriefflag == false ? (
                     <div key={index}>
                       <section
                         id="page-title"
@@ -546,19 +559,19 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       </section>
                     </div>
                   ) :
-                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl' && showBriefflag == false ? (
                       <>
                         <WahlWeltweit />
                         {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
                         {/* <HTMLRenderer content={item.PageContent} /> */}
                       </>
-                    ) : item.KeyTitle?.toLowerCase() !== 'briefwahlsearch' && showBriefflag == false ? (
+                    ) : item.KeyTitle?.toLowerCase() !== 'Briefwahl' && showBriefflag == false ? (
                       <div>
-                        <section
+                        {/* <section
                           id="page-title"
                           className="page-title-parallax page-title-dark skrollable skrollable-between"
                           style={{
-                            backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-washington.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
+                            backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
                             backgroundPosition: `0px -117.949px`
                           }}
                           data-bottom-top="background-position:0px 300px;"
@@ -569,7 +582,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                               {item?.AlternativeTitle}
                             </h1>
                           </div>
-                        </section>
+                        </section> */}
                         <Briefwahl2021 />
 
                       </div>
@@ -599,7 +612,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                   <div className='entry-content clearfix'>
                     <div className='Coverimage'>
 
-                      <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                      <img className="image" src={item?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
 
                     </div>
                     <p>
@@ -623,7 +636,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                     <div className='entry-content clearfix'>
                       <div className='Coverimage'>
 
-                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
 
                       </div>
 

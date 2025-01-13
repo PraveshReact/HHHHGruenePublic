@@ -88,7 +88,7 @@ const GrueneWeltweitForm = () => {
         formData.append("interest", txtComment);
 
         try {
-            const response = await axios.post("https://gruene-washington.de/SPPublicAPIs/php-mailer-api/mail.php", formData, {
+            const response = await axios.post("https://gruene-weltweit.de/SPPublicAPIs/php-mailer-api/mail.php", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -181,7 +181,7 @@ const GrueneWeltweitForm = () => {
                                         <div className="col valign-middle">
                                             <input type="text" className="text-center searchbox_height" onCopy={(e) => e.preventDefault()} id="generated-captcha" value={captcha} />
                                             <a onClick={generateCaptcha} id="newgen" title="Generate new captcha" className="ms-1">
-                                                <img src="https://www.gruene-washington.de/PublishingImages/Icons/32/Re-load.png" alt="reload icon" />
+                                                <img src="https://www.gruene-weltweit.de/PublishingImages/Icons/32/Re-load.png" alt="reload icon" />
                                             </a>
                                             <label className="full_width ml-8"><div id="newstatus" className="c-red">{status}</div></label>
                                         </div>

@@ -35,7 +35,7 @@ const EventHomemainPage = (props: any) => {
     const handleTitleClick = (newsItem: any) => {
         // Navigate to the new page and pass the newsItem as state
         setSelectedEvent(newsItem);
-        setUrl(`https://www.gruene-washington.de/Veranstaltungen/${newsItem?.Title}`);
+        setUrl(`https://www.gruene-weltweit.de/Veranstaltungen/${newsItem?.Title}`);
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(url)
@@ -112,7 +112,7 @@ const EventHomemainPage = (props: any) => {
                 redirect: 'follow'
             };
 
-            fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions)
+            fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
                 .then(response => response.text())
                 .then((result: any) => {
                     result = JSON.parse(result)
@@ -319,7 +319,7 @@ const EventHomemainPage = (props: any) => {
                                 </div>
                                 <div className='entry-content clearfix'>
                                     <div className='Coverimage'>
-                                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                                        <img className="image" src={item?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" : item?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
                                     </div>
 
                                     <p>
@@ -357,8 +357,8 @@ const EventHomemainPage = (props: any) => {
                                     <div className="imagedetail">
 
                                         <img className="image"
-                                            src={selectedEvent?.ItemCover == "" ? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg" :
-                                                selectedEvent?.ItemCover ?? "https://gruene-washington.de/PublishingImages/Covers/Default_img.jpg"} />
+                                            src={selectedEvent?.ItemCover == "" ? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg" :
+                                                selectedEvent?.ItemCover ?? "https://gruene-weltweit.de/PublishingImages/Covers/Default_img.jpg"} />
 
                                     </div>
                                     <div className="eventItemDesc">
