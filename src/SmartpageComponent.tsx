@@ -18,6 +18,7 @@ import NewsHome from "./NewsHome";
 import EventHomemainPage from "./EventHome";
 let FlagSmartPage = false
 //let showBriefflag = false;
+let stateParam: any;
 const SmartpageComponent = ({ clickedTitle }: any) => {
   const { SmartPage: smartPage } = useParams(); // Destructure the SmartPage parameter from useParams
   const [EventData, setEventData]: any = useState([]);
@@ -35,7 +36,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const KeyTitleFilterKeyTitle = 'https://eventservers.onrender.com/api/getFilterKeyTitle'
   const location = useLocation();
   const { item } = location.state || {};
-  let stateParam: any;
+
   useEffect(() => {
     // Ensure stateParam is scoped inside the effect
     // Check for '/Briefwahl/State=' in the pathname

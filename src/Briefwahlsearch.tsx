@@ -9,6 +9,7 @@ import './CSS/Briefwahlsearch.css';
 
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
+let trimmedSearchTerm : any
 const Briefwahlsearch = (props: any) => {
     let State: any;
     const [Briefwahldata, setBriefwahldata]: any = useState([]);
@@ -208,9 +209,15 @@ const Briefwahlsearch = (props: any) => {
         } else {
             BriefwahldataBackup = allfilterdata;
         }
+        if (trimmedSearchTerm == undefined || trimmedSearchTerm == null || trimmedSearchTerm === '') {
+            setFilteredItems([]);  // If search term is empty, clear the results
+        }else{
+            handleSearch(trimmedSearchTerm)
+        }
+
     }
     const handleSearch = (searchTerm: string) => {
-        const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+        trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
 
         if (trimmedSearchTerm === '') {
             setFilteredItems([]);  // If search term is empty, clear the results

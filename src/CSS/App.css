@@ -195,7 +195,6 @@ img.pull-left.wave-card-imgicon {
   display: inline-block;
 }
  
- 
 #footer {
   position: relative;
   margin-top: 0px !important;
@@ -253,7 +252,7 @@ ul > li.widget_links {
     color: #fff;
     font-family: 'PTSans';
     font-size: 15px;
-    padding: 0px 0px 20px 0px !important;
+    padding: 0px !important;
 }
 .copyrights a {
     color: rgba(255, 255, 255, 0.55) !important;
@@ -1013,6 +1012,9 @@ color: var(--text-color)!important;
   opacity: 1;
   visibility:visible;
 }
+.text-right {
+  text-align: right;
+}
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;
@@ -1214,14 +1216,12 @@ input[type=text], select, textarea{
 }
 .copyrights{
   padding-top: 0px !important;
-  padding-bottom: 10px !important;
+  padding-bottom: 0px !important;
 }
 .NewsCardSection .card .card-body h4.card-title, .EventsCardSection .card .card-body h4.card-title{
   text-align: left;
 }
-.text-right {
-  text-align: right;
-}
+
 .tbl-headings {
   display: inline-block;
   vertical-align: middle;
