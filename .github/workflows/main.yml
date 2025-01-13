@@ -1,0 +1,24 @@
+name: 🚀 Deploy Website on Push
+
+on:
+  push:
+    branches:
+      - main  # Only deploy on push to the main branch
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🚚 Checkout code
+      uses: actions/checkout@v4  # Checkout the latest code from the main branch
+
+    - name: 📂 Sync files to FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftp.gruene-weltweit.de  # FTP server URL
+        username: deploygruene.com  # FTP username
+        password: ${{ secrets.FTP_PASSWORD }}  # Using a secret for security
+        local-dir: ./  # Sync all files from the root directory of your repo
+        
