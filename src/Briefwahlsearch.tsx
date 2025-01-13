@@ -35,7 +35,7 @@ const Briefwahlsearch = (props: any) => {
         { Title: 'Hessen', src: 'https://gruene-weltweit.de/assets/Hessen.png', IsSelected: false },
         { Title: 'Mecklenburg-Vorpommern', src: 'https://gruene-weltweit.de/assets/Mecklenburg-Vorpommern.png', IsSelected: false },
         { Title: 'Nordrhein-Westfalen', src: 'https://gruene-weltweit.de/assets/Nordrhein-Westfalen.png', IsSelected: false },
-        { Title: 'Niedersachen', src: 'https://gruene-weltweit.de/assets/Niedersachen.png', IsSelected: false },
+        { Title: 'Niedersachsen', src: 'https://gruene-weltweit.de/assets/Niedersachen.png', IsSelected: false },
         { Title: 'Rheinland-Pfalz', src: 'https://gruene-weltweit.de/assets/Rheinland-Pfalz.png', IsSelected: false },
         { Title: 'Saarland', src: 'https://gruene-weltweit.de/assets/Saarland.png', IsSelected: false },
         { Title: 'Sachsen', src: 'https://gruene-weltweit.de/assets/Sachsen.png', IsSelected: false },

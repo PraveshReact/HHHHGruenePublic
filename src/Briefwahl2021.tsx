@@ -152,7 +152,7 @@ const Briefwahl2021 = () => {
     <>
       <div className="container">
         <div className="red_block">
-          <Link className='gap-3 valign-middle justify-center' to="/warum-aus-dem-ausland-w%C3%A4hlen">
+          <Link className='gap-3 valign-middle justify-center' to="/">
             Warum eigentlich aus dem Ausland wählen? Es gibt 1000 gute Gründe … <IoChevronForwardOutline />
             {/* <svg className="right-arrowSvg" width="31" height="22" viewBox="0 0 31 22" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19.266 20.32l1.468 1.36 9.795-10.58L20.734.523 19.266 1.88 26.784 10H0v2h26.97l-7.704 8.32z"></path>

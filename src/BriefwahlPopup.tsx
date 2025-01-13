@@ -58,7 +58,7 @@ const BriefwahlPopup = (props:any) => {
                         </div>
                         <div className="bannerlinks">
                                 <div className="bannerlinksWithList">
-                                <a href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank">
+                                <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
                                     Per Online-Antrag 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12.7528L13.0845 6.5L12.202 7.33335L16.7502 12.0374H6V13.3755H16.7502L12.202 18.1666L13.0845 19L19 12.7528Z" fill="white"/>
@@ -70,7 +70,7 @@ const BriefwahlPopup = (props:any) => {
                                 </ul>
                                 </div>
                                 <div className="bannerlinksWithList">
-                                <a href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank">
+                                <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
                                 Per formloser Email <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <path d="M5.5 14.7752H6.59688V17.4158H17.4438V14.7752H18.5V18.4721H5.5V14.7752ZM12 6.52832L12.65 7.17831L15.3719 9.90019L15.3313 9.94083H14.1125L12.4469 8.27519V14.2471H11.5531V8.23457L9.88752 9.90019H8.66877H8.62813L12 6.52832Z" fill="white"/>
 </svg>
@@ -98,7 +98,7 @@ const BriefwahlPopup = (props:any) => {
                                 <span>Wer nicht mehr in Deutschland gemeldet ist muss den Eintrag ins Wähler*innenverzeichnis beantragen. Zuständig ist die Gemeinde, bei der man zuletzt gemeldet war.</span>
                               </div>
                               <div className="links">
-                                <a className="linkWithText" href="https://www.gruene-weltweit.de/BriefwahlSearch" target="_blank">
+                                <a className="linkWithText" href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.5L21.25 20.5H2.75L12 4.5ZM4.62748 19.4272H19.3725L12 6.67465L4.62748 19.4272ZM11.4532 15.8868V11.3807H12.5468V15.8868H11.4532ZM11.4532 17.8179V16.9596H12.5468V17.8179H11.4532Z" fill="#333333"/>
 </svg>Muss bei jeder Wahl neu gemacht werden!</a>
