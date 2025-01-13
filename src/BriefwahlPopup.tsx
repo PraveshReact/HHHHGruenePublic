@@ -54,7 +54,7 @@ const BriefwahlPopup = (props:any) => {
                                     <span className='flex-steps-text'>Es erscheint der Link zum Online-Antrag und/oder die Email</span>
                                 </span>
                             </div>
-                        <span className='flex-20-text'>Online-Formular der Melde-Gemeinde in <strong>Grüne Weltweit Briefwahl-Suchmaschine</strong> finden:</span>
+                        <span className='flex-20-text'>Online-Formular der Melde-Gemeinde in <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank"><strong>Grüne Weltweit Briefwahl-Suchmaschine</strong></a> ßfinden:</span>
                         </div>
                         <div className="bannerlinks">
                                 <div className="bannerlinksWithList">

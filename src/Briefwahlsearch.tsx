@@ -303,8 +303,10 @@ const Briefwahlsearch = (props: any) => {
                                       autoEscape={true}           // Escape special characters
                                       textToHighlight={`${item.PLZ || 'n/a'} ${item.Gemeinde || ''},\u00A0WK:${item.Wahlkreis || 'n/a'},\n\nWK Name: ${item.WKName || 'n/a'}`}
                                       highlightStyle={{
-                                        backgroundColor: "yellow", // Highlight color
-                                        fontWeight: "bold",         // Bold text for highlighted words
+                                        fontWeight: "bolder",      // Make the text extra bold (bolder than "900")
+                                        fontStyle: "normal",      // Ensure it's not italicized
+                                        color: "inherit",         // Avoid changing text color
+                                        textDecoration: "none",   // Avoid any underlines or strikes
                                       }}
                                     />
                                   </span>
@@ -375,7 +377,7 @@ const Briefwahlsearch = (props: any) => {
 
                         >
                             <div className='BriefwahlInformationPopup'>
-                                <div className='modal-header'>Briefwahl Information  {selectedItem?.Gemeinde}</div>
+                                <div className='modal-header'>Briefwahl Information - {selectedItem?.Gemeinde}</div>
                                 <div className="modal-body">
                                     <div className='infoBox'>
                                         <div className="infoBox-itemBox">
