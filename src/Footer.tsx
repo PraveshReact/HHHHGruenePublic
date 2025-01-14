@@ -80,7 +80,7 @@ const Footer = () => {
                 .slice() // Create a copy of the array to avoid mutating the original data
                 .sort((a: any, b: any) => a.SortOrder - b.SortOrder) // Sort the array based on SortOrder of parent
                 .map((parent: any) => (
-                  <Col sm={12} md={6} lg={4} key={parent.id}>
+                  <Col key={parent.id}>
                     <h4>{parent.Title}</h4>
                     <ul className="list-unstyled">
                       {parent.children
