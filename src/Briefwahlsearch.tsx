@@ -224,10 +224,9 @@ const Briefwahlsearch = (props: any) => {
         } else {
             // Perform the search: filter based on the search term matching any value in the object
             const filtered = BriefwahldataBackup.filter((item: any) =>
-                Object.values(item).some((val) =>
-                    String(val).toLowerCase().includes(trimmedSearchTerm.toLowerCase())
-                )
-            );
+                (item.Gemeinde && String(item.Gemeinde).toLowerCase().includes(trimmedSearchTerm.toLowerCase())) ||
+                (item.PLZ && String(item.PLZ).toLowerCase().includes(trimmedSearchTerm.toLowerCase()))
+              );
             setFilteredItems(filtered); // Update filtered items
         }
     };
