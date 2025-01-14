@@ -70,7 +70,7 @@ ul.stateListTiles > li > img.stateLogo {
 ul.stateListTiles > li > span.stateName {
     color: #000;
     font-family: 'PTSans';
-    font-size: 12px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -211,6 +211,20 @@ padding: 0px !important;
     }
     .SmartTableOnTaskPopup {
         width: 100%;
+    }
+    .SmartTableOnTaskPopup tr.searchItemList > td:last-child > span.align-content-start.d-flex, .SmartTableOnTaskPopup tr.searchItemList > td:nth-child(2) > span.align-content-start.d-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .CustomSearchInputWithBtn {
+        display: block;
+    }
+    .CustomSearchInputWithBtn>span.BtnSearchIcon {
+        top: 10px;
+    }
+    .CustomSearchInputWithBtn>span.BtnCrossIcon {
+        right: 0;
+        top: 10px;
     }
     .BriefwahlInformationPopup .infoBox {
         gap: 8px; /* Reduce the gap for smaller screens */
