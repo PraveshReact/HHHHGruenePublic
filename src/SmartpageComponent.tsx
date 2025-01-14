@@ -16,6 +16,7 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { RelevantWebPart } from "./RelevantWebPart";
 import NewsHome from "./NewsHome";
 import EventHomemainPage from "./EventHome";
+import ContactForm from "./ContactForm";
 let FlagSmartPage = false
 //let showBriefflag = false;
 let stateParam: any;
@@ -528,7 +529,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
               data?.map((item: any, index: number) => {
                 console.log("Item:", item);
                 return (
-                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl' && showBriefflag == false ? (
+                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt'&& showBriefflag == false ? (
                     <div key={index}>
                       <section
                         id="page-title"
@@ -569,31 +570,20 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       </section>
                     </div>
                   ) :
-                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl' && showBriefflag == false ? (
+                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl'&& item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
                       <>
                         <WahlWeltweit />
                         {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
                         {/* <HTMLRenderer content={item.PageContent} /> */}
                       </>
-                    ) : item.KeyTitle?.toLowerCase() !== 'Briefwahl' && showBriefflag == false ? (
+                    ) : item.KeyTitle?.toLowerCase() !== 'Briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
                       <div>
-                        {/* <section
-                          id="page-title"
-                          className="page-title-parallax page-title-dark skrollable skrollable-between"
-                          style={{
-                            backgroundImage: `url(${item?.HeaderImage != '' && item?.HeaderImage != undefined ? `"${item?.HeaderImage}"` : "https://gruene-weltweit.de/PhotoGallery/SiteCollectionImages/default_coverImg.jpg"})`,
-                            backgroundPosition: `0px -117.949px`
-                          }}
-                          data-bottom-top="background-position:0px 300px;"
-                          data-top-bottom="background-position:0px -300px;"
-                        >
-                          <div className="container  clearfix">
-                            <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
-                              {item?.AlternativeTitle}
-                            </h1>
-                          </div>
-                        </section> */}
                         <Briefwahl2021 />
+
+                      </div>
+                    ) : item.KeyTitle?.toLowerCase() !== 'Briefwahl' && item.KeyTitle?.toLowerCase() == 'kontakt' && showBriefflag == false ? (
+                      <div>
+                        <ContactForm />
 
                       </div>
                     ) : (
