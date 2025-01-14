@@ -54,6 +54,7 @@ const ContactForm = () => {
   const isFormValid = formData.acceptPrivacyPolicy; // The form will only be valid if this is true
 
   return (
+    <div className="contact-form-bg">
     <div className="contact-form-container">
       <h2 className="contact-form-title">Kontakt</h2>
       <form className="contact-form" onSubmit={handleSubmit}>
@@ -140,6 +141,7 @@ const ContactForm = () => {
           Absenden
         </button>
       </form>
+    </div>
     </div>
   );
 };
