@@ -212,6 +212,20 @@ padding: 0px !important;
     .SmartTableOnTaskPopup {
         width: 100%;
     }
+    .SmartTableOnTaskPopup tr.searchItemList > td:last-child > span.align-content-start.d-flex, .SmartTableOnTaskPopup tr.searchItemList > td:nth-child(2) > span.align-content-start.d-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .CustomSearchInputWithBtn {
+        display: block;
+    }
+    .CustomSearchInputWithBtn>span.BtnSearchIcon {
+        top: 10px;
+    }
+    .CustomSearchInputWithBtn>span.BtnCrossIcon {
+        right: 0;
+        top: 10px;
+    }
     .BriefwahlInformationPopup .infoBox {
         gap: 8px; /* Reduce the gap for smaller screens */
         padding: 8px; /* Adjust padding for smaller screens */
