@@ -242,7 +242,7 @@ ul > li.widget_links {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 19px;
+    font-size: 17px;
 }
 .widget_links:hover a {
     color: var(--primary-color);

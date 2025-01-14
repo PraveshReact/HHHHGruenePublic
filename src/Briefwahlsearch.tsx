@@ -309,7 +309,7 @@ const Briefwahlsearch = (props: any) => {
                                     <Highlighter
                                       searchWords={[searchTerm]} // Highlight the search term
                                       autoEscape={true}           // Escape special characters
-                                      textToHighlight={`${item.PLZ || 'n/a'} ${item.Gemeinde || ''},\u00A0WK:${item.Wahlkreis || 'n/a'}\nWK Name: ${item.WKName || 'n/a'}`}
+                                      textToHighlight={`${item.PLZ || 'n/a'} ${item.Gemeinde || ''},\u00A0WK: ${item.Wahlkreis || 'n/a'}\nWK Name: ${item.WKName || 'n/a'}`}
                                       renderText={(highlightedText) =>
                                         highlightedText.split("\n").map((line, index) => (
                                           <span key={index}>
