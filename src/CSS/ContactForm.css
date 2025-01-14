@@ -70,18 +70,19 @@
   }
   
   .submit-button {
-    background-color: #2e6f5f;
+    background-color: #008939;
+    border: none;
+    border-radius: 0px;
     color: white;
     padding: 12px 20px;
     font-size: 1.1em;
-    border: none;
-    border-radius: 4px;
+    font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .submit-button:hover {
-    background-color: #235f4d;
+    background-color: var(--primary-color, #2e6f5f);
   }
   form.contact-form textarea#message {
     height: auto;

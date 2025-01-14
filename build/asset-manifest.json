@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4da807e1.css",
-    "main.js": "/static/js/main.1939b4bb.js",
+    "main.css": "/static/css/main.3de7d6d4.css",
+    "main.js": "/static/js/main.7a824d35.js",
     "static/media/GrueneType-BlackCondensedItalic.svg": "/static/media/GrueneType-BlackCondensedItalic.ee86244bc7d88635cf3a.svg",
     "static/media/PTSans-Bold.svg": "/static/media/PTSans-Bold.2eb2a72973ffe7987ddf.svg",
     "static/media/PTSans-Regular.svg": "/static/media/PTSans-Regular.dad2ded688b0b3c579fd.svg",
@@ -18,11 +18,11 @@
     "static/media/PTSans-Bold.woff2": "/static/media/PTSans-Bold.e55a27cbedab26b5e7fe.woff2",
     "static/media/PTSans-Regular.woff2": "/static/media/PTSans-Regular.f792f704f5347a80df0d.woff2",
     "index.html": "/index.html",
-    "main.4da807e1.css.map": "/static/css/main.4da807e1.css.map",
-    "main.1939b4bb.js.map": "/static/js/main.1939b4bb.js.map"
+    "main.3de7d6d4.css.map": "/static/css/main.3de7d6d4.css.map",
+    "main.7a824d35.js.map": "/static/js/main.7a824d35.js.map"
   },
   "entrypoints": [
-    "static/css/main.4da807e1.css",
-    "static/js/main.1939b4bb.js"
+    "static/css/main.3de7d6d4.css",
+    "static/js/main.7a824d35.js"
   ]
 }

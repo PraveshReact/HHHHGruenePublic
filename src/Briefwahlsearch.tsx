@@ -273,7 +273,7 @@ const Briefwahlsearch = (props: any) => {
                             <input
                                 type="text"
                                 className="CustomSearchInput"
-                                placeholder="Search"
+                                placeholder="Suche Deine Gemeinde oder Postleitzahl (PLZ)"
                                 value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(e.target.value); // Update searchTerm on typing

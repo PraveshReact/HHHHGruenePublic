@@ -66,7 +66,7 @@ const ContactForm = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="form-input"
+            className="form-input m-0"
           />
         </div>
 
@@ -78,7 +78,7 @@ const ContactForm = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            className="form-input"
+            className="form-input m-0"
           />
         </div>
 
@@ -90,7 +90,7 @@ const ContactForm = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            className="form-input"
+            className="form-input m-0"
           />
         </div>
 
@@ -102,14 +102,14 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="form-input"
+            className="form-input m-0"
             rows={4} // Increase the rows to make the textarea taller
           />
         </div>
 
         <div className="checkbox-group">
           <label className="checkbox-label">
-            <input className='me-2'
+            <input className='form-check-input me-2'
               type="checkbox"
               name="acceptPrivacyPolicy"
               checked={formData.acceptPrivacyPolicy}
@@ -122,7 +122,7 @@ const ContactForm = () => {
 
         <div className="checkbox-group">
           <label className="checkbox-label">
-            <input className='me-2'
+            <input className='form-check-input me-2'
               type="checkbox"
               name="subscribeNewsletter"
               checked={formData.subscribeNewsletter}
