@@ -102,16 +102,17 @@ const BriefwahlPopup = (props:any) => {
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.5L21.25 20.5H2.75L12 4.5ZM4.62748 19.4272H19.3725L12 6.67465L4.62748 19.4272ZM11.4532 15.8868V11.3807H12.5468V15.8868H11.4532ZM11.4532 17.8179V16.9596H12.5468V17.8179H11.4532Z" fill="#333333"/>
 </svg>Muss bei jeder Wahl neu gemacht werden!</a>
-<a className="linkWithText" target="_blank" href="https://www.bundeswahlleiter.de/dam/jcr/dc589523-d709-4c43-adbc-9342dda468ad/bwo_anlage-2_ausfuellbar.pdf"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+<a className="linkWithText" target="_blank" href="https://www.bundeswahlleiterin.de/dam/jcr/dc589523-d709-4c43-adbc-9342dda468ad/bwo_anlage-2_ausfuellbar.pdf"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.999 16.5629L17.1729 11.2966L16.3419 10.4458L12.591 14.1742V5H11.4095V14.2065L7.67635 10.4073L6.8297 11.3013L11.999 16.5629ZM4 20V16.2675H5.209V18.7237H18.7871V16.2675H20V19.9768L4 20Z" fill="#333333"/>
 </svg>
 Der Antrag als Download
 </a>
                               </div>
                               <div className="flex-12">
-                              <span>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde.</span>
+                              <span>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde postalisch im Original oder neu per Fax, <a target="_blank" href="gruene-weltweit.de/briefwahl">E-Mail</a></span>
                               <span className='text-danger'>Frist: Sonntag, 2. Februar 2025 (Eingangsdatum bei der Behörde)</span>
                               <span>Mit dem Eintrag werden die Briefwahlunterlagen automatisch mitbeantragt.</span>
+                              <a target="_blank" href="https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/deutsche-im-ausland.html">Weitere Informationen: Bundeswahlleiterin - Deutsche im Ausland</a>
                               </div>
                             </div>
                         </div>
