@@ -28,25 +28,30 @@
 
 .SmartTableOnTaskPopup {
     max-height: 450px;
-    position: relative;
+    position: absolute;
     background: #fff;
-    top: 5px;
+    top: 52px;
     border: 1px solid #ccc;
     padding-bottom: 6px;
     overflow-y: auto;
-    width: 83%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
+    z-index: 1;
+}
+.BriefwahlInformationMiniPopup .SmartTableOnTaskPopup {
+    position: relative;
+    top: 5px;
 }
 ul.stateListTiles {
     display: flex;
-    width: 80%;
+    width: 100%;
     align-items: center;
     gap: 16px;
     list-style: none;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -57,7 +62,7 @@ ul.stateListTiles > li {
     display: flex;
     align-items: center;
     gap: 8px;
-    width: calc(25% - 12px);
+    width: calc(50% - 10px);
     background: #F5F5F5;
     cursor: pointer;
 }
@@ -126,11 +131,14 @@ input.CustomSearchInput {
 }
 .CustomSearchInputWithBtn > span.BtnSearchIcon {
     position: absolute;
-    left: 12px;
+    left: 18px;
 }
+.BriefwahlInformationMiniPopup .CustomSearchInputWithBtn > span.BtnSearchIcon{
+    left: 12px
+  }
 .CustomSearchInputWithBtn > span.BtnCrossIcon {
     position: absolute;
-    right: 18%;
+    right: 13%;
     display: none; /* Hide the icon by default */
     cursor: pointer; /* Adjust spacing as needed */
   }
@@ -138,7 +146,9 @@ input.CustomSearchInput {
   .CustomSearchInput:not(:placeholder-shown) + .BtnCrossIcon {
     display: inline-block; /* Show the icon when input has a value */
   }
-  
+  .BriefwahlInformationMiniPopup .CustomSearchInputWithBtn > span.BtnCrossIcon{
+    right: 22%;
+  }
 .SmartTableOnTaskPopup tr.searchItemList {
     border-bottom: 1px solid #E4E4E4 !important;
     display: flex;
@@ -147,7 +157,7 @@ input.CustomSearchInput {
     gap: 15px;
     width: 100%;
 }
-.BriefwahlInformationPopup .modal-header {
+.BriefwahlInformationPopup .modal-header, .BriefwahlInformationMiniPopup .modal-header  {
     color: #005437;
     font-family: 'PTSans';
     font-size: 28px;
@@ -157,7 +167,7 @@ input.CustomSearchInput {
     padding: 0 !important;
 }
 
-.BriefwahlInformationPopup {
+.BriefwahlInformationPopup, .BriefwahlInformationMiniPopup {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -172,7 +182,7 @@ input.CustomSearchInput {
     padding: 12px;
     background: #F5F5F5;
 }
-.BriefwahlInformationPopup .modal-body {
+.BriefwahlInformationPopup .modal-body, .BriefwahlInformationMiniPopup .modal-body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -194,10 +204,10 @@ input.CustomSearchInput {
 .BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {
     width: 25%;
 }
-.BriefwahlInformationPopup .modal-footer {
+.BriefwahlInformationPopup .modal-footer, .BriefwahlInformationMiniPopup .modal-footer {
 padding: 0px !important;
 }
-.BriefwahlInformationPopup .modal-footer button.btn.btn-primary {
+.BriefwahlInformationPopup .modal-footer button.btn.btn-primary, .BriefwahlInformationMiniPopup .modal-footer button.btn.btn-primary {
     background: #005437 !important;
     border: 1px solid #005437 !important;
 }

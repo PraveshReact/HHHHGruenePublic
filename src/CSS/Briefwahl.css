@@ -206,11 +206,6 @@ a.DC-mapImg > img.DC-Mapimage {
     border: 1px solid #c9c9c9;
   }
 
-  #regions_div,
-  #BriefwahlTitleDiv {
-    width: 81%;
-    float: left;
-  }
 
   #stateslist,
   #Stoerer_Briefwahl_imgDiv {
