@@ -537,7 +537,7 @@ const Briefwahl2021 = () => {
                       </div>
                       <div className='modal-footer'>
                         <div className='col-sm-6'>
-                          <Link to={`/feedbackform?id=${selectedItem.id}`} state={selectedItem}>Go to Briefwahl Form</Link>     
+                          <Link to={`/feedbackform?id=${selectedItem.id}`} state={selectedItem}>Falsche Informationen melden</Link>     
                           </div>
                           <div className='col-sm-6 text-end'>
                           <button className='btn btn-primary rounded-0' onClick={closeModalinformation}> Close
