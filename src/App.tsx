@@ -10,11 +10,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import NewsHomemainPage from './NewsHome';
 import EventHomemainPage from './EventHome';
-
-// const HomeComponent = lazy(() => import('./HomeComponent'));
-// const SmartpageComponent = lazy(() => import('./SmartpageComponent'));
-// const NewsHomemainPage = lazy(() => import('./NewsHome'));
-// const EventHome = lazy(() => import('./EventHome'));
+import FeedBackForm from './FeedBackForm';
 const App = () => {
   const [data, setData] = useState<any[]>([]);
   const [clickedTitle, setClickedTitle] = useState<string>('');
@@ -64,7 +60,8 @@ const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<SmartpageComponent clickedTitle={'Europawahl-2024'} />} />
-          {clickedTitle && clickedTitle?.toLowerCase() !== 'neuigkeiten' && clickedTitle?.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
+         
+          {clickedTitle && clickedTitle?.toLowerCase() !== 'neuigkeiten' && clickedTitle?.toLowerCase() !== 'feedbackform' && clickedTitle?.toLowerCase() !== 'veranstaltungen' && data.map((route: any) => (
             <Route
               key={route.Title}
               path={route.Title === "Briefwahl Suchmaschine" ? "/Briefwahl" : `/${route.Title}`}
