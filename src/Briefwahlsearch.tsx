@@ -216,58 +216,61 @@ const Briefwahlsearch = (props: any) => {
         }
 
     }
-  // Normalize function that converts both German characters to English and vice versa
-  const normalizeString = (str: string, reverse: string) => {
-    if (!str) return str;
-     
-    // If reverse flag is set, perform English to German conversion
-    if (reverse == '1') {
-        return str
-            .replace(/ae/g, 'ä')
-            .replace(/oe/g, 'ö')
-            .replace(/ue/g, 'ü')
-            .replace(/ss/g, 'ß')
-            .toLowerCase();
-    }else if(reverse == '2'){
-        return str
-        .replace(/ä/g, 'ae')  // Replace ä with ae
-        .replace(/ö/g, 'oe')  // Replace ö with oe
-        .replace(/ü/g, 'ue')  // Replace ü with ue
-        .replace(/ß/g, 'ss')  // Replace ß with ss
-        .toLowerCase();  // Convert to lowercase for case-insensitive comparison
-    }else if(reverse == '3'){
-        return str
-        .replace(/ä/g, 'a')  // Replace ä with ae
-        .replace(/ö/g, 'o')  // Replace ö with oe
-        .replace(/ü/g, 'u')  // Replace ü with ue
-        .replace(/ß/g, 's')  // Replace ß with ss
-        .toLowerCase();  // Convert to lowercase for case-insensitive comparison
-    }
+    // Normalize function that converts both German characters to English and vice versa
+    const normalizeString = (str: string, reverse: string) => {
+        if (!str) return str;
 
-    // Default: German to English conversion
-   
-};
+        // If reverse flag is set, perform English to German conversion
+        if (reverse == '1') {
+            return str
+                .replace(/ae/g, 'ä')
+                .replace(/oe/g, 'ö')
+                .replace(/ue/g, 'ü')
+                .replace(/ss/g, 'ß')
+                .toLowerCase();
+        } else if (reverse == '2') {
+            return str
+                .replace(/ä/g, 'ae')  // Replace ä with ae
+                .replace(/ö/g, 'oe')  // Replace ö with oe
+                .replace(/ü/g, 'ue')  // Replace ü with ue
+                .replace(/ß/g, 'ss')  // Replace ß with ss
+                .toLowerCase();  // Convert to lowercase for case-insensitive comparison
+        } else if (reverse == '3') {
+            return str
+                .replace(/ä/g, 'a')  // Replace ä with ae
+                .replace(/ö/g, 'o')  // Replace ö with oe
+                .replace(/ü/g, 'u')  // Replace ü with ue
+                .replace(/ß/g, 's')  // Replace ß with ss
+                .toLowerCase();  // Convert to lowercase for case-insensitive comparison
+        }
 
-const handleSearch = (searchTerm: string) => {
-    const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+        // Default: German to English conversion
 
-    if (trimmedSearchTerm === '') {
-        setFilteredItems([]);  // If search term is empty, clear the results
-    } else {
-        const filtered = BriefwahldataBackup.filter((item: any) => {
-           
-            const originalGemeinde = String(item.Gemeinde || '').toLowerCase();
-            const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
-            const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
-            const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
-            const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
-            return concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1;
-           
-        });
+    };
 
-        setFilteredItems(filtered); // Update filtered items
-    }
-};
+    const handleSearch = (searchTerm: string) => {
+        const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+
+        if (trimmedSearchTerm === '') {
+            setFilteredItems([]);  // If search term is empty, clear the results
+        } else {
+            const filtered = BriefwahldataBackup.filter((item: any) => {
+
+                const originalGemeinde = String(item.Gemeinde || '').toLowerCase();
+                const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
+                const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
+                const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
+                const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
+                return (
+                    concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
+                    String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1
+                );
+
+            });
+
+            setFilteredItems(filtered); // Update filtered items
+        }
+    };
 
     const renderTable = filteredItems.length > 0 || searchTerm === '';
 
@@ -344,11 +347,13 @@ const handleSearch = (searchTerm: string) => {
                                         onClick={() => openModal(item)}
                                         style={{ cursor: 'pointer' }}
                                     ><td style={{ width: '76%' }}>
-                                              <span className="d-flex flex-column">
-                                        <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}</span>
-                                        <span className=''>{item.WKName || 'n/a'} (WK {item.Wahlkreis || 'n/a'})</span>
-                                        </span>
-                                        </td>                                     
+                                            <span className="d-flex flex-column">
+                                                <span className="" title={item.ZipCode}>
+                                                    {item.PLZ || 'n/a'} {item.Gemeinde}
+                                                </span>
+                                                <span className=''>{item.WKName || 'n/a'} (WK {item.Wahlkreis || 'n/a'})</span>
+                                            </span>
+                                        </td>
                                         {/* <span className="d-flex flex-column">
                                         <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.Wahlkreis || 'n/a'}</span>
                                         <span className=''>{item.WKName || 'n/a'}</span>
