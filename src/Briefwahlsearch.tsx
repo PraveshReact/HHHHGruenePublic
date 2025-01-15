@@ -216,20 +216,58 @@ const Briefwahlsearch = (props: any) => {
         }
 
     }
-    const handleSearch = (searchTerm: string) => {
-        trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+  // Normalize function that converts both German characters to English and vice versa
+  const normalizeString = (str: string, reverse: string) => {
+    if (!str) return str;
+     
+    // If reverse flag is set, perform English to German conversion
+    if (reverse == '1') {
+        return str
+            .replace(/ae/g, 'ä')
+            .replace(/oe/g, 'ö')
+            .replace(/ue/g, 'ü')
+            .replace(/ss/g, 'ß')
+            .toLowerCase();
+    }else if(reverse == '2'){
+        return str
+        .replace(/ä/g, 'ae')  // Replace ä with ae
+        .replace(/ö/g, 'oe')  // Replace ö with oe
+        .replace(/ü/g, 'ue')  // Replace ü with ue
+        .replace(/ß/g, 'ss')  // Replace ß with ss
+        .toLowerCase();  // Convert to lowercase for case-insensitive comparison
+    }else if(reverse == '3'){
+        return str
+        .replace(/ä/g, 'a')  // Replace ä with ae
+        .replace(/ö/g, 'o')  // Replace ö with oe
+        .replace(/ü/g, 'u')  // Replace ü with ue
+        .replace(/ß/g, 's')  // Replace ß with ss
+        .toLowerCase();  // Convert to lowercase for case-insensitive comparison
+    }
 
-        if (trimmedSearchTerm === '') {
-            setFilteredItems([]);  // If search term is empty, clear the results
-        } else {
-            // Perform the search: filter based on the search term matching any value in the object
-            const filtered = BriefwahldataBackup.filter((item: any) =>
-                (item.Gemeinde && String(item.Gemeinde).toLowerCase().includes(trimmedSearchTerm.toLowerCase())) ||
-                (item.PLZ && String(item.PLZ).toLowerCase().includes(trimmedSearchTerm.toLowerCase()))
-            );
-            setFilteredItems(filtered); // Update filtered items
-        }
-    };
+    // Default: German to English conversion
+   
+};
+
+const handleSearch = (searchTerm: string) => {
+    const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+
+    if (trimmedSearchTerm === '') {
+        setFilteredItems([]);  // If search term is empty, clear the results
+    } else {
+        const filtered = BriefwahldataBackup.filter((item: any) => {
+           
+            const originalGemeinde = String(item.Gemeinde || '').toLowerCase();
+            const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
+            const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
+            const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
+            const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
+            return concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1;
+           
+        });
+
+        setFilteredItems(filtered); // Update filtered items
+    }
+};
 
     const renderTable = filteredItems.length > 0 || searchTerm === '';
 
@@ -273,7 +311,8 @@ const Briefwahlsearch = (props: any) => {
                             <input
                                 type="text"
                                 className="CustomSearchInput"
-                                placeholder="Suche Deine Gemeinde oder Postleitzahl (PLZ)"
+                                //placeholder="Suche Deine Gemeinde oder Postleitzahl (PLZ)"
+                                placeholder="Gib hier Deine Gemeinde oder Postleitzahl (PLZ) ein..."
                                 value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(e.target.value); // Update searchTerm on typing
@@ -305,28 +344,11 @@ const Briefwahlsearch = (props: any) => {
                                         onClick={() => openModal(item)}
                                         style={{ cursor: 'pointer' }}
                                     ><td style={{ width: '76%' }}>
-                                            <Highlighter
-                                                searchWords={[searchTerm]} // Highlight the search term
-                                                autoEscape={true}           // Escape special characters
-                                                textToHighlight={`${item.PLZ || 'n/a'} ${item.Gemeinde || ''},\u00A0WK: ${item.Wahlkreis || 'n/a'}\nWK Name: ${item.WKName || 'n/a'}`}
-                                                renderText={(highlightedText) =>
-                                                    highlightedText.split("\n").map((line, index) => (
-                                                        <span key={index}>
-                                                            {line}
-                                                            <br />
-                                                        </span>
-                                                    ))
-                                                }
-                                                highlightStyle={{
-                                                    fontWeight: "bolder",      // Make the text extra bold (bolder than "900")
-                                                    fontStyle: "normal",      // Ensure it's not italicized
-                                                    color: "inherit",         // Avoid changing text color
-                                                    textDecoration: "none",   // Avoid any underlines or strikes
-                                                    backgroundColor: "transparent",
-                                                }}
-                                            />
-                                        </td>
-
+                                              <span className="d-flex flex-column">
+                                        <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}</span>
+                                        <span className=''>{item.WKName || 'n/a'} (WK {item.Wahlkreis || 'n/a'})</span>
+                                        </span>
+                                        </td>                                     
                                         {/* <span className="d-flex flex-column">
                                         <span className=''>{item.PLZ || 'n/a'} {item.Gemeinde}, &nbsp;{item.Wahlkreis || 'n/a'}</span>
                                         <span className=''>{item.WKName || 'n/a'}</span>

@@ -1515,7 +1515,7 @@ button {
   display: inline-flex;
   clear: both;
   margin-bottom: inherit;
-  min-height: 124px;
+  min-height: 119px;
 }
 .fixedbreadcrump{
   position: fixed;
@@ -1525,7 +1525,9 @@ button {
   background: #fff;
   width: 100%;
 }
-
+section.SmartPages {
+  min-height: calc(100vh - 421px);
+}
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;
