@@ -372,7 +372,7 @@ const Briefwahl2021 = () => {
             </div>
        
           </div>
-            <div className="row justify-content-center my-3">
+            <div className="row justify-content-center mt-3">
               <div className="col-lg-12 col-sm-12 position-relative">
                 <div className="CustomSearchInputWithBtn">
                   <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">

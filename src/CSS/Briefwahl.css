@@ -86,25 +86,26 @@ a.DC-mapImg > img.DC-Mapimage {
   ul.scrollToBtns {
     margin: 35px 0 !important;
     list-style: none !important;
-    display: inline-block;
-    width: 100%;
+    display: flex;
+    width: 80%;
     padding-left: 0px;
+    gap: 16px;
   }
 
   ul.scrollToBtns li {
     align-items: center;
-    width: auto;
-    display: inline-block;
+    width: 100%;
+    list-style: none !important;
   }
 
   ul.scrollToBtns li a {
+    display: block;
     padding: 10px 20px;
     text-align: center;
-    vertical-align: middle;
     background: #008939;
     color: #ffffff !important;
     font-family: 'PTSans';
-    /* letter-spacing: 0.5px; */
+    width: 100%;
     cursor: pointer;
     font-size: 16px;
     font-weight: 700;
@@ -118,11 +119,6 @@ a.DC-mapImg > img.DC-Mapimage {
   ul.scrollToBtns li > a:not([href]):not([class]):hover {
     color: #fff !important;
 }
-
-  ul.scrollToBtns li:first-child {
-    margin-right: 10px;
-  }
-
   ul.scrollToBtns li a i.icon-arrow-right {
     margin-left: 15px;
   }
