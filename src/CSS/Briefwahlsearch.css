@@ -33,7 +33,7 @@
     border: 1px solid #ccc;
     padding-bottom: 6px;
     overflow-y: auto;
-    width: 100%;
+    width: 87%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -67,9 +67,9 @@ ul.stateListTiles {
     display: flex;
     width: 100%;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
     list-style: none;
-    margin: 0;
+    margin: 19px 0 0 0;
     padding: 0;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -100,7 +100,7 @@ ul.stateListTiles > li {
 }
 
 ul.stateListTiles > li > img.stateLogo {
-    height: 48px;
+    height: 44px;
     width: auto;
 }
 
