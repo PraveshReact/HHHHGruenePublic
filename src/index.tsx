@@ -18,6 +18,7 @@ import NewsDetailPage from './NewsDetailPage'
 import EventDetailPage from './EventDetailPage'
 import FeedBackForm from './FeedBackForm';
 import ContactForm from './ContactForm';
+import BriefwahlElection from './BriefwahlElection';
 
 
 
@@ -27,7 +28,7 @@ const router = createBrowserRouter(
       {/* <Route path='/' element={<HomeComponent />} /> */}
       <Route path='/' element={<SmartpageComponent clickedTitle = {'Europawahl-2024'}/>} />
        <Route path="/feedbackform" element={<FeedBackForm />} />
-       <Route path="/Wahlkampf-aus-der-Ferne" element={<ContactForm />} />
+       <Route path="/Wahlkampf-aus-der-Ferne" element={<BriefwahlElection />} />
       <Route path=':SmartPage' element={<SmartpageComponent />}>
         <Route path=':SmartPage' element={<SmartpageComponent />} >
           <Route path=':SmartPage' element={<SmartpageComponent />} />
