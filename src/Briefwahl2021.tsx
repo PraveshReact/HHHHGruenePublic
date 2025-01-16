@@ -579,7 +579,7 @@ const Briefwahl2021 = () => {
               <div id="chart-wrapper">
                 <Chart
                   width="100%"
-                  height="505px"
+                  height="520px"
                   chartType="GeoChart"
                   data={data}
                   options={options}
