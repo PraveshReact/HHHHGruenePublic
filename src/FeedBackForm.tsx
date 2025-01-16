@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CSS/BriefwahlForm.css'; // Import the CSS file for styling
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';  // Import axios
-
+let Briefwahldata: any = [];
 const FeedBackForm = () => {
   const location = useLocation();
   const initialData = location.state || {}; // Extract the initial data from the location state
@@ -10,7 +10,40 @@ const FeedBackForm = () => {
   const defaultValue = ''; // Default value for each field
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id'); // Access the 'id' query parameter
+  useEffect(() => {
+    getBriefwahldata();
+}, [])
+  const getBriefwahldata = async () => {
+    const tableName = "Briefwahl";
+    let allfilterdata: any = []
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
+        var raw = JSON.stringify({
+            "table": `${tableName}`
+        });
+
+        var requestOptions: any = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+            .then(response => response.text())
+            .then((result: any) => {
+                result = JSON.parse(result)
+                Briefwahldata = result?.data;
+                console.log('Get data from server successfully');
+                console.log(result)
+
+            })
+            .catch(error => console.log('error', error));
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+};
   // Initialize the form state with initialData or default to empty string
   const [formData, setFormData] = useState({
     id: initialData.id || defaultValue,
@@ -18,24 +51,31 @@ const FeedBackForm = () => {
     Land: initialData.Land || defaultValue,
     Gemeinde: initialData.Gemeinde || defaultValue,
     Wahlkreis: initialData.Wahlkreis || defaultValue,
+
     Modified: initialData.Modified || defaultValue,
     Created: initialData.Created || defaultValue,
     Webseite: initialData.Webseite || defaultValue,
+
     WKName: initialData.WKName || defaultValue,
     PLZ: initialData.PLZ || defaultValue,
     Bevolkerung: initialData.Bevolkerung || defaultValue,
     Email: initialData.Email || defaultValue,
     Regionalschlussel: initialData.Regionalschlussel || defaultValue,
     AGS: initialData.AGS || defaultValue,
+
     LinkVerified2017: initialData.LinkVerified2017 || defaultValue,
     EmailVerified2017: initialData.EmailVerified2017 || defaultValue,
+
     ZipCodes: initialData.ZipCodes || defaultValue,
+
     LTWWahlkreis: initialData.LTWWahlkreis || defaultValue,
     LTWWKNo: initialData.LTWWKNo || defaultValue,
     EmailStatus2019: initialData.EmailStatus2019 || defaultValue,
     LinkStatus2019: initialData.LinkStatus2019 || defaultValue,
+
     Comments: initialData.Comments || defaultValue,
     LinkBundestag: initialData.LinkBundestag || defaultValue,
+
     LinkLandtag: initialData.LinkLandtag || defaultValue,
     LinkStatusLandtag: initialData.LinkStatusLandtag || defaultValue,
     LinkStatusBundestag: initialData.LinkStatusBundestag || defaultValue,
@@ -43,6 +83,7 @@ const FeedBackForm = () => {
     ColumnLevelVerification: initialData.ColumnLevelVerification || defaultValue,
     LastSynchronized: initialData.LastSynchronized || defaultValue,
     SyncedBy: initialData.SyncedBy || defaultValue,
+
     FeedbackComments: initialData.FeedbackComments || defaultValue,
   });
 

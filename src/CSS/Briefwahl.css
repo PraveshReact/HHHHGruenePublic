@@ -464,8 +464,13 @@ a.DC-mapImg > img.DC-Mapimage {
       margin-right: 0px;
     }
 
+    ul.scrollToBtns {
+     display: block;
+     width: 100%;
+    }
+
     ul.scrollToBtns li a {
-      padding: 10px 0px;
+      padding: 10px;
       font-size: 14px;
     }
 
@@ -740,4 +745,30 @@ a.linkWithText {
 
 span.text-danger {
   color: #FC0C0C !important;
+}
+
+
+
+
+.infoBox-itemBox-item {
+  position: relative;
+  padding: 8px;
+}
+.zipCodeHover {
+  display: none;
+  position: absolute;
+  top: 35px;
+  left: 40px;
+  background-color: #ffffff;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  font-size: 0.9em;
+  color: #333;
+  z-index: 1;
+  width: 250px;
+}
+
+.infoBox-itemBox-item:hover .zipCodeHover {
+  display: block;
 }

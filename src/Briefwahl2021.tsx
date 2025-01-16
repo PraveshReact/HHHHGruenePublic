@@ -291,7 +291,7 @@ const Briefwahl2021 = () => {
         const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
-          String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1
+          String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 || String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1
         );
 
       });
@@ -314,7 +314,7 @@ const Briefwahl2021 = () => {
         const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
-          String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1
+          String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 || String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1
         );
 
       });
@@ -414,7 +414,7 @@ const Briefwahl2021 = () => {
                       style={{ cursor: 'pointer' }}
                     ><td style={{ width: '76%' }}>
                         <span className="d-flex flex-column">
-                          <span className="" title={item.ZipCode}>
+                          <span className="">
                             {item.PLZ || 'n/a'} {item.Gemeinde}
                           </span>
                           <span className=''>{item.WKName || 'n/a'} (WK {item.Wahlkreis || 'n/a'})</span>
@@ -509,14 +509,19 @@ const Briefwahl2021 = () => {
                       flexDirection: 'column',
                       gap: '20px',
                     }}
-
                   >
                     <div className='BriefwahlInformationPopup'>
                       <div className='modal-header'>Briefwahl Information - {selectedItem?.Gemeinde}</div>
                       <div className="modal-body">
                         <div className='infoBox'>
                           <div className="infoBox-itemBox">
-                            <div className='infoBox-itemBox-item'><strong>PLZ:</strong>{selectedItem?.PLZ}</div>
+                            <div className='infoBox-itemBox-item'>
+                              <strong>PLZ:</strong> {selectedItem?.PLZ}
+                              {selectedItem?.ZipCodes ? (
+                                <div className="zipCodeHover">{selectedItem?.ZipCodes}</div>
+                              ) : null}
+                            </div>
+                            {/* <div className='infoBox-itemBox-item' title={selectedItem?.ZipCode} ><strong>PLZ:</strong>{selectedItem?.PLZ}</div> */}
                             <div className='infoBox-itemBox-item'><strong>Gemeinde:</strong>{selectedItem?.Gemeinde}</div>
                           </div>
                           <div className="infoBox-itemBox">
@@ -536,10 +541,10 @@ const Briefwahl2021 = () => {
                         </div>
                       </div>
                       <div className='modal-footer'>
-                        <div className='col-sm-6'>
-                          <Link to={`/feedbackform?id=${selectedItem.id}`} state={selectedItem}>Falsche Informationen melden</Link>     
-                          </div>
-                          <div className='col-sm-6 text-end'>
+                        {/* <div className='col-sm-6'>
+                          <Link to={`/feedbackform?id=${selectedItem.id}`} state={selectedItem}>Falsche Informationen melden</Link>
+                        </div> */}
+                        <div className='col-sm-6 text-end'>
                           <button className='btn btn-primary rounded-0' onClick={closeModalinformation}> Close
                           </button>
                         </div>
@@ -579,7 +584,7 @@ const Briefwahl2021 = () => {
 
                   >
                     <div className='BriefwahlInformationMiniPopup'>
-                      <div className='modal-header'></div>
+                      <div className='modal-header'>{SelectedTile}</div>
                       <div className="modal-body">
                         <div className="col-lg-12 mt-2 mb-2">
                           <div className="CustomSearchInputWithBtn">

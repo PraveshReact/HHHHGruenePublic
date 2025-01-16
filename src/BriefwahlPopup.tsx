@@ -109,7 +109,7 @@ const BriefwahlPopup = (props: any) => {
                                     </a>
                                 </div>
                                 <div className="flex-12">
-                                    <span>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde postalisch im Original oder neu per Fax, <a target="_blank" href="https://gruene-weltweit.de/briefwahl">E-Mail</a></span>
+                                    <span>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde postalisch im Original oder neu per Fax, <a target="_blank" href="https://gruene-weltweit.de/Briefwahl">E-Mail</a></span>
                                     <span className='text-danger'>Frist: Sonntag, 2. Februar 2025 (Eingangsdatum bei der Behörde)</span>
                                     <span>Mit dem Eintrag werden die Briefwahlunterlagen automatisch mitbeantragt.</span>
                                     <a target="_blank" href="https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/deutsche-im-ausland.html">Weitere Informationen: Bundeswahlleiterin - Deutsche im Ausland</a>
