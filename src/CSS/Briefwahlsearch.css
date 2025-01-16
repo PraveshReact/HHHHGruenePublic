@@ -55,6 +55,17 @@
     gap: 3px;
     z-index: 1;
 }
+table.SmartTableOnTaskPopupNoResult {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50px;
+    z-index: 1;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ccc;
+}
 .Briefwahl.SmartTableOnTaskPopup{
     position: relative;
     top: 5px;
@@ -128,19 +139,43 @@ ul.stateListTiles > li.active > span.stateName {
 }
 /****** new css homepage ***********/
 .left-map-section {
-    width: 41.66666667%;
+    width: 46.66666667%;
     float: left;
     margin-top: 16px;
 }
-.right-tile-section {
-    width: 58.33333% !important;
+.right-tile-section { 
+    width: 53.33333% !important;
 }
-.Homepage.position-relative {
+/* .Homepage.position-relative {266
     width: 1100px;
+} */
+.Homepage .SmartTableOnTaskPopup {
+    width: 100%;
 }
 .Homepage .CustomSearchInputWithBtn{
-    width: 70.5%;
+    width: 73%;
+    position: relative;
 }
+ul.HomepagestateListbuttonTiles {
+    margin: 0;
+}
+ul.HomepagestateListbuttonTiles > li.state > span.stateName {
+    font-size: 16px;
+}
+ul.HomepagestateListbuttonTiles > li{
+    list-style: none;
+    text-align: center;
+    justify-content: start;
+    position: absolute;
+    top: 0;
+    width: 330px;
+    right: 17px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #00893A;
+        }
 ul.HomepagestateListTiles {
     display: flex;
     flex-wrap: wrap;
@@ -183,6 +218,19 @@ ul.HomepagestateListTiles > li.states {
     font-weight: 400;
     line-height: normal;
 }
+ul.HomepagestateListTiles > li.states.active{
+    background: #00893A;
+    color:#fff;
+}
+ul.HomepagestateListbuttonTiles > li.state.states.active.gray {
+    background: #f5f5f5;
+    color: #000;
+}
+span.SearchInputFieldstateLogo {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
 /****** new css homepage ends ***********/
 .CustomSearchInputWithBtn {
     display: flex;
@@ -206,7 +254,7 @@ ul.HomepagestateListTiles > li.states {
 
 input.CustomSearchInput {
     display: flex;
-    padding: 8px 12px 8px 48px;
+    padding: 8px 12px 8px 56px;
     align-items: center;
     gap: 10px;
     flex: 1 0;
@@ -231,7 +279,7 @@ input.CustomSearchInput::placeholder {
   }
 .CustomSearchInputWithBtn > span.BtnCrossIcon {
     position: absolute;
-    right: 13%;
+    right: 5%;
     display: none; /* Hide the icon by default */
     cursor: pointer; /* Adjust spacing as needed */
   }
@@ -298,7 +346,7 @@ input.CustomSearchInput::placeholder {
     gap: 8px;
 }
 .BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {
-    width: 25%;
+    width: 100px;
 }
 .BriefwahlInformationPopup .modal-footer, .BriefwahlInformationMiniPopup .modal-footer {
 padding: 0px !important;
@@ -307,7 +355,11 @@ padding: 0px !important;
     background: #005437 !important;
     border: 1px solid #005437 !important;
 }
-
+.BriefwahlInformationPopup .modal-footer > button {
+    height: 40px;
+    font-size: 16px;
+    min-width: 120px;
+}
 @media screen and (max-width: 768px) {
     ul.stateListTiles>li {
         width: 48%;

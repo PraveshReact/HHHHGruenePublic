@@ -11,9 +11,9 @@
     display: flex;
     align-items: center;
 }
-input[type=text], select, textarea {
+input[type=text], input[type=LinkOnlineFormular], select, textarea {
   width: 100%;
-  padding: 3px;
+  padding: 3px 10px;
   border: 1px solid #ccc;
   border-radius: 3px !important;
   box-sizing: border-box;

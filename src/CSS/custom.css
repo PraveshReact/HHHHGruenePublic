@@ -58,6 +58,8 @@ button.close:hover {
 h3.modal-title {
   font-size: 26px;
   line-height: 30px;
+  font-family: 'PTSans' !important;
+    font-weight: 700;
 }
 h3.modal-title > span {
   display: inline-flex;

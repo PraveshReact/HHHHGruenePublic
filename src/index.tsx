@@ -17,6 +17,7 @@ import Layout from './Layout';
 import NewsDetailPage from './NewsDetailPage'
 import EventDetailPage from './EventDetailPage'
 import FeedBackForm from './FeedBackForm';
+import ContactForm from './ContactForm';
 
 
 
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       {/* <Route path='/' element={<HomeComponent />} /> */}
       <Route path='/' element={<SmartpageComponent clickedTitle = {'Europawahl-2024'}/>} />
        <Route path="/feedbackform" element={<FeedBackForm />} />
+       <Route path="/Wahlkampf-aus-der-Ferne" element={<ContactForm />} />
       <Route path=':SmartPage' element={<SmartpageComponent />}>
         <Route path=':SmartPage' element={<SmartpageComponent />} >
           <Route path=':SmartPage' element={<SmartpageComponent />} />

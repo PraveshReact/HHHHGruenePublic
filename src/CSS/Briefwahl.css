@@ -317,6 +317,181 @@ a.DC-mapImg > img.DC-Mapimage {
     display: none;
   }
 
+
+  /******************** Popup CSS**********************
+    ***************************************************/
+    div#box1content.modal,  div#box2content.modal {
+      z-index: 9999;
+    }
+    div#box1content .modal-content, div#box2content .modal-content {
+      padding: 24px;
+    }
+    
+    div#box1content .modal-body, div#box2content .modal-body {
+      padding: 20px 0 0px 0;
+      gap: 20px;
+    display: flex;
+    flex-direction: column;
+    }
+div#box1content .modal-header h3, div#box2content .modal-header h3 {
+  color: #005437;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'PTSans' !important;
+}
+
+div#box1content .modal-header h3 > span.subtext, div#box2content .modal-header h3 > span.subtext {
+  color: #333;
+  font-family: 'PTSans';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+div#box1content .modal-header, div#box2content .modal-header {
+  display:flex;
+  align-items: start;
+  padding: 0 !important;
+}
+
+.flex-20 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+
+div#box1content span.flex-steps-text {
+  color: #0A321F;
+  font-family: 'PTSans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+div#box1content .flex-steps {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+div#box1content span.flex-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+div#box1content span.flex-steps-icon, div#box1content span.flex-steps-icon>svg {
+  width: 32px;
+  height: 32px;
+}
+.flex-20-text {
+  color: #333;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.bannerlinks{
+  display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 16px;
+align-self: stretch;
+}
+.bannerlinks .bannerlinksWithList{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+.bannerlinks .bannerlinksWithList > a {
+  display: flex;
+  flex-direction: row;
+  border-radius: 2px;
+  background: #005437;
+  color: #fff;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.bannerlinks .bannerlinksWithList > a:hover {
+  color: #fff !important;
+}
+
+.bannerlinks .bannerlinksWithList > ul.banner-list {
+  margin-bottom: 0;
+}
+
+.bannerlinks .bannerlinksWithList > ul.banner-list > li {
+  list-style: disc;
+}
+.flex-8 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+a.linkWithText {
+  display: flex;
+  padding: 4px;
+  align-items: center;
+  gap: 4px;
+}
+
+.flex-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+span.text-danger {
+  color: #FC0C0C !important;
+}
+
+/* .infoBox-itemBox-item {
+  position: relative;
+  padding: 8px;
+} */
+.zipCodeHover {
+  display: none;
+  position: absolute;
+  top: 35px;
+  left: 40px;
+  background-color: #ffffff;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  font-size: 0.9em;
+  color: #333;
+  z-index: 1;
+  width: 250px;
+}
+
+.infoBox-itemBox-item:hover .zipCodeHover {
+  display: block;
+}
+
   @media screen and (max-width:992px) {
     img.AnleitungDesktopImg {
       width: 100%;
@@ -472,6 +647,7 @@ a.DC-mapImg > img.DC-Mapimage {
     ul.scrollToBtns {
      display: block;
      width: 100%;
+     padding: 0;
     }
 
     ul.scrollToBtns li a {
@@ -594,186 +770,24 @@ a.DC-mapImg > img.DC-Mapimage {
       clear: both;
       display: block;
     }
-
+    .Homepage.position-relative {
+      width: 100% !important;
+      margin: 0 auto;
+  }
+  .Homepage .CustomSearchInputWithBtn {
+    width: 100%;
+}
+.right-tile-section {
+  width: 100%;
+}
+.ul.HomepagestateListbuttonTiles > li {
+    position: relative;
+    top: 5px;
+    width: 100%;
+    right: 0px;
+    padding: 0 !important;
+}
   }
 
   /*#regions_div path:hover {fill: #09311d;}
     #regions_div rect:hover {fill:transparent;}*/
-
-
-  /******************** Popup CSS**********************
-    ***************************************************/
-    div#box1content.modal,  div#box2content.modal {
-      z-index: 9999;
-    }
-    div#box1content .modal-content, div#box2content .modal-content {
-      padding: 24px;
-    }
-    
-    div#box1content .modal-body, div#box2content .modal-body {
-      padding: 20px 0 0px 0;
-      gap: 20px;
-    display: flex;
-    flex-direction: column;
-    }
-div#box1content .modal-header h3, div#box2content .modal-header h3 {
-  color: #005437;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 110%;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: column;
-  font-family: 'PTSans' !important;
-}
-
-div#box1content .modal-header h3 > span.subtext, div#box2content .modal-header h3 > span.subtext {
-  color: #333;
-  font-family: 'PTSans';
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-}
-
-div#box1content .modal-header, div#box2content .modal-header {
-  display:flex;
-  align-items: start;
-  padding: 0 !important;
-}
-
-.flex-20 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-
-div#box1content span.flex-steps-text {
-  color: #0A321F;
-  font-family: 'PTSans';
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-div#box1content .flex-steps {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-div#box1content span.flex-step {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-div#box1content span.flex-steps-icon, div#box1content span.flex-steps-icon>svg {
-  width: 32px;
-  height: 32px;
-}
-.flex-20-text {
-  color: #333;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-.bannerlinks{
-  display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 16px;
-align-self: stretch;
-}
-.bannerlinks .bannerlinksWithList{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  align-self: stretch;
-}
-.bannerlinks .bannerlinksWithList > a {
-  display: flex;
-  flex-direction: row;
-  border-radius: 2px;
-  background: #005437;
-  color: #fff;
-  padding: 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-}
-.bannerlinks .bannerlinksWithList > a:hover {
-  color: #fff !important;
-}
-
-.bannerlinks .bannerlinksWithList > ul.banner-list {
-  margin-bottom: 0;
-}
-
-.bannerlinks .bannerlinksWithList > ul.banner-list > li {
-  list-style: disc;
-}
-.flex-8 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  width: 100%;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-a.linkWithText {
-  display: flex;
-  padding: 4px;
-  align-items: center;
-  gap: 4px;
-}
-
-.flex-12 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-span.text-danger {
-  color: #FC0C0C !important;
-}
-
-
-
-
-.infoBox-itemBox-item {
-  position: relative;
-  padding: 8px;
-}
-.zipCodeHover {
-  display: none;
-  position: absolute;
-  top: 35px;
-  left: 40px;
-  background-color: #ffffff;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 0px;
-  font-size: 0.9em;
-  color: #333;
-  z-index: 1;
-  width: 250px;
-}
-
-.infoBox-itemBox-item:hover .zipCodeHover {
-  display: block;
-}

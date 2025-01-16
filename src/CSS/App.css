@@ -1528,6 +1528,21 @@ button {
 section.SmartPages {
   min-height: calc(100vh - 421px);
 }
+.breakURLLink {
+  width: 100%;
+  word-break: break-all;
+  display: block;
+}
+span.VerifyOnlineStatus {
+  display: flex;
+  background: #fff;
+  padding: 4px;
+  gap: 4px;
+  align-items: center;
+  border-radius: 2px;
+  float: right;
+  font-size: 16px;
+}
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;
