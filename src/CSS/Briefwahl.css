@@ -87,15 +87,24 @@ a.DC-mapImg > img.DC-Mapimage {
     margin: 35px 0 !important;
     list-style: none !important;
     display: flex;
-    width: 80%;
-    padding-left: 0px;
-    gap: 16px;
+    width: 100%;
+    gap: 12px;
   }
 
   ul.scrollToBtns li {
-    align-items: center;
-    width: 100%;
     list-style: none !important;
+    background: #008939;
+    display: flex;
+    padding: 8px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    list-style: none !important;
+    color: #FFF;
+    font-size: 16px !important;
+    font-style: normal;
+    font-weight: 700;
+    cursor: pointer;
   }
 
   ul.scrollToBtns li a {

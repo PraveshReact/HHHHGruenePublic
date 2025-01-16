@@ -350,38 +350,31 @@ const Briefwahl2021 = () => {
   return (
     <>
       <div className="container">
-        <section className="section Briefwahl2021">
+        <section className="section  Briefwahl2021">
           <div className="col-lg-12">
             <div id="BriefwahlTitleDiv">
               <h1 className="privacypageTitle">Bundestagswahl 2025 - Briefwahl Suchmaschine</h1>
 
               <ul className="scrollToBtns">
-                <li>
-                  <a>
-                    <span onClick={() => openModalContent("modal2")}>
+                <li onClick={() => openModalContent("modal2")}>
                       Anleitung Briefwahl - Bin in Deutschland gemeldet
-                      <svg className="right-arrowSvgMini" width="31" height="22" viewBox="0 0 31 22" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.266 20.32l1.468 1.36 9.795-10.58L20.734.523 19.266 1.88 26.784 10H0v2h26.97l-7.704 8.32z" />
-                      </svg>
-                    </span>
-                  </a>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
+  <path d="M14.7389 15.2777L15.8066 16.2668L22.9302 8.57225L15.8066 0.879883L14.7389 1.86679L20.2066 7.77225H0.727295V9.22679H20.3418L14.7389 15.2777Z" fill="white"/>
+</svg>
                 </li>
-                <li>
-                  <a>
-                    <span onClick={() => openModalContent("modal1")}>
+                <li onClick={() => openModalContent("modal1")}>
                       Anleitung Briefwahl - Nicht mehr in Deutschland gemeldet
-                      <svg className="right-arrowSvgMini" width="31" height="22" viewBox="0 0 31 22" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.266 20.32l1.468 1.36 9.795-10.58L20.734.523 19.266 1.88 26.784 10H0v2h26.97l-7.704 8.32z" />
-                      </svg>
-                    </span>
-                  </a>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
+  <path d="M14.7389 15.2777L15.8066 16.2668L22.9302 8.57225L15.8066 0.879883L14.7389 1.86679L20.2066 7.77225H0.727295V9.22679H20.3418L14.7389 15.2777Z" fill="white"/>
+</svg>
                 </li>
               </ul>
             </div>
 
           </div>
-            <div className="row justify-content-center mt-3">
-              <div className="col-lg-12 col-sm-12 position-relative">
+           
+          <div className="row clearfix Homepage position-relative">
+          <div className="col-lg-12">
                 <div className="CustomSearchInputWithBtn">
                   <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M13.3333 4C8.17867 4 4 8.17867 4 13.3333C4 18.488 8.17867 22.6667 13.3333 22.6667C15.5213 22.6701 17.6404 21.9014 19.3173 20.496L26.5773 27.756C26.6547 27.8334 26.7466 27.8948 26.8477 27.9367C26.9488 27.9786 27.0572 28.0001 27.1667 28.0001C27.2761 28.0001 27.3845 27.9786 27.4856 27.9367C27.5867 27.8948 27.6786 27.8334 27.756 27.756C27.8334 27.6786 27.8948 27.5867 27.9367 27.4856C27.9786 27.3845 28.0001 27.2761 28.0001 27.1667C28.0001 27.0572 27.9786 26.9488 27.9367 26.8477C27.8948 26.7466 27.8334 26.6547 27.756 26.5773L20.496 19.3173C21.9012 17.6403 22.6699 15.5213 22.6667 13.3333C22.6667 8.17867 18.488 4 13.3333 4ZM5.66667 13.3333C5.66667 9.09933 9.09933 5.66667 13.3333 5.66667C17.5673 5.66667 21 9.09933 21 13.3333C21 17.5673 17.5673 21 13.3333 21C9.09933 21 5.66667 17.5673 5.66667 13.3333Z" fill="#555555" />
@@ -397,13 +390,12 @@ const Briefwahl2021 = () => {
                       setSearchTerm(e.target.value); // Update searchTerm on typing
                       handleSearch(e.target.value); // Call handleSearch whenever typing
                     }}
-                    style={{ flex: 1 }}
                   />
                   <span className="BtnCrossIcon" onClick={clearSearchButton}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 33" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M23.0711 22.628L22.5997 23.0994L22.1282 23.5708L16 17.4426L9.87175 23.5708L9.40035 23.0994L8.92896 22.628L15.0572 16.4998L8.92896 10.3715L9.40035 9.90011L9.87175 9.42871L16 15.557L22.1282 9.42871L22.5997 9.90011L23.0711 10.3715L16.9428 16.4998L23.0711 22.628Z" fill="#333333" />
                   </svg></span>
 
-                <button className="btn btn-primary">Jetzt Starten</button>
+                {/* <button className="btn btn-primary">Jetzt Starten</button> */}
               </div>
               {searchTerm !== '' && filteredItems.length > 0 ? (
                 <table className="SmartTableOnTaskPopup scrollbar">
@@ -451,13 +443,11 @@ const Briefwahl2021 = () => {
                 )
               )}
             </div>
-          </div>
-          <div className="row clearfix">
-            <div id='regions_div' className='col-md-7 col-sm-12'>
+            <div id='regions_div' className='left-map-section'>
               <div id="chart-wrapper">
                 <Chart
                   width="100%"
-                  height="500px"
+                  height="100%"
                   chartType="GeoChart"
                   data={data}
                   options={options}
@@ -470,8 +460,8 @@ const Briefwahl2021 = () => {
                 />
               </div>
             </div>
-            <div className='col-md-5 col-sm-12'>
-              <ul className='mb-5 mt-3 stateListTiles'>
+            <div className='right-tile-section'>
+              <ul className='mb-5 HomepagestateListTiles'>
                 {StateDataArray.map((item: any, index: any) => (
                   <li key={index} onClick={() => ChangeTile(item.Title)} className={index == 0 ? SelectedTile === item.Title ? "state active" : "state" : SelectedTile === item.Title ? 'states active' : "states"}>
                     <img src={item.src} alt={item.Title} className="stateLogo" />
@@ -602,7 +592,6 @@ const Briefwahl2021 = () => {
                                 setSearchTermpopup(e.target.value); // Update searchTerm on typing
                                 handleSearchpopup(e.target.value); // Call handleSearch whenever typing
                               }}
-                              style={{ flex: 1 }}
                             />
                             <span className="BtnCrossIcon" onClick={clearSearchButton}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 33" fill="none">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M23.0711 22.628L22.5997 23.0994L22.1282 23.5708L16 17.4426L9.87175 23.5708L9.40035 23.0994L8.92896 22.628L15.0572 16.4998L8.92896 10.3715L9.40035 9.90011L9.87175 9.42871L16 15.557L22.1282 9.42871L22.5997 9.90011L23.0711 10.3715L16.9428 16.4998L23.0711 22.628Z" fill="#333333" />
