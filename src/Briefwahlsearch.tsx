@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import GlobalCommanTable from './GlobalCommanTable';
 import './CSS/Briefwahlsearch.css';
 import Highlighter from "react-highlight-words";
+import axios from 'axios';
 
 
 let backupdata: any = [];
@@ -18,9 +19,43 @@ const Briefwahlsearch = (props: any) => {
     const [filteredItems, setFilteredItems] = useState<any[]>([]);
     const [selectedItem, setSelectedItem] = useState<any | null>(null); // State to store selected item for the modal
     const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal visibility
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [Email, setEmail] = useState('');
+    const [LinkOnlineFormular, setLinkOnlineFormular] = useState('');
 
+    const handleToggleExpand = () => {
+        setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
+    };
+
+    const handleSubmit = async () => {
+        try {
+            try {
+                const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular }];
+                const postData = {
+                    data: postDataArray,
+                    tableName: 'BriefwahlFeedback',
+                    ApiType: 'postData'
+                };
+                const response = await axios.post('https://gruene-weltweit.de/SPPublicAPIs/createTableColumns.php', postData);
+                if (response.status === 200) {
+                    alert('Data submitted successfully!');
+                    console.log('Data sent to server successfully');
+                } else {
+                    console.error('Error sending data to server:', response.statusText);
+                }
+
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+        closeModal();
+    };
     if (props.stateParam && props.stateParam != undefined && props.stateParam != '') {
         State = decodeURIComponent(props.stateParam)
+
     }
     const [SelectedTile, setSelectedTile] = useState(State != undefined && State != '' ? State : 'Deutschlandweit');
 
@@ -284,6 +319,9 @@ const Briefwahlsearch = (props: any) => {
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedItem(null);
+        setIsExpanded(false)
+        setEmail('')
+        setLinkOnlineFormular('')
     };
     const clearSearchButton = () => {
         setFilteredItems([]);
@@ -401,66 +439,80 @@ const Briefwahlsearch = (props: any) => {
                                         <td style={{ width: '12%' }}>
                                             <span className="align-content-start d-flex">
                                                 Online:
-                                                {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification!="[]" ? (
+                                                {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" ? (
                                                     // Parse the JSON string to an array if it's a string
                                                     JSON.parse(item.ColumnLevelVerification).map((verification, index) => (
                                                         <span key={index}>
-                                                            {verification.Value === "Incorrect" ? (
-                                                                // Render yellow circle for "Incorrect"
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                                                    <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                                                </svg>
-                                                            ) : verification.Value === "Correct" ? (
-                                                                // Render green check for "Correct"
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        fillRule="evenodd"
-                                                                        clipRule="evenodd"
-                                                                        d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z"
-                                                                        fill="#00893A"
-                                                                    />
-                                                                </svg>
-                                                            ) : verification.Value === "Maybe" ? (
-                                                                // Render yellow circle for "Maybe"
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                                                    <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                                                </svg>
+                                                            {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
+                                                                <span style={{ marginLeft: '3px' }}>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                                                        <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                                                    </svg>
+                                                                </span>
+                                                            ) : verification.Title === 'LinkBundestag' && verification.Value === "Correct" ? (
+                                                                <span style={{ marginLeft: '3px' }}>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                        <path
+                                                                            fillRule="evenodd"
+                                                                            clipRule="evenodd"
+                                                                            d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z"
+                                                                            fill="#00893A"
+                                                                        />
+                                                                    </svg>
+                                                                </span>
+                                                            ) : verification.Title === 'LinkBundestag' && verification.Value === "Maybe" ? (
+                                                                <span style={{ marginLeft: '3px' }}>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                                                        <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                                                    </svg>
+                                                                </span>
+                                                            ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
+                                                                <span style={{ marginLeft: '3px' }}>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                                                        <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                                                    </svg>
+                                                                </span>
                                                             ) : null}
                                                         </span>
                                                     ))
                                                 ) : item.LinkBundestag ? (
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                    >
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            clipRule="evenodd"
-                                                            d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z"
-                                                            fill="#00893A"
-                                                        />
-                                                    </svg>
+                                                    <span>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                        >
+                                                            <path
+                                                                fillRule="evenodd"
+                                                                clipRule="evenodd"
+                                                                d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z"
+                                                                fill="#00893A"
+                                                            />
+                                                        </svg>
+                                                    </span>
                                                 ) : (
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                    >
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            clipRule="evenodd"
-                                                            d="M10.786 4.14797C8.96271 4.47725 7.08373 5.59373 5.88881 7.05785C5.28696 7.7955 4.45293 9.40344 4.22327 10.269C3.98202 11.1786 3.9245 13.072 4.10882 14.0401C4.74734 17.3946 7.36138 20.0438 10.7312 20.7517C11.625 20.9394 13.2986 20.9357 14.229 20.7436C17.5669 20.0553 20.269 17.226 20.8118 13.8514C20.9627 12.9137 20.8862 11.1061 20.6605 10.269C20.5725 9.94278 20.284 9.23101 20.0194 8.68735C18.3556 5.26838 14.6554 3.44927 10.786 4.14797ZM13.9965 5.42823C14.3948 5.51156 15.1425 5.78409 15.6579 6.03411C16.4562 6.42124 16.7284 6.62219 17.4933 7.39019C18.964 8.86693 19.6209 10.4183 19.6209 12.4154C19.6209 14.0082 19.1624 15.4983 18.3244 16.6295L18.0065 17.0587L12.973 12.0332C10.2047 9.26911 7.93966 6.96292 7.93976 6.90837C7.94006 6.76208 8.78561 6.21593 9.5323 5.87957C10.8156 5.30179 12.5517 5.12623 13.9965 5.42823ZM11.9731 12.913C14.7093 15.6449 16.948 17.9363 16.948 18.0053C16.948 18.074 16.7071 18.2842 16.4126 18.4723C13.483 20.3437 9.78456 19.966 7.36307 17.5479C6.21966 16.4061 5.50357 14.924 5.27062 13.2168C5.13639 12.2335 5.32229 10.8601 5.72845 9.83508C6.01459 9.11283 6.7357 7.94592 6.89601 7.94592C6.95234 7.94592 9.23712 10.1811 11.9731 12.913Z"
-                                                            fill="#333333"
-                                                        />
-                                                    </svg>
+                                                    <span>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                        >
+                                                            <path
+                                                                fillRule="evenodd"
+                                                                clipRule="evenodd"
+                                                                d="M10.786 4.14797C8.96271 4.47725 7.08373 5.59373 5.88881 7.05785C5.28696 7.7955 4.45293 9.40344 4.22327 10.269C3.98202 11.1786 3.9245 13.072 4.10882 14.0401C4.74734 17.3946 7.36138 20.0438 10.7312 20.7517C11.625 20.9394 13.2986 20.9357 14.229 20.7436C17.5669 20.0553 20.269 17.226 20.8118 13.8514C20.9627 12.9137 20.8862 11.1061 20.6605 10.269C20.5725 9.94278 20.284 9.23101 20.0194 8.68735C18.3556 5.26838 14.6554 3.44927 10.786 4.14797ZM13.9965 5.42823C14.3948 5.51156 15.1425 5.78409 15.6579 6.03411C16.4562 6.42124 16.7284 6.62219 17.4933 7.39019C18.964 8.86693 19.6209 10.4183 19.6209 12.4154C19.6209 14.0082 19.1624 15.4983 18.3244 16.6295L18.0065 17.0587L12.973 12.0332C10.2047 9.26911 7.93966 6.96292 7.93976 6.90837C7.94006 6.76208 8.78561 6.21593 9.5323 5.87957C10.8156 5.30179 12.5517 5.12623 13.9965 5.42823ZM11.9731 12.913C14.7093 15.6449 16.948 17.9363 16.948 18.0053C16.948 18.074 16.7071 18.2842 16.4126 18.4723C13.483 20.3437 9.78456 19.966 7.36307 17.5479C6.21966 16.4061 5.50357 14.924 5.27062 13.2168C5.13639 12.2335 5.32229 10.8601 5.72845 9.83508C6.01459 9.11283 6.7357 7.94592 6.89601 7.94592C6.95234 7.94592 9.23712 10.1811 11.9731 12.913Z"
+                                                                fill="#333333"
+                                                            />
+                                                        </svg>
+                                                    </span>
                                                 )}
                                             </span>
                                         </td>
+
 
 
                                     </tr>
@@ -505,14 +557,34 @@ const Briefwahlsearch = (props: any) => {
                                 flexDirection: 'column',
                                 gap: '20px',
                             }}
-
                         >
+                            {/* Close icon at top-right */}
+                            <button
+                                onClick={closeModal}
+                                style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '10px',
+                                    background: 'transparent',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
                             <div className='BriefwahlInformationPopup'>
                                 <div className='modal-header'>Briefwahl Information - {selectedItem?.Gemeinde}</div>
                                 <div className="modal-body">
                                     <div className='infoBox'>
                                         <div className="infoBox-itemBox">
-                                            <div className='infoBox-itemBox-item'><strong>PLZ:</strong>{selectedItem?.PLZ}</div>
+                                            <div className='infoBox-itemBox-item'>
+                                                <strong>PLZ:</strong> {selectedItem?.PLZ}
+                                                {selectedItem?.ZipCodes ? (
+                                                    <div className="zipCodeHover">{selectedItem?.ZipCodes}</div>
+                                                ) : null}
+                                            </div>
                                             <div className='infoBox-itemBox-item'><strong>Gemeinde:</strong>{selectedItem?.Gemeinde}</div>
                                         </div>
                                         <div className="infoBox-itemBox">
@@ -528,12 +600,93 @@ const Briefwahlsearch = (props: any) => {
                                     <div className='infoBox'>
                                         <div className='col'>
                                             <strong>Link Online Formular: </strong>
-                                            <a style={{ wordBreak: 'break-all' }} href={selectedItem?.LinkBundestag} target="_blank" rel="noopener noreferrer">{selectedItem?.LinkBundestag}</a></div>
+                                            <a style={{ wordBreak: 'break-all' }} href={selectedItem?.LinkBundestag} target="_blank" rel="noopener noreferrer">{selectedItem?.LinkBundestag}</a>
+                                        </div>
                                     </div>
+
+                                    {/* Expanded fields */}
+                                    {isExpanded && (
+                                        <>
+                                            <div className='infoBox'>
+                                                <div className='col' style={{ width: '100%' }}>
+                                                    <strong>Email:</strong>
+                                                    <input
+                                                        type="text"
+                                                        value={Email}
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        placeholder="Enter Email"
+                                                        style={{ width: '100%' }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className='infoBox'>
+                                                <div className='col' style={{ width: '100%' }}>
+                                                    <strong>Link Online Formular:</strong>
+                                                    <input
+                                                        type="LinkOnlineFormular"
+                                                        value={LinkOnlineFormular}
+                                                        onChange={(e) => setLinkOnlineFormular(e.target.value)}
+                                                        placeholder="Enter Link Online Formular"
+                                                        style={{ width: '100%' }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
                                 </div>
                                 <div className='modal-footer'>
                                     <div className='float-end row'>
-                                        <button className='btn btn-primary rounded-0' onClick={closeModal}> Close
+                                        {/* Expand/Collapse icon button */}
+                                        <button
+                                            className='btn btn-secondary rounded-0'
+                                            onClick={handleToggleExpand}
+                                            style={{
+                                                border: 'none',
+                                                background: 'transparent',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '8px', // Space between icon and text
+                                            }}
+                                        >
+                                            {isExpanded ? (
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M7 14L12 9L17 14H7Z" fill="#333" />
+                                                    </svg>
+                                                    <span>Expand Columns Field</span>
+
+
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {/* Expand icon (up-chevron) */}
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M7 10L12 15L17 10H7Z" fill="#333" />
+                                                    </svg>
+                                                    <span>Collapse Columns Field</span>
+                                                </>
+                                            )}
+                                        </button>
+
+
+                                        {/* Submit button */}
+                                        {isExpanded && (
+                                            <button
+                                                className='btn btn-primary rounded-0'
+                                                onClick={handleSubmit}
+                                            >
+                                                Submit
+                                            </button>
+                                        )}
+
+                                        {/* Close button */}
+                                        <button
+                                            className='btn btn-secondary rounded-0'
+                                            onClick={closeModal}
+                                        >
+                                            Close
                                         </button>
                                     </div>
                                 </div>
@@ -541,6 +694,73 @@ const Briefwahlsearch = (props: any) => {
                         </div>
                     </div>
                 )
+                // isModalOpen && (
+                //     <div
+                //         style={{
+                //             position: 'fixed',
+                //             top: '0',
+                //             left: '0',
+                //             width: '100%',
+                //             height: '100%',
+                //             backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                //             display: 'flex',
+                //             justifyContent: 'center',
+                //             alignItems: 'center',
+                //             zIndex: '99999',
+                //         }}
+                //     >
+                //         <div
+                //             style={{
+                //                 backgroundColor: 'white',
+                //                 padding: '24px',
+                //                 borderRadius: '4px',
+                //                 width: '100%',
+                //                 maxWidth: '572px',
+                //                 display: 'flex',
+                //                 flexDirection: 'column',
+                //                 gap: '20px',
+                //             }}
+
+                //         >
+                //             <div className='BriefwahlInformationPopup'>
+                //                 <div className='modal-header'>Briefwahl Information - {selectedItem?.Gemeinde}</div>
+                //                 <div className="modal-body">
+                //                     <div className='infoBox'>
+                //                         <div className="infoBox-itemBox">
+                //                             <div className='infoBox-itemBox-item'>
+                //                                 <strong>PLZ:</strong> {selectedItem?.PLZ}
+                //                                 {selectedItem?.ZipCodes ? (
+                //                                     <div className="zipCodeHover">{selectedItem?.ZipCodes}</div>
+                //                                 ) : null}
+                //                             </div>
+                //                             <div className='infoBox-itemBox-item'><strong>Gemeinde:</strong>{selectedItem?.Gemeinde}</div>
+                //                         </div>
+                //                         <div className="infoBox-itemBox">
+                //                             <div className='infoBox-itemBox-item'><strong>Wahlkreis:</strong>{selectedItem?.Wahlkreis}</div>
+                //                             <div className='infoBox-itemBox-item'><strong>WK Name:</strong>{selectedItem?.WKName}</div>
+                //                         </div>
+                //                     </div>
+                //                     <div className='infoBox'>
+                //                         <div className='col'>
+                //                             <strong>Email:</strong> <a href={`mailto:${selectedItem?.Email}`}>{selectedItem?.Email ? selectedItem?.Email : 'n/a'}</a>
+                //                         </div>
+                //                     </div>
+                //                     <div className='infoBox'>
+                //                         <div className='col'>
+                //                             <strong>Link Online Formular: </strong>
+                //                             <a style={{ wordBreak: 'break-all' }} href={selectedItem?.LinkBundestag} target="_blank" rel="noopener noreferrer">{selectedItem?.LinkBundestag}</a></div>
+                //                     </div>
+                //                 </div>
+                //                 <div className='modal-footer'>
+                //                     <div className='float-end row'>
+                //                         <button className='btn btn-primary rounded-0' onClick={closeModal}> Close
+                //                         </button>
+                //                     </div>
+                //                 </div>
+                //             </div>
+                //         </div>
+                //     </div>
+                // )
             }
         </div >
 
