@@ -84,11 +84,13 @@ a.DC-mapImg > img.DC-Mapimage {
   }
 
   ul.scrollToBtns {
-    margin: 35px 0 !important;
     list-style: none !important;
     display: flex;
-    width: 100%;
     gap: 12px;
+    margin: 35px auto !important;
+    width: 100%;
+    padding: 0;
+    justify-content: center;
   }
 
   ul.scrollToBtns li {
