@@ -727,10 +727,10 @@ const Briefwahl2021 = () => {
                         </div>
                         <div className="infoBox">
                           <div className="col">
-                            <strong>Email:</strong>
-                            <div className="email-container">
+                            <strong>Email: </strong>
+                            <span className="email-container">
                               {/* Email link */}
-                              <a href={generateMailToLink()}>{selectedItem?.Email ? selectedItem?.Email : 'n/a'}</a>
+                              <a className=' text-bold' href={generateMailToLink()}>{selectedItem?.Email ? selectedItem?.Email : 'n/a'}</a>
 
                               {/* Copy Icon */}
                               <span
@@ -744,7 +744,7 @@ const Briefwahl2021 = () => {
 
                               {/* Feedback text */}
                               {isCopied && <span style={{ color: 'green', marginLeft: '10px' }}>Copied!</span>}
-                            </div>
+                            </span>
                           </div>
                         </div>
                         {/* <div className='infoBox'>

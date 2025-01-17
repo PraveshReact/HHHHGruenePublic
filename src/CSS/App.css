@@ -1552,7 +1552,9 @@ span.ExpandLinkFooter {
   bottom: -20px;
   left: -24px;
 }
-
+span.ExpandLinkFooter a {
+  font-size: 14px;
+}
 .BriefwahlInformationPopup .modal-footer {
   position: relative;
 }

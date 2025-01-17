@@ -277,7 +277,7 @@ input.CustomSearchInput {
     border: none;
     margin-bottom: 0;
     border-radius: 0 !important;
-    font-weight: 400;
+    font-weight: 700;
 }
 input.CustomSearchInput::placeholder {
     color: #555 !important;
@@ -382,6 +382,7 @@ ul.HomepagestateListTiles>li>img.stateLogo {
     height: 40px;
     padding: 4px 0px 4px 4px;
     object-fit: contain;
+    width: 45px;
 }
 span.SearchInputFieldstateLogo > img {
     height: 44px;
@@ -402,9 +403,9 @@ ul.HomepagestateListbuttonTiles>li.state.state.active {
     width: 90%;
 }
 span.MaybeIconSvg > svg {
-    margin-left: 2px;
-    width: 18px;
-    height: 18px;
+    margin-left: 3px;
+    width: 17px;
+    height: 17px;
 }
 
 span.MaybeIconSvg {
@@ -415,7 +416,7 @@ span.MaybeIconSvg {
 }
 
 span.OnlineIconSvg > svg {
-    margin-left: 1px;
+    margin-left: 2px;
     width: 26px;
     height: 26px;
 }

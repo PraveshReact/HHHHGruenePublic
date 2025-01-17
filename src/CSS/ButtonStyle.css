@@ -25,10 +25,9 @@
 
   /* Add this CSS to your styles */
 .infoBox .email-container {
-    display: flex;
-    align-items: center;
+  display: inline-block;
   }
-  
+  span.email-container > a {word-break: break-all;}
   .copy-icon {
     cursor: pointer;
     margin-left: 10px;

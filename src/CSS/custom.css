@@ -854,7 +854,7 @@ padding: 6px 10px 5px 3px
 
 .scrollbar::-webkit-scrollbar {
   background: #f3f3f3;
-  width: 12px;
+  width: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

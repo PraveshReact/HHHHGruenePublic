@@ -77,7 +77,7 @@ a.DC-mapImg > img.DC-Mapimage {
   }
 
   h1.privacypageTitle {
-    font-size: 57px !important;
+    font-size: 52px !important;
     font-weight: 500;
     font-family: 'GrueneType';
     color: var(--secondary-color) !important;
@@ -97,7 +97,7 @@ a.DC-mapImg > img.DC-Mapimage {
     list-style: none !important;
     background: #008939;
     display: flex;
-    padding: 8px 32px;
+    padding: 8px 0px;
     justify-content: center;
     align-items: center;
     gap: 12px;
@@ -105,8 +105,8 @@ a.DC-mapImg > img.DC-Mapimage {
     color: #FFF;
     font-size: 16px !important;
     font-style: normal;
-    font-weight: 700;
     cursor: pointer;
+    width: 36%;
   }
 
   ul.scrollToBtns li a {
@@ -506,6 +506,7 @@ span.text-danger {
     ul.scrollToBtns li {
       width: 100%;
       margin: 5px 0;
+      padding: 8px 20px;
     }
 
     ul.scrollToBtns li a {
