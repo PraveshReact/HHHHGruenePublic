@@ -35,7 +35,7 @@ const Briefwahlsearch = (props: any) => {
     const handleSubmit = async () => {
         try {
             try {
-                const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular }];
+                const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular,Title:selectedItem?.Title, Gemeinde:selectedItem?.Gemeinde, Wahlkreis:selectedItem?.Wahlkreis, WKName:selectedItem?.WKName, PLZ:selectedItem?.PLZ,Bevolkerung:selectedItem?.Bevolkerung,  ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status:'For-Approval'}];
                 const postData = {
                     data: postDataArray,
                     tableName: 'BriefwahlFeedback',

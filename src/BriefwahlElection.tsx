@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../src/CSS/ContactForm.css'; // Import the CSS file for styling
+import AlertPopup from './AlertPopup';
 
 const BriefwahlElection = () => {
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
     const [formData, setFormData] = useState({
         FirstName: '',
         LastName: '',
@@ -34,7 +37,8 @@ const BriefwahlElection = () => {
 
             // Handle success
             console.log('Form submitted successfully:', response.data);
-            alert('Your Form submitted successfully!');
+            setAlertMessage('Vielen Dank für Deine Hilfe!');
+            setShowAlert(true);
             setFormData({
                 FirstName: '',
                 LastName: '',
@@ -51,6 +55,9 @@ const BriefwahlElection = () => {
             alert('There was an error submitting your form. Please try again later.');
         }
     };
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+      };
 
     // Check if the privacy policy checkbox is checked
    // const isFormValid = formData.acceptPrivacyPolicy; // The form will only be valid if this is true
@@ -141,6 +148,7 @@ const BriefwahlElection = () => {
                     </button>
                 </form>
             </div>
+            {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
         </div>
     );
 };

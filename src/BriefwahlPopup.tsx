@@ -77,7 +77,7 @@ const BriefwahlPopup = (props: any) => {
                                     </a>
                                     <ul className="banner-list">
                                         <li>Inhalt: Familienname, Vorname(n), Geburtsdatum, Anschrift</li>
-                                        <li>Unterlagen werken kostenlos zugeschickt</li>
+                                        <li>Unterlagen werden kostenlos zugeschickt</li>
                                     </ul>
                                 </div>
                             </div>
