@@ -929,6 +929,7 @@ a:not([href]):not([class]) {
 .SmartPages h1 {
   color: var(--secondary-color) !important;
   font-family: 'GrueneType' !important;
+  text-align: center;
 }
 .justify-center {
   justify-content: center;
@@ -1892,3 +1893,120 @@ section.footer-widgets-wrap .col:last-child > ul.list-unstyled {
 }
 }
 
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+  /* .Homepage .CustomSearchInputWithBtn {
+      width: 73%;
+  }
+  ul.HomepagestateListbuttonTiles>li{
+      width: 280px;
+  }
+  ul.HomepagestateListbuttonTiles > li.state.states.active.gray{
+      width: 280px;
+  } */
+}
+@media (min-width: 1024px) and (max-width: 1280px) {
+  /* .Homepage .CustomSearchInputWithBtn {
+      width: 73%;
+  }
+  ul.HomepagestateListbuttonTiles>li{
+      width: 280px;
+  }
+  ul.HomepagestateListbuttonTiles > li.state.states.active.gray{
+      width: 280px;
+  } */
+}
+@media screen and (max-width: 768px) {
+  .flex-searchrowWithBtn {
+      display: block;
+      padding: 0;
+  }
+  .Homepage .CustomSearchInputWithBtn{
+      width: 100%;
+  }
+  ul.stateListTiles>li {
+      width: 48%;
+  }
+  ul.stateListTiles {
+     display: none;
+  }
+  .SmartTableOnTaskPopup {
+      width: 100%;
+  }
+  .SmartTableOnTaskPopup tr.searchItemList > td:last-child > span.align-content-start.d-flex, .SmartTableOnTaskPopup tr.searchItemList > td:nth-child(2) > span.align-content-start.d-flex {
+      display: flex;
+      flex-wrap: wrap;
+  }
+  .CustomSearchInputWithBtn {
+      display: block;
+  }
+  .CustomSearchInputWithBtn>span.BtnSearchIcon {
+      top: 10px;
+      left: 5px;
+  }
+  input.CustomSearchInput::placeholder {
+    font-size: 16px;
+}
+  .CustomSearchInputWithBtn>span.BtnCrossIcon {
+      right: 0;
+      top: 10px;
+  }
+  
+.right-tile-section {
+  width: 100%;
+  padding: 0;
+  display: none;
+}
+.CustomSearchInputTile {
+  display: none;
+}
+span.SearchInputFieldstateLogo {
+  top: 0;
+  display: none;
+}
+input.CustomSearchInput {
+ padding: 8px 12px 8px 42px;
+}
+  .CustomSearchInputWithBtn>button.btn.btn-primary {
+      width: 100%;
+      height: auto;
+      margin-top: 5px;
+  }
+  .BriefwahlInformationPopup .infoBox {
+      gap: 8px; /* Reduce the gap for smaller screens */
+      padding: 8px; /* Adjust padding for smaller screens */
+      font-size: 16px;
+  }
+
+  .BriefwahlInformationPopup .infoBox .infoBox-itemBox {
+      flex-direction: column; /* Stack items vertically */
+      gap: 16px; /* Adjust gap between rows */
+      font-size: 16px;
+  }
+
+  .BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item {
+      flex-direction: column; /* Stack label and value vertically */
+      gap: 4px; /* Adjust gap between label and value */
+      width: 100%; /* Make items take full width */
+  }
+
+  .BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {
+      width: 100%; /* Override the width for small screens */
+  }
+  div#box1content .flex-steps {gap: 8px;flex-direction:column}
+
+span.flex-steps-arrow > svg {
+  transform: rotate(90deg); /* Rotate the SVG by 90 degrees */
+  transform-origin: center; /* Ensure rotation happens from the center */
+}
+div#box1content .modal-header h3, div#box2content .modal-header h3{
+  font-size:28px;
+}
+div#box1content .modal-content, div#box2content .modal-content {
+  padding: 16px;
+}
+.BriefwahlInformationPopup .modal-body {
+  overflow: auto;
+  max-height: 65vh;
+}
+}

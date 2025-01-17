@@ -139,25 +139,40 @@ ul.stateListTiles > li.active > span.stateName {
 }
 /****** new css homepage ***********/
 .left-map-section {
-    width: 46.66666667%;
+    width: 48%;
     float: left;
     margin-top: 16px;
 }
 .right-tile-section { 
-    width: 53.33333% !important;
+    width: 52%;
 }
 /* .Homepage.position-relative {266
     width: 1100px;
 } */
+.flex-searchrowWithBtn {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-around;
+}
+.CustomSearchInputTile {
+    width: calc(26% - 16px);
+}
 .Homepage .SmartTableOnTaskPopup {
     width: 100%;
 }
 .Homepage .CustomSearchInputWithBtn{
-    width: 73%;
+    width: calc(74% - 5px);
     position: relative;
 }
 ul.HomepagestateListbuttonTiles {
     margin: 0;
+    padding: 0;
+}
+.CustomSearchInputTile > ul.HomepagestateListbuttonTiles > li.state.state.active > img.stateLogo{
+    height: 44px;
+    padding: 4px;
+    object-fit: contain;
 }
 ul.HomepagestateListbuttonTiles > li.state > span.stateName {
     font-size: 16px;
@@ -166,10 +181,7 @@ ul.HomepagestateListbuttonTiles > li{
     list-style: none;
     text-align: center;
     justify-content: start;
-    position: absolute;
-    top: 0;
-    width: 330px;
-    right: 17px;
+    width: 100%;
     color: #fff;
     display: flex;
     align-items: center;
@@ -182,6 +194,7 @@ ul.HomepagestateListTiles {
     gap: 16px;
     padding: 0;
     margin-top: 16px;
+    justify-content: space-around;
 }
 ul.HomepagestateListTiles > li{
     list-style: none;
@@ -360,65 +373,28 @@ padding: 0px !important;
     font-size: 16px;
     min-width: 120px;
 }
-@media screen and (max-width: 768px) {
-    ul.stateListTiles>li {
-        width: 48%;
-    }
-    ul.stateListTiles {
-       display: none;
-    }
-    .SmartTableOnTaskPopup {
-        width: 100%;
-    }
-    .SmartTableOnTaskPopup tr.searchItemList > td:last-child > span.align-content-start.d-flex, .SmartTableOnTaskPopup tr.searchItemList > td:nth-child(2) > span.align-content-start.d-flex {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .CustomSearchInputWithBtn {
-        display: block;
-    }
-    .CustomSearchInputWithBtn>span.BtnSearchIcon {
-        top: 10px;
-    }
-    .CustomSearchInputWithBtn>span.BtnCrossIcon {
-        right: 0;
-        top: 10px;
-    }
-    .CustomSearchInputWithBtn>button.btn.btn-primary {
-        width: 100%;
-        height: auto;
-        margin-top: 5px;
-    }
-    .BriefwahlInformationPopup .infoBox {
-        gap: 8px; /* Reduce the gap for smaller screens */
-        padding: 8px; /* Adjust padding for smaller screens */
-    }
-
-    .BriefwahlInformationPopup .infoBox .infoBox-itemBox {
-        flex-direction: column; /* Stack items vertically */
-        gap: 16px; /* Adjust gap between rows */
-    }
-
-    .BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item {
-        flex-direction: column; /* Stack label and value vertically */
-        gap: 4px; /* Adjust gap between label and value */
-        width: 100%; /* Make items take full width */
-    }
-
-    .BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {
-        width: 100%; /* Override the width for small screens */
-    }
-    div#box1content .flex-steps {gap: 8px;flex-direction:column}
-
-span.flex-steps-arrow > svg {
-    transform: rotate(90deg); /* Rotate the SVG by 90 degrees */
-    transform-origin: center; /* Ensure rotation happens from the center */
+ul.HomepagestateListTiles>li {
+    height: 46px;
 }
-div#box1content .modal-header h3, div#box2content .modal-header h3{
-    font-size:28px;
+ul.HomepagestateListTiles>li>img.stateLogo {
+    height: 40px;
+    padding: 4px 0px 4px 4px;
+    object-fit: contain;
 }
-div#box1content .modal-content, div#box2content .modal-content {
-    padding: 16px;
+span.SearchInputFieldstateLogo > img {
+    height: 44px;
+    padding: 4px;
+    object-fit: contain;
 }
+ul.HomepagestateListbuttonTiles > li.state.states.active.gray > img.stateLogo {
+    height: 44px;
+    padding: 4px;
+    object-fit: contain;
 }
-
+ul.HomepagestateListbuttonTiles>li.state.state.active {
+    height: 48px;
+    cursor: pointer;
+}
+.Homepage {
+    margin: 0 auto;
+}

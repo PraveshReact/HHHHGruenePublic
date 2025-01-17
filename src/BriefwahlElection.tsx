@@ -8,6 +8,7 @@ const BriefwahlElection = () => {
         LastName: '',
         Country: '',
         Comment: '',
+        Created: new Date().toISOString().slice(0, 19).replace('T', ' '),
         // acceptPrivacyPolicy: false,
         // subscribeNewsletter: false
     });
@@ -39,6 +40,7 @@ const BriefwahlElection = () => {
                 LastName: '',
                 Country: '',
                 Comment: '',
+                Created: new Date().toISOString().slice(0, 19).replace('T', ' '),
                 // acceptPrivacyPolicy: false,
                 // subscribeNewsletter: false
             });

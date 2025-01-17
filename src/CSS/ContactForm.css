@@ -6,9 +6,9 @@
   background-color: #f9f9f9;
   border-radius: 4px;
   /* box-shadow: 0 4px 12px #0000001a; */
-  margin: 20px auto;
+  margin: 0px auto;
   max-width: 600px;
-  padding: 20px;
+  padding: 50px 0;
   }
   
   .contact-form-title {
@@ -88,6 +88,12 @@
   }
   form.contact-form textarea#message {
     height: auto;
+}
+.error-text {
+  color: #ed143d;              /* Set the text color to red */
+  font-size: 14px;         /* Optional: Adjust font size */
+  font-weight: bold;       /* Optional: Make the text bold */
+  margin-top: 10px;        /* Optional: Add spacing above the error message */
 }
 
 /*******/
