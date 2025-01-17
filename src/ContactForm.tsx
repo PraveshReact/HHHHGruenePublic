@@ -159,7 +159,7 @@ const ContactForm = () => {
                 required
               />
               Ich akzeptiere die <span>
-                <a href="/Datenschutz" className="privacy-policy-link">Datenschutzerklärung</a>
+                <a href="/Datenschutz"  target="_blank" rel="noopener noreferrer" className="privacy-policy-link">Datenschutzerklärung</a>
               </span>
               <span className="text-danger">*</span>
             </label>

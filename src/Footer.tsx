@@ -89,18 +89,18 @@ const Footer = () => {
                         .map((child: any) => (
                           <li key={child.id} className="widget_links">
                             {child.Title === "Impressum" ? (
-                              <Link to={child.Title}>
+                              <Link target="_blank" to={child.Title}>
                                 {child.Title}
                               </Link>
                             ) : child.Title === "Pressekontakt" ? (
-                              <Link
+                              <Link target="_blank"
                                 to="/OV-in-den-Medien"
 
                               >
                                 {child.Title}
                               </Link>
                             ) : (
-                              <Link to={child.href} rel="noopener noreferrer">
+                              <Link target="_blank" to={child.href} rel="noopener noreferrer">
                                 {child.Title}
                               </Link>
                             )}

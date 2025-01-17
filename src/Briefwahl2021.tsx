@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CSS/Briefwahl.css';
+import './CSS/ButtonStyle.css';
 import { Chart } from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import { Panel, PanelType } from "@fluentui/react";
@@ -9,14 +10,17 @@ import App from './App';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import axios from 'axios';
 import AlertPopup from './AlertPopup';
+import { FaCopy } from 'react-icons/fa';
 
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
+let filteredItemsBackup: any = []
 let trimmedSearchTerm: any
 const Briefwahl2021 = () => {
   let State: any;
   const [showModal, setShowModal] = useState(false);
   const [showModal1, setShowModal1] = useState(false);
+  const [showSearchItems, setShowSearchItems] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermpopup, setSearchTermpopup] = useState('');
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
@@ -32,15 +36,36 @@ const Briefwahl2021 = () => {
   const [Iscolor, setIscolor] = useState('Green');
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
   };
 
+
+
+  // Function to copy email to clipboard
+  const copyEmailToClipboard = () => {
+    if (selectedItem?.Email) {
+      navigator.clipboard.writeText(selectedItem.Email)
+        .then(() => {
+          setIsCopied(true);
+          //setTimeout(() => setIsCopied(false), 2000); // Reset "copied" state after 2 seconds
+        })
+        .catch(err => console.error("Failed to copy: ", err));
+    }
+  };
+
+  // Function to generate the mailto link with custom subject and body
+  const generateMailToLink = () => {
+    const subject = `Antrag Briefwahl - Wahlkreis ${selectedItem?.Wahlkreis} - ${selectedItem?.WKName}`;
+    return `mailto:${selectedItem?.Email}?subject=${encodeURIComponent(subject)}`;
+  };
+
   const handleSubmit = async () => {
     try {
       try {
-        const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular }];
+        const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: 'For-Approval' }];
         const postData = {
           data: postDataArray,
           tableName: 'BriefwahlFeedback',
@@ -63,7 +88,7 @@ const Briefwahl2021 = () => {
     } catch (error) {
       console.error('An error occurred:', error);
     }
-    //closeModal();
+    closeModal();
   };
   const handleCloseAlert = () => {
     setShowAlert(false);
@@ -243,7 +268,7 @@ const Briefwahl2021 = () => {
         body: raw,
         redirect: 'follow'
       };
-      fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+      await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
         .then(response => response.text())
         .then((result: any) => {
           result = JSON.parse(result)
@@ -274,6 +299,7 @@ const Briefwahl2021 = () => {
   const openModal = (item: any) => {
     setSelectedItem(item);
     setIsModalOpen(true);
+    setIsCopied(false);
   };
 
   // Close modal
@@ -368,7 +394,9 @@ const Briefwahl2021 = () => {
 
       });
 
-      setFilteredItems(filtered); // Update filtered items
+      setFilteredItems([...filtered]); // Update filtered items
+      filteredItemsBackup = filtered;
+      setShowSearchItems(true)
     }
   };
   const ChangeTile = (tile: string, Type: any) => {
@@ -402,6 +430,11 @@ const Briefwahl2021 = () => {
     } else {
       BriefwahldataBackup = allfilterdata;
     }
+
+    if (tile == 'Berlin' || tile == 'Brandenburg' || tile == 'Bremen') {
+      setSearchTerm(tile);
+      handleSearch(tile)
+    }
     if (trimmedSearchTerm == undefined || trimmedSearchTerm == null || trimmedSearchTerm === '') {
       setFilteredItems([]);  // If search term is empty, clear the results
     } else {
@@ -409,9 +442,12 @@ const Briefwahl2021 = () => {
     }
 
   }
+  useEffect(() => {
+    console.log('filteredItems')
+  }, [filteredItems, searchTerm])
   return (
     <>
-      <div className="container">
+      <div className={filteredItems.length > 0 ? "container fgjj" : "container abc"} >
         <section className="section  Briefwahl2021">
           <div className="col-lg-12">
             <div id="BriefwahlTitleDiv">
@@ -461,9 +497,9 @@ const Briefwahl2021 = () => {
                   ))}
                 </span>
 
-                {searchTerm !== '' && filteredItems.length > 0 ? (
+                {showSearchItems == true && searchTerm !== '' && filteredItemsBackup.length > 0 ? (
                   <table className="SmartTableOnTaskPopup scrollbar">
-                    {filteredItems.map((item, index) => (
+                    {filteredItemsBackup.map((item, index) => (
                       <tr className='searchItemList p-1 fs-6'
                         key={index}
                         onClick={() => openModal(item)}
@@ -689,12 +725,34 @@ const Briefwahl2021 = () => {
                             <div className='infoBox-itemBox-item'><strong>WK Name:</strong>{selectedItem?.WKName}</div>
                           </div>
                         </div>
-                        <div className='infoBox'>
+                        <div className="infoBox">
+                          <div className="col">
+                            <strong>Email:</strong>
+                            <div className="email-container">
+                              {/* Email link */}
+                              <a href={generateMailToLink()}>{selectedItem?.Email ? selectedItem?.Email : 'n/a'}</a>
+
+                              {/* Copy Icon */}
+                              <span
+                                className="copy-icon"
+                                onClick={copyEmailToClipboard}
+                                style={{ cursor: 'pointer', marginLeft: '10px' }}
+                                title="Copy to Clipboard"
+                              >
+                                <FaCopy color={isCopied ? 'green' : 'black'} />
+                              </span>
+
+                              {/* Feedback text */}
+                              {isCopied && <span style={{ color: 'green', marginLeft: '10px' }}>Copied!</span>}
+                            </div>
+                          </div>
+                        </div>
+                        {/* <div className='infoBox'>
                           <div className='col'>
                             
                             <strong>Email:</strong> <a className='text-bold' href={`mailto:${selectedItem?.Email}`}>{selectedItem?.Email ? selectedItem?.Email : 'n/a'}</a>
                           </div>
-                        </div>
+                        </div> */}
                         {isExpanded && (
                           <>
                             <div className='infoBox'>
@@ -714,36 +772,36 @@ const Briefwahl2021 = () => {
                         <div className='infoBox'>
                           <div className="col-12">
                             <span className="VerifyOnlineStatus">
-                          <span className="alignCenter d-flex">
-                              {selectedItem.ColumnLevelVerification && selectedItem.ColumnLevelVerification !== "" && selectedItem.ColumnLevelVerification !== "[]" ? (
-                                JSON.parse(selectedItem.ColumnLevelVerification).map((verification, index) => (
-                                  <span key={index}>
-                                    {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                      </svg>
-                                    ) : verification.Title === 'LinkBundestag' && verification.Value === "Correct" ? (
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path
-                                          fillRule="evenodd"
-                                          clipRule="evenodd"
-                                          d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z"
-                                          fill="#00893A"
-                                        />
-                                      </svg>
-                                    ) : verification.Title === 'LinkBundestag' && verification.Value === "Maybe" ? (
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                      </svg>
-                                    ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                      </svg>
-                                    ) : null}
-                                  </span>
-                                ))
-                              ) : selectedItem.LinkBundestag ? (
-                               
+                              <span className="alignCenter d-flex">
+                                {selectedItem.ColumnLevelVerification && selectedItem.ColumnLevelVerification !== "" && selectedItem.ColumnLevelVerification !== "[]" ? (
+                                  JSON.parse(selectedItem.ColumnLevelVerification).map((verification, index) => (
+                                    <span key={index}>
+                                      {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                        </svg>
+                                      ) : verification.Title === 'LinkBundestag' && verification.Value === "Correct" ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          <path
+                                            fillRule="evenodd"
+                                            clipRule="evenodd"
+                                            d="M11.4707 3.55257C10.0016 3.66045 8.6209 4.11661 7.41945 4.89104C6.92905 5.2071 6.5878 5.48345 6.1038 5.95645C4.71107 7.31745 3.90362 8.92085 3.60339 10.9216C3.5406 11.3398 3.54119 12.6375 3.60437 13.0784C3.83084 14.6591 4.43966 16.0862 5.3944 17.2745C5.72435 17.6851 6.41 18.366 6.80405 18.6744C7.9629 19.5813 9.3969 20.1808 10.9217 20.3961C11.378 20.4605 12.6255 20.4602 13.0785 20.3955C13.7841 20.2948 14.6695 20.0569 15.2328 19.8167C16.301 19.3611 17.0763 18.845 17.8965 18.0435C19.285 16.6867 20.1165 15.0346 20.3957 13.0784C20.4604 12.6254 20.4607 11.3779 20.3962 10.9216C20.121 8.97155 19.2872 7.31545 17.8965 5.95645C16.7462 4.83245 15.5067 4.14935 13.9217 3.76598C13.2376 3.60053 12.1305 3.50414 11.4707 3.55257ZM13.6965 12.48L10.4121 15.7646L8.7161 14.0689L7.02005 12.3732L7.57835 11.8139L8.13665 11.2546L9.27445 12.3919L10.4122 13.5293L13.1372 10.804L15.8623 8.0788L16.4216 8.6371L16.9809 9.19545L13.6965 12.48Z"
+                                            fill="#00893A"
+                                          />
+                                        </svg>
+                                      ) : verification.Title === 'LinkBundestag' && verification.Value === "Maybe" ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                        </svg>
+                                      ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                        </svg>
+                                      ) : null}
+                                    </span>
+                                  ))
+                                ) : selectedItem.LinkBundestag ? (
+
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -758,9 +816,9 @@ const Briefwahl2021 = () => {
                                       fill="#00893A"
                                     />
                                   </svg>
-                              
-                              ) : (
-                              
+
+                                ) : (
+
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -775,11 +833,11 @@ const Briefwahl2021 = () => {
                                       fill="#333333"
                                     />
                                   </svg>
-                              
-                              )}
-                              
-                            </span>
-                            {selectedItem?.OnlineStatus!=null && selectedItem?.OnlineStatus!=undefined && selectedItem?.OnlineStatus!="" && (<span className='VerifyOnlineStatusText'>Verifiziert - verfügbar ab {selectedItem?.OnlineStatus}</span>)}
+
+                                )}
+
+                              </span>
+                              {selectedItem?.OnlineStatus != null && selectedItem?.OnlineStatus != undefined && selectedItem?.OnlineStatus != "" && (<span className='VerifyOnlineStatusText'>Verifiziert - verfügbar ab {selectedItem?.OnlineStatus}</span>)}
                             </span>
                           </div>
                           <div className='col'>
