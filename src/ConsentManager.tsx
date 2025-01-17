@@ -48,13 +48,26 @@ const ConsentManager = () => {
             }  
             document.addEventListener('DOMContentLoaded', matomoWaitForTracker());
         `;
-    script.onload = () => {
-      if (window?.klaro) {
-        window.klaro.show(); // Show the Klaro popup
-      } else {
-        console.error('Klaro failed to load!');
-      }
-    };
+        script.onload = () => {
+          if (typeof window.klaro === 'object' && typeof window.klaro.getManager === 'function') {
+            const manager = window.klaro.getManager();
+        
+            if (manager && typeof manager.getConsents === 'function') {
+              const consents = manager.getConsents();
+              console.log('Klaro consents:', consents);
+        
+              if (!consents || Object.keys(consents).length === 0) {
+                window.klaro.show();
+              } else {
+                console.log('Consent already given');
+              }
+            } else {
+              console.error('Klaro manager or getConsents method not available!');
+            }
+          } else {
+            console.error('Klaro failed to initialize!');
+          }
+        };
     document.body.appendChild(script);
   
     return () => {

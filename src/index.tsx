@@ -21,7 +21,15 @@ import ContactForm from './ContactForm';
 import BriefwahlElection from './BriefwahlElection';
 import ConsentManager from './ConsentManager';
 
+// import './klaroConfig'; // Import your Klaro configuration
+// import 'klaro/dist/klaro.css'; // Import Klaro styles // Import Klaro
 
+// document.addEventListener('DOMContentLoaded', () => {
+//   if (!window.klaroInitialized) {
+//     window.klaroInitialized = true;
+//     window.klaro.show();
+//   }
+// });
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<><Layout /></>}>

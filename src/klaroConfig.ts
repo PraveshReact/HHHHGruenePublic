@@ -3,7 +3,8 @@ export {}; // Ensure this file is treated as a module
 declare global {
   interface Window {
     klaroConfig?: any;
-    klaro?:any; // Declare klaroConfig as optional
+    klaro?:any; 
+    klaroInitialized?:boolean // Declare klaroConfig as optional
   }
 }
 
@@ -13,11 +14,12 @@ window.klaroConfig = {
   elementID: 'klaro', // The ID of the Klaro container
   storageMethod: 'cookie', // Use 'cookie' or 'localStorage'
   cookieName: 'klaro-consent', // The name of the consent cookie
-  cookieExpiresAfterDays: 365, // Cookie expiration time
+  cookieExpiresAfterDays: 180, // Cookie expiration time
   privacyPolicy: '/Datenschutz', // URL of your privacy policy
-  default: false, // Whether to ask for consent for all services by default
-  mustConsent: true, // Require user consent before loading the app
+  default: true, // Whether to ask for consent for all services by default
+  mustConsent: false, // Require user consent before loading the app
   acceptAll: true, // Allow users to accept all services
+  // noAutoLoad: true,
   services: [
     {
       name: 'matomo',
