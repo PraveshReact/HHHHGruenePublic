@@ -16,9 +16,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://matomo.gruene-washington.de/GrueneKlaro//Klaro/assets/css/klaro.min.css" />
-  <script type="application/javascript"
-    src="https://matomo.gruene-washington.de/GrueneKlaro//Klaro/assets/js/klaro.js"></script>
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -36,7 +33,7 @@
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function () {
-      var u = "//gruene-weltweit.de/matomo/";
+      var u = "https://gruene-weltweit.de/matomo/";
       _paq.push(['setTrackerUrl', u + 'matomo.php']);
       _paq.push(['setSiteId', '1']);
       var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
@@ -46,169 +43,23 @@
   <!-- End Matomo Code -->
 </head>
 <style>
-  .klaro-short-bottom-right {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    /* Ensure it's on top of other elements */
-  }
-
-  .klaro-short-bottom-right .cookie-modal .cm-modal.cm-klaro {
-    bottom: 0 !important;
-    margin: 0 !important;
-    right: 0 !important;
-    left: auto;
-    top: auto;
-    transform: none !important;
+  div#klaro {
+    z-index: 99999;
     position: absolute;
-    max-width: 500px;
-  }
-
-  p.cm-powered-by {
-    display: none !important;
-  }
-
-  .klaro-short-bottom-right .cookie-modal .cm-btn {
-    border-radius: 0;
-    padding: 0.5em 1em;
-  }
-</style>
-
+}
+.klaro .cookie-modal input.cm-list-input.half-checked + .cm-list-label .slider::before, .klaro .context-notice input.cm-list-input.half-checked + .cm-list-label .slider::before, .klaro .cookie-notice input.cm-list-input.half-checked + .cm-list-label .slider::before {
+    background-color: #949494 !Important;
+}
+.klaro .cookie-modal .cm-list-input .cm-list-label .slider::before, .klaro .context-notice .cm-list-input .cm-list-label .slider::before, .klaro .cookie-notice .cm-list-input .cm-list-label .slider::before {
+    background-color: #1d8a6a !Important;
+}
+.klaro .cookie-modal .cm-modal .hide:focus-visible {
+    outline: none;
+}
+  </style>
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <script>
-    // Klaro configuration
-    var klaroConfig = {
-      version: 1,
-      elementID: "klaro",
-      storageMethod: "cookie",
-      cookieName: "klaro",
-      cookieExpiresAfterDays: 365,
-      privacyPolicy: "/privacy-policy",
-      default: false,
-      mustConsent: true,
-      acceptAll: true,
-      translations: {
-        // translationsed defined under the 'zz' language code act as default
-        // translations.
-        zz: {
-          privacyPolicyUrl: '/#privacy',
-        },
-        // If you erase the "consentModal" translations, Klaro will use the
-        // bundled translations.
-        de: {
-          privacyPolicyUrl: '/#datenschutz',
-          consentModal: {
-            description:
-              'Hier können Sie einsehen und anpassen, welche Information wir über Sie sammeln. Einträge die als "Beispiel" gekennzeichnet sind dienen lediglich zu Demonstrationszwecken und werden nicht wirklich verwendet.',
-          },
-          inlineTracker: {
-            description: 'Beispiel für ein Inline-Tracking Skript',
-          },
-          externalTracker: {
-            description: 'Beispiel für ein externes Tracking Skript',
-          },
-          adsense: {
-            description: 'Anzeigen von Werbeanzeigen (Beispiel)',
-            title: 'Google AdSense Werbezeugs',
-          },
-          matomo: {
-            description: 'Sammeln von Besucherstatistiken',
-          },
-          camera: {
-            description:
-              'Eine Überwachungskamera (nur ein Beispiel zu IMG-Tags)',
-          },
-          cloudflare: {
-            description: 'Schutz gegen DDoS-Angriffe',
-          },
-          intercom: {
-            description:
-              'Chat Widget & Sammeln von Besucherstatistiken (nur ein Beispiel)',
-          },
-          mouseflow: {
-            description: 'Echtzeit-Benutzeranalyse (nur ein Beispiel)',
-          },
-          googleFonts: {
-            description: 'Web-Schriftarten von Google gehostet',
-          },
-          purposes: {
-            analytics: 'Besucher-Statistiken',
-            security: 'Sicherheit',
-            livechat: 'Live Chat',
-            advertising: 'Anzeigen von Werbung',
-            styling: 'Styling',
-          },
-        },
-        en: {
-          consentModal: {
-            title: "Privacy Settings",
-            description:
-              "Here you can see and customize the information that we collect about you.",
-          },
-          inlineTracker: {
-            description: 'Example of an inline tracking script',
-          },
-          externalTracker: {
-            description: 'Example of an external tracking script',
-          },
-          adsense: {
-            description: 'Displaying of advertisements (just an example)',
-            title: 'Google Adsense Advertisement',
-          },
-          matomo: {
-            description: 'Collecting of visitor statistics',
-          },
-          camera: {
-            description:
-              'A surveillance camera (just an example for an IMG tag)',
-          },
-          cloudflare: {
-            description: 'Protection against DDoS attacks',
-          },
-          intercom: {
-            description:
-              'Chat widget & collecting of visitor statistics (just an example)',
-          },
-          mouseflow: {
-            description: 'Real-Time user analytics (just an example)',
-          },
-          googleFonts: {
-            description: 'Web fonts hosted by Google',
-          },
-          purposes: {
-            analytics: 'Analytics',
-            security: 'Security',
-            livechat: 'Livechat',
-            advertising: 'Advertising',
-            styling: 'Styling',
-          },
-        },
-      },
-      apps: [
-        {
-          name: "matomo-analytics",
-          default: true,
-          title: "Matomo Analytics",
-          description:
-            "Collects anonymous usage data to help us improve our website.",
-          purposes: ["analytics"],
-          cookies: [/^_ga(_.*)?/],
-          optOut: false,
-          onlyOnce: true,
-        },
-        // Add more apps as needed
-      ],
-      styling: {
-        theme: ['dark', 'bottom'],
-      },
-      additionalClass: 'klaro-short-bottom-right',
-    };
-
-    // Initialize Klaro with the configuration
-    klaro.setup(klaroConfig);
-  </script>
+ 
   <div id="root"></div>
   <!--
       This HTML file is a template.

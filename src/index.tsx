@@ -19,7 +19,7 @@ import EventDetailPage from './EventDetailPage'
 import FeedBackForm from './FeedBackForm';
 import ContactForm from './ContactForm';
 import BriefwahlElection from './BriefwahlElection';
-
+import ConsentManager from './ConsentManager';
 
 
 const router = createBrowserRouter(
@@ -48,6 +48,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <ConsentManager />
     <RouterProvider router={router} />
   </React.StrictMode>
 );
