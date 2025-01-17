@@ -1,13 +1,13 @@
 .alert-popup {
-    position: fixed;
-    top: 78px;
-    right: 50%;
-    width: 400px;
-    background-color: #f4fdf4;
-    border-radius: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 99999;
-    transform: translate(50%, 50%);
+  background-color: #ffffff;
+  border-radius: 0;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+  position: fixed;
+  right: 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 400px;
+  z-index: 99999;
   }
   
   .alert-header {

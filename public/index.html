@@ -26,12 +26,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Gruene Weltweit</title>
+ 
   <!-- Matomo -->
   <script>
     var _paq = window._paq = window._paq || [];
+    _paq.push(['requireCookieConsent']);
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
+    _paq.push(["setDoNotTrack", true]);
     (function () {
       var u = "https://gruene-weltweit.de/matomo/";
       _paq.push(['setTrackerUrl', u + 'matomo.php']);

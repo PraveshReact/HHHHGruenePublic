@@ -71,13 +71,13 @@ const BriefwahlPopup = (props: any) => {
                                 </div>
                                 <div className="bannerlinksWithList">
                                     <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
-                                        Per formloser Email <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                                            <path d="M5.5 14.7752H6.59688V17.4158H17.4438V14.7752H18.5V18.4721H5.5V14.7752ZM12 6.52832L12.65 7.17831L15.3719 9.90019L15.3313 9.94083H14.1125L12.4469 8.27519V14.2471H11.5531V8.23457L9.88752 9.90019H8.66877H8.62813L12 6.52832Z" fill="white" />
+                                        Per formloser Email  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12.7528L13.0845 6.5L12.202 7.33335L16.7502 12.0374H6V13.3755H16.7502L12.202 18.1666L13.0845 19L19 12.7528Z" fill="white" />
                                         </svg>
                                     </a>
                                     <ul className="banner-list">
                                         <li>Inhalt: Familienname, Vorname(n), Geburtsdatum, Anschrift</li>
-                                        <li>Unterlagen werken kostenlos zugeschickt</li>
+                                        <li>Unterlagen werdens kostenlos zugeschickt</li>
                                     </ul>
                                 </div>
                             </div>

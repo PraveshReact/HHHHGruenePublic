@@ -19,6 +19,35 @@ const ConsentManager = () => {
     const script = document.createElement('script');
     script.src = 'https://cdn.kiprotect.com/klaro/latest/klaro.js';
     script.async = true;
+    script.innerHTML = `
+            function KlaroWatcher() {};
+            KlaroWatcher.prototype.update = function(obj, name, data) { 
+              if (data !== 'undefined' && data.hasOwnProperty('matomo')) {
+                if (data.matomo) { 
+                  _paq.push(['rememberCookieConsentGiven']);
+                  _paq.push(['setConsentGiven']);
+                } else {
+                  _paq.push(['forgetCookieConsentGiven']);
+                  _paq.push(['deleteCookies']);
+                }
+              }  
+            }; 
+            window.kw = new KlaroWatcher();
+
+            var waitForTrackerCount = 0;
+            function matomoWaitForTracker() {
+              if (typeof _paq === 'undefined' || typeof klaro === 'undefined') {                
+                if (waitForTrackerCount < 40) {
+                  setTimeout(matomoWaitForTracker, 250);
+                  waitForTrackerCount++;  
+                  return;
+                }
+              } else {
+                klaro.getManager().watch(kw);
+              }
+            }  
+            document.addEventListener('DOMContentLoaded', matomoWaitForTracker());
+        `;
     script.onload = () => {
       if (window?.klaro) {
         window.klaro.show(); // Show the Klaro popup

@@ -328,6 +328,8 @@ input.CustomSearchInput::placeholder {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 24px;
+    position: relative;
 } 
 
 .BriefwahlInformationPopup .infoBox {
@@ -397,4 +399,42 @@ ul.HomepagestateListbuttonTiles>li.state.state.active {
 }
 .Homepage {
     margin: 0 auto;
+    width: 90%;
+}
+span.MaybeIconSvg > svg {
+    margin-left: 2px;
+    width: 18px;
+    height: 18px;
+}
+
+span.MaybeIconSvg {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+}
+
+span.OnlineIconSvg > svg {
+    margin-left: 1px;
+    width: 26px;
+    height: 26px;
+}
+
+span.OnlineIconSvg {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+}
+span.NAIconSvg > svg {
+    margin-left: 1px;
+    width: 24px;
+    height: 24px;
+}
+
+span.NAIconSvg {
+    display: flex;
+    align-items: center;
+    width: 23px;
+    height: 23px;
 }

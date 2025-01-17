@@ -10,21 +10,30 @@ declare global {
 // Define klaroConfig globally on the window object
 window.klaroConfig = {
   version: 1,
-  elementID: 'klaro',
-  storageMethod: 'localStorage',
-  cookieName: 'klaro-consent',
-  privacyPolicy: '/privacy',
+  elementID: 'klaro', // The ID of the Klaro container
+  storageMethod: 'cookie', // Use 'cookie' or 'localStorage'
+  cookieName: 'klaro-consent', // The name of the consent cookie
+  cookieExpiresAfterDays: 365, // Cookie expiration time
+  privacyPolicy: '/Datenschutz', // URL of your privacy policy
+  default: false, // Whether to ask for consent for all services by default
+  mustConsent: true, // Require user consent before loading the app
+  acceptAll: true, // Allow users to accept all services
   services: [
     {
       name: 'matomo',
       title: 'Matomo Analytics',
       purposes: ['analytics'],
       cookies: [/^pk.*$/, /^mtm.*$/, /^MATOMO.*$/],
-      default: false,
-      required: false,
+      // default: true,
+      required: false, // Set true if this is essential for the app
+      // optOut: false,
+      // onlyOnce: true,
     },
   ],
   translations: {
+    zz: {
+      privacyPolicyUrl: '/#privacy',
+    },
     en: {
       consentModal: {
         title: 'Privacy Settings',
@@ -37,5 +46,16 @@ window.klaroConfig = {
         analytics: 'Analytics',
       },
     },
+    de: {
+      privacyPolicyUrl: '/#datenschutz',
+      consentModal: {
+        description:
+          'Wir verwenden Cookies, um Ihr Erlebnis zu verbessern. Verwalten Sie unten Ihre Präferenzen.',
+      },
   },
+},
+  styling: {
+    theme: ['dark', 'bottom'],
+  },
+  additionalClass: 'klaro-short-bottom-right',
 };

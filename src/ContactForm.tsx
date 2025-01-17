@@ -158,10 +158,8 @@ const ContactForm = () => {
                 onChange={handleChange}
                 required
               />
-              Ich akzeptiere die&nbsp;<span>
-                <a href="/Datenschutz" className="privacy-policy-link">
-                  Datenschutzerklärung
-                </a>
+              Ich akzeptiere die <span>
+                <a href="/Datenschutz" className="privacy-policy-link">Datenschutzerklärung</a>
               </span>
               <span className="text-danger">*</span>
             </label>

@@ -854,12 +854,12 @@ padding: 6px 10px 5px 3px
 
 .scrollbar::-webkit-scrollbar {
   background: #f3f3f3;
-  width: 6px;
+  width: 12px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
   background-color: #d9d9d9;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .scrollbar {
