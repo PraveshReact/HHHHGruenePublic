@@ -8,12 +8,14 @@ import './CSS/Briefwahlsearch.css';
 import Highlighter from "react-highlight-words";
 import axios from 'axios';
 import { cursorTo } from 'readline';
+import AlertPopup from './AlertPopup';
 
 
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
 let trimmedSearchTerm: any
 const Briefwahlsearch = (props: any) => {
+    window.location.href = 'https://gruene-weltweit.de/';
     let State: any;
     const [Briefwahldata, setBriefwahldata]: any = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -23,6 +25,8 @@ const Briefwahlsearch = (props: any) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [Email, setEmail] = useState('');
     const [LinkOnlineFormular, setLinkOnlineFormular] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const handleToggleExpand = () => {
         setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
@@ -39,8 +43,10 @@ const Briefwahlsearch = (props: any) => {
                 };
                 const response = await axios.post('https://gruene-weltweit.de/SPPublicAPIs/createTableColumns.php', postData);
                 if (response.status === 200) {
-                    alert('Data submitted successfully!');
-                    console.log('Data sent to server successfully');
+                    setAlertMessage('Vielen Dank für Deine Hilfe!');
+                    setShowAlert(true)
+                    setEmail('')
+                    setLinkOnlineFormular('')
                 } else {
                     console.error('Error sending data to server:', response.statusText);
                 }
@@ -54,6 +60,9 @@ const Briefwahlsearch = (props: any) => {
         }
         closeModal();
     };
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+      };
     if (props.stateParam && props.stateParam != undefined && props.stateParam != '') {
         State = decodeURIComponent(props.stateParam)
 
@@ -728,7 +737,7 @@ const Briefwahlsearch = (props: any) => {
                           >
                             {isExpanded ? (
                               <>
-                                <a>Vielen Dank für Deine Hilfe</a>
+                                <a>Falsche Informationen melden</a>
 
                               </>
                             ) : (
@@ -772,6 +781,7 @@ const Briefwahlsearch = (props: any) => {
               )
 
             }
+             {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
         </div >
 
     )

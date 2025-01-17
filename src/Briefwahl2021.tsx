@@ -8,6 +8,7 @@ import FeedBackForm from './FeedBackForm';
 import App from './App';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import axios from 'axios';
+import AlertPopup from './AlertPopup';
 
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
@@ -29,6 +30,8 @@ const Briefwahl2021 = () => {
   const [Email, setEmail] = useState('');
   const [LinkOnlineFormular, setLinkOnlineFormular] = useState('');
   const [Iscolor, setIscolor] = useState('Green');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
@@ -45,8 +48,10 @@ const Briefwahl2021 = () => {
         };
         const response = await axios.post('https://gruene-weltweit.de/SPPublicAPIs/createTableColumns.php', postData);
         if (response.status === 200) {
-          alert('Data submitted successfully!');
-          console.log('Data sent to server successfully');
+          setAlertMessage('Vielen Dank für Deine Hilfe!');
+          setShowAlert(true)
+          setEmail('')
+          setLinkOnlineFormular('')
         } else {
           console.error('Error sending data to server:', response.statusText);
         }
@@ -58,9 +63,11 @@ const Briefwahl2021 = () => {
     } catch (error) {
       console.error('An error occurred:', error);
     }
-    closeModal();
+    //closeModal();
   };
-
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
   useEffect(() => {
     const chartWrapper: any = document.getElementById('chart-wrapper');
     chartWrapper.addEventListener('mouseover', handleMouseOver);
@@ -818,7 +825,7 @@ const Briefwahl2021 = () => {
                           >
                             {isExpanded ? (
                               <>
-                                <a>Vielen Dank für Deine Hilfe</a>
+                                <a>Falsche Informationen melden</a>
 
                               </>
                             ) : (
@@ -827,15 +834,9 @@ const Briefwahl2021 = () => {
                               </>
                             )}
                           </button>
-
                         </div>
-
-
                       </div>
                       <div className='modal-footer'>
-
-
-
                         {/* Submit button */}
                         {isExpanded && (
                           <button
@@ -1044,6 +1045,7 @@ const Briefwahl2021 = () => {
         </section>
         {showModal && <BriefwahlPopup showModal={showModal} cancelbox={cancelbox} />}
         {showModal1 && <BriefwahlPopup showModal1={showModal1} cancelbox={cancelbox} />}
+        {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
       </div>
     </>
   );
