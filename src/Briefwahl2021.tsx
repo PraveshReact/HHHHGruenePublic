@@ -743,7 +743,7 @@ const Briefwahl2021 = () => {
                               </span>
 
                               {/* Feedback text */}
-                              {isCopied && <span style={{ color: 'green', marginLeft: '10px' }}>Copied!</span>}
+                              {isCopied && <span style={{ color: '#008939', marginLeft: '10px' }}>Copied!</span>}
                             </span>
                           </div>
                         </div>
@@ -866,40 +866,33 @@ const Briefwahl2021 = () => {
                       
                       </div>
                       <div className='modal-footer'>
-                      <span className="ExpandLinkFooter">
-                          {/* Expand/Collapse icon button */}
+                          {/* Submit button */}
+                          {isExpanded && (
                           <button
-                            className='btn btn-secondary rounded-0'
-                            onClick={handleToggleExpand}
-                            style={{
-                              border: 'none',
-                              background: 'transparent',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '8px', // Space between icon and text
-                            }}
-                          >
-                            {isExpanded ? (
-                              <>
-                                <a>Falsche Informationen melden</a>
-
-                              </>
-                            ) : (
-                              <>
-                                <a>Falsche Informationen melden</a>
-                              </>
-                            )}
-                          </button>
-                        </span>
-                        {/* Submit button */}
-                        {isExpanded && (
-                          <button
-                            className='btn btn-primary rounded-0'
+                            className='btn btn-primary rounded-0 mb-2'
                             onClick={handleSubmit}
                           >
                             Melden
                           </button>
                         )}
+                      <span className="ExpandLinkFooter">
+
+                          {/* Expand/Collapse icon button */}
+                          
+                            {isExpanded ? (
+                              <>
+                                <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
+                              </>
+                            ) : (
+                              <>
+                                <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
+                              </>
+                            )}
+                         
+
+                          <span className='footer_text_right'>Alle Angaben ohne Gewähr</span>
+                        </span>
+                      
 
                         {/* Close button */}
                         {/* <button

@@ -1546,14 +1546,20 @@ span.VerifyOnlineStatus {
   border-radius: 2px;
   float: right;
   font-size: 16px;
+  position: absolute;
+  right: 12px;
 }
 span.ExpandLinkFooter {
-  position: absolute;
-  bottom: -20px;
-  left: -24px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 span.ExpandLinkFooter a {
-  font-size: 14px;
+  font-size: 15px;
+}
+span.ExpandLinkFooter > .footer_text_right{
+color: #333;
+font-size: 14px;
 }
 .BriefwahlInformationPopup .modal-footer {
   position: relative;
@@ -2033,5 +2039,8 @@ div#box1content .modal-content, div#box2content .modal-content {
 .BriefwahlInformationPopup .modal-body {
   overflow: auto;
   max-height: 65vh;
+}
+.contact-form-container{
+  padding: 25px 15px;
 }
 }
