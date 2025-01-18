@@ -431,7 +431,7 @@ const Briefwahl2021 = () => {
       BriefwahldataBackup = allfilterdata;
     }
 
-    if (tile == 'Berlin' || tile == 'Brandenburg' || tile == 'Bremen') {
+    if (tile == 'Berlin' || tile == 'Hamburg' || tile == 'Bremen') {
       setSearchTerm(tile);
       handleSearch(tile)
     }
@@ -525,11 +525,11 @@ const Briefwahl2021 = () => {
                         <td style={{ width: '12%' }}>
                           <span className="align-content-start d-flex">
                             Online:
-                            {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" ? (
+                            {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" && item.ColumnLevelVerification.indexOf('LinkBundestag')>-1 ? (
                               JSON.parse(item.ColumnLevelVerification).map((verification, index) => (
                                 <span key={index} >
                                   {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
-                                 <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600"/></svg></span>
+                                    <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600" /></svg></span>
 
                                   ) : verification.Title === 'LinkBundestag' && verification.Value === "Correct" ? (
                                     <span className='OnlineIconSvg'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -541,12 +541,12 @@ const Briefwahl2021 = () => {
                                       />
                                     </svg></span>
                                   ) : verification.Title === 'LinkBundestag' && verification.Value === "Maybe" ? (
-                                    <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600"/></svg></span>
+                                    <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600" /></svg></span>
 
                                   ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
-                                    <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600"/></svg></span>
+                                    <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600" /></svg></span>
 
-                                  ) : null}
+                                  ) :  null}
                                 </span>
                               ))
                             ) : item.LinkBundestag ? (
@@ -863,10 +863,10 @@ const Briefwahl2021 = () => {
                         )}
                         {/* Expanded fields */}
 
-                      
+
                       </div>
                       <div className='modal-footer'>
-                      <span className="ExpandLinkFooter">
+                        <span className="ExpandLinkFooter">
                           {/* Expand/Collapse icon button */}
                           <button
                             className='btn btn-secondary rounded-0'
