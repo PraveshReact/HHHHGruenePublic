@@ -2097,6 +2097,7 @@ span.SearchInputFieldstateLogo {
 }
 input.CustomSearchInput {
  padding: 8px 12px 8px 42px;
+ width: 100%;
 }
   .CustomSearchInputWithBtn>button.btn.btn-primary {
       width: 100%;
@@ -2131,6 +2132,9 @@ span.flex-steps-arrow > svg {
   transform: rotate(90deg); /* Rotate the SVG by 90 degrees */
   transform-origin: center; /* Ensure rotation happens from the center */
 }
+.BriefwahlInformationMiniPopup, .BriefwahlInformationPopup{
+  padding: 15px;  
+}
 div#box1content .modal-header h3, div#box2content .modal-header h3{
   font-size:28px;
 }
@@ -2141,9 +2145,47 @@ div#box1content .modal-content, div#box2content .modal-content {
   overflow: auto;
   max-height: 65vh;
 }
+.BriefwahlInformationPopup .modal-body input[type=LinkOnlineFormular], .BriefwahlInformationPopup .modal-body input[type=text]{
+  height: 34px;
+}
+.BriefwahlInformationPopup .infoBox span.VerifyOnlineStatus {
+  font-size: 14px;
+  position: unset;
+}
+
+.BriefwahlInformationPopup .modal-footer>.captcha-container>input[type=text] {
+  height: 34px;
+  border-radius: 0;
+}
+.BriefwahlInformationPopup .modal-footer {
+  justify-content: center;
+}
+.BriefwahlInformationPopup .modal-footer>button {
+  height: auto;
+  width: 100%;
+}
+.BriefwahlInformationPopup .modal-footer>.captcha-container {
+  flex-direction: column;
+  margin-bottom: 16px;
+}
 .contact-form-container{
   padding: 25px 15px;
 }
+div.ExpandLinkFooter {
+  display: block;
+}
+div.ExpandLinkFooter>a {
+  font-size: 13px;
+  left: -8px;
+}
+
+div.ExpandLinkFooter>.footer_text_right {
+  position: absolute;
+  text-align: right;
+  font-size: 11px;
+  right: 0;
+}
+
 }
 
 .captcha-refresh-icon {
