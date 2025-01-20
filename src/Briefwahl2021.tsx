@@ -899,14 +899,14 @@ const Briefwahl2021 = () => {
                           {/* Submit button */}
                           {isExpanded && (
                             <div className="captcha-container">
-                              <span>Type the word:
+                              <span>Geben Sie das Wort ein:
                                 <label htmlFor="captcha" className="captcha-label">
                                   {captchaText}
                                 </label>
                                 <span
                                   className="captcha-refresh-icon"
                                   onClick={refreshCaptcha}
-                                  title="Refresh CAPTCHA"
+                                  title="CAPTCHA aktualisieren"
                                   style={{ cursor: 'pointer', marginLeft: '10px' }}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -923,11 +923,11 @@ const Briefwahl2021 = () => {
                                 id="captcha"
                                 value={captchaInput}
                                 onChange={handleCaptchaChange}
-                                placeholder="Enter CAPTCHA"
+                                placeholder="Geben Sie CAPTCHA ein"
                                 className="form-control"
                               />
                               {!isCaptchaValid && captchaInput && (
-                                <small className="text-danger">Captcha is incorrect</small>
+                                <small className="text-danger">Captcha ist falsch</small>
                               )}
                             </div>
                           )}
