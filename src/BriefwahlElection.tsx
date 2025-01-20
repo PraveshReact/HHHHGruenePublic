@@ -30,8 +30,8 @@ const BriefwahlElection = () => {
 
   // Function to check if all fields are filled
   const validateForm = () => {
-    const { FirstName, LastName, Country, Comment } = formData;
-    return FirstName && LastName && Country && Comment;
+    const { FirstName, LastName } = formData;
+    return FirstName && LastName;
   };
 
   // Update button disabled state when form data changes
@@ -82,7 +82,7 @@ const BriefwahlElection = () => {
         <h2 className="contact-form-title">Wahlkampf-aus-der-Ferne</h2>
         <form className="contact-form">
           <div className="input-group">
-            <label htmlFor="FirstName">First Name</label>
+            <label htmlFor="FirstName">First Name<span className="text-danger">*</span></label>
             <input
               type="text"
               id="FirstName"
@@ -94,7 +94,7 @@ const BriefwahlElection = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="LastName">Last Name</label>
+            <label htmlFor="LastName">Last Name<span className="text-danger">*</span></label>
             <input
               type="text"
               id="LastName"
@@ -126,7 +126,7 @@ const BriefwahlElection = () => {
               onChange={handleChange}
               required
               className="form-input m-0"
-              rows={4}
+              rows={10}
             />
           </div>
 
