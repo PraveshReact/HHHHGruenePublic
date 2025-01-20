@@ -1675,6 +1675,16 @@ padding: 0px !important;
 span.closePopupBtn >svg {
   cursor: pointer;
 }
+.captcha-refresh-icon {
+  margin-left: 1px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.captcha-refresh-icon > svg {
+  width: 18px;
+  height: 18px;
+}
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;
@@ -2145,9 +2155,9 @@ div#box1content .modal-header h3, div#box2content .modal-header h3{
 div#box1content .modal-content, div#box2content .modal-content {
   padding: 16px;
 }
-.BriefwahlInformationPopup .modal-body {
+.BriefwahlInformationPopup {
   overflow: auto;
-  max-height: 65vh;
+  max-height: 80vh;
 }
 .BriefwahlInformationPopup .modal-body input[type=LinkOnlineFormular], .BriefwahlInformationPopup .modal-body input[type=text]{
   height: 34px;
@@ -2171,6 +2181,7 @@ div#box1content .modal-content, div#box2content .modal-content {
 .BriefwahlInformationPopup .modal-footer>.captcha-container {
   flex-direction: column;
   margin-bottom: 16px;
+  width: 100%;
 }
 .contact-form-container{
   padding: 25px 15px;
@@ -2192,13 +2203,3 @@ div.ExpandLinkFooter>.footer_text_right {
 
 }
 
-.captcha-refresh-icon {
-  cursor: pointer;
-  margin-left: 1px;
-  transition: transform 0.2s ease;
-  color: #005437;
-}
-
-.captcha-refresh-icon:hover path {
-  fill: #218838;  /* Darker Green on hover */
-}
