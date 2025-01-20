@@ -38,6 +38,10 @@ const Briefwahl2021 = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [isCopied, setIsCopied] = useState(false);
 
+  const [captchaInput, setCaptchaInput] = useState('');
+  const [captchaText, setCaptchaText] = useState('');
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
   };
@@ -444,6 +448,32 @@ const Briefwahl2021 = () => {
   useEffect(() => {
     console.log('filteredItems')
   }, [filteredItems, searchTerm])
+
+  useEffect(() => {
+    setCaptchaText(generateCaptcha());
+  }, []); // Empty dependency array ensures it runs once when the component is mounted
+
+  const handleCaptchaChange = (e) => {
+    const value = e.target.value;
+    setCaptchaInput(value);
+    setIsCaptchaValid(value.toLowerCase() === captchaText.toLowerCase());
+  };
+  // Function to regenerate CAPTCHA text
+  const refreshCaptcha = () => {
+    setCaptchaText(generateCaptcha());
+    setCaptchaInput('');
+    setIsCaptchaValid(false);
+  };
+
+  function generateCaptcha(length = 6) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let captcha = '';
+    for (let i = 0; i < length; i++) {
+      captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return captcha;
+  }
+
   return (
     <>
       <div className={filteredItems.length > 0 ? "container fgjj" : "container abc"} >
@@ -524,7 +554,7 @@ const Briefwahl2021 = () => {
                         <td style={{ width: '12%' }}>
                           <span className="align-content-start d-flex">
                             Online:
-                            {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" && item.ColumnLevelVerification.indexOf('LinkBundestag')>-1 ? (
+                            {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" && item.ColumnLevelVerification.indexOf('LinkBundestag') > -1 ? (
                               JSON.parse(item.ColumnLevelVerification).map((verification, index) => (
                                 <span key={index} >
                                   {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
@@ -545,7 +575,7 @@ const Briefwahl2021 = () => {
                                   ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
                                     <span className='MaybeIconSvg'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24"><path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30" fill="#FFE600" /></svg></span>
 
-                                  ) :  null}
+                                  ) : null}
                                 </span>
                               ))
                             ) : item.LinkBundestag ? (
@@ -738,7 +768,7 @@ const Briefwahl2021 = () => {
                                 style={{ cursor: 'pointer', marginLeft: '10px' }}
                                 title="Copy to Clipboard"
                               >
-                                <FaCopy color={isCopied ? 'green' : 'black'} />
+                                <FaCopy color={isCopied ? 'green' : '#b6b0b0'} />
                               </span>
 
                               {/* Feedback text */}
@@ -772,7 +802,7 @@ const Briefwahl2021 = () => {
                           <div className="col-12">
                             <span className="VerifyOnlineStatus">
                               <span className="alignCenter d-flex">
-                                {selectedItem.ColumnLevelVerification && selectedItem.ColumnLevelVerification !== "" && selectedItem.ColumnLevelVerification !== "[]" && selectedItem.ColumnLevelVerification.indexOf('LinkBundestag')>-1 ? (
+                                {selectedItem.ColumnLevelVerification && selectedItem.ColumnLevelVerification !== "" && selectedItem.ColumnLevelVerification !== "[]" && selectedItem.ColumnLevelVerification.indexOf('LinkBundestag') > -1 ? (
                                   JSON.parse(selectedItem.ColumnLevelVerification).map((verification, index) => (
                                     <span key={index}>
                                       {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
@@ -864,42 +894,91 @@ const Briefwahl2021 = () => {
 
 
                       </div>
-                      <div className='modal-footer'>
+                      {isExpanded && (
+                        <div className='modal-footer'>
                           {/* Submit button */}
                           {isExpanded && (
-                          <button
-                            className='btn btn-primary rounded-0 mb-2'
-                            onClick={handleSubmit}
-                          >
-                            Melden
-                          </button>
+                            <div className="captcha-container">
+                              <span>Type the word:
+                                <label htmlFor="captcha" className="captcha-label">
+                                  {captchaText}
+                                </label>
+                                <span
+                                  className="captcha-refresh-icon"
+                                  onClick={refreshCaptcha}
+                                  title="Refresh CAPTCHA"
+                                  style={{ cursor: 'pointer', marginLeft: '10px' }}
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                      d="M12 4V1L8 5l4 4V6c4.418 0 8 3.582 8 8s-3.582 8-8 8c-2.255 0-4.293-.896-5.657-2.343l-2.121 2.121C7.895 19.307 9.889 20 12 20c5.523 0 10-4.477 10-10S17.523 0 12 0V4z"
+                                      fill="#28a745" 
+    />
+                                  </svg>
+                                </span>
+
+                              </span>
+                              <input
+                                type="text"
+                                id="captcha"
+                                value={captchaInput}
+                                onChange={handleCaptchaChange}
+                                placeholder="Enter CAPTCHA"
+                                className="form-control"
+                              />
+                              {!isCaptchaValid && captchaInput && (
+                                <small className="text-danger">Captcha is incorrect</small>
+                              )}
+                            </div>
+                          )}
+
+                          {/* {isExpanded && isCaptchaValid && (
+                           <button
+                             className='btn btn-primary rounded-0 mb-2'
+                             onClick={handleSubmit}
+                           >
+                             Melden
+                           </button>
+                         )} */}
+                          {isExpanded && (
+                            <button
+                              className="btn btn-primary rounded-0 mb-2"
+                              onClick={handleSubmit}
+                              disabled={!isCaptchaValid}  // Disabled if CAPTCHA is not valid
+                            >
+                              Melden
+                            </button>
+                          )}
+
+
+
+                          {/* Close button */}
+                          {/* <button
+                           className='btn btn-secondary rounded-0 ms-2'
+                           onClick={closeModal}
+                         >
+                           Close
+                         </button> */}
+                        </div>
+                      )}
+
+                      <div className="ExpandLinkFooter">
+
+                        {/* Expand/Collapse icon button */}
+
+                        {isExpanded ? (
+                          <>
+                            {/* <a onClick={handleToggleExpand}>Falsche Informationen melden</a> */}
+
+                          </>
+                        ) : (
+                          <>
+                            <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
+                          </>
                         )}
-                      <span className="ExpandLinkFooter">
 
-                          {/* Expand/Collapse icon button */}
-                          
-                            {isExpanded ? (
-                              <>
-                                <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
-                              </>
-                            ) : (
-                              <>
-                                <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
-                              </>
-                            )}
-                         
 
-                          <span className='footer_text_right'>Alle Angaben ohne Gewähr</span>
-                        </span>
-                      
-
-                        {/* Close button */}
-                        {/* <button
-                          className='btn btn-secondary rounded-0 ms-2'
-                          onClick={closeModal}
-                        >
-                          Close
-                        </button> */}
+                        <span className='footer_text_right'>Alle Angaben ohne Gewähr</span>
                       </div>
                     </div>
                   </div>
