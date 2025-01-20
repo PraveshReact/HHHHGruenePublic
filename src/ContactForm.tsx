@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import '../src/CSS/ContactForm.css'; // Import the CSS file for styling
 import '../src/CSS/ButtonStyle.css';
@@ -18,10 +18,16 @@ const ContactForm = () => {
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [formErrors, setFormErrors] = useState({
+  const [formErrors, setFormErrors]:any = useState({
     email: false,
     acceptPrivacyPolicy: false,
   });
+
+  // Email validation function
+  const isEmailValid = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -31,6 +37,15 @@ const ContactForm = () => {
         ...prevState,
         [name]: type === 'checkbox' ? checked : value,
       };
+
+      // Revalidate email whenever input is changed
+      if (name === 'email') {
+        const isValidEmail = isEmailValid(value);
+        setFormErrors((prevErrors) => ({
+          ...prevErrors,
+          email: value.trim() === '' ? 'empty' : isValidEmail ? false : 'invalid',
+        }));
+      }
 
       // Check if the privacy policy checkbox is checked to enable the button
       setIsButtonDisabled(!updatedData.acceptPrivacyPolicy);
@@ -42,7 +57,7 @@ const ContactForm = () => {
   // Validate form before submission
   const validateForm = () => {
     const errors = {
-      email: !formData.email,
+      email: formData.email.trim() === '' ? 'empty' : !isEmailValid(formData.email) ? 'invalid' : false,
       acceptPrivacyPolicy: !formData.acceptPrivacyPolicy,
     };
     setFormErrors(errors);
@@ -106,8 +121,11 @@ const ContactForm = () => {
               required
               className="form-input m-0"
             />
-            {formErrors.email && (
+            {formErrors.email === 'empty' && (
               <span className="error-text">Das ist ein Pflichtfeld.</span>
+            )}
+            {formErrors.email === 'invalid' && (
+              <span className="error-text">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
             )}
           </div>
 
@@ -159,7 +177,7 @@ const ContactForm = () => {
                 required
               />
               Ich akzeptiere die <span>
-                <a href="/Datenschutz"  target="_blank" rel="noopener noreferrer" className="privacy-policy-link">Datenschutzerklärung</a>
+                <a href="/Datenschutz" target="_blank" rel="noopener noreferrer" className="privacy-policy-link">Datenschutzerklärung</a>
               </span>
               <span className="text-danger">*</span>
             </label>
