@@ -19,7 +19,7 @@ import EventDetailPage from './EventDetailPage'
 import FeedBackForm from './FeedBackForm';
 import ContactForm from './ContactForm';
 import BriefwahlElection from './BriefwahlElection';
-import ConsentManager from './ConsentManager';
+// import MatomoIntegration from './MatomoIntegration';
 
 // import './klaroConfig'; // Import your Klaro configuration
 // import 'klaro/dist/klaro.css'; // Import Klaro styles // Import Klaro
@@ -56,7 +56,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ConsentManager />
+
+    {/* <MatomoIntegration /> */}
     <RouterProvider router={router} />
   </React.StrictMode>
 );

@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://consent.cookiebot.com/uc.css" type="text/css" />
+  <link rel="stylesheet" href="%PUBLIC_URL%/custom-cookiebot.css" type="text/css" />
+  <link rel="stylesheet" href="https://gruene-weltweit.de//Style%20Library/cookiebot.css" type="text/css" />
+
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -26,41 +30,69 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Gruene Weltweit</title>
- 
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    _paq.push(['requireCookieConsent']);
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    _paq.push(["setDoNotTrack", true]);
-    (function () {
-      var u = "https://gruene-weltweit.de/matomo/";
-      _paq.push(['setTrackerUrl', u + 'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-      g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="56205006-8646-4ce8-a0d0-2670485e9d69" data-blockingmode="auto" type="text/javascript"></script>  <script>
+    var waitForTrackerCount = 0;
+    function matomoWaitForTracker() {
+      if (typeof _paq === 'undefined' || typeof Cookiebot === 'undefined') {
+        if (waitForTrackerCount < 40) {
+          setTimeout(matomoWaitForTracker, 250);
+          waitForTrackerCount++;
+          return;
+        }
+      } else {
+        window.addEventListener('CookiebotOnAccept', function (e) {
+            consentSet();
+        });
+        window.addEventListener('CookiebotOnDecline', function (e) {
+            consentSet();
+        })
+      }
+    }
+    function consentSet() {
+      if (Cookiebot.consent.statistics) {
+        _paq.push(['rememberCookieConsentGiven']);
+        _paq.push(['setConsentGiven']);
+      } else {
+        _paq.push(['forgetCookieConsentGiven']); 
+        _paq.push(['deleteCookies']);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', matomoWaitForTracker);
+    </script>
+    <!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['requireCookieConsent']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//gruene-weltweit.de/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<!-- Matomo Tag Manager -->
+<!-- <script>
+  var _mtm = window._mtm = window._mtm || [];
+  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+  (function() {
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='https://gruene-weltweit.de/matomo/js/container_J8JDav7n.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script> -->
+<!-- End Matomo Tag Manager -->
+<script
+id="CookieDeclaration"
+src="https://consent.cookiebot.com/56205006-8646-4ce8-a0d0-2670485e9d69/cd.js"
+type="text/javascript"
+></script>
+
 </head>
-<style>
-  div#klaro {
-    z-index: 99999;
-    position: absolute;
-}
-.klaro .cookie-modal input.cm-list-input.half-checked + .cm-list-label .slider::before, .klaro .context-notice input.cm-list-input.half-checked + .cm-list-label .slider::before, .klaro .cookie-notice input.cm-list-input.half-checked + .cm-list-label .slider::before {
-    background-color: #949494 !Important;
-}
-.klaro .cookie-modal .cm-list-input .cm-list-label .slider::before, .klaro .context-notice .cm-list-input .cm-list-label .slider::before, .klaro .cookie-notice .cm-list-input .cm-list-label .slider::before {
-    background-color: #1d8a6a !Important;
-}
-.klaro .cookie-modal .cm-modal .hide:focus-visible {
-    outline: none;
-}
-  </style>
-<body>
+  <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
  
   <div id="root"></div>
@@ -74,6 +106,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+   
 </body>
 
 </html>
