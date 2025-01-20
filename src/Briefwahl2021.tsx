@@ -69,7 +69,7 @@ const Briefwahl2021 = () => {
   const handleSubmit = async () => {
     try {
       try {
-        const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: 'For-Approval' }];
+        const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: {IsEmailVerified:false,IsLinkBundestagVerified:false} }];
         const postData = {
           data: postDataArray,
           tableName: 'BriefwahlFeedback',

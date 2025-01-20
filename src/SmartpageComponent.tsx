@@ -41,7 +41,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   useEffect(() => {
     // Ensure stateParam is scoped inside the effect
     // Check for '/Briefwahl/State=' in the pathname
-    if (location.pathname.indexOf('/Briefwahl/State=') > -1) {
+    if (location.pathname.toLowerCase().indexOf('/briefwahl/state=') > -1) {
       const pathParts = location.pathname.split('/');
       stateParam = pathParts[pathParts.length - 1].split('=')[1];
       if (stateParam) {
@@ -49,7 +49,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       }
     } 
     // Check for '/Briefwahl' if no stateParam is present
-    else if (location.pathname.indexOf('/Briefwahl') > -1) {
+    else if (location.pathname.toLowerCase().indexOf('/briefwahl') > -1) {
       const pathParts = location.pathname.split('/');
       stateParam = pathParts[pathParts.length - 1].split('=')[1];
       if (!stateParam) {
@@ -529,7 +529,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
               data?.map((item: any, index: number) => {
                 console.log("Item:", item);
                 return (
-                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt'&& showBriefflag == false ? (
+                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt'&& showBriefflag == false ? (
                     <div key={index}>
                       <section
                         id="page-title"
@@ -570,18 +570,18 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       </section>
                     </div>
                   ) :
-                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'Briefwahl'&& item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
+                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahl'&& item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
                       <>
                         <WahlWeltweit />
                         {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
                         {/* <HTMLRenderer content={item.PageContent} /> */}
                       </>
-                    ) : item.KeyTitle?.toLowerCase() !== 'Briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
+                    ) : item.KeyTitle?.toLowerCase() !== 'briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
                       <div>
                         <Briefwahl2021 />
 
                       </div>
-                    ) : item.KeyTitle?.toLowerCase() !== 'Briefwahl' && item.KeyTitle?.toLowerCase() == 'kontakt' && showBriefflag == false ? (
+                    ) : item.KeyTitle?.toLowerCase() !== 'briefwahl' && item.KeyTitle?.toLowerCase() == 'kontakt' && showBriefflag == false ? (
                       <div>
                         <ContactForm />
 
