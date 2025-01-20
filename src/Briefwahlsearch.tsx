@@ -15,7 +15,7 @@ let backupdata: any = [];
 let BriefwahldataBackup: any = [];
 let trimmedSearchTerm: any
 const Briefwahlsearch = (props: any) => {
-    window.location.href = 'https://gruene-weltweit.de/';
+    //window.location.href = 'https://gruene-weltweit.de/';
     let State: any;
     const [Briefwahldata, setBriefwahldata]: any = useState([]);
     const [searchTerm, setSearchTerm] = useState('');

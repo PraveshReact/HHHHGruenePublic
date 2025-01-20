@@ -1497,7 +1497,6 @@ button {
     height: 24px;
   }
   
-
   .headerfixed {
     position: sticky;  /* Makes the header sticky */
     top: 0;            /* Sticks to the top when scrolling past it */
@@ -1549,20 +1548,31 @@ span.VerifyOnlineStatus {
   position: absolute;
   right: 12px;
 }
-span.ExpandLinkFooter {
+div.ExpandLinkFooter {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  position: relative;
+  top: -10px;
 }
-span.ExpandLinkFooter a {
+div.ExpandLinkFooter >  a {
   font-size: 15px;
+  left: -15px;
+    position: absolute;
+    display: flex;
 }
-span.ExpandLinkFooter > .footer_text_right{
+div.ExpandLinkFooter > .footer_text_right{
 color: #333;
 font-size: 14px;
+right: -15px;
+    position: absolute;
+    display: flex;
 }
 .BriefwahlInformationPopup .modal-footer {
   position: relative;
+  justify-content: space-between;
+    align-items: end;
 }
 
 span.closePopupBtn {
@@ -1571,6 +1581,97 @@ span.closePopupBtn {
   right: 10px;
 }
 
+.BriefwahlInformationPopup .modal-header, .BriefwahlInformationMiniPopup .modal-header  {
+  color: #005437;
+  font-family: 'PTSans';
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0 !important;
+}
+
+.BriefwahlInformationPopup, .BriefwahlInformationMiniPopup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  position: relative;
+} 
+
+.BriefwahlInformationPopup .infoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  padding: 12px;
+  background: #F5F5F5;
+}
+.BriefwahlInformationPopup .modal-body, .BriefwahlInformationMiniPopup .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+.BriefwahlInformationPopup .infoBox .infoBox-itemBox {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  align-self: stretch;
+}
+.BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+}
+.BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {
+  width: 100px;
+}
+.BriefwahlInformationPopup .modal-footer, .BriefwahlInformationMiniPopup .modal-footer {
+padding: 0px !important;
+}
+.BriefwahlInformationPopup .modal-footer button.btn.btn-primary, .BriefwahlInformationMiniPopup .modal-footer button.btn.btn-primary {
+  background: #005437 !important;
+  border: 1px solid #005437 !important;
+}
+.BriefwahlInformationPopup .modal-footer > button {
+  height: 40px;
+  font-size: 16px;
+  min-width: 120px;
+  margin-bottom: 0 !important;
+}
+.BriefwahlInformationPopup .modal-footer > .captcha-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.BriefwahlInformationPopup .modal-footer > .captcha-container > span {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.BriefwahlInformationPopup .modal-footer > .captcha-container > span > label.captcha-label {
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  display: block; 
+  margin-bottom: 0;
+  text-align: left;  
+}
+.BriefwahlInformationPopup .modal-footer > .captcha-container > input[type='text'] {
+  margin-bottom: 0;
+  height: 40px;
+}
+
+.BriefwahlInformationPopup .modal-footer > .captcha-container > small.text-danger {
+  position: absolute;
+  top: 70px;
+}
 span.closePopupBtn >svg {
   cursor: pointer;
 }
@@ -2043,4 +2144,15 @@ div#box1content .modal-content, div#box2content .modal-content {
 .contact-form-container{
   padding: 25px 15px;
 }
+}
+
+.captcha-refresh-icon {
+  cursor: pointer;
+  margin-left: 1px;
+  transition: transform 0.2s ease;
+  color: #005437;
+}
+
+.captcha-refresh-icon:hover path {
+  fill: #218838;  /* Darker Green on hover */
 }

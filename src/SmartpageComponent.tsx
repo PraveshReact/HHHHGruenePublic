@@ -588,6 +588,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       </div>
                     ) : (
                       <Briefwahlsearch stateParam={stateParam} />
+                      //<Briefwahl2021 />
                     )
                 );
               })
@@ -649,7 +650,8 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
             </div>
           )} */}
             {showBriefflag && (
-              <Briefwahlsearch stateParam={stateParam} />
+               <Briefwahlsearch stateParam={stateParam} />
+              //<Briefwahl2021 />
             )}
           </div>
         </div>

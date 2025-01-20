@@ -314,67 +314,6 @@ input.CustomSearchInput::placeholder {
     gap: 15px;
     width: 100%;
 }
-.BriefwahlInformationPopup .modal-header, .BriefwahlInformationMiniPopup .modal-header  {
-    color: #005437;
-    font-family: 'PTSans';
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    padding: 0 !important;
-}
-
-.BriefwahlInformationPopup, .BriefwahlInformationMiniPopup {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 24px;
-    position: relative;
-} 
-
-.BriefwahlInformationPopup .infoBox {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    align-self: stretch;
-    padding: 12px;
-    background: #F5F5F5;
-}
-.BriefwahlInformationPopup .modal-body, .BriefwahlInformationMiniPopup .modal-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    align-self: stretch;
-}
-.BriefwahlInformationPopup .infoBox .infoBox-itemBox {
-    display: flex;
-    align-items: center;
-    gap: 48px;
-    align-self: stretch;
-}
-.BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 8px;
-}
-.BriefwahlInformationPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {
-    width: 100px;
-}
-.BriefwahlInformationPopup .modal-footer, .BriefwahlInformationMiniPopup .modal-footer {
-padding: 0px !important;
-}
-.BriefwahlInformationPopup .modal-footer button.btn.btn-primary, .BriefwahlInformationMiniPopup .modal-footer button.btn.btn-primary {
-    background: #005437 !important;
-    border: 1px solid #005437 !important;
-}
-.BriefwahlInformationPopup .modal-footer > button {
-    height: 40px;
-    font-size: 16px;
-    min-width: 120px;
-}
 ul.HomepagestateListTiles>li {
     height: 46px;
 }
