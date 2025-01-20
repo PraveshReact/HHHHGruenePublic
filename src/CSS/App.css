@@ -2138,6 +2138,10 @@ span.flex-steps-arrow > svg {
 div#box1content .modal-header h3, div#box2content .modal-header h3{
   font-size:28px;
 }
+.BriefwahlInformationPopup h3.modal-title{
+  font-size: 24px;
+  width: calc(100% - 21px);
+}
 div#box1content .modal-content, div#box2content .modal-content {
   padding: 16px;
 }
