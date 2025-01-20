@@ -550,7 +550,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                           }
                         </div>
                       </section>
-                      <section className="section container">
+                      <section className="section py-3 container">
                         <div className="row">
                           <div className={!Showwebpart ? "col-12" : "col-9"}>
                             <HTMLRenderer content={item.PageContentProfile} />

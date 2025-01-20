@@ -2,7 +2,7 @@
 
 #page-title {
     position: relative;
- padding: 198px 0;
+ padding: 19px 0;
     background-color: #F5F5F5;
     border-bottom: 1px solid #EEE;
 }
@@ -60,7 +60,7 @@
 
 /* Page Title - Dark */
 #page-title.page-title-dark {
-    background-color: #eee;
+    background-color: #327b61;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1) !important;
     border-bottom: none;
 }
