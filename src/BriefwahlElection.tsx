@@ -82,7 +82,7 @@ const BriefwahlElection = () => {
         <h2 className="contact-form-title">Wahlkampf-aus-der-Ferne</h2>
         <form className="contact-form">
           <div className="input-group">
-            <label htmlFor="FirstName">First Name<span className="text-danger">*</span></label>
+            <label htmlFor="FirstName">Vorname<span className="text-danger">*</span></label>
             <input
               type="text"
               id="FirstName"
@@ -94,7 +94,7 @@ const BriefwahlElection = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="LastName">Last Name<span className="text-danger">*</span></label>
+            <label htmlFor="LastName">Nachname<span className="text-danger">*</span></label>
             <input
               type="text"
               id="LastName"
@@ -118,7 +118,7 @@ const BriefwahlElection = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="Comment">Comment</label>
+            <label htmlFor="Comment">Kommentar</label>
             <textarea
               id="Comment"
               name="Comment"
