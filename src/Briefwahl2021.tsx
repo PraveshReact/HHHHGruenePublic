@@ -42,6 +42,9 @@ const Briefwahl2021 = () => {
   const [captchaText, setCaptchaText] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
   };
@@ -293,6 +296,7 @@ const Briefwahl2021 = () => {
           }
           console.log('Get data from server successfully');
           console.log(result)
+          setIsLoading(false); // Data is loaded, set loading to false
 
         })
         .catch(error => console.log('error', error));
@@ -476,7 +480,14 @@ const Briefwahl2021 = () => {
 
   return (
     <>
-      <div className={filteredItems.length > 0 ? "container fgjj" : "container abc"} >
+    <div
+        style={{
+          position: "relative", // Positioning for overlay
+          pointerEvents: isLoading ? "none" : "auto", // Disable interactions when loading
+          opacity: isLoading ? 0.6 : 1, // Dim the content slightly
+        }}
+      > 
+  <div className={filteredItems.length > 0 ? "container fgjj" : "container abc"} >
         <section className="section  Briefwahl2021">
           <div className="col-lg-12">
             <div id="BriefwahlTitleDiv">
@@ -1167,6 +1178,8 @@ const Briefwahl2021 = () => {
         {showModal1 && <BriefwahlPopup showModal1={showModal1} cancelbox={cancelbox} />}
         {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
       </div>
+      </div>
+    
     </>
   );
 }

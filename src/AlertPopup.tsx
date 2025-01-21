@@ -20,5 +20,5 @@ const AlertPopup = ({ message, onClose }) => {
     </>
   );
 };
-
+ 
 export default AlertPopup;

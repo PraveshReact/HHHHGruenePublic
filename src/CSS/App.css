@@ -2203,3 +2203,12 @@ div.ExpandLinkFooter>.footer_text_right {
 
 }
 
+.loader {
+  text-align: center;
+  font-size: 20px;
+  color: gray;
+}
+
+.content {
+  padding: 20px;
+}
