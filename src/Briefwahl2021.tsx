@@ -383,29 +383,78 @@ const Briefwahl2021 = () => {
   };
   const handleSearch = (searchTerm: string) => {
     const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
-
+  
     if (trimmedSearchTerm === '') {
       setFilteredItems([]);  // If search term is empty, clear the results
     } else {
       const filtered = BriefwahldataBackup.filter((item: any) => {
-
         const originalGemeinde = String(item.Gemeinde || '').toLowerCase();
         const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
-        const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
-        const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
+        const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2');
+        const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');
         const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
+  
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
-          String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 || String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1 || String(item.WKName || '').indexOf(trimmedSearchTerm) !== -1
+          String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 ||
+          String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1 ||
+          String(item.WKName || '').indexOf(trimmedSearchTerm) !== -1
         );
-
       });
-
-      setFilteredItems([...filtered]); // Update filtered items
-      filteredItemsBackup = filtered;
-      setShowSearchItems(true)
+  
+      // Sort the filtered results based on PLZ value
+      const sortedFiltered = filtered.sort((a: any, b: any) => {
+        const plzA = String(a.PLZ || '');
+        const plzB = String(b.PLZ || '');
+  
+        // Check if both PLZ values contain the search term
+        const indexA = plzA.indexOf(trimmedSearchTerm);
+        const indexB = plzB.indexOf(trimmedSearchTerm);
+  
+        // If the search term exists in both, prioritize based on the value of PLZ itself (numeric order)
+        if (indexA !== -1 && indexB !== -1) {
+          return parseInt(plzA) - parseInt(plzB);  // Sort numerically to ensure smaller values come first
+        }
+  
+        // If only one contains the search term, prioritize that entry
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+  
+        // If neither contains the search term, sort based on numeric PLZ values
+        return parseInt(plzA) - parseInt(plzB); // Sort numerically
+      });
+  
+      setFilteredItems([...sortedFiltered]); // Update filtered items with sorted results
+      filteredItemsBackup = sortedFiltered;
+      setShowSearchItems(true);
     }
   };
+  
+  // const handleSearch = (searchTerm: string) => {
+  //   const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+
+  //   if (trimmedSearchTerm === '') {
+  //     setFilteredItems([]);  // If search term is empty, clear the results
+  //   } else {
+  //     const filtered = BriefwahldataBackup.filter((item: any) => {
+
+  //       const originalGemeinde = String(item.Gemeinde || '').toLowerCase();
+  //       const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
+  //       const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
+  //       const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
+  //       const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
+  //       return (
+  //         concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
+  //         String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 || String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1 || String(item.WKName || '').indexOf(trimmedSearchTerm) !== -1
+  //       );
+
+  //     });
+
+  //     setFilteredItems([...filtered]); // Update filtered items
+  //     filteredItemsBackup = filtered;
+  //     setShowSearchItems(true)
+  //   }
+  // };
   const ChangeTile = (tile: string, Type: any) => {
     if (tile == 'DE-BB') {
       tile = 'Brandenburg'
