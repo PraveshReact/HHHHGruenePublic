@@ -1685,6 +1685,24 @@ span.closePopupBtn >svg {
   width: 18px;
   height: 18px;
 }
+span.iconTooltip > .iconTooltipText {
+  display: none;
+}
+
+span.iconTooltip:hover > .iconTooltipText {
+  display: block;
+  position: absolute;
+  background: #fff;
+  padding: 4px 8px;
+  right: -4px;
+  width: max-content;
+  top: 25px;
+}
+
+span.iconTooltip {
+  position: relative;
+  cursor: pointer;
+}
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;
