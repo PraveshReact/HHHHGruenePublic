@@ -370,7 +370,7 @@ const Briefwahl2021 = () => {
         const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
         const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
         const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
-        const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
+        const concatenatedGemeinde = originalGemeinde +" "+ normalizedGemeinde +" "+ reverseNormalizedGemeinde +" "+ myreverseNormalizedGemeinde;
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
           String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 || String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1 || String(item.WKName || '').indexOf(trimmedSearchTerm) !== -1
@@ -392,7 +392,7 @@ const Briefwahl2021 = () => {
         const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
         const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2');
         const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');
-        const concatenatedGemeinde = originalGemeinde + normalizedGemeinde + reverseNormalizedGemeinde + myreverseNormalizedGemeinde;
+        const concatenatedGemeinde = originalGemeinde +" "+ normalizedGemeinde +" "+ reverseNormalizedGemeinde +" "+ myreverseNormalizedGemeinde;
 
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
