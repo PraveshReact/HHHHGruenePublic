@@ -1547,6 +1547,11 @@ span.VerifyOnlineStatus {
   font-size: 16px;
   position: absolute;
   right: 12px;
+  line-height: 0px;
+}
+img.yellowDot {
+  width: 15px;
+  height: 15px;
 }
 div.ExpandLinkFooter {
   width: 100%;
@@ -1685,10 +1690,23 @@ span.closePopupBtn >svg {
   width: 18px;
   height: 18px;
 }
-span.iconTooltip > .iconTooltipText {
+.SmartTableOnTaskPopup tr.searchItemList {
+  position: relative;
+}
+span.iconTooltip > .iconTooltipText, span.iconTooltip2 > .iconTooltip2Text  {
   display: none;
 }
-
+span.iconTooltip2:hover > .iconTooltip2Text {
+  display: block;
+  position: absolute;
+  background: #fff;
+  padding: 4px 8px;
+  left: 4px;
+  width: max-content;
+  top: 25px;
+  border: 1px solid #cccccc4a;
+  line-height: normal;
+}
 span.iconTooltip:hover > .iconTooltipText {
   display: block;
   position: absolute;
@@ -1697,6 +1715,8 @@ span.iconTooltip:hover > .iconTooltipText {
   right: -4px;
   width: max-content;
   top: 25px;
+  border: 1px solid #cccccc4a;
+  line-height: normal;
 }
 
 span.iconTooltip {

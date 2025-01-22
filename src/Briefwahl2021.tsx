@@ -4,6 +4,7 @@ import './CSS/ButtonStyle.css';
 import { Chart } from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import { Panel, PanelType } from "@fluentui/react";
+import yellowdot from '../src/images/yellowdot.png';
 import BriefwahlPopup from './BriefwahlPopup';
 import FeedBackForm from './FeedBackForm';
 import App from './App';
@@ -370,7 +371,7 @@ const Briefwahl2021 = () => {
         const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
         const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2'); // English to German conversion
         const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');// English to German conversion
-        const concatenatedGemeinde = originalGemeinde +" "+ normalizedGemeinde +" "+ reverseNormalizedGemeinde +" "+ myreverseNormalizedGemeinde;
+        const concatenatedGemeinde = originalGemeinde + " " + normalizedGemeinde + " " + reverseNormalizedGemeinde + " " + myreverseNormalizedGemeinde;
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
           String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 || String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1 || String(item.WKName || '').indexOf(trimmedSearchTerm) !== -1
@@ -392,7 +393,7 @@ const Briefwahl2021 = () => {
         const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
         const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2');
         const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');
-        const concatenatedGemeinde = originalGemeinde +" "+ normalizedGemeinde +" "+ reverseNormalizedGemeinde +" "+ myreverseNormalizedGemeinde;
+        const concatenatedGemeinde = originalGemeinde + " " + normalizedGemeinde + " " + reverseNormalizedGemeinde + " " + myreverseNormalizedGemeinde;
 
         return (
           concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
@@ -595,8 +596,11 @@ const Briefwahl2021 = () => {
                           style={{ cursor: 'pointer' }}
                         ><td style={{ width: '78%' }}>
                             <span className="d-flex flex-column">
-                              <span className="">
-                                {item.PLZ || 'n/a'} {item.Gemeinde}
+                              <span> <span className="iconTooltip2">
+                                {item.PLZ || 'n/a'}
+                                <span className="iconTooltip2Text">{item?.ZipCodes}</span>
+                              </span>
+                                &nbsp;{item.Gemeinde}
                               </span>
                               <span className=''>{item.WKName || 'n/a'} (WK {item.Wahlkreis || 'n/a'})</span>
                             </span>
@@ -640,7 +644,7 @@ const Briefwahl2021 = () => {
                                 ))
                               ) : item.LinkBundestag ? (
                                 <>
-                                  <span className="iconTooltip"><svg
+                                  <span className="iconTooltip OnlineIconSvg"><svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -865,9 +869,10 @@ const Briefwahl2021 = () => {
                                     JSON.parse(selectedItem.ColumnLevelVerification).map((verification, index) => (
                                       <span key={index}>
                                         {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                          </svg>
+                                          <img className='yellowDot' src={yellowdot} />
+                                          // <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          //   <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                          // </svg>
                                         ) : verification.Title === 'LinkBundestag' && verification.Value === "Correct" ? (
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path
@@ -878,19 +883,21 @@ const Briefwahl2021 = () => {
                                             />
                                           </svg>
                                         ) : verification.Title === 'LinkBundestag' && verification.Value === "Maybe" ? (
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                          </svg>
+                                          <img className='yellowDot' src={yellowdot} />
+                                          //  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          //     <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                          //   </svg>
                                         ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                          </svg>
+                                          // <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          //   <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                          // </svg>
+                                          <img className='yellowDot' src={yellowdot} />
                                         ) : null}
                                       </span>
                                     ))
                                   ) : selectedItem.LinkBundestag ? (
                                     <>
-                                      <span className="iconTooltip"><svg
+                                      <span className="iconTooltip OnlineIconSvg"><svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
                                         height="24"
