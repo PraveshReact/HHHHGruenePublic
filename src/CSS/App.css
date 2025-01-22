@@ -1703,6 +1703,7 @@ span.iconTooltip:hover > .iconTooltipText {
   width: max-content;
   top: 25px;
   border: 1px solid #cccccc4a;
+  line-height: normal;
 }
 
 span.iconTooltip {
