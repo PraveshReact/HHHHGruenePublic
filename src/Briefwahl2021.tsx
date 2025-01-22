@@ -614,7 +614,7 @@ const Briefwahl2021 = () => {
                           <td style={{ width: '12%' }}>
                             <span className="align-content-start d-flex">
                               Online:
-                              {item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" && item.ColumnLevelVerification.indexOf('LinkBundestag') > -1 ? (
+                              {item.LinkBundestag && item.LinkBundestag !== "" && item.ColumnLevelVerification && item.ColumnLevelVerification !== "" && item.ColumnLevelVerification !== "[]" && item.ColumnLevelVerification.indexOf('LinkBundestag') > -1 ? (
                                 JSON.parse(item.ColumnLevelVerification).map((verification, index) => (
                                   <span key={index} >
                                     {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
@@ -822,15 +822,14 @@ const Briefwahl2021 = () => {
                                 <a className=' text-bold' href={generateMailToLink()}>{selectedItem?.Email ? selectedItem?.Email : 'n/a'}</a>
 
                                 {/* Copy Icon */}
-                                <span
+                                {selectedItem?.Email && selectedItem?.Email != "" && (<span
                                   className="copy-icon"
                                   onClick={copyEmailToClipboard}
                                   style={{ cursor: 'pointer', marginLeft: '10px' }}
                                   title="Copy to Clipboard"
                                 >
                                   <FaCopy color={isCopied ? 'green' : '#b6b0b0'} />
-                                </span>
-
+                                </span>)}
                                 {/* Feedback text */}
                                 {isCopied && <span style={{ color: '#008939', marginLeft: '10px' }}>Copied!</span>}
                               </span>
@@ -862,7 +861,7 @@ const Briefwahl2021 = () => {
                             <div className="col-12">
                               <span className="VerifyOnlineStatus">
                                 <span className="alignCenter d-flex">
-                                  {selectedItem.ColumnLevelVerification && selectedItem.ColumnLevelVerification !== "" && selectedItem.ColumnLevelVerification !== "[]" && selectedItem.ColumnLevelVerification.indexOf('LinkBundestag') > -1 ? (
+                                  {selectedItem.LinkBundestag && selectedItem.LinkBundestag !== "" && selectedItem.ColumnLevelVerification && selectedItem.ColumnLevelVerification !== "" && selectedItem.ColumnLevelVerification !== "[]" && selectedItem.ColumnLevelVerification.indexOf('LinkBundestag') > -1 ? (
                                     JSON.parse(selectedItem.ColumnLevelVerification).map((verification, index) => (
                                       <span key={index}>
                                         {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
