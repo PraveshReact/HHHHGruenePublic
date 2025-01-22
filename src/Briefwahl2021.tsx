@@ -4,6 +4,7 @@ import './CSS/ButtonStyle.css';
 import { Chart } from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import { Panel, PanelType } from "@fluentui/react";
+import yellowdot from '../src/images/yellowdot.png';
 import BriefwahlPopup from './BriefwahlPopup';
 import FeedBackForm from './FeedBackForm';
 import App from './App';
@@ -640,7 +641,7 @@ const Briefwahl2021 = () => {
                                 ))
                               ) : item.LinkBundestag ? (
                                 <>
-                                  <span className="iconTooltip"><svg
+                                  <span className="iconTooltip OnlineIconSvg"><svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -865,9 +866,10 @@ const Briefwahl2021 = () => {
                                     JSON.parse(selectedItem.ColumnLevelVerification).map((verification, index) => (
                                       <span key={index}>
                                         {verification.Title === 'LinkBundestag' && verification.Value === "Incorrect" ? (
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                          </svg>
+                                          <img className='yellowDot' src={yellowdot} />
+                                          // <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          //   <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                          // </svg>
                                         ) : verification.Title === 'LinkBundestag' && verification.Value === "Correct" ? (
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path
@@ -878,19 +880,21 @@ const Briefwahl2021 = () => {
                                             />
                                           </svg>
                                         ) : verification.Title === 'LinkBundestag' && verification.Value === "Maybe" ? (
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                          </svg>
+                                          <img className='yellowDot' src={yellowdot} />
+                                        //  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        //     <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                        //   </svg>
                                         ) : verification.Title === 'LinkBundestag' && verification.Value === "" ? (
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
-                                          </svg>
+                                          // <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                          //   <circle cx="8.9998" cy="8.9998" r="8.45" fill="#FFE600" />
+                                          // </svg>
+                                          <img className='yellowDot' src={yellowdot} />
                                         ) : null}
                                       </span>
                                     ))
                                   ) : selectedItem.LinkBundestag ? (
                                     <>
-                                      <span className="iconTooltip"><svg
+                                      <span className="iconTooltip OnlineIconSvg"><svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
                                         height="24"

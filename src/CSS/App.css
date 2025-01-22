@@ -1547,6 +1547,11 @@ span.VerifyOnlineStatus {
   font-size: 16px;
   position: absolute;
   right: 12px;
+  line-height: 0px;
+}
+img.yellowDot {
+  width: 15px;
+  height: 15px;
 }
 div.ExpandLinkFooter {
   width: 100%;
@@ -1697,6 +1702,7 @@ span.iconTooltip:hover > .iconTooltipText {
   right: -4px;
   width: max-content;
   top: 25px;
+  border: 1px solid #cccccc4a;
 }
 
 span.iconTooltip {
