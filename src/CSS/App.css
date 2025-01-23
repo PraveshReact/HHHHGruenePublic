@@ -1760,6 +1760,7 @@ ul.HomepageBtns > li {
   flex-shrink: 0;
   align-self: stretch;
   background: #005437;
+  cursor: pointer;
 }
 
 ul.HomepageBtns > li > span.lowerMainText {
@@ -2307,6 +2308,14 @@ div.ExpandLinkFooter>.footer_text_right {
   right: 0;
 }
 div.ExpandLinkFooterr>.footer_textRight {right: 0;top: -5px;}
+ul.HomepageBtns > li {
+  width: 100%;
+  margin: 10px auto;
+}
+
+ul.HomepageBtns {
+  display: block;
+}
 }
 
 .loader {
