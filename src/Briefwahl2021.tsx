@@ -12,7 +12,6 @@ import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import axios from 'axios';
 import AlertPopup from './AlertPopup';
 import { FaCopy } from 'react-icons/fa';
-
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
 let filteredItemsBackup: any = []
@@ -238,6 +237,7 @@ const Briefwahl2021 = () => {
         selected: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Selected icon for capital cities
       },
     },
+    
   };
 
   const openModalContent = (modal: any) => {
@@ -280,11 +280,26 @@ const Briefwahl2021 = () => {
         .then(response => response.text())
         .then((result: any) => {
           result = JSON.parse(result)
-          backupdata = result?.data;
+          const allBriefwahlResult = result?.data.filter((item: any) => {
+            if (item.ColumnLevelVerification.indexOf('LinkBundestag') > -1) {
+              // Parse the ColumnLevelVerification string into an array
+              const incorrectVerification = JSON.parse(item.ColumnLevelVerification);
+              // Check if the condition 'LinkBundestag' and 'Incorrect' exists in any of the entries
+              const hasIncorrect = incorrectVerification.some((i: any) => i.Title === 'LinkBundestag' && i.Value === 'Incorrect');
+              // Only return the item if the condition is not met (i.e., it does not have incorrect verification)
+              if (hasIncorrect) {
+                return false; // Exclude this item
+              }
+            }
+            // For all other cases (including where ColumnLevelVerification is not present or does not match), return the item
+            return true;
+          });
+          backupdata = allBriefwahlResult;
+          //backupdata = result?.data;
           if (State != undefined && State != undefined && State.toLowerCase() == 'deutschlandweit') {
-            BriefwahldataBackup = result?.data;
+            BriefwahldataBackup = allBriefwahlResult;
           } else if (State != undefined && State != undefined) {
-            result?.data?.forEach((item: any) => {
+            allBriefwahlResult?.forEach((item: any) => {
               if (item?.Land == State) {
                 allfilterdata.push(item)
               }
@@ -293,7 +308,7 @@ const Briefwahl2021 = () => {
           if (State != undefined && State != undefined && State.toLowerCase() != 'deutschlandweit') {
             BriefwahldataBackup = allfilterdata;
           } else {
-            BriefwahldataBackup = result?.data;
+            BriefwahldataBackup = allBriefwahlResult;
           }
           console.log('Get data from server successfully');
           console.log(result)
