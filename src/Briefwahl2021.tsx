@@ -20,6 +20,7 @@ const Briefwahl2021 = () => {
   let State: any;
   const [showModal, setShowModal] = useState(false);
   const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
   const [showSearchItems, setShowSearchItems] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermpopup, setSearchTermpopup] = useState('');
@@ -237,14 +238,17 @@ const Briefwahl2021 = () => {
         selected: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Selected icon for capital cities
       },
     },
-    
+
   };
 
   const openModalContent = (modal: any) => {
     if (modal === "modal2")
       setShowModal(true);
+    else if (modal === "modal3")
+      setShowModal2(true);
     else
       setShowModal1(true);
+    
   };
   const cancelbox = () => {
     setShowModal(false);
@@ -559,16 +563,22 @@ const Briefwahl2021 = () => {
                 <h1 className="privacypageTitle">Bundestagswahl 2025 - Briefwahl Suchmaschine</h1>
                 <ul className="scrollToBtns">
                   <li onClick={() => openModalContent("modal2")}>
-                    Anleitung Briefwahl - Bin in Deutschland gemeldet
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
+                    Anleitung Briefwahl <br />
+                    Bin in Deutschland gemeldet
+                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
                       <path d="M14.7389 15.2777L15.8066 16.2668L22.9302 8.57225L15.8066 0.879883L14.7389 1.86679L20.2066 7.77225H0.727295V9.22679H20.3418L14.7389 15.2777Z" fill="white" />
-                    </svg>
+                    </svg> */}
                   </li>
                   <li onClick={() => openModalContent("modal1")}>
-                    Anleitung Briefwahl - Nicht mehr in Deutschland gemeldet
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
+                    Anleitung Briefwahl <br />
+                    Nicht mehr in Deutschland gemeldet
+                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
                       <path d="M14.7389 15.2777L15.8066 16.2668L22.9302 8.57225L15.8066 0.879883L14.7389 1.86679L20.2066 7.77225H0.727295V9.22679H20.3418L14.7389 15.2777Z" fill="white" />
-                    </svg>
+                    </svg> */}
+                  </li>
+                  <li onClick={() => openModalContent("modal3")}>
+                    Anleitung Briefwahl <br />
+                    Wahlunterlagen schnell zurück
                   </li>
                 </ul>
               </div>
@@ -1247,6 +1257,7 @@ const Briefwahl2021 = () => {
           </section>
           {showModal && <BriefwahlPopup showModal={showModal} cancelbox={cancelbox} />}
           {showModal1 && <BriefwahlPopup showModal1={showModal1} cancelbox={cancelbox} />}
+          {showModal2 && <BriefwahlPopup showModal2={showModal2} cancelbox={cancelbox} />}
           {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
         </div>
       </div>
