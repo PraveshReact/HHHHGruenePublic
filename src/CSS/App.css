@@ -2254,7 +2254,7 @@ div.ExpandLinkFooter>.footer_text_right {
   font-size: 11px;
   right: 0;
 }
-
+div.ExpandLinkFooterr>.footer_textRight {right: 0;top: -5px;}
 }
 
 .loader {
