@@ -253,6 +253,7 @@ const Briefwahl2021 = () => {
   const cancelbox = () => {
     setShowModal(false);
     setShowModal1(false);
+    setShowModal2(false);
   };
   const [isHovered, setIsHovered] = useState(false);
 
