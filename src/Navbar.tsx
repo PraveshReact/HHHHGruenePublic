@@ -175,14 +175,18 @@ const Navbarcomponent = () => {
   const renderItem = (item: any) => (
     <li key={item.id} className="nav-item dropdown">
       <Link
-        to={{
-          pathname:
-            item.Title === "Home"
-              ? "/"
-              : item.Title === "Briefwahl Suchmaschine"
-                ? "/Briefwahl"
-                : `/${removeSpacialChar(item.Title)}`,
-        }}
+       to={{
+        pathname:
+          item.Title === "Home"
+            ? "/"
+            : item.Title === "Briefwahl Suchmaschine"
+            ? "/Briefwahl"
+            : item.Title === "Über Uns"
+            ? "/About"
+            : item.Title === "Bundestagswahl 2025"
+            ? "/briefwahl"
+            : `/${removeSpacialChar(item.Title)}`,
+      }}
 
         state={{ item: item }}
         id="navbarDropdown"

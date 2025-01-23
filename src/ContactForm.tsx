@@ -187,7 +187,7 @@ const ContactForm = () => {
           </div>
 
           <div className="checkbox-group">
-            <label className="checkbox-label gap-1">
+            <label className="align-items-baseline checkbox-label gap-1">
               <input
                 className=""
                 type="checkbox"
@@ -195,7 +195,9 @@ const ContactForm = () => {
                 checked={formData.subscribeNewsletter}
                 onChange={handleChange}
               />
-              Ich möchte den Grüne-Weltweit-Newsletter beziehen.
+              <span>Ich will bei Grüne-Weltweit mitmachen. Kontaktiert mich gerne zu Neuigkeiten in meiner Region. (Hinweis zum&nbsp;
+                <a href="/Datenschutz" target="_blank" rel="noopener noreferrer" className="privacy-policy-link">Datenschutz</a>)
+              </span>
             </label>
           </div>
 

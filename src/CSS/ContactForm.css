@@ -70,7 +70,9 @@
   .privacy-policy-link:hover {
     text-decoration: underline;
   }
-  
+  textarea#Comment {
+    min-height: 100px;
+}
   .submit-button {
     background-color: #008939;
     border: none;
@@ -95,5 +97,11 @@
   font-weight: bold;       /* Optional: Make the text bold */
   margin-top: 10px;        /* Optional: Add spacing above the error message */
 }
-
+.contact-form-container label.captcha-label {
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-left: 15px;
+  font-size: 1.2em;
+  margin-right: 10px;
+}
 /*******/

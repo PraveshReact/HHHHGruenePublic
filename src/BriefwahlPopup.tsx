@@ -23,7 +23,7 @@ const BriefwahlPopup = (props: any) => {
                             <div className="flex-20">
                                 <strong>Anleitung zur Beantragung von Briefwahlunterlagen</strong>
                                 <div className="flex-steps">
-                                    <span className="flex-step">
+                                    {/* <span className="flex-step">
                                         <span className="flex-steps-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 48 49" fill="none"> <path d="M19.6938 12.5967H32.45H37V16.8217V28.4404H32.3687V19.7467L14.25 36.4029L11 33.3967L29.1187 16.8217H19.6938V12.5967Z" fill="#005437" /></svg>
                                         </span>
@@ -32,7 +32,7 @@ const BriefwahlPopup = (props: any) => {
                                     <span className="flex-steps-arrow">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M24.6666 16.8374L16.7793 8.50032L15.6026 9.61146L21.6669 15.8835H7.33325V17.6677H21.6669L15.6026 24.0559L16.7793 25.167L24.6666 16.8374Z" fill="#333333" /></svg>
-                                    </span>
+                                    </span> */}
                                     <span className="flex-step">
                                         <span className="flex-steps-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 48 49" fill="none">
@@ -58,19 +58,19 @@ const BriefwahlPopup = (props: any) => {
                             </div>
                             <div className="bannerlinks">
                                 <div className="bannerlinksWithList">
-                                    <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
+                                    <a onClick={cancelbox} className='bannerlinksWithListTxt'>
                                         Per Online-Antrag
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12.7528L13.0845 6.5L12.202 7.33335L16.7502 12.0374H6V13.3755H16.7502L12.202 18.1666L13.0845 19L19 12.7528Z" fill="white" />
                                         </svg>
                                     </a>
-                                    <ul className="banner-list">
+                                    <ul className="banner-list" >
                                         <li>Online-Formular ausfüllen</li>
                                         <li>Unterlagen werden kostenlos zugeschickt</li>
                                     </ul>
                                 </div>
-                                <div className="bannerlinksWithList">
-                                    <a href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
+                                <div className="bannerlinksWithList mb-1">
+                                    <a onClick={cancelbox} className='bannerlinksWithListTxt'>
                                         Per formloser Email  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12.7528L13.0845 6.5L12.202 7.33335L16.7502 12.0374H6V13.3755H16.7502L12.202 18.1666L13.0845 19L19 12.7528Z" fill="white" />
                                         </svg>
@@ -82,6 +82,7 @@ const BriefwahlPopup = (props: any) => {
                                 </div>
                             </div>
                         </div>
+                        <div className="ExpandLinkFooterr"><a className="footer_textRight" href='https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/briefwahl.html' target="_blank" rel="noopener noreferrer">Informationen der Bundeswahlleiterin</a></div>
                     </div>
                 </div>
             </div>

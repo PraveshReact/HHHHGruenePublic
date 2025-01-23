@@ -395,7 +395,7 @@ footer#footer .footer-widgets-wrap a > small {
   font-weight: normal;
   color:var(--text-color);
   font-size: 18px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin:0px;
   font-family: 'PTSans';
   padding-top: 9px;
@@ -1574,6 +1574,20 @@ right: -15px;
     position: absolute;
     display: flex;
 }
+.ExpandLinkFooterr{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+div.ExpandLinkFooterr > .footer_textRight{
+  color: #333;
+  font-size: 14px;
+  right: -15px;
+      position: absolute;
+      display: flex;
+  }
 .BriefwahlInformationPopup .modal-footer {
   position: relative;
   justify-content: space-between;

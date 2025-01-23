@@ -17,6 +17,7 @@ import { RelevantWebPart } from "./RelevantWebPart";
 import NewsHome from "./NewsHome";
 import EventHomemainPage from "./EventHome";
 import ContactForm from "./ContactForm";
+import BriefwahlElection from "./BriefwahlElection";
 let FlagSmartPage = false
 //let showBriefflag = false;
 let stateParam: any;
@@ -49,7 +50,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       }
     } 
     // Check for '/Briefwahl' if no stateParam is present
-    else if (location.pathname.toLowerCase().indexOf('/briefwahl') > -1 && location.pathname.toLowerCase().indexOf('/briefwahl-about') == -1)  {
+    else if ((location.pathname.toLowerCase().indexOf('/bundestagswahl-2025') > -1)||(location.pathname.toLowerCase().indexOf('/briefwahl') > -1 && location.pathname.toLowerCase().indexOf('/briefwahl-about') == -1))  {
       const pathParts = location.pathname.split('/');
       stateParam = pathParts[pathParts.length - 1].split('=')[1];
       if (!stateParam) {
@@ -567,6 +568,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
 
                         </div>
+                        <BriefwahlElection item = {item}/>
                       </section>
                     </div>
                   ) :
