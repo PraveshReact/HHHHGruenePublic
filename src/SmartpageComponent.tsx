@@ -49,7 +49,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       }
     } 
     // Check for '/Briefwahl' if no stateParam is present
-    else if (location.pathname.toLowerCase().indexOf('/briefwahl') > -1) {
+    else if (location.pathname.toLowerCase().indexOf('/briefwahl') > -1 && location.pathname.toLowerCase().indexOf('/briefwahl-about') == -1)  {
       const pathParts = location.pathname.split('/');
       stateParam = pathParts[pathParts.length - 1].split('=')[1];
       if (!stateParam) {
