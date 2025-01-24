@@ -1792,6 +1792,29 @@ ul.numbered-list {
 ul.numbered-list > li {
   list-style-type: decimal;
 }
+
+.react-autosuggest__suggestions-container--open {
+  background: #fff;
+  padding: 10px 5px;
+  position: absolute;
+  width: 100%;
+  top: 77px;
+  z-index: 99;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+ul.react-autosuggest__suggestions-list > li {list-style: none;border-bottom: 1px solid #eaeaea;padding: 05px 10px;font-size: 17px;cursor: pointer;}
+ul.react-autosuggest__suggestions-list{
+  margin-bottom:0px;
+  padding: 0;
+
+}
+ul.react-autosuggest__suggestions-list > li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+input.react-autosuggest__input {
+  margin: 0;
+}
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;

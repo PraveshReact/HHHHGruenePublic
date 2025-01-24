@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Autosuggest from 'react-autosuggest'; // Import react-autosuggest
 import "../src/CSS/ContactForm.css"; // Import the CSS file for styling
 import '../src/CSS/ButtonStyle.css';
 import AlertPopup from "./AlertPopup";
@@ -13,12 +14,97 @@ const BriefwahlElection = (props) => {
   const [captchaInput, setCaptchaInput] = useState('');
   const [captchaText, setCaptchaText] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [countryOptions, setCountryOptions] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [countryError, setCountryError] = useState("");
   // Function to regenerate CAPTCHA text
   const refreshCaptcha = () => {
     setCaptchaText(generateCaptcha());
     setCaptchaInput('');
     setIsCaptchaValid(false);
   };
+ 
+
+  // Fetch country list (example data)
+  useEffect(() => {
+   
+   const getPublicServerCountries = async (tableName: any, TaxType: any) => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "table": tableName,
+        "TaxType": TaxType
+      });
+      const requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataByTaxType.php", requestOptions);
+      const result = await response.json();
+      console.log(result, "resultresultresultresult")
+      // Filter the results to match the specific KeyTitle
+      setCountryOptions(result?.data)
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return [];
+    }
+  }
+  getPublicServerCountries('SmartMetaData', 'Countries')
+  }, []);
+
+  // Handle country change from search input
+  // const handleCountryChange = (event, { newValue }) => {
+  //   setSelectedCountry(newValue);
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     Country: newValue,
+  //   }));
+  // };
+  const handleCountryChange = (event, { newValue }) => {
+    setSelectedCountry(newValue);
+  
+    // Check if the selected country is valid
+    const countryIsValid = countryOptions.some(
+      (country) => country.Title.toLowerCase().trim().indexOf(newValue.toLowerCase().trim()) > -1
+    );
+  
+    if (!countryIsValid) {
+      setCountryError("Country not available");
+    } else {
+      setCountryError(""); // Clear error if valid country is selected
+    }
+  
+    setFormData((prevState) => ({
+      ...prevState,
+      Country: newValue,
+    }));
+  };
+  
+
+    // Filter countries based on input
+    const getSuggestions = value => {
+      const inputValue = value.trim().toLowerCase();
+      const inputLength = inputValue.length;
+  
+      return inputLength === 0
+        ? []
+        : countryOptions.filter(country =>
+            country.Title.toLowerCase().includes(inputValue)
+          );
+    };
+
+    // Render suggestion
+  const renderSuggestion = suggestion => (
+    <div className="suggestion-item">
+      {suggestion.Title}
+    </div>
+  );
+  
 
   function generateCaptcha(length = 6) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -32,6 +118,7 @@ const BriefwahlElection = (props) => {
     FirstName: "",
     LastName: "",
     Email: "",
+    Ort: "",
     Country: "",
     Comment: "",
     Created: new Date()
@@ -92,6 +179,7 @@ const BriefwahlElection = (props) => {
         FirstName: "",
         LastName: "",
         Email: "",
+        Ort: "",
         Country: "",
         Comment: "",
         Created: new Date()
@@ -155,15 +243,32 @@ const BriefwahlElection = (props) => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="Country">Ort und Land</label>
+            <label htmlFor="Country">Ort</label>
             <input
               type="text"
-              id="Country"
-              name="Country"
-              value={formData.Country}
+              id="Ort"
+              name="Ort"
+              value={formData.Ort}
               onChange={handleChange}
               className="form-input m-0"
             />
+          </div>
+
+          <div className="input-group position-relative">
+            <label htmlFor="Country">Land</label>
+           <div className="col-12 "><Autosuggest
+              suggestions={getSuggestions(selectedCountry)}
+              onSuggestionsFetchRequested={({ value }) => setSelectedCountry(value)}
+              onSuggestionsClearRequested={() => setSelectedCountry("")}
+              getSuggestionValue={suggestion => suggestion.Title}
+              renderSuggestion={renderSuggestion}
+              inputProps={{
+                placeholder: "Land suchen",
+                value: formData.Country,
+                onChange: handleCountryChange,
+              }}
+            /></div> 
+             {countryError && <small className="text-danger">{countryError}</small>}
           </div>
 
           <div className="input-group">
