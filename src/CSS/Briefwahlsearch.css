@@ -186,7 +186,7 @@ ul.HomepagestateListbuttonTiles > li{
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #00893A;
+    background: var(--primary-color);;
         }
 ul.HomepagestateListTiles {
     display: flex;
@@ -220,7 +220,7 @@ ul.HomepagestateListTiles > li.state {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #00893A;
+    background: var(--primary-color);;
 }
 ul.HomepagestateListTiles > li.states {
     width: calc(50% - 10px);
@@ -232,7 +232,7 @@ ul.HomepagestateListTiles > li.states {
     line-height: normal;
 }
 ul.HomepagestateListTiles > li.states.active{
-    background: #00893A;
+    background: var(--primary-color);;
     color:#fff;
 }
 ul.HomepagestateListbuttonTiles > li.state.states.active.gray {
