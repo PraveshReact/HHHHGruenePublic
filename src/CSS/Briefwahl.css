@@ -322,20 +322,20 @@ a.DC-mapImg > img.DC-Mapimage {
 
   /******************** Popup CSS**********************
     ***************************************************/
-    div#box1content.modal,  div#box2content.modal {
+    div#box1content.modal, div#box2content.modal, div#box3content.modal {
       z-index: 9999;
     }
-    div#box1content .modal-content, div#box2content .modal-content {
+    div#box1content .modal-content, div#box2content .modal-content, div#box3content .modal-content {
       padding: 24px;
     }
     
-    div#box1content .modal-body, div#box2content .modal-body {
+    div#box1content .modal-body, div#box2content .modal-body, div#box3content .modal-body {
       padding: 20px 0 0px 0;
       gap: 20px;
     display: flex;
     flex-direction: column;
     }
-div#box1content .modal-header h3, div#box2content .modal-header h3 {
+div#box1content .modal-header h3, div#box2content .modal-header h3, div#box3content .modal-header h3 {
   color: #005437;
   font-size: 36px;
   font-style: normal;
@@ -347,7 +347,7 @@ div#box1content .modal-header h3, div#box2content .modal-header h3 {
   font-family: 'PTSans' !important;
 }
 
-div#box1content .modal-header h3 > span.subtext, div#box2content .modal-header h3 > span.subtext {
+div#box1content .modal-header h3 > span.subtext, div#box2content .modal-header h3 > span.subtext, div#box3content .modal-header h3 > span.subtext {
   color: #333;
   font-family: 'PTSans';
   font-size: 20px;
@@ -356,7 +356,7 @@ div#box1content .modal-header h3 > span.subtext, div#box2content .modal-header h
   line-height: 20px;
 }
 
-div#box1content .modal-header, div#box2content .modal-header {
+div#box1content .modal-header, div#box2content .modal-header, div#box3content .modal-header {
   display:flex;
   align-items: start;
   padding: 0 !important;

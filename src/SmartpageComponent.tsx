@@ -48,20 +48,20 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       if (stateParam) {
         setShowBriefflag(true);
       }
-    } 
+    }
     // Check for '/Briefwahl' if no stateParam is present
-    else if ((location.pathname.toLowerCase().indexOf('/bundestagswahl-2025') > -1)||(location.pathname.toLowerCase().indexOf('/briefwahl') > -1 && location.pathname.toLowerCase().indexOf('/briefwahl-about') == -1))  {
+    else if ((location.pathname.toLowerCase().indexOf('/bundestagswahl-2025') > -1) || (location.pathname.toLowerCase().indexOf('/briefwahl') > -1 && location.pathname.toLowerCase().indexOf('/briefwahl-about') == -1)) {
       const pathParts = location.pathname.split('/');
       stateParam = pathParts[pathParts.length - 1].split('=')[1];
       if (!stateParam) {
         setShowBriefflag(true);
       }
-    }else if (location.pathname.indexOf('/') > -1) {
-      
-        setShowBriefflag(false);
-      
+    } else if (location.pathname.indexOf('/') > -1) {
+
+      setShowBriefflag(false);
+
     }
-  }, [location.pathname]); 
+  }, [location.pathname]);
   const decodeArray = (arr: any) => {
     return arr.map((item: string) => decodeURIComponent(item));
   };
@@ -182,14 +182,14 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
     setShowwebpart(true)
   }
   const getPublicServerSmartMetaData = async (tableName: any, Title: any, smartid: any) => {
-    if(clickedTitle!=undefined){
+    if (clickedTitle != undefined) {
       Title = clickedTitle
     }
     try {
       let url = '';
       // Construct the URL with query parameters
       if (smartid != null) {
-       // url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
+        // url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?id=${smartid}&title=${Title}`;
         url = `https://gruene-weltweit.de/SPPublicAPIs/getSmartMetaData.php?title=${Title}`;
       }
       else {
@@ -212,10 +212,10 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
       const text = await response.text();
       const jsonStartIndex = text.indexOf('{');  // Find the start of JSON
       const jsonEndIndex = text.lastIndexOf('}'); // Find the end of JSON
-  
+
       // Extract the JSON part by slicing the string between the first "{" and the last "}"
       const jsonText = text.slice(jsonStartIndex, jsonEndIndex + 1);
-  
+
       const result = JSON.parse(jsonText);
       //const result = await response.json();
       console.log(result, "Result from GET request");
@@ -530,7 +530,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
               data?.map((item: any, index: number) => {
                 console.log("Item:", item);
                 return (
-                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt'&& showBriefflag == false ? (
+                  item.KeyTitle?.toLowerCase() !== "warum-aus-dem-ausland-wählen" && item.KeyTitle?.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
                     <div key={index}>
                       <section
                         id="page-title"
@@ -565,14 +565,14 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                             {data.length > 0 && <RelevantNews newsItem={data} showwebpart={showwebpart} />}
                             {data.length > 0 && <RelevantEvent newsItem={data} showwebpart={showwebpart} />}
                           </div>
-
-
                         </div>
-                        <BriefwahlElection item = {item}/>
+                        {item?.PagesContactForm && (item?.PagesContactForm == 1 || item?.PagesContactForm == true) &&
+                          <BriefwahlElection item={item} />
+                        }
                       </section>
                     </div>
                   ) :
-                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahl'&& item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
+                    item.KeyTitle.toLowerCase() !== 'europawahl-2024' && item.KeyTitle?.toLowerCase() !== 'briefwahl' && item.KeyTitle?.toLowerCase() !== 'kontakt' && showBriefflag == false ? (
                       <>
                         <WahlWeltweit />
                         {data.length > 0 && <RelevantWebPart data={data[0]} usedFor={'keyDoc'} showwebpart={showwebpart} />}
@@ -652,7 +652,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
             </div>
           )} */}
             {showBriefflag && (
-               <Briefwahlsearch stateParam={stateParam} />
+              <Briefwahlsearch stateParam={stateParam} />
               //<Briefwahl2021 />
             )}
           </div>

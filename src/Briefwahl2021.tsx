@@ -562,24 +562,18 @@ const Briefwahl2021 = () => {
             <div className="col-lg-12">
               <div id="BriefwahlTitleDiv">
                 <h1 className="privacypageTitle">Bundestagswahl 2025 - Briefwahl Suchmaschine</h1>
-                <ul className="scrollToBtns">
+                <ul className="HomepageBtns">
                   <li onClick={() => openModalContent("modal2")}>
-                    Anleitung Briefwahl <br />
-                    Bin in Deutschland gemeldet
-                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
-                      <path d="M14.7389 15.2777L15.8066 16.2668L22.9302 8.57225L15.8066 0.879883L14.7389 1.86679L20.2066 7.77225H0.727295V9.22679H20.3418L14.7389 15.2777Z" fill="white" />
-                    </svg> */}
+                    <span className='upperSubText'>Anleitung Briefwahl</span>
+                    <span className='lowerMainText'>Bin in Deutschland gemeldet</span>
                   </li>
                   <li onClick={() => openModalContent("modal1")}>
-                    Anleitung Briefwahl <br />
-                    Nicht mehr in Deutschland gemeldet
-                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="23" height="17" viewBox="0 0 23 17" fill="none">
-                      <path d="M14.7389 15.2777L15.8066 16.2668L22.9302 8.57225L15.8066 0.879883L14.7389 1.86679L20.2066 7.77225H0.727295V9.22679H20.3418L14.7389 15.2777Z" fill="white" />
-                    </svg> */}
+                  <span className='upperSubText'>Anleitung Briefwahl</span>
+                  <span className='lowerMainText'>Nicht mehr in Deutschland gemeldet</span>
                   </li>
                   <li onClick={() => openModalContent("modal3")}>
-                    Anleitung Briefwahl <br />
-                    Wahlunterlagen schnell zurück
+                  <span className='upperSubText'>Anleitung Briefwahl</span>
+                  <span className='lowerMainText'>Wahlunterlagen schnell zurück</span>
                   </li>
                 </ul>
               </div>
