@@ -1148,7 +1148,7 @@ button.ms-Button.ms-Panel-closeButton.ms-PanelAction-close.ms-Button--icon.root-
   display: flex;
   align-items: center;
   width: 100%;
-  color: #005437;
+  color: var(--primary-color);
 }
 .ms-Panel-commands {
   margin: 0;
@@ -1177,7 +1177,7 @@ button {
 }
 
 .toggle-container.toggled {
-  background-color: #005437; /* Green when toggled */
+  background-color: var(--primary-color); /* Green when toggled */
 }
 .NewsCardSection .card .card-body h4.card-title, .EventsCardSection .card .card-body h4.card-title {
   min-height: 80px;
@@ -1250,7 +1250,7 @@ button {
   }
   
   .spfxbreadcrumb li a {
-    color: #005437;
+    color: var(--primary-color);
     display: block;
     background: #dbdbdb;
     text-decoration: none;
@@ -1601,7 +1601,7 @@ span.closePopupBtn {
 }
 
 .BriefwahlInformationPopup .modal-header, .BriefwahlInformationMiniPopup .modal-header  {
-  color: #005437;
+  color: var(--primary-color);
   font-family: 'PTSans';
   font-size: 28px;
   font-style: normal;
@@ -1759,7 +1759,7 @@ ul.HomepageBtns > li {
   align-items: center;
   flex-shrink: 0;
   align-self: stretch;
-  background: #005437;
+  background: var(--primary-color);
   cursor: pointer;
 }
 
