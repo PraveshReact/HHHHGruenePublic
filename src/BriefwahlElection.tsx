@@ -150,8 +150,8 @@ const BriefwahlElection = (props) => {
 
   // Function to check if all fields are filled
   const validateForm = () => {
-    const { FirstName, LastName, Email, acceptPrivacyPolicy } = formData;
-    return FirstName && LastName && Email && isCaptchaValid && acceptPrivacyPolicy;
+    const { FirstName, LastName, Email } = formData;
+    return FirstName && LastName && Email && isCaptchaValid;
   };
 
 
@@ -291,7 +291,6 @@ const BriefwahlElection = (props) => {
                 name="acceptPrivacyPolicy"
                 checked={formData.acceptPrivacyPolicy}
                 onChange={handleChange}
-                required
               />
               <span>Ich will bei Grüne-Weltweit mitmachen. Kontaktiert mich gerne zu Neuigkeiten in meiner Region. (Hinweis zum&nbsp;
                 <a href="/Datenschutz" target="_blank" rel="noopener noreferrer" className="privacy-policy-link">Datenschutz</a>)
