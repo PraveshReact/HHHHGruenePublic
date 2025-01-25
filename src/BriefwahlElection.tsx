@@ -154,10 +154,7 @@ const BriefwahlElection = (props) => {
 
   // Function to check if all fields are filled
   const validateForm = () => {
-    // const errors = {
-    //   acceptPrivacyPolicy: !formData.acceptPrivacyPolicy,
-    // };
-    // setFormErrors(errors);
+
     const { FirstName, LastName, Email, acceptPrivacyPolicy} = formData;
     return FirstName && LastName && Email && isCaptchaValid && acceptPrivacyPolicy;
 
