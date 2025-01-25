@@ -487,7 +487,8 @@ span.text-danger {
   font-size: 0.9em;
   color: #333;
   z-index: 1;
-  width: 250px;
+  width: auto;
+  max-width: 250px;
 }
 
 .infoBox-itemBox-item:hover .zipCodeHover {

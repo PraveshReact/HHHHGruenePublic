@@ -2124,7 +2124,7 @@ input[type=text], select, textarea{
   background-position: top center !important;
 }
 .page-banner {
-  margin-top: 36px;
+  margin-top: 0px;
 }
 
 .header-wrap {
@@ -2166,31 +2166,43 @@ section.footer-widgets-wrap .col:last-child > ul.list-unstyled {
 
 
 @media (min-width: 1280px) and (max-width: 1366px) {
-  /* .Homepage .CustomSearchInputWithBtn {
-      width: 73%;
-  }
-  ul.HomepagestateListbuttonTiles>li{
-      width: 280px;
-  }
-  ul.HomepagestateListbuttonTiles > li.state.states.active.gray{
-      width: 280px;
-  } */
+
 }
 @media (min-width: 1024px) and (max-width: 1280px) {
-  /* .Homepage .CustomSearchInputWithBtn {
-      width: 73%;
-  }
-  ul.HomepagestateListbuttonTiles>li{
-      width: 280px;
-  }
-  ul.HomepagestateListbuttonTiles > li.state.states.active.gray{
-      width: 280px;
-  } */
 }
 @media screen and (max-width: 768px) {
+  .navbar-light div#basic-navbar-nav > .navbar-nav > li.nav-item.dropdown {
+    display: flex
+;
+}
+  .navbar-light div#basic-navbar-nav > .navbar-nav > li.nav-item.dropdown > a {
+    padding: 8px;
+}
+.navbar-light div#basic-navbar-nav > .navbar-nav > li.nav-item > span {
+  top: 0px;
+  bottom: 0;
+  line-height: 40px;
+  left: auto;
+ right: 8px;
+}
+.navbar-light div#basic-navbar-nav > .navbar-nav > li.nav-item.dropdown:hover > a, .navbar-light div#basic-navbar-nav > .navbar-nav > li.nav-item.dropdown:hover >span > svg {
+color: #fff;
+}
+.navbar-light div#basic-navbar-nav > .navbar-nav > li.nav-item.dropdown > .dropdown-menu {
+  top: 43px;
+}
+.navbar-light .navbar-nav li .dropdown-menu-item a.nav-link.dropdown-item{
+  padding: 10px 15px;
+    font-size: 17px;
+}
+.navbar-light .navbar-nav li .dropdown-menu-item a.nav-link.dropdown-item:active{
+background-color: var(--primary-color);
+color: #fff;
+}
   .flex-searchrowWithBtn {
       display: block;
       padding: 0;
+      margin-bottom: 50px;
   }
   .Homepage .CustomSearchInputWithBtn{
       width: 100%;
@@ -2338,6 +2350,10 @@ ul.HomepageBtns > li {
 
 ul.HomepageBtns {
   display: block;
+}
+#page-title.page-title-parallax h1 {
+  font-size: 34px !important;
+  margin-bottom: 0 !important;
 }
 }
 
