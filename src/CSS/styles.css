@@ -2,7 +2,7 @@
 
 #page-title {
     position: relative;
- padding: 19px 0;
+ padding: 29px 0;
     background-color: #F5F5F5;
     border-bottom: 1px solid #EEE;
 }
@@ -80,6 +80,7 @@
     font-size: 44px;
     font-weight: 600;
     color: #fff !important;
+    margin-bottom: 0px !important;
 }
 
 .page-title-parallax {
