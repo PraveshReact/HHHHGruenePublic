@@ -243,7 +243,7 @@ const BriefwahlElection = (props) => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="Country">Ort</label>
+            <label htmlFor="Ort">Ort</label>
             <input
               type="text"
               id="Ort"
@@ -253,8 +253,19 @@ const BriefwahlElection = (props) => {
               className="form-input m-0"
             />
           </div>
+          <div className="input-group">
+            <label htmlFor="Country">Land</label>
+            <input
+              type="text"
+              id="Country"
+              name="Country"
+              value={formData.Country}
+              onChange={handleChange}
+              className="form-input m-0"
+            />
+          </div>
 
-          <div className="input-group position-relative">
+          {/* <div className="input-group position-relative">
             <label htmlFor="Country">Land</label>
            <div className="col-12 "><Autosuggest
               suggestions={getSuggestions(selectedCountry)}
@@ -269,7 +280,7 @@ const BriefwahlElection = (props) => {
               }}
             /></div> 
              {countryError && <small className="text-danger">{countryError}</small>}
-          </div>
+          </div> */}
 
           <div className="input-group">
             <label htmlFor="Comment">Kommentar</label>
