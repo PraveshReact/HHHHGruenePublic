@@ -17,6 +17,9 @@ const BriefwahlElection = (props) => {
   const [countryOptions, setCountryOptions] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryError, setCountryError] = useState("");
+  const [formErrors, setFormErrors]:any = useState({
+    acceptPrivacyPolicy: false,
+  });
   // Function to regenerate CAPTCHA text
   const refreshCaptcha = () => {
     setCaptchaText(generateCaptcha());
@@ -128,6 +131,7 @@ const BriefwahlElection = (props) => {
     SmartId: SmartId != undefined ? SmartId : "",
     SmartTitle: SmartTitle != undefined ? SmartTitle : "",
     acceptPrivacyPolicy: false,
+    subscribeNewsletter: false,
   });
   useEffect(() => {
     setCaptchaText(generateCaptcha());
@@ -150,8 +154,10 @@ const BriefwahlElection = (props) => {
 
   // Function to check if all fields are filled
   const validateForm = () => {
-    const { FirstName, LastName, Email } = formData;
-    return FirstName && LastName && Email && isCaptchaValid;
+
+    const { FirstName, LastName, Email, acceptPrivacyPolicy} = formData;
+    return FirstName && LastName && Email && isCaptchaValid && acceptPrivacyPolicy;
+
   };
 
 
@@ -189,6 +195,7 @@ const BriefwahlElection = (props) => {
         SmartId: SmartId,
         SmartTitle: SmartTitle,
         acceptPrivacyPolicy: false,
+        subscribeNewsletter: false,
       });
       setIsButtonDisabled(true); // Disable the button after submit
     } catch (error) {
@@ -243,7 +250,7 @@ const BriefwahlElection = (props) => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="Country">Ort</label>
+            <label htmlFor="Ort">Ort</label>
             <input
               type="text"
               id="Ort"
@@ -253,8 +260,19 @@ const BriefwahlElection = (props) => {
               className="form-input m-0"
             />
           </div>
+          <div className="input-group">
+            <label htmlFor="Country">Land</label>
+            <input
+              type="text"
+              id="Country"
+              name="Country"
+              value={formData.Country}
+              onChange={handleChange}
+              className="form-input m-0"
+            />
+          </div>
 
-          <div className="input-group position-relative">
+          {/* <div className="input-group position-relative">
             <label htmlFor="Country">Land</label>
            <div className="col-12 "><Autosuggest
               suggestions={getSuggestions(selectedCountry)}
@@ -269,7 +287,7 @@ const BriefwahlElection = (props) => {
               }}
             /></div> 
              {countryError && <small className="text-danger">{countryError}</small>}
-          </div>
+          </div> */}
 
           <div className="input-group">
             <label htmlFor="Comment">Kommentar</label>
@@ -284,12 +302,31 @@ const BriefwahlElection = (props) => {
             />
           </div>
           <div className="checkbox-group">
-            <label className="align-items-baseline checkbox-label gap-1">
+            <label className="checkbox-label gap-1">
               <input
                 className=""
                 type="checkbox"
                 name="acceptPrivacyPolicy"
                 checked={formData.acceptPrivacyPolicy}
+                onChange={handleChange}
+                required
+              />
+              Ich akzeptiere die <span>
+                <a href="/Datenschutz" target="_blank" rel="noopener noreferrer" className="privacy-policy-link">Datenschutzerklärung</a>
+              </span>
+              <span className="text-danger">*</span>
+            </label>
+            {formErrors.acceptPrivacyPolicy && (
+              <span className="error-text">Das ist ein Pflichtfeld.</span>
+            )}
+          </div>
+          <div className="checkbox-group">
+            <label className="align-items-baseline checkbox-label gap-1">
+              <input
+                className=""
+                type="checkbox"
+                name="subscribeNewsletter"
+                checked={formData.subscribeNewsletter}
                 onChange={handleChange}
               />
               <span>Ich will bei Grüne-Weltweit mitmachen. Kontaktiert mich gerne zu Neuigkeiten in meiner Region. (Hinweis zum&nbsp;
