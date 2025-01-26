@@ -544,7 +544,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                       >
                         <div className="container  clearfix">
                           <h1 className="nott mb-3" style={{ fontSize: '54px' }}>
-                            <h1>{item?.PageTitle || item?.Title}</h1>
+                           {item?.PageTitle || item?.Title}
                           </h1>
                           {item.ShortDescription ?
                             <div className="SmartPages-Description"><HTMLRenderer content={item?.ShortDescription} /></div> : ""
