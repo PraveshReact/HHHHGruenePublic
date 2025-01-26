@@ -59,7 +59,7 @@ const ContactForm = () => {
       }
 
       // Check if the privacy policy checkbox is checked to enable the button
-      setIsButtonDisabled(!updatedData.acceptPrivacyPolicy);
+      setIsButtonDisabled(!updatedData.acceptPrivacyPolicy && !isCaptchaValid);
 
       return updatedData;
     });
