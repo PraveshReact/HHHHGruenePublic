@@ -134,7 +134,7 @@ const ContactForm = () => {
   return (
     <>
   <Helmet>
-          <title>Gruene Weltweit - Kontakt</title>
+          <title>Grüne weltweit - Kontakt</title>
         </Helmet>
     <div className="contact-form-bg">
       <div className="contact-form-container">
