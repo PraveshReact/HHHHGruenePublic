@@ -50,13 +50,32 @@ export default function RelevantNews(props: any) {
     useEffect(() => {
         getNewsListData();
     }, [])
-
+    const getPublicServerData = async (tableName: string): Promise<any[]> => {
+        try {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          const raw = JSON.stringify({ "table": `${tableName}` });
+          const requestOptions: RequestInit = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+          };
+    
+          const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
+          const result = await response.json();
+          return result?.data || [];
+        } catch (error) {
+          console.error('An error occurred:', error);
+          return [];
+        }
+      };
     const getNewsListData = async () => {
         const tableName = 'Announcements';
         try {
-            const response = await axios.get(`${GetserverUrl}?table=${tableName}`);
+            const response = await getPublicServerData(`${tableName}`);
             // Parse SmartPagesId values from JSON strings to arrays
-            const parsedData = response.data.map((item: any) => {
+            const parsedData = response?.map((item: any) => {
                 let smartPagesIdArray = [];
                 try {
                     // Check if SmartPagesId is a non-empty JSON string

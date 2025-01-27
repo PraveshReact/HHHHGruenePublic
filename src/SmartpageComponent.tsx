@@ -9,7 +9,6 @@ import GrueneWeltweitForm from "./GrueneWeltweitForm";
 import RelevantNews from "./RelevantNews";
 import EventDetail from "./event-detail";
 import RelevantEvent from "./RelevantEvent";
-import { truncate } from "fs/promises";
 import Briefwahlsearch from "./Briefwahlsearch";
 import { useLocation } from 'react-router-dom';
 import { IoCalendarOutline } from "react-icons/io5";
