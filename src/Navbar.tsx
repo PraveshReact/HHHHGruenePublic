@@ -258,7 +258,7 @@ const Navbarcomponent = () => {
               >
                 <img
                   src="https://gruene-weltweit.de/SiteAssets/Gruene_logo.png"
-                  className="logo_image"
+                  alt="Logo of Grüne weltweit, Bundestagswahl 2025 Briefwahl aus dem Ausland" className="logo_image"
                 />
                 <span>GRÜNE WELTWEIT</span>
               </Link>
@@ -267,7 +267,7 @@ const Navbarcomponent = () => {
         </div>
         <Navbar expand="lg">
           <Container>
-            <Navbar.Brand href="/"><img src="https://gruene-weltweit.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
+            <Navbar.Brand href="/"><img alt="Gruene-weltweit logo, Gruene weltweit logo" src="https://gruene-weltweit.de/SiteAssets/nav-logo.png" /></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav">
               <MdMenu className="open" />
               <MdClose className="close" />
