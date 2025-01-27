@@ -475,7 +475,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
   return (
     <>
-      <div className="fixedbreadcrump">
+      {/* <div className="fixedbreadcrump">
         <div className="container">
           <ul className="spfxbreadcrumb m-0 p-0">
             {breadcrumsdata.length > 0 && (
@@ -518,7 +518,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
           </ul>
         </div>
-      </div>
+      </div> */}
 
       <section className='SmartPages '>
 
