@@ -62,7 +62,7 @@ export default function RelevantNews(props: any) {
             redirect: 'follow'
           };
     
-          const response = await fetch("https://gruene-washington.de/SPPublicAPIs/getDataAll.php", requestOptions);
+          const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions);
           const result = await response.json();
           return result?.data || [];
         } catch (error) {
