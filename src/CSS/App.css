@@ -1815,6 +1815,14 @@ ul.react-autosuggest__suggestions-list > li:last-child {
 input.react-autosuggest__input {
   margin: 0;
 }
+
+/* Style for tablets */
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  div#regions_div {
+    display: none;
+}
+}
+
 @media (max-width: 820px) {
   .navbar-brand{
     visibility: hidden;

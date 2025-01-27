@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../src/CSS/ContactForm.css'; // Import the CSS file for styling
 import '../src/CSS/ButtonStyle.css';
 import AlertPopup from './AlertPopup';
-
+import { Helmet } from 'react-helmet';
 const ContactForm = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -20,7 +20,7 @@ const ContactForm = () => {
   const [captchaText, setCaptchaText] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [formErrors, setFormErrors]:any = useState({
+  const [formErrors, setFormErrors]: any = useState({
     email: false,
     acceptPrivacyPolicy: false,
   });
@@ -132,6 +132,10 @@ const ContactForm = () => {
     setIsCaptchaValid(false);
   };
   return (
+    <>
+  <Helmet>
+          <title>Gruene Weltweit - Kontakt</title>
+        </Helmet>
     <div className="contact-form-bg">
       <div className="contact-form-container">
         <h2 className="contact-form-title">Kontakt</h2>
@@ -268,6 +272,7 @@ const ContactForm = () => {
         {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
       </div>
     </div>
+    </>
   );
 };
 

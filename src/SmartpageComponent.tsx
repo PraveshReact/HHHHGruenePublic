@@ -18,6 +18,7 @@ import NewsHome from "./NewsHome";
 import EventHomemainPage from "./EventHome";
 import ContactForm from "./ContactForm";
 import BriefwahlElection from "./BriefwahlElection";
+import { Helmet } from 'react-helmet';
 let FlagSmartPage = false
 //let showBriefflag = false;
 let stateParam: any;
@@ -38,6 +39,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
   const KeyTitleFilterKeyTitle = 'https://eventservers.onrender.com/api/getFilterKeyTitle'
   const location = useLocation();
   const { item } = location.state || {};
+  const pageUrl = window?.location?.pathname?.split('/')[1]
 
   useEffect(() => {
     // Ensure stateParam is scoped inside the effect
@@ -475,6 +477,9 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
   return (
     <>
+     <Helmet>
+        <title>Gruene Weltweit - {pageUrl}</title>
+      </Helmet>
       {/* <div className="fixedbreadcrump">
         <div className="container">
           <ul className="spfxbreadcrumb m-0 p-0">
@@ -518,7 +523,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
 
           </ul>
         </div>
-      </div> */}
+      </div>  */}
 
       <section className='SmartPages '>
 
