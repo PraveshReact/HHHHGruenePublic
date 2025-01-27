@@ -249,7 +249,7 @@ const Briefwahl2021 = () => {
       setShowModal2(true);
     else
       setShowModal1(true);
-    
+
   };
   const cancelbox = () => {
     setShowModal(false);
@@ -551,9 +551,9 @@ const Briefwahl2021 = () => {
 
   return (
     <>
-     <Helmet>
-     <title>Gruene Weltweit - Bundestagswahl 2025</title>
-          </Helmet>
+      <Helmet>
+        <title>Gruene Weltweit - Bundestagswahl 2025</title>
+      </Helmet>
       <div
         style={{
           position: "relative", // Positioning for overlay
@@ -572,12 +572,12 @@ const Briefwahl2021 = () => {
                     <span className='lowerMainText'>Bin in Deutschland gemeldet</span>
                   </li>
                   <li onClick={() => openModalContent("modal1")}>
-                  <span className='upperSubText'>Anleitung Briefwahl</span>
-                  <span className='lowerMainText'>Nicht mehr in Deutschland gemeldet</span>
+                    <span className='upperSubText'>Anleitung Briefwahl</span>
+                    <span className='lowerMainText'>Nicht mehr in Deutschland gemeldet</span>
                   </li>
                   <li onClick={() => openModalContent("modal3")}>
-                  <span className='upperSubText'>Anleitung Briefwahl</span>
-                  <span className='lowerMainText'>Wahlunterlagen schnell zurück</span>
+                    <span className='upperSubText'>Anleitung Briefwahl</span>
+                    <span className='lowerMainText'>Wahlunterlagen schnell zurück</span>
                   </li>
                 </ul>
               </div>
