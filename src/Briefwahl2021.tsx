@@ -12,6 +12,7 @@ import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import axios from 'axios';
 import AlertPopup from './AlertPopup';
 import { FaCopy } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
 let filteredItemsBackup: any = []
@@ -550,6 +551,9 @@ const Briefwahl2021 = () => {
 
   return (
     <>
+     <Helmet>
+     <title>Gruene Weltweit - Bundestagswahl 2025</title>
+          </Helmet>
       <div
         style={{
           position: "relative", // Positioning for overlay
