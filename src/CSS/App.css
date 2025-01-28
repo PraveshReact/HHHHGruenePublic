@@ -972,18 +972,14 @@ color: var(--text-color)!important;
   color: var(--primary-color) !important;
 }
 
-/* .navbar-light .navbar-nav > .nav-item span {
-  position: relative;
-  top: 5px;
-  left: 0px;
-} */
-/* .navbar-light .navbar-nav > .nav-item {
-  display: flex;
+.nav-link:focus-visible, .nav-link:focus, .nav-link:hover {
+  box-shadow: none;
+  outline: 0;
 }
-.navbar-nav > li.nav-item.dropdown > .dropdown-menu
-{
-  top: 24px;
-} */
+.dropdown-item.active, .dropdown-item:active {
+  background: var(--primary-color);
+  color: #ffffff !important;
+}
 .navbar-toggler.collapsed > .close, .navbar-toggler:not(.collapsed) > .open {
   display: none;
 }
@@ -1815,6 +1811,9 @@ ul.react-autosuggest__suggestions-list > li:last-child {
 input.react-autosuggest__input {
   margin: 0;
 }
+#BriefwahlTitleDiv {
+  margin: 2rem auto;
+}
 @media only screen and (max-width: 1199px) and (min-width: 992px) {
   .Homepage {
     width: 100%;
@@ -2229,13 +2228,6 @@ section.footer-widgets-wrap .col:last-child > ul.list-unstyled {
 }
 }
 
-
-
-@media (min-width: 1280px) and (max-width: 1366px) {
-
-}
-@media (min-width: 1024px) and (max-width: 1280px) {
-}
 @media screen and (max-width: 768px) {
   .nav-link:focus-visible{
     box-shadow: none;
@@ -2440,6 +2432,9 @@ section.SmartPages .row > .col-3 {
 }
 input[type=text], input[type=email], input[type=LinkOnlineFormular], select, textarea {
   height: 44px;
+}
+#BriefwahlTitleDiv {
+  margin: 1rem auto;
 }
 }
 @media screen and (max-width: 600px) and (min-width: 360px) {
