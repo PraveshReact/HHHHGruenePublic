@@ -922,29 +922,6 @@ padding: 6px 10px 5px 3px
   top: 8px;
   right: 8px;
 }
-/* .shorticon {
-position: absolute;
-top: 5px;
-right: 5px;
-} */
-/* 
-.teamIcon {
-border: 2px solid #918d8d;
-margin: 0px 2px;
-padding: 1px;
-position: relative;
-top: 0px;
-}
-
-.teamIcon .svg__icon--team {
-width: 20px;
-height: 14px;
-padding: 0px;
-position: relative;
-top: 2px;
-margin: 0px;
-background: var(--SiteBlue);
-} */
 
 .crossBtn {
   cursor: pointer;

@@ -735,8 +735,8 @@ const Briefwahl2021 = () => {
               <div id='regions_div' className='left-map-section'>
                 <div id="chart-wrapper">
                   <Chart
-                    width="100%"
-                    height="520px"
+                    // width="100%"
+                    // height="520px"
                     chartType="GeoChart"
                     data={data}
                     options={options}
@@ -750,7 +750,7 @@ const Briefwahl2021 = () => {
                 </div>
               </div>
               <div className='right-tile-section'>
-                <ul className='mb-5 HomepagestateListTiles'>
+                <ul className='HomepagestateListTiles'>
                   {StateDataArray.map((item, index) => (
                     item.Title.toLowerCase() !== 'deutschlandweit' && (
                       <li
@@ -767,7 +767,7 @@ const Briefwahl2021 = () => {
               </div>
 
               {/* <div className='right-tile-section'>
-              <ul className='mb-5 HomepagestateListTiles'>
+              <ul className='HomepagestateListTiles'>
                 {StateDataArray.map((item: any, index: any) => (
                   <li key={index} onClick={() => ChangeTile(item.Title)} className={index == 0 ? SelectedTile === item.Title ? "state active" : "state" : SelectedTile === item.Title ? 'states active' : "states"}>
                     <img src={item.src} alt={item.Title} className="stateLogo" />

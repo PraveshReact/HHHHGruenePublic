@@ -195,15 +195,16 @@ const Navbarcomponent = () => {
         className="nav-link"
       >
         {item?.Title}
-      </Link>
-
-      {item.children.length > 0 && (
-        <span onClick={toggleDropdown}>
+        {item.children.length > 0 && (
+        <span className="ml-auto" onClick={toggleDropdown}>
           <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
             <path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="48" d="m112 184 144 144 144-144"></path>
           </svg>
         </span>
       )}
+      </Link>
+
+     
 
       {item.children.length > 0 && (
         <div className="dropdown-menu dropdown-menu-level-0">
