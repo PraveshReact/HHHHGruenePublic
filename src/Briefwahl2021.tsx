@@ -561,7 +561,7 @@ const Briefwahl2021 = () => {
           opacity: isLoading ? 0.6 : 1, // Dim the content slightly
         }}
       >
-        <div className={filteredItems.length > 0 ? "container fgjj" : "container abc"} >
+        <div className={filteredItems.length > 0 ? "container" : "container"} >
           <section className="section  Briefwahl2021">
             <div className="col-lg-12">
               <div id="BriefwahlTitleDiv">
