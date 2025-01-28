@@ -138,7 +138,6 @@ export default function RelevantEvent(props: any) {
     return (
         <>
             {allEvents && allEvents?.length > 0 && (
-                <div className="container">
                     <div className="panel panel-default">
                         <div className="panel-heading">Relevant Events</div>
                         {allEvents?.map((event: any) => (
@@ -156,7 +155,6 @@ export default function RelevantEvent(props: any) {
                             </div>
                         ))}
                     </div>
-                </div>
             )}
             {selectedEvent && (
                 <EventPanel selectedEvent={selectedEvent} onClose={closePanel} url={url} />

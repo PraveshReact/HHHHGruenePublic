@@ -2363,6 +2363,17 @@ ul.HomepageBtns {
   font-size: 34px !important;
   margin-bottom: 0 !important;
 }
+section.SmartPages .smartpageContent {
+  display: block;
+}
+
+section.SmartPages .row > .col-9 {
+  width: 100%;
+}
+
+section.SmartPages .row > .col-3 {
+  width: 100%;
+}
 }
 
 .loader {

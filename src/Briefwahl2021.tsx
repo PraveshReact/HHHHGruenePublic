@@ -607,7 +607,7 @@ const Briefwahl2021 = () => {
                   </span>
                   <span className="SearchInputFieldstateLogo">
                     {ChangeStateDataArrayIcon.map((item: any, index: any) => (
-                      <img src={item.src} alt={item.Title} />
+                      <img src={item.src} alt={`Flag of ${item.Title}`} />
                     ))}
                   </span>
 
@@ -723,7 +723,7 @@ const Briefwahl2021 = () => {
 
                       return (
                         <li key={index} onClick={() => ChangeTile(item.Title, 'All')} className={className}>
-                          <img src={item.src} alt={item.Title} className="stateLogo" />
+                          <img src={item.src} alt={`Flag of ${item.Title}`} className="stateLogo" />
                           <span className="stateName">{item.Title}</span>
                         </li>
                       );
@@ -758,7 +758,7 @@ const Briefwahl2021 = () => {
                         onClick={() => ChangeTile(item.Title, '')}
                         className={index === 0 ? (SelectedTile === item.Title ? "state active" : "state") : (SelectedTile === item.Title ? 'states active' : "states")}
                       >
-                        <img src={item.src} alt={item.Title} className="stateLogo" />
+                        <img src={item.src} alt={`Flag of ${item.Title}`} className="stateLogo" />
                         <span className='stateName'>{item.Title}</span>
                       </li>
                     )

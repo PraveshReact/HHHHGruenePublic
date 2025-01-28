@@ -121,7 +121,6 @@ export default function RelevantNews(props: any) {
     return (
         <>
             {allAnnouncements && allAnnouncements?.length > 0 && (
-                <div className="container">
                     <div className="panel panel-default">
                         <div className="panel-heading">Relevant News</div>
                         {allAnnouncements?.map((news: any) => (
@@ -136,7 +135,6 @@ export default function RelevantNews(props: any) {
                             </div>
                         ))}
                     </div>
-                </div>
             )}
             {selectedNews && (
                 <NewsPanel selectedNews={selectedNews} onClose={closePanel} url={url} />

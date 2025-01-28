@@ -556,7 +556,7 @@ const SmartpageComponent = ({ clickedTitle }: any) => {
                         </div>
                       </section>
                       <section className="section py-3 container">
-                        <div className="row">
+                        <div className="smartpageContent row">
                           <div className={!Showwebpart ? "col-12" : "col-9"}>
                             <HTMLRenderer content={item.PageContentProfile} />
                             {item.KeyTitle == "Grüne-Weltweit" ? (<GrueneWeltweitForm />) : ''}
