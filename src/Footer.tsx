@@ -9,7 +9,7 @@ const Footer = () => {
   const [data, setData] = useState<any>([]);
   const GetserverUrl = 'https://eventservers.onrender.com/api/getData';
   const organizeData = (rawData: any) => {
-    const parents = rawData.filter((item: any) => !item.ParentId);
+    const parents = rawData.filter((item: any) => !item.ParentId || item.ParentId == 0);
     return parents.map((parent: any) => ({
       ...parent,
       children: rawData.filter((child: any) => child.ParentId === parent.id)
