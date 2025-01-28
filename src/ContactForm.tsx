@@ -139,7 +139,7 @@ const ContactForm = () => {
     <div className="contact-form-bg">
       <div className="contact-form-container">
         <h2 className="contact-form-title">Kontakt</h2>
-        <form className="contact-form">
+        <form className="contact-form"  name="KonaktForm">
           <div className="input-group">
             <label htmlFor="email">
               E-Mail<span className="text-danger">*</span>

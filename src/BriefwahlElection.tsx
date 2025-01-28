@@ -123,6 +123,8 @@ const BriefwahlElection = (props) => {
     Email: "",
     Ort: "",
     Country: "",
+    JobTitle: "",
+    Membership: "",
     Comment: "",
     Created: new Date()
       .toISOString()
@@ -187,6 +189,8 @@ const BriefwahlElection = (props) => {
         Email: "",
         Ort: "",
         Country: "",
+        JobTitle: "",
+        Membership: "",
         Comment: "",
         Created: new Date()
           .toISOString()
@@ -213,8 +217,9 @@ const BriefwahlElection = (props) => {
     <div className="contact-form-bg">
       <div className="contact-form-container">
         {/* <h2 className="contact-form-title">Wahlkampf-aus-der-Ferne</h2> */}
-        <form className="contact-form">
-          <div className="input-group">
+        <form className="contact-form" name="AboutForm">
+          <div className="row">
+            <div className="col-md-6 col-sm-12 mb-3">
             <label htmlFor="FirstName">Vorname<span className="text-danger">*</span></label>
             <input
               type="text"
@@ -224,9 +229,8 @@ const BriefwahlElection = (props) => {
               onChange={handleChange}
               className="form-input m-0"
             />
-          </div>
-
-          <div className="input-group">
+            </div>
+            <div className="col-md-6 col-sm-12 mb-3">
             <label htmlFor="LastName">Nachname<span className="text-danger">*</span></label>
             <input
               type="text"
@@ -236,8 +240,9 @@ const BriefwahlElection = (props) => {
               onChange={handleChange}
               className="form-input m-0"
             />
-          </div>
-          <div className="input-group">
+              </div>
+      
+          <div className="col-12 mb-3">
             <label htmlFor="Email">Email<span className="text-danger">*</span></label>
             <input
               type="text"
@@ -248,8 +253,9 @@ const BriefwahlElection = (props) => {
               className="form-input m-0"
             />
           </div>
-
-          <div className="input-group">
+          
+          
+          <div className="col-6 mb-3">
             <label htmlFor="Ort">Ort</label>
             <input
               type="text"
@@ -260,7 +266,8 @@ const BriefwahlElection = (props) => {
               className="form-input m-0"
             />
           </div>
-          <div className="input-group">
+          
+          <div className="col-6 mb-3">
             <label htmlFor="Country">Land</label>
             <input
               type="text"
@@ -271,7 +278,29 @@ const BriefwahlElection = (props) => {
               className="form-input m-0"
             />
           </div>
-
+          
+          <div className="col-12 mb-3">
+            <label htmlFor="JobTitle">Job-Titel</label>
+            <input
+              type="text"
+              id="JobTitle"
+              name="JobTitle"
+              value={formData.JobTitle}
+              onChange={handleChange}
+              className="form-input m-0"
+            />
+          </div>
+          <div className="col-12 mb-3">
+            <label htmlFor="Membership">Kreisverband - falls Mitglied bei Bündnis90/ Die Grünen</label>
+            <input
+              type="text"
+              id="Membership"
+              name="Membership"
+              value={formData.Membership}
+              onChange={handleChange}
+              className="form-input m-0"
+            />
+          </div>
           {/* <div className="input-group position-relative">
             <label htmlFor="Country">Land</label>
            <div className="col-12 "><Autosuggest
@@ -289,7 +318,7 @@ const BriefwahlElection = (props) => {
              {countryError && <small className="text-danger">{countryError}</small>}
           </div> */}
 
-          <div className="input-group">
+          <div className="col-12 mb-3">
             <label htmlFor="Comment">Kommentar</label>
             <textarea
               id="Comment"
@@ -373,6 +402,7 @@ const BriefwahlElection = (props) => {
           >
             Absenden
           </button>
+          </div>
         </form>
       </div>
       {showAlert && (

@@ -243,7 +243,7 @@ const NewsHomemainPage = (props: any) => {
     return (
         <>
             <div className="container pt-2">
-                <header className='page-header text-center'><h1 className='page-title'>OV Washington News</h1></header>
+                <header className='page-header text-center'><h1 className='page-title'>Weltweit News</h1></header>
                 <div className="align-item-center align-items-baseline d-flex fs-6 gap-2 mb-4 searchFilter">
                     {/* <span>Search in all News Data:</span> */}
                     <div className="col position-relative">
