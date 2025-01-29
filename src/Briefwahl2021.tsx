@@ -70,15 +70,56 @@ const Briefwahl2021 = () => {
     const subject = `Antrag Briefwahl - Wahlkreis ${selectedItem?.Wahlkreis} - ${selectedItem?.WKName}`;
     return `mailto:${selectedItem?.Email}?subject=${encodeURIComponent(subject)}`;
   };
+  const getPublicServerData = async (tableName: any, id: any) => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
+      const raw = JSON.stringify({
+        "table": tableName,
+        "id": id
+      });
+      console.log(raw, "rawrawrawraw")
+
+      const requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      const response = await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataById.php", requestOptions);
+      const result = await response.json();
+      console.log(result, "resultresultresultresult")
+      // Filter the results to match the specific KeyTitle
+      const itemData = result?.data?.id != undefined ? [result?.data] : [];
+      return itemData;
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return [];
+    }
+  }
   const handleSubmit = async () => {
+    const Itemresponse = await getPublicServerData('BriefwahlFeedback', selectedItem?.id)
     try {
       try {
-        const postDataArray = [{ id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" } }];
+        const postDataArray = [{
+          id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Created: new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace("T", " "),
+        }];
+        const updatepostDataArray = [{
+          id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Modified: new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace("T", " "),
+        }];
         const postData = {
-          data: postDataArray,
+          
+          data: Itemresponse != undefined && Itemresponse != null && Itemresponse.length > 0 ? updatepostDataArray : postDataArray,
           tableName: 'BriefwahlFeedback',
-          ApiType: 'postData'
+          ApiType: Itemresponse != undefined && Itemresponse != null && Itemresponse.length > 0 ? 'updateData' : 'postData'
         };
         const response = await axios.post('https://gruene-weltweit.de/SPPublicAPIs/createTableColumns.php', postData);
         if (response.status === 200) {
