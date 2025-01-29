@@ -5,6 +5,7 @@ import { Chart } from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import { Panel, PanelType } from "@fluentui/react";
 import yellowdot from '../src/images/yellowdot.png';
+import KatharinaBeck from '../src/images/KatharinaBeck-Potrait.png';
 import BriefwahlPopup from './BriefwahlPopup';
 import FeedBackForm from './FeedBackForm';
 import App from './App';
@@ -799,7 +800,7 @@ const Briefwahl2021 = () => {
                         backgroundColor: 'white',
                         borderRadius: '4px',
                         width: '100%',
-                        maxWidth: '600px',
+                        maxWidth: '620px',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '20px',
@@ -863,6 +864,7 @@ const Briefwahl2021 = () => {
                               </span>
                             </div>
                           </div>
+
                           {/* <div className='infoBox'>
                           <div className='col'>
                             
@@ -965,6 +967,23 @@ const Briefwahl2021 = () => {
                               <a className='breakURLLink text-bold' href={selectedItem?.LinkBundestag} target="_blank" rel="noopener noreferrer">{selectedItem?.LinkBundestag}</a>
                             </div>
                           </div>
+                          <details>
+    <summary><a> <span>Unsere Direktkanditat*in im Wahlkreis</span> </a>
+            </summary>
+    <div className="expand-AccordionContent clearfix">
+   <div className="userDetails">
+    <img className='userImg' src={KatharinaBeck} />
+    <div className='userDescription'> 
+      <span className='userName'>Katharina Beck</span>
+      <a className='userURL' href='https://katharina-beck.de/' target="_blank" rel="noopener noreferrer">https://katharina-beck.de/</a>
+    </div>
+   </div>
+    </div>
+</details>
+
+
+
+
                           {isExpanded && (
                             <>
 

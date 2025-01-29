@@ -394,7 +394,15 @@ div#box1content span.flex-step {
 div#box1content span.flex-steps-icon, div#box1content span.flex-steps-icon>svg {
   width: 32px;
   height: 32px;
+  background: var(--primary-color);
+  border-radius: 12rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
 }
+
 .flex-20-text {
   color: #333;
   font-size: 18px;
