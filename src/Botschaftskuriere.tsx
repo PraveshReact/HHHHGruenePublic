@@ -65,17 +65,17 @@ const Botschaftskuriere = (props: any) => {
                 size: 1,
                 id: 'Id',
             },
-            {
-                accessorKey: "Title",
-                placeholder: "Botschaft",
-                header: "",
-                id: "Title", size: 200,
-                cell: ({ row }: any) => (
-                    <>{row.original.Title}
-                    </>
-                ),
+            // {
+            //     accessorKey: "Title",
+            //     placeholder: "Botschaft",
+            //     header: "",
+            //     id: "Title", size: 200,
+            //     cell: ({ row }: any) => (
+            //         <>{row.original.Title}
+            //         </>
+            //     ),
 
-            },
+            // },
             {
                 accessorKey: "City", placeholder: "Stadt", header: "", id: "City", size: 140,
                 cell: ({ row }: any) => (
