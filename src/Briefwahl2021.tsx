@@ -1039,7 +1039,7 @@ const Briefwahl2021 = () => {
                             </>
                           )}
                           {condidateInfo ? (<details>
-                            <summary ><a> <span>Unsere Direktkanditat*in im Wahlkreis</span> </a>
+                            <summary ><a> <strong>Unsere Direktkanditat*in im Wahlkreis</strong> </a>
                             </summary>
                             <div className="expand-AccordionContent clearfix">
                               <div className="userDetails">
