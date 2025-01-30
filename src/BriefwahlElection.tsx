@@ -393,7 +393,7 @@ const BriefwahlElection = (props) => {
               <small className="text-danger">Captcha ist falsch</small>
             )}
           </div>
-
+          <div className="col-12">
           <button
             type="submit"
             className={`submit-button ${isButtonDisabled ? "disabled" : ""}`}
@@ -402,6 +402,7 @@ const BriefwahlElection = (props) => {
           >
             Absenden
           </button>
+          </div>
           </div>
         </form>
       </div>

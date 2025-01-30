@@ -802,7 +802,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                         placeholder="Search All..."
                         portfolioColor={portfolioColor}
                     />
-                    <span className="svg__iconbox svg__icon--setting" style={{ backgroundColor: `${portfolioColor}` }} onClick={() => setSelectedFilterPanelIsOpen(true)}></span>
+                    {/* <span className="svg__iconbox svg__icon--setting" style={{ backgroundColor: `${portfolioColor}` }} onClick={() => setSelectedFilterPanelIsOpen(true)}></span>
                     <span className='ms-1'>
                         <select style={{ height: "40px", color: `${portfolioColor}` }}
                             className="w80"
@@ -817,7 +817,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                             <option value="ANY">Any Words</option>
                             <option value="EXACT">Exact Phrase</option>
                         </select>
-                    </span>
+                    </span> */}
                 </span>
                 <span className="toolbox">
                     {items.taskProfile != true && items?.showCreationAllButton === true && <>

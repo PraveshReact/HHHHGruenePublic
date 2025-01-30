@@ -5,6 +5,7 @@ import { Chart } from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import { Panel, PanelType } from "@fluentui/react";
 import yellowdot from '../src/images/yellowdot.png';
+import KatharinaBeck from '../src/images/KatharinaBeck-Potrait.png';
 import BriefwahlPopup from './BriefwahlPopup';
 import FeedBackForm from './FeedBackForm';
 import App from './App';
@@ -13,10 +14,12 @@ import axios from 'axios';
 import AlertPopup from './AlertPopup';
 import { FaCopy } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
+import { filterDataByUsingDynamicColumnValue } from './service';
 let backupdata: any = [];
 let BriefwahldataBackup: any = [];
 let filteredItemsBackup: any = []
 let trimmedSearchTerm: any
+let PopuTitle = 'Briefwahl Information'
 const Briefwahl2021 = () => {
   let State: any;
   const [showModal, setShowModal] = useState(false);
@@ -43,11 +46,13 @@ const Briefwahl2021 = () => {
   const [captchaInput, setCaptchaInput] = useState('');
   const [captchaText, setCaptchaText] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [condidateInfo, setCondidateInfo]: any = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
 
   const handleToggleExpand = () => {
+    PopuTitle = 'Briefwahl Feedback'
     setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
   };
 
@@ -116,7 +121,7 @@ const Briefwahl2021 = () => {
             .replace("T", " "),
         }];
         const postData = {
-          
+
           data: Itemresponse != undefined && Itemresponse != null && Itemresponse.length > 0 ? updatepostDataArray : postDataArray,
           tableName: 'BriefwahlFeedback',
           ApiType: Itemresponse != undefined && Itemresponse != null && Itemresponse.length > 0 ? 'updateData' : 'postData'
@@ -153,10 +158,9 @@ const Briefwahl2021 = () => {
     };
   }, []);
   useEffect(() => {
-    getBriefwahldata();
+    getBriefwahldata('Briefwahl');
   }, [])
   const handleMouseOver = (event: any) => {
-
     const target = event.target.closest('path');
     console.log(event)
     if (target && target.getAttribute('stroke') !== '#ffffff' && target.getAttribute('stroke') !== '#dddddd') {
@@ -306,8 +310,7 @@ const Briefwahl2021 = () => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   }
-  const getBriefwahldata = async () => {
-    const tableName = "Briefwahl";
+  const getBriefwahldata = async (tableName) => {
     let allfilterdata: any = []
     try {
       var myHeaders = new Headers();
@@ -367,10 +370,22 @@ const Briefwahl2021 = () => {
       console.error('An error occurred:', error);
     }
   };
+  const getCondidateInfo = async (table: any, column: any, value: any) => {
+    try {
+      const response: any = await filterDataByUsingDynamicColumnValue(table, column, value);
+      if (response != undefined && response != null)
+        setCondidateInfo(response);
+      else
+        setCondidateInfo(null);
+    } catch (error: any) {
+      console.error(error);
+    };
+  };
   const openModal = (item: any) => {
     setSelectedItem(item);
     setIsModalOpen(true);
     setIsCopied(false);
+    getCondidateInfo('WKCandidatesInfo', 'WKNo', item?.Wahlkreis)
   };
 
   // Close modal
@@ -555,6 +570,7 @@ const Briefwahl2021 = () => {
       handleSearch(tile)
     }
     if (trimmedSearchTerm == undefined || trimmedSearchTerm == null || trimmedSearchTerm === '') {
+      setSearchTerm('')
       setFilteredItems([]);  // If search term is empty, clear the results
     } else {
       handleSearch(trimmedSearchTerm)
@@ -602,7 +618,7 @@ const Briefwahl2021 = () => {
           opacity: isLoading ? 0.6 : 1, // Dim the content slightly
         }}
       >
-        <div className={filteredItems.length > 0 ? "container fgjj" : "container abc"} >
+        <div className={filteredItems.length > 0 ? "container" : "container"} >
           <section className="section  Briefwahl2021">
             <div className="col-lg-12">
               <div id="BriefwahlTitleDiv">
@@ -776,8 +792,8 @@ const Briefwahl2021 = () => {
               <div id='regions_div' className='left-map-section'>
                 <div id="chart-wrapper">
                   <Chart
-                    width="100%"
-                    height="520px"
+                    // width="100%"
+                    // height="520px"
                     chartType="GeoChart"
                     data={data}
                     options={options}
@@ -791,7 +807,7 @@ const Briefwahl2021 = () => {
                 </div>
               </div>
               <div className='right-tile-section'>
-                <ul className='mb-5 HomepagestateListTiles'>
+                <ul className='HomepagestateListTiles'>
                   {StateDataArray.map((item, index) => (
                     item.Title.toLowerCase() !== 'deutschlandweit' && (
                       <li
@@ -808,7 +824,7 @@ const Briefwahl2021 = () => {
               </div>
 
               {/* <div className='right-tile-section'>
-              <ul className='mb-5 HomepagestateListTiles'>
+              <ul className='HomepagestateListTiles'>
                 {StateDataArray.map((item: any, index: any) => (
                   <li key={index} onClick={() => ChangeTile(item.Title)} className={index == 0 ? SelectedTile === item.Title ? "state active" : "state" : SelectedTile === item.Title ? 'states active' : "states"}>
                     <img src={item.src} alt={item.Title} className="stateLogo" />
@@ -840,7 +856,7 @@ const Briefwahl2021 = () => {
                         backgroundColor: 'white',
                         borderRadius: '4px',
                         width: '100%',
-                        maxWidth: '600px',
+                        maxWidth: '620px',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '20px',
@@ -862,7 +878,7 @@ const Briefwahl2021 = () => {
                       </button>
                       <div className='BriefwahlInformationPopup'>
                         <div className='modal-header'>
-                          <h3 className='modal-title'>Briefwahl Information - {selectedItem?.Gemeinde}</h3>
+                          <h3 className='modal-title'>{PopuTitle} - {selectedItem?.Gemeinde}</h3>
                           <span className='closePopupBtn' style={{ cursor: 'pointer' }} onClick={closeModal}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg></span>
@@ -904,6 +920,7 @@ const Briefwahl2021 = () => {
                               </span>
                             </div>
                           </div>
+
                           {/* <div className='infoBox'>
                           <div className='col'>
                             
@@ -1008,7 +1025,6 @@ const Briefwahl2021 = () => {
                           </div>
                           {isExpanded && (
                             <>
-
                               <div className='infoBox'>
                                 <div className='col' style={{ width: '100%' }}>
                                   <input className="form-control m-0 rounded-0"
@@ -1022,9 +1038,21 @@ const Briefwahl2021 = () => {
                               </div>
                             </>
                           )}
-                          {/* Expanded fields */}
-
-
+                          {condidateInfo ? (<details>
+                            <summary ><a> <span>Unsere Direktkanditat*in im Wahlkreis</span> </a>
+                            </summary>
+                            <div className="expand-AccordionContent clearfix">
+                              <div className="userDetails">
+                                <img className='userImg' src={condidateInfo.Image} />
+                                <div className='userDescription'>
+                                  <span className='userName'>{condidateInfo.Name}</span>
+                                  <a className='userURL' href={condidateInfo.Link} target="_blank" rel="noopener noreferrer">{condidateInfo.Link}</a>
+                                  {/* <a className='userURL' href='https://katharina-beck.de/' target="_blank" rel="noopener noreferrer">{condidateInfo.Link}</a> */}
+                                </div>
+                              </div>
+                            </div>
+                          </details>) : ("")}
+                         
                         </div>
                         {isExpanded && (
                           <div className='modal-footer'>

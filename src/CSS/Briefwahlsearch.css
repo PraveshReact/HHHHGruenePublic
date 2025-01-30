@@ -141,7 +141,9 @@ ul.stateListTiles > li.active > span.stateName {
 .left-map-section {
     width: 48%;
     float: left;
-    margin-top: 16px;
+    align-content: center;
+  align-items: center;
+  display: flex;
 }
 .right-tile-section { 
     width: 52%;
@@ -154,6 +156,7 @@ ul.stateListTiles > li.active > span.stateName {
     gap: 16px;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 18px;
 }
 .CustomSearchInputTile {
     width: calc(26% - 16px);
@@ -193,7 +196,6 @@ ul.HomepagestateListTiles {
     flex-wrap: wrap;
     gap: 16px;
     padding: 0;
-    margin-top: 16px;
     justify-content: space-around;
 }
 ul.HomepagestateListTiles > li{
