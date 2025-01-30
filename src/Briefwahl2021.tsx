@@ -967,7 +967,7 @@ const Briefwahl2021 = () => {
                               <a className='breakURLLink text-bold' href={selectedItem?.LinkBundestag} target="_blank" rel="noopener noreferrer">{selectedItem?.LinkBundestag}</a>
                             </div>
                           </div>
-                          <details>
+                          {/* <details>
     <summary><a> <span>Unsere Direktkanditat*in im Wahlkreis</span> </a>
             </summary>
     <div className="expand-AccordionContent clearfix">
@@ -979,7 +979,7 @@ const Briefwahl2021 = () => {
     </div>
    </div>
     </div>
-</details>
+</details> */}
 
 
 
