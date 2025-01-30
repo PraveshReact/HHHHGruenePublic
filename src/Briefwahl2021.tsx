@@ -398,6 +398,7 @@ const Briefwahl2021 = () => {
     setIsExpanded(false)
     setEmail('')
     setLinkOnlineFormular('')
+    PopuTitle = 'Briefwahl Information'
   };
   const closeModalinformation = () => {
     setIsModalOpen(false);
@@ -569,7 +570,7 @@ const Briefwahl2021 = () => {
       setSearchTerm(tile);
       handleSearch(tile)
     }
-    if (trimmedSearchTerm == undefined || trimmedSearchTerm == null || trimmedSearchTerm === '') {
+    else if (trimmedSearchTerm == undefined || trimmedSearchTerm == null || trimmedSearchTerm === '') {
       setSearchTerm('')
       setFilteredItems([]);  // If search term is empty, clear the results
     } else {

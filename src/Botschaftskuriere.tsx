@@ -102,14 +102,14 @@ const Botschaftskuriere = (props: any) => {
                 ),
             },
 
-            {
-                accessorKey: "DeadlineTime", placeholder: "Lokale Uhrzeit", header: "", id: "DeadlineTime", size: 280,
-                cell: ({ row }: any) => (
-                    <>
-                        {row?.original?.DeadlineTime}
-                    </>
-                ),
-            },
+            // {
+            //     accessorKey: "DeadlineTime", placeholder: "Lokale Uhrzeit", header: "", id: "DeadlineTime", size: 280,
+            //     cell: ({ row }: any) => (
+            //         <>
+            //             {row?.original?.DeadlineTime}
+            //         </>
+            //     ),
+            // },
 
             {
                 accessorKey: "Link", placeholder: "Mehr Informationen", header: "", id: "Link", size: 435,
