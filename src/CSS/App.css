@@ -909,7 +909,7 @@ color: var(--secondary-color) !important;
 .publicationItem {padding: 10px 20px;border-radius: 3px;background: #ffffff;clear: both;margin-bottom: 20px;}
 .entry-content .Coverimage {width: 20%;height: auto;margin-right: 15px;overflow: hidden;float:left;}
 .entry-content .Coverimage > img.image {width: 100%;height: auto;object-fit: cover;}
-header.page-header {padding: 2em 0;}
+header.page-header {padding: 1.5em 0;}
 h1.page-title {
     color: var(--secondary-color);
 }
@@ -1778,8 +1778,7 @@ input.react-autosuggest__input {margin: 0;}
 .BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails {display: flex;gap: 8px;flex-direction: row;}
 .BriefwahlInformationPopup details[open] .expand-AccordionContent { padding: 0px 12px 12px 12px; background: #F5F5F5;}
 .BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails > img.userImg { width: 40px;height: 48px;border-radius: 8px;object-fit: contain;}
-.BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails > .userDescription {display: flex; flex-direction: column;justify-content: center;gap: 4px;
-}
+.BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails > .userDescription {display: flex; flex-direction: column;justify-content: center;gap: 4px;}
 /************* Table ************/
 .BotschaftskurierePageTable .tbl-headings span.svg__iconbox {
   height: 30px;
@@ -1788,7 +1787,14 @@ input.react-autosuggest__input {margin: 0;}
 .SortingTable.table > tbody tr td, .SortingTable.table > tfoot tr td, .SortingTable.table > thead tr td {
   vertical-align: middle;
   padding: 5px 4px;
-  /* border-top: 1px solid #ccc; */
+  user-select: none;
+}
+.fixed-Header {
+  margin: 0;
+  top: 0 !important;
+  position: sticky;
+  background: var(--white);
+  z-index: 11;
 }
 /*********** page popup content*******************/
 .popup-content-header > .popup-content-header-lowerText {
@@ -1814,6 +1820,7 @@ input.react-autosuggest__input {margin: 0;}
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+  width: 100%;
 }
 
 .popup-content-body > .numberList {
@@ -1846,25 +1853,16 @@ input.react-autosuggest__input {margin: 0;}
   font-weight: 700;
 }
 
-.popup-content-body > ul.GreenDots-List {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  align-self: stretch;
-  padding-left: 0;
-}
+.popup-content-body details {width: 100%; margin-bottom: 10px;box-shadow: none;border-radius: 0;width: 100%;}
+.popup-content-body details summary {background: #f5f5f5;padding: 12px;font-size: 20px;font-style: normal;font-weight: 700;}
+.popup-content-body details summary > a:not([href]):not([class]) {color: #333;}
+.popup-content-body details summary::before {transform: translateY(-71%) rotate(-45deg);border-right: 2px solid #333333;border-bottom: 2px solid #333333;top: 30px;}
+.popup-content-body details[open] .expand-AccordionContent { padding: 0px 12px 12px 12px; background: #F5F5F5;}
+.popup-content-body details[open] .expand-AccordionContent > ul.GreenDots-List {display: flex;flex-direction: column;align-items: flex-start;gap: 12px;padding-left: 1rem;}
+.popup-content-body details[open] .expand-AccordionContent > ul.GreenDots-List > li {list-style: disc;padding-left: 0.5em;font-size: 18px;}
+.popup-content-body details[open] .expand-AccordionContent > ul.GreenDots-List > li::marker {color: var(--primary-color);content: '•';}
 
-.popup-content-body > ul.GreenDots-List > li {
-  list-style: disc;
-  padding-left: 0.5em;
-  position: relative;
-  left: 8px;
-}
-.popup-content-body > ul.GreenDots-List > li::marker {
-  color: var(--primary-color);
-  content: '•';
-}
+
 @media only screen and (max-width: 1199px) and (min-width: 992px) {
   .Homepage {
     width: 100%;
