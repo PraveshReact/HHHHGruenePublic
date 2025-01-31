@@ -13,10 +13,10 @@
 }
 
 .shorticon {
-    line-height: 1.2rem;
+    line-height: 1.1rem;
     position: absolute;
     right: 10px;
-    top: 0px;
+    top: 4px;
 }
 
 .shorticon .downArrow>svg,

@@ -836,6 +836,7 @@ padding: 6px 10px 5px 3px
 
 .SortingTable.table > thead > tr > th {
   position: relative;
+  padding: 0
 }
 
 .scrollbarCustom {

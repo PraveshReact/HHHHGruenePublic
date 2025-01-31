@@ -77,7 +77,7 @@ const Botschaftskuriere = (props: any) => {
 
             // },
             {
-                accessorKey: "City", placeholder: "Stadt", header: "", id: "City", size: 140,
+                accessorKey: "City", placeholder: "Stadt", header: "", id: "City",
                 cell: ({ row }: any) => (
                     <>
                         {row?.original?.City}
@@ -86,7 +86,7 @@ const Botschaftskuriere = (props: any) => {
             },
 
             {
-                accessorKey: "Country", placeholder: "Land", header: "", id: "Country", size: 175,
+                accessorKey: "Country", placeholder: "Land", header: "", id: "Country", size: 155,
                 cell: ({ row }: any) => (
                     <>
                         {row?.original?.Country}
@@ -94,7 +94,7 @@ const Botschaftskuriere = (props: any) => {
                 ),
             },
             {
-                accessorKey: "DeadlineDay", placeholder: "Abgabefrist", header: "", id: "DeadlineDay", size: 280,
+                accessorKey: "DeadlineDay", placeholder: "Abgabefrist", header: "", id: "DeadlineDay", size: 150,
                 cell: ({ row }: any) => (
                     <>
                         {row?.original?.DeadlineDay}
@@ -112,7 +112,7 @@ const Botschaftskuriere = (props: any) => {
             // },
 
             {
-                accessorKey: "Link", placeholder: "Mehr Informationen", header: "", id: "Link", size: 435,
+                accessorKey: "Link", placeholder: "Mehr Informationen", header: "", id: "Link", size: 100,
                 cell: ({ row }: any) => (
                     <>
                         <a target='_blank' href={row?.original?.Link}>{row?.original?.Link}</a>
@@ -120,7 +120,7 @@ const Botschaftskuriere = (props: any) => {
                 ),
             },
             {
-                accessorKey: "Comment", placeholder: "Hinweis", header: "", id: "Comment", size: 435,
+                accessorKey: "Comment", placeholder: "Hinweis", header: "", id: "Comment", size: 80,
                 cell: ({ row }: any) => (
                     <>
                         {row?.original?.Comment}
@@ -137,8 +137,67 @@ const Botschaftskuriere = (props: any) => {
     return (
         <div className="container mb-5">
             <header className="page-header">
-                <h1 className="page-title heading  text-center">Grüne Weltweit Botschaftskuriere</h1>
+                <h1 className="page-title heading text-center">Grüne Weltweit Botschaftskuriere</h1>
             </header>
+            {/* popup content starts */}
+            <div className="popup-content mb-3">
+                <div className="popup-content-header">
+                <span className='popup-content-header-lowerText'>Anleitung</span>
+                <div className="popup-content-header-title">Botschaftskurier in beide Richtungen</div>
+                </div>
+                <div className="popup-content-body">
+                     <div className="numberList">
+                     <strong>So nutzt Du den Kurierservice der Botschaften und Konsulate in beide Richtungen:</strong>
+                        <div className='numberList-item'>
+                            <span className='numberList-item-number'>1</span>
+                            <span className='numberList-item-text'>Prüfe, ob die <strong><a href='https://gruene-weltweit.de/briefwahl/botschaftskuriere' target='_blank'>deutsche Botschaft/ Konsulat</a></strong> in deinem Land mitmacht </span>
+                        </div>
+                        <div className='numberList-item'>
+                            <span className='numberList-item-number'>2</span>
+                            <span className='numberList-item-text'>Fülle das <strong><a href='https://gruene-weltweit.de/Briefwahl' target='_blank'>Briefwahl Online-Formular</a></strong> Deiner Gemeinde aus </span>
+                        </div>
+                        <div className='numberList-item'>
+                            <span className='numberList-item-number'>3</span>
+                            <span className='numberList-item-text'>Gib als Postadresse folgendes an: <br></br>
+                            <div className='numberList-item'>
+                            <span className='numberList-item-number'>Auswärtiges Amt <br></br>
+                            für [Name der Botschaft/Generalkonsulat/Konsulat (Dienstort)]<br></br>
+                            Kurstraße 36<br></br>
+                            10117 Berlin
+                            </span>
+                        </div>
+                        </span>
+                        </div>
+                        <div className='numberList-item'>
+                            <span className='numberList-item-number'>4</span>
+                            <span className='numberList-item-text'>Wähle direkt vor Ort in der Auslandsvertretung mit deinen Unterlagen</span>
+                        </div>
+                        <div className='numberList-item'>
+                            <span className='numberList-item-number'>5</span>
+                            <span className='numberList-item-text'>Die Auslandsvertretung sorgt für die Zustellung der Wahlbriefe in Deutschland</span>
+                        </div>
+                        <div className='numberList-item'>
+                            <span className='numberList-item-number'>6</span>
+                            <span className='numberList-item-text'>Prüfe, ob die  in deinem Land mitmacht </span>
+                        </div>
+                     </div>
+                     <div><p className='m-0'>Grüne weltweit versucht die Informationen aller Auslandsvertretungen auf dieser Seite zusammenzutragen:</p>
+                     <strong><a href='https://gruene-weltweit.de/briefwahl/botschaftskuriere' target='_blank'>https://gruene-weltweit.de/briefwahl/botschaftskuriere</a></strong>
+                     </div>
+                     <ul className='GreenDots-List'>
+                     <strong>Wichtig zu wissen:</strong>
+                    <li>Mit der <a href='https://gruene-weltweit.de/Briefwahl' target='_blank'>Grüne Weltweit Briefwahlsuchmaschine</a> kommst du in drei Klicks zu deinem Briefwahlantrag Online-Formular.</li>
+                    <li>Der Kurier-Service in beide Richtungen kann von allen Wahlberechtigten in Anspruch genommen werden. </li>
+                    <li>Das Zeitfenster für das Abholen und Zurücksenden an der Auslandsvertretung ist sehr kurz (meist zwischen 13. und 18. Februar, variiert je nach Auslandsvertretung). <strong>Stelle sicher, dass du an diesen Tagen zur Auslandsvertretung kommen kannst.</strong></li>
+                    <li>Weitere Informationen gibt es auf der <a href='https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/deutsche-im-ausland.html#d6e90c11-e284-4a14-9484-de8d557a097b' target='_blank'>Seite der Bundeswahlleiterin</a>.</li>
+                    <li>Die Unterlagen können persönlich (Ausweis nicht vergessen!) oder durch eine bevollmächtigte Person abgeholt werden.</li>
+                    <li>in vielen grenznahen EU-Staaten ist der Kurierweg nicht schneller als der reguläre Postweg.</li>
+                    <li>Das Auswärtige Amt übernimmt keinerlei Haftung für verspätet oder nicht eingegangene Wahlunterlagen.</li>
+                     </ul>
+                    </div>
+
+            </div>
+            {/* popup content ends */}
            <div className="BotschaftskurierePageTable border"><GlobalCommanTable columns={columns} data={AllBotschaftskuriere} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div> 
             {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
         </div >

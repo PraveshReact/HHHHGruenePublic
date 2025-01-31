@@ -753,7 +753,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
 
     return (
         <>
-            {showHeader === true && <div className='tbl-headings justify-content-between mb-1 fixed-Header top-0' style={{ background: '#e9e9e9' }}>
+            {showHeader === true && <div className='tbl-headings justify-content-between mb-0 fixed-Header top-0' style={{ background: '#e9e9e9' }}>
                 <span className='leftsec'>
                     {showingAllPortFolioCount === true ? <div className='mb-1'>
                         <label style={{ color: `${portfolioColor}` }}>
