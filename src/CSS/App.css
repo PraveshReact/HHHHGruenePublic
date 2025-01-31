@@ -1215,7 +1215,11 @@ button {
 }
 .SmartPages ul li {
   list-style: disc;
-  /* padding-bottom: 5px; */
+  font-size: 19px;
+  line-height: 1.8rem;
+}
+.SmartPages ol li {
+  padding-bottom: 10px;
   font-size: 19px;
   line-height: 1.8rem;
 }
@@ -1777,8 +1781,9 @@ input.react-autosuggest__input {margin: 0;}
 .BriefwahlInformationPopup details summary::before {transform: translateY(-71%) rotate(-45deg);border-right: 2px solid #333333;border-bottom: 2px solid #333333;top: 28px;}
 .BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails {display: flex;gap: 8px;flex-direction: row;}
 .BriefwahlInformationPopup details[open] .expand-AccordionContent { padding: 0px 12px 12px 12px; background: #F5F5F5;}
-.BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails > img.userImg { width: 40px;height: 48px;border-radius: 8px;object-fit: contain;}
+.BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails > img.userImg { width: 40px;height: 48px;border-radius: 8px;object-fit: cover;}
 .BriefwahlInformationPopup details[open] .expand-AccordionContent > .userDetails > .userDescription {display: flex; flex-direction: column;justify-content: center;gap: 4px;}
+.BriefwahlInformationPopup details[open] .expand-AccordionContent>.userDetails>.userDescription > a.userURL {width: 100%;word-break: break-all;}
 /************* Table ************/
 .BotschaftskurierePageTable .tbl-headings span.svg__iconbox {
   height: 30px;
@@ -1795,6 +1800,11 @@ input.react-autosuggest__input {margin: 0;}
   position: sticky;
   background: var(--white);
   z-index: 11;
+}
+.BotschaftskurierePageTable h4.table-heading {
+  color: #fff;
+  margin-bottom: 0;
+  padding: 8px 10px;
 }
 /*********** page popup content*******************/
 .popup-content-header > .popup-content-header-lowerText {

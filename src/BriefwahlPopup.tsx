@@ -125,7 +125,7 @@ const BriefwahlPopup = (props: any) => {
                             <div className="modal-body">
                                 <span>Die Herausforderung für Deutsche im Ausland bei Wahlen generell und dieser Wahl im Besonderen sind die langen Postlaufzeiten. Grüne-Weltweit gibt Euch ein paar Ideen, was ihr machen könnt, damit die Unterlagen doch rechtzeitig ankommen:</span>
                                 <ul className='numbered-list'>
-                                    <li>Nutzt die Wahlkuriere der deutschen Botschaften</li>
+                                    <li>Nutzt die Wahlkuriere der deutschen Botschaften - <a href='https://gruene-weltweit.de/briefwahl/botschaftskuriere' target='_blank'>jetzt in beide Richtungen möglich!</a></li>
                                     <li>Schließt Euch mit anderen zusammen und verschickt die Unterlagen gemeinsam per Kurierpost</li>
                                     <li>Koordiniert Euch mit anderen Deutschen vor Ort, die vor der Wahl noch nach Deutschland reisen</li>
                                     <li>Wer vor der Wahl nochmals in Deutschland ist, kann im Antrag auf Erteilung eines Wahlscheins auch angeben, die Briefwahlunterlagen direkt beim Wahlamt abzuholen, oder den Antrag persönlich dort stellen. Vor Ort kann man den Stimmzettel ausfüllen und den Wahlbrief direkt abgeben</li>

@@ -136,7 +136,7 @@ const Botschaftskuriere = (props: any) => {
     }
 
     return (
-        <div style={{ userSelect: "none" }} className="container mb-5">
+        <div className="container mb-5">
             <header className="page-header">
                 <h1 className="page-title heading text-center" style={{ display: "none" }}>Grüne Weltweit Botschaftskuriere</h1>
             </header>
@@ -205,7 +205,7 @@ const Botschaftskuriere = (props: any) => {
 
             </div>
             {/* popup content ends */}
-            <div className="BotschaftskurierePageTable border"><GlobalCommanTable columns={columns} data={AllBotschaftskuriere} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
+            <div className="BotschaftskurierePageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} data={AllBotschaftskuriere} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
             {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
         </div >
 
