@@ -884,7 +884,7 @@ const Briefwahl2021 = () => {
                             <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg></span>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body scrollbar maXh-500">
                           <div className='infoBox'>
                             <div className="infoBox-itemBox">
                               <div className='infoBox-itemBox-item'>
