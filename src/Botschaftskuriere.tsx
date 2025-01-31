@@ -186,7 +186,7 @@ const Botschaftskuriere = (props: any) => {
                         <strong><a href='https://gruene-weltweit.de/briefwahl/botschaftskuriere' target='_blank'>https://gruene-weltweit.de/briefwahl/botschaftskuriere</a></strong>
                     </div> */}
 
-                    <details>
+                    <details open>
                         <summary><a> <span>Wichtig zu wissen</span></a></summary>
                         <div className="expand-AccordionContent clearfix">
                         <ul className='GreenDots-List'>
