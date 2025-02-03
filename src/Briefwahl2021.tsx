@@ -38,6 +38,8 @@ const Briefwahl2021 = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [Email, setEmail] = useState('');
   const [LinkOnlineFormular, setLinkOnlineFormular] = useState('');
+  const [CondidateName, setCondidateName] = useState('');
+  const [CondidateLink, setCondidateLink] = useState('');
   const [Iscolor, setIscolor] = useState('Green');
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -128,10 +130,56 @@ const Briefwahl2021 = () => {
         };
         const response = await axios.post('https://gruene-weltweit.de/SPPublicAPIs/createTableColumns.php', postData);
         if (response.status === 200) {
+          if ((CondidateLink != null && CondidateLink != undefined && CondidateLink != "") || (CondidateName != null && CondidateName != undefined && CondidateName != "")) {
+            WKCondidateSubmit()
+          } else {
+            setAlertMessage('Vielen Dank für Deine Hilfe!');
+            setShowAlert(true)
+            setEmail('')
+            setLinkOnlineFormular('')
+          }
+        } else {
+          console.error('Error sending data to server:', response.statusText);
+        }
+
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+    closeModal();
+  };
+  const WKCondidateSubmit = async () => {
+    const Itemresponse = await getPublicServerData('WKCandidatesInfoFeedback', condidateInfo?.id)
+    try {
+      try {
+        const postDataArray = [{
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Created: new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace("T", " "),
+        }];
+        const updatepostDataArray = [{
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Modified: new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace("T", " "),
+        }];
+        const postData = {
+
+          data: Itemresponse != undefined && Itemresponse != null && Itemresponse.length > 0 ? updatepostDataArray : postDataArray,
+          tableName: 'WKCandidatesInfoFeedback',
+          ApiType: Itemresponse != undefined && Itemresponse != null && Itemresponse.length > 0 ? 'updateData' : 'postData'
+        };
+        const response = await axios.post('https://gruene-weltweit.de/SPPublicAPIs/createTableColumns.php', postData);
+        if (response.status === 200) {
+
           setAlertMessage('Vielen Dank für Deine Hilfe!');
           setShowAlert(true)
-          setEmail('')
-          setLinkOnlineFormular('')
+          setCondidateName('')
+          setCondidateLink('')
         } else {
           console.error('Error sending data to server:', response.statusText);
         }
@@ -884,7 +932,7 @@ const Briefwahl2021 = () => {
                             <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg></span>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body scrollbar maXh-500">
                           <div className='infoBox'>
                             <div className="infoBox-itemBox">
                               <div className='infoBox-itemBox-item'>
@@ -1053,7 +1101,25 @@ const Briefwahl2021 = () => {
                               </div>
                             </div>
                           </details>) : ("")}
-                         
+                          {isExpanded && <><div className='infoBox'>
+                            <div className='col' style={{ width: '100%' }}>
+                              <input className="form-control m-0 rounded-0"
+                                type="text"
+                                value={CondidateName}
+                                onChange={(e) => setCondidateName(e.target.value)}
+                                placeholder="Richtige Name melden:"
+                                style={{ width: '100%' }} />
+                            </div>
+                          </div><div className='infoBox'>
+                              <div className='col' style={{ width: '100%' }}>
+                                <input className="form-control m-0 rounded-0"
+                                  type="CondidateLink"
+                                  value={CondidateLink}
+                                  onChange={(e) => setCondidateLink(e.target.value)}
+                                  placeholder="Richtigen Link melden:"
+                                  style={{ width: '100%' }} />
+                              </div>
+                            </div></>}
                         </div>
                         {isExpanded && (
                           <div className='modal-footer'>

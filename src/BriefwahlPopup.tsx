@@ -91,18 +91,22 @@ const BriefwahlPopup = (props: any) => {
                                     <span>Wer nicht mehr in Deutschland gemeldet ist muss den Eintrag ins Wähler*innenverzeichnis beantragen. Zuständig ist die Gemeinde, bei der man zuletzt gemeldet war.</span>
                                 </div>
                                 <div className="links">
-                                    <a className="linkWithText" href="https://www.gruene-weltweit.de/Briefwahl" target="_blank">
+                                    <strong>Antrag als Download:</strong>
+                                    {/* <a className="linkWithText text-dark">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.5L21.25 20.5H2.75L12 4.5ZM4.62748 19.4272H19.3725L12 6.67465L4.62748 19.4272ZM11.4532 15.8868V11.3807H12.5468V15.8868H11.4532ZM11.4532 17.8179V16.9596H12.5468V17.8179H11.4532Z" fill="#333333" />
-                                        </svg>Muss bei jeder Wahl neu gemacht werden!</a>
-                                    <a className="linkWithText" target="_blank" href="https://www.bundeswahlleiterin.de/dam/jcr/dc589523-d709-4c43-adbc-9342dda468ad/bwo_anlage-2_ausfuellbar.pdf"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                        </svg>Muss bei jeder Wahl neu gemacht werden!</a> */}
+                                    <a className="linkWithText text-dark" target="_blank" href="https://www.bundeswahlleiterin.de/dam/jcr/dc589523-d709-4c43-adbc-9342dda468ad/bwo_anlage-2_ausfuellbar.pdf"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.999 16.5629L17.1729 11.2966L16.3419 10.4458L12.591 14.1742V5H11.4095V14.2065L7.67635 10.4073L6.8297 11.3013L11.999 16.5629ZM4 20V16.2675H5.209V18.7237H18.7871V16.2675H20V19.9768L4 20Z" fill="#333333" />
-                                    </svg>
-                                        Der Antrag als Download
+                                    </svg>Variante 1: frühere Wohnung / früherer gewöhnlicher Aufenthalt in Deutschland 
+                                    </a>
+                                    <a className="linkWithText text-dark" target="_blank" href="https://www.bundeswahlleiterin.de/dam/jcr/af77d699-761b-4ff1-9c8b-1cdeb864818c/bwo_anlage-2a_ausfuellbar.pdf"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.999 16.5629L17.1729 11.2966L16.3419 10.4458L12.591 14.1742V5H11.4095V14.2065L7.67635 10.4073L6.8297 11.3013L11.999 16.5629ZM4 20V16.2675H5.209V18.7237H18.7871V16.2675H20V19.9768L4 20Z" fill="#333333" />
+                                    </svg>Variante 2 (nur postalisch einreichbar!): Vertrautheit mit den politischen Verhältnissen
                                     </a>
                                 </div>
                                 <div className="flex-12">
-                                    <span>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde postalisch im Original oder neu per Fax, <a target="_blank" href="https://gruene-weltweit.de/Briefwahl">E-Mail</a></span>
+                                    <span>Zu schicken an: die für die letzte Meldeadresse zuständige Behörde postalisch im Original oder neu nur für Variante 1 per Fax, <a target="_blank" href="https://gruene-weltweit.de/Briefwahl">E-Mail</a></span>
                                     <span className='text-danger'>Frist: Sonntag, 2. Februar 2025 (Eingangsdatum bei der Behörde)</span>
                                     <span>Mit dem Eintrag werden die Briefwahlunterlagen automatisch mitbeantragt.</span>
                                     <a target="_blank" href="https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/deutsche-im-ausland.html">Weitere Informationen: Bundeswahlleiterin - Deutsche im Ausland</a>
@@ -121,7 +125,7 @@ const BriefwahlPopup = (props: any) => {
                             <div className="modal-body">
                                 <span>Die Herausforderung für Deutsche im Ausland bei Wahlen generell und dieser Wahl im Besonderen sind die langen Postlaufzeiten. Grüne-Weltweit gibt Euch ein paar Ideen, was ihr machen könnt, damit die Unterlagen doch rechtzeitig ankommen:</span>
                                 <ul className='numbered-list'>
-                                    <li>Nutzt die Wahlkuriere der deutschen Botschaften</li>
+                                    <li>Nutzt die Wahlkuriere der deutschen Botschaften - <a href='https://gruene-weltweit.de/briefwahl/botschaftskuriere' target='_blank'>jetzt in beide Richtungen möglich!</a></li>
                                     <li>Schließt Euch mit anderen zusammen und verschickt die Unterlagen gemeinsam per Kurierpost</li>
                                     <li>Koordiniert Euch mit anderen Deutschen vor Ort, die vor der Wahl noch nach Deutschland reisen</li>
                                     <li>Wer vor der Wahl nochmals in Deutschland ist, kann im Antrag auf Erteilung eines Wahlscheins auch angeben, die Briefwahlunterlagen direkt beim Wahlamt abzuholen, oder den Antrag persönlich dort stellen. Vor Ort kann man den Stimmzettel ausfüllen und den Wahlbrief direkt abgeben</li>

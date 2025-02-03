@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
 }
-input[type=text], input[type=LinkOnlineFormular], select, textarea {
+input[type=text], input[type=LinkOnlineFormular], select, textarea, input[type=CondidateLink ]{
   width: 100%;
   padding: 3px 10px;
   border: 1px solid #ccc;

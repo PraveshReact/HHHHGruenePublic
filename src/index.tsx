@@ -20,6 +20,7 @@ import FeedBackForm from './FeedBackForm';
 import ContactForm from './ContactForm';
 import BriefwahlElection from './BriefwahlElection';
 import Botschaftskuriere from './Botschaftskuriere';
+import Kandidatinnen from './Kandidatinnen';
 // import MatomoIntegration from './MatomoIntegration';
 
 // import './klaroConfig'; // Import your Klaro configuration
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
        <Route path="/feedbackform" element={<FeedBackForm />} />
        <Route path="/Wahlkampf-aus-der-Ferne" element={<BriefwahlElection />} />
        <Route path="/briefwahl/botschaftskuriere" element={<Botschaftskuriere />} />
+       <Route path="/briefwahl/kandidatinnen" element={<Kandidatinnen />} />
       <Route path=':SmartPage' element={<SmartpageComponent />}>
         <Route path=':SmartPage' element={<SmartpageComponent />} >
           <Route path=':SmartPage' element={<SmartpageComponent />} />

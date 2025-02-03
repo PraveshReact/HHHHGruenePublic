@@ -107,15 +107,13 @@ export function Filter({
     const columnFilterValue = column.getFilterValue();
     // style={{ width: placeholder?.size }}
     return (
-        <input style={{ width: "100%" }} className="me-1 my-1 mx-1 on-search-cross pe-10"
+        <><input style={{ width: "100%" }} className="me-1 my-1 mx-1 on-search-cross pe-10"
             // type="text"
             title={placeholder?.placeholder}
             type="search"
             value={(columnFilterValue ?? "") as string}
             onChange={(e) => column.setFilterValue(e.target.value)}
-            placeholder={`${placeholder?.placeholder}`}
-        // className="w-36 border shadow rounded"
-        />
+            placeholder={`${placeholder?.placeholder}`} /><span className="searchClear" onClick={() => column.setFilterValue("")}></span></>
     );
 }
 
@@ -714,47 +712,50 @@ const GlobalCommanTable = (items: any, ref: any) => {
     //Virual rows
     const parentRef: any = React.useRef<HTMLDivElement>(null);
     const { rows } = table.getRowModel();
-    const virtualizer = useVirtualizer({
-        count: rows.length,
-        getScrollElement: () => parentRef.current,
-        // estimateSize: () => 24,
-        // overscan: 15,
-        estimateSize: () => 200,
-        overscan: 50,
-    });
+    // const virtualizer = useVirtualizer({
+    //     count: rows.length,
+    //     getScrollElement: () => parentRef.current,
+    //     // estimateSize: () => 24,
+    //     // overscan: 15,
+    //     estimateSize: () => 200,
+    //     overscan: 50,
+    // });
 
-    const itemsVirtualizer: any = virtualizer.getVirtualItems();
-    const [before, after] =
-        itemsVirtualizer.length > 0
-            ? [
-                notUndefined(itemsVirtualizer[0]).start - virtualizer.options.scrollMargin,
-                virtualizer.getTotalSize() -
-                notUndefined(itemsVirtualizer[itemsVirtualizer.length - 1]).end,
-            ]
-            : [0, 0];
+    // const itemsVirtualizer: any = virtualizer.getVirtualItems();
+    // const [before, after] =
+    //     itemsVirtualizer.length > 0
+    //         ? [
+    //             notUndefined(itemsVirtualizer[0]).start - virtualizer.options.scrollMargin,
+    //             virtualizer.getTotalSize() -
+    //             notUndefined(itemsVirtualizer[itemsVirtualizer.length - 1]).end,
+    //         ]
+    //         : [0, 0];
 
-    const setTableHeight = () => {
-        const screenHeight = window.innerHeight;
-        const tableHeight = screenHeight * 0.8 - 5;
-        parentRef.current.style.height = `${tableHeight}px`;
-    };
-    React.useEffect(() => {
-        if (wrapperHeight) {
-            parentRef.current.style.height = wrapperHeight;
-        } else {
-            setTableHeight();
-            window.addEventListener('resize', setTableHeight);
-            return () => {
-                window.removeEventListener('resize', setTableHeight);
-            };
-        }
-    }, [, wrapperHeight]);
+    // const setTableHeight = () => {
+    //     const screenHeight = window.innerHeight;
+    //    const tableHeight = screenHeight * 0.8 - 5;
+    //     parentRef.current.style.height = `${screenHeight}px`;
+    // };
+    // React.useEffect(() => {
+    //     if (wrapperHeight) {
+    //         parentRef.current.style.height = wrapperHeight;
+    //     } else {
+    //         setTableHeight();
+    //         window.addEventListener('resize', setTableHeight);
+    //         return () => {
+    //             window.removeEventListener('resize', setTableHeight);
+    //         };
+    //     }
+    // }, [, wrapperHeight]);
     //Virtual rows
 
     return (
         <>
-            {showHeader === true && <div className='tbl-headings justify-content-between mb-1 fixed-Header top-0' style={{ background: '#e9e9e9' }}>
-                <span className='leftsec'>
+            {showHeader === true && <div className='tbl-headings justify-content-between mb-0 fixed-Header top-0' style={{ background: '#005437' }}>
+            <span className='leftsec'>
+            <h4 className='table-heading'>Briefwahl-Informationen und Abgabefristen aller deutsche Auslandsvertretungen</h4>
+            </span>
+                {/* <span className='leftsec'>
                     {showingAllPortFolioCount === true ? <div className='mb-1'>
                         <label style={{ color: `${portfolioColor}` }}>
                             Showing
@@ -795,17 +796,18 @@ const GlobalCommanTable = (items: any, ref: any) => {
                             </span>
                         </span>
                     </div> :
-                        <span style={{ color: `${portfolioColor}` }} className='Header-Showing-Items'>{`Showing ${table?.getFilteredRowModel()?.rows?.length} of ${data?.length}`}</span>}
+                    
+                     <span style={{ color: `${portfolioColor}` }} className='Header-Showing-Items'>{`Showing ${table?.getFilteredRowModel()?.rows?.length} of ${data?.length}`}</span>}
                     <DebouncedInput
                         value={globalFilter ?? ""}
                         onChange={(value) => setGlobalFilter(String(value))}
                         placeholder="Search All..."
                         portfolioColor={portfolioColor}
                     />
-                    <span className="svg__iconbox svg__icon--setting" style={{ backgroundColor: `${portfolioColor}` }} onClick={() => setSelectedFilterPanelIsOpen(true)}></span>
+                     <span className="svg__iconbox svg__icon--setting" style={{ backgroundColor: `${portfolioColor}` }} onClick={() => setSelectedFilterPanelIsOpen(true)}></span>
                     <span className='ms-1'>
                         <select style={{ height: "40px", color: `${portfolioColor}` }}
-                            className="w80"
+                            className="custom-select"
                             aria-label="Default select example"
                             value={globalSearchType}
                             onChange={(e) => {
@@ -817,9 +819,9 @@ const GlobalCommanTable = (items: any, ref: any) => {
                             <option value="ANY">Any Words</option>
                             <option value="EXACT">Exact Phrase</option>
                         </select>
-                    </span>
-                </span>
-                <span className="toolbox">
+                    </span> 
+                </span> */}
+                {/* <span className="toolbox">
                     {items.taskProfile != true && items?.showCreationAllButton === true && <>
                         {table?.getSelectedRowModel()?.flatRows?.length === 1 && table?.getSelectedRowModel()?.flatRows[0]?.original?.Item_x0020_Type != "Feature" &&
                             table?.getSelectedRowModel()?.flatRows[0]?.original?.TaskType?.Title != "Activities" && table?.getSelectedRowModel()?.flatRows[0]?.original?.TaskType?.Title != "Workstream" &&
@@ -838,13 +840,6 @@ const GlobalCommanTable = (items: any, ref: any) => {
                     {items.taskProfile === true && items?.showCreationAllButton === true && <>
                         {table?.getSelectedRowModel()?.flatRows.length < 2 ? <button type="button" className="btn btn-primary" title='Add Activity' style={{ backgroundColor: `${portfolioColor}`, borderColor: `${portfolioColor}`, color: '#fff' }} onClick={() => openCreationAllStructure("Add Workstream-Task")}>Add Workstream-Task</button> :
                             <button type="button" className="btn btn-primary" style={{ backgroundColor: `${portfolioColor}`, borderColor: `${portfolioColor}`, color: '#fff' }} disabled={true} > Add Workstream-Task</button>}
-
-                        {/* {
-                            trueRestructuring == true ?
-                                <RestructuringCom restructureFunct={restructureFunct} ref={childRef} taskTypeId={items.TaskUsers} contextValue={items.AllListId} allData={data} restructureCallBack={items.restructureCallBack} restructureItem={table?.getSelectedRowModel()?.flatRows.length > 0 ? [table?.getSelectedRowModel()?.flatRows[0].original] : []} />
-                                : <button type="button" title="Restructure" disabled={true} className="btn btn-primary"
-                                >Restructure</button>
-                        } */}
                     </>
                     }
                     {
@@ -873,11 +868,10 @@ const GlobalCommanTable = (items: any, ref: any) => {
                     </> : ''}
 
 
-                </span>
+                </span> */}
             </div>}
 
-            <div ref={parentRef} style={{ overflow: "auto" }}>
-                <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
+            <div ref={parentRef} >
                     <table className="SortingTable table table-hover mb-0" id='my-table' style={{ width: "100%" }}>
                         <thead className='fixed-Header top-0'>
                             {table.getHeaderGroups().map((headerGroup: any) => (
@@ -919,18 +913,12 @@ const GlobalCommanTable = (items: any, ref: any) => {
                             ))}
                         </thead>
                         <tbody>
-                            {before > 0 && (
-                                <tr>
-                                    <td className="col-span-full" style={{ height: before }}></td>
-                                </tr>
-                            )}
-                            {virtualizer.getVirtualItems().map((virtualRow: any, index: any) => {
-                                const row = rows[virtualRow.index] as Row<any>;
+                            {table.getRowModel().rows.map((row: any, index: any) => {
                                 return (
                                     <tr
                                         className={row?.original?.lableColor}
                                         // className={row?.original?.IsSCProtected != undefined && row?.original?.IsSCProtected == true ? `Disabled-Link opacity-75 ${row?.original?.lableColor}` : `${row?.original?.lableColor}`}
-                                        key={row.id} data-index={virtualRow.index} ref={virtualizer.measureElement}>
+                                        key={row.id}>
                                         {row.getVisibleCells().map((cell: any) => {
                                             return (
                                                 <td className={row?.original?.boldRow} key={cell.id} style={row?.original?.fontColorTask != undefined ? { color: `${row?.original?.fontColorTask}` } : { color: `${row?.original?.PortfolioType?.Color}` }}>
@@ -944,17 +932,12 @@ const GlobalCommanTable = (items: any, ref: any) => {
                                     </tr>
                                 );
                             })}
-                            {after > 0 && (
-                                <tr>
-                                    <td className="col-span-full" style={{ height: after }}></td>
-                                </tr>
-                            )}
                         </tbody>
                     </table>
                     {data?.length === 0 && <div className='mt-2'>
                         <div className='d-flex justify-content-center' style={{ height: "30px", color: portfolioColor ? `${portfolioColor}` : "#008939" }}>No data available</div>
                     </div>}
-                </div>
+               
             </div>
         </>
     )
