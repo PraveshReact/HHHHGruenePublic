@@ -404,7 +404,7 @@ const Kandidatinnen = (props: any) => {
                 </div>
                 </div>
                
-                <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
+                <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} openModel={openModal} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
                 {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
             </div >
             {
@@ -428,7 +428,7 @@ const Kandidatinnen = (props: any) => {
                                 backgroundColor: 'white',
                                 borderRadius: '4px',
                                 width: '100%',
-                                maxWidth: '650px',
+                                maxWidth: '670px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '20px',
@@ -451,7 +451,7 @@ const Kandidatinnen = (props: any) => {
                             </button>
                             <div className='KandidatinnenPopup'>
                                 <div className='modal-header'>
-                                    <h3 className='modal-title'>{PopuTitle} - {condidateInfo?.Name}</h3>
+                                    <h3 className='modal-title'>Direktkandidat*in Wahlkreis {condidateInfo?.WKNo} - {condidateInfo?.WKName}</h3>
                                     <span className='closePopupBtn' style={{ cursor: 'pointer' }} onClick={closeModal}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg></span>

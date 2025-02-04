@@ -1788,9 +1788,10 @@ input.react-autosuggest__input {margin: 0;}
 .KandidatinnenPopup input[type=LinkOnlineFormular], .KandidatinnenPopup input[type=CondidateLink], .KandidatinnenPopup select, .KandidatinnenPopup textarea {border: 1px solid #ccc;border-radius: 0;box-sizing: border-box;height: 50px;margin-bottom: 15px;padding: 3px 10px;resize: vertical;width: 100%;}
 .KandidatinnenPopup {display: flex;flex-direction: column;gap: 16px;padding: 24px;position: relative;}
 .KandidatinnenPopup .modal-header {color: var(--primary-color);font-family: var(--body-font);font-family: var(--body-font);font-size: 28px;font-style: normal;font-weight: 700;line-height: normal;padding: 0 !important;}
+.KandidatinnenPopup h3.modal-title {font-size: 20px;font-weight: normal;color: #333;}
 .KandidatinnenPopup .infoBox {align-items: flex-start;align-self: stretch;display: flex;flex-direction: column;gap: 8px;padding: 12px 0px;}
-.KandidatinnenDetails {display: flex;gap: 15px;flex-direction: row; align-items: flex-start;}
-.KandidatinnenDetails span.KandidatinnenName {font-size: 20px;font-weight: 600;}
+.KandidatinnenDetails {display: flex;gap: 15px;flex-direction: row; align-items: flex-start;margin-bottom: 10px;}
+.KandidatinnenDetails span.KandidatinnenName {font-size: 26px;font-weight: 600;color: var(--primary-color);}
 .KandidatinnenDetails > img.KandidatinnenImg { width: 100px;height: auto;border-radius: 8px;}
 .KandidatinnenDetails > .KandidatinnenDescription {display: flex; flex-direction: column;justify-content: center;gap: 4px;}
 .KandidatinnenDetails> .KandidatinnenDescription > a.KandidatinnenURL {width: 100%;word-break: break-all;}
@@ -1801,6 +1802,13 @@ input.react-autosuggest__input {margin: 0;}
 .kandidatinnenPageTable .KandidatinImg {height: 56px;object-fit: cover;width: 56px;border-radius: 100%;background: var(--primary-color);}
 .kandidatinnenPageTable .tbl-headings {background: var(--primary-color) !important;color: #fff;display: none;}
 .kandidatinnen .CustomSearchInput:not(:placeholder-shown) + .BtnCrossIcon {right: 15px;}
+/* .KandidatinnenPopup > .ExpandLinkFooter {top: 0;} */
+.KandidatinnenPopup .modal-footer {
+  margin-bottom: 10px;
+}
+.KandidatinnenPopup .modal-body {
+  margin-bottom: 20px;
+}
 /************* Table ************/
 .BotschaftskurierePageTable .tbl-headings span.svg__iconbox {
   height: 30px;
