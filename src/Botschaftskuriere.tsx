@@ -108,7 +108,7 @@ const Botschaftskuriere = (props: any) => {
                 accessorKey: "Link", placeholder: "Mehr Informationen", header: "", id: "Link", size: 70,
                 cell: ({ row }: any) => (
                     <>
-                        <span style={{wordBreak: 'break-all', width: '450px', display: 'block' }}><a target='_blank' href={row?.original?.Link}>{row?.original?.Link}</a></span>
+                        <span style={{wordBreak: 'break-all', width: '100%', display: 'block' }}><a target='_blank' href={row?.original?.Link}>{row?.original?.Link}</a></span>
                     </>
                 ),
             },

@@ -253,6 +253,7 @@ span.SearchInputFieldstateLogo {
     gap: 8px;
     align-content: center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .CustomSearchInputWithBtn > button.btn.btn-primary {

@@ -260,7 +260,7 @@ const Kandidatinnen = (props: any) => {
                 isColumnVisible: true
             },
             {
-                accessorKey: "Name", placeholder: "FullName", header: "", id: "Name", size: 20,
+                accessorKey: "Name", placeholder: "Name", header: "", id: "Name", size: 20,
                 cell: ({ row }: any) => (
                     <>
                         <div style={{ width: '300px' }}><a onClick={() => openModal(row?.original)}>{row?.original?.Name}</a></div>
@@ -268,7 +268,7 @@ const Kandidatinnen = (props: any) => {
                 ),
             },
             {
-                accessorKey: "WKNo", placeholder: "WKNo", header: "", id: "WKNo", size: 15,
+                accessorKey: "WKNo", placeholder: "WK-Nummer", header: "", id: "WKNo", size: 12,
                 cell: ({ row }: any) => (
                     <>
                         <div style={{ width: '200px' }}>{row?.original?.WKNo}</div>
@@ -277,7 +277,7 @@ const Kandidatinnen = (props: any) => {
             },
 
             {
-                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName",
+                accessorKey: "WKName", placeholder: "Wahlkreis", header: "", id: "WKName", 
                 cell: ({ row }: any) => (
                     <>
                         <span style={{ width: '250px' }}>
@@ -376,8 +376,9 @@ const Kandidatinnen = (props: any) => {
         <>
             <div className="container mb-5">
                 <header className="page-header">
-                    <h1 className="page-title heading text-center">Grüne Weltweit kandidatinnen</h1>
+                    <h1 className="page-title heading text-center">Bundestagswahl 2025 - Unsere Direktkandidat*innen</h1>
                 </header>
+                <div className="col position-relative kandidatinnen">
                 <div className="flex-searchrowWithBtn">
                     <div className="CustomSearchInputWithBtn">
                         <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -400,6 +401,8 @@ const Kandidatinnen = (props: any) => {
                         </span>
                     </div>
                 </div>
+                </div>
+               
                 <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
                 {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
             </div >
@@ -466,10 +469,10 @@ const Kandidatinnen = (props: any) => {
                                         </div></>
                                     ) : ("")}
                                     {isExpanded && <>
-                                        <div className='infoBox mt-2'>
+                                        <div className='infoBox mt-3'>
                                             <div className="infoBox-itemBox">
-                                                <div className='infoBox-itemBox-item'><strong>WKNo:</strong>{condidateInfo?.WKNo}</div>
-                                                <div className='infoBox-itemBox-item'><strong>WK Name:</strong>{condidateInfo?.WKName}</div>
+                                                <div className='infoBox-itemBox-item'><strong>WK-Nummer:</strong>{condidateInfo?.WKNo}</div>
+                                                <div className='infoBox-itemBox-item'><strong>Wahlkreis:</strong>{condidateInfo?.WKName}</div>
                                             </div>
                                         </div>
                                         <div className='infoBox'>
