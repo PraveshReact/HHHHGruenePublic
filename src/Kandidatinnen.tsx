@@ -156,6 +156,7 @@ const Kandidatinnen = (props: any) => {
         setCondidateName('')
         setCondidateLink('')
         setCopyRight('')
+        setCaptchaInput('')
         PopuTitle = 'Candidate Information'
     };
     const getPublicServerData = async (tableName: any, id: any) => {
