@@ -1798,7 +1798,7 @@ input.react-autosuggest__input {margin: 0;}
 .KandidatinnenPopup .infoBox {display: flex;flex-direction: column;align-items: flex-start;gap: 8px;align-self: stretch;padding: 12px;background: #F5F5F5;}
 .KandidatinnenPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item {display: flex;flex-direction: row;align-items: flex-start;gap: 8px;}
 .KandidatinnenPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {width: 160px;}
-.kandidatinnenPageTable .KandidatinImg {height: 50px;object-fit: cover;width: 50px;border-radius: 100%;background: var(--primary-color);}
+.kandidatinnenPageTable .KandidatinImg {height: 56px;object-fit: cover;width: 56px;border-radius: 100%;background: var(--primary-color);}
 .kandidatinnenPageTable .tbl-headings {background: var(--primary-color) !important;color: #fff;display: none;}
 .kandidatinnen .CustomSearchInput:not(:placeholder-shown) + .BtnCrossIcon {right: 15px;}
 /************* Table ************/
