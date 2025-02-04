@@ -113,11 +113,14 @@ const Kandidatinnen = (props: any) => {
                     result = JSON.parse(result)
                     if (result != undefined && result != null && result?.data != undefined && result?.data != null) {
                         result?.data.map((wk) => {
+                            wk.PLZ = ""
+                            wk.ZipCodes = ""
+                            wk.Gemeinde = ""
                             AllBriefwahl.map((bwhl) => {
                                 if (wk.WKNo == bwhl.Wahlkreis) {
-                                    wk.PLZ = bwhl.PLZ
-                                    wk.ZipCodes = bwhl.ZipCodes
-                                    wk.Gemeinde = bwhl.Gemeinde
+                                    wk.PLZ = wk.PLZ + ';' + bwhl.PLZ
+                                    wk.ZipCodes = wk.ZipCodes + ';' + bwhl.ZipCodes
+                                    wk.Gemeinde = wk.Gemeinde + ';' + bwhl.Gemeinde
                                 }
                             })
                         })
@@ -367,7 +370,6 @@ const Kandidatinnen = (props: any) => {
             // If neither contains the search term, sort based on numeric PLZ values
             return parseInt(plzA) - parseInt(plzB); // Sort numerically
         });
-
         setAllkandidatinnen([...sortedFiltered]); // Update filtered items with sorted results
 
 
