@@ -12,6 +12,8 @@ import AlertPopup from './AlertPopup';
 import { getAllTableData } from './service';
 import { filterDataByUsingDynamicColumnValue } from './service';
 let PopuTitle = 'Candidate Information'
+let AllBriefwahl = [];
+let KandidatinnendataBackup: any = [];
 const Kandidatinnen = (props: any) => {
     const [Allkandidatinnen, setAllkandidatinnen]: any = useState([]);
     const [showAlert, setShowAlert] = useState(false);
@@ -25,6 +27,7 @@ const Kandidatinnen = (props: any) => {
     const [captchaInput, setCaptchaInput] = useState('');
     const [captchaText, setCaptchaText] = useState('');
     const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleCloseAlert = () => {
         setShowAlert(false);
@@ -34,7 +37,7 @@ const Kandidatinnen = (props: any) => {
         setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
     };
     useEffect(() => {
-        getTabledata("WKCandidatesInfo");
+        getBriefwahlTabledata('Briefwahl');
     }, [])
     useEffect(() => {
         setCaptchaText(generateCaptcha());
@@ -59,8 +62,7 @@ const Kandidatinnen = (props: any) => {
         }
         return captcha;
     }
-    const getTabledata = async (tableName) => {
-        let allfilterdata: any = []
+    const getBriefwahlTabledata = async (tableName) => {
         try {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -80,10 +82,52 @@ const Kandidatinnen = (props: any) => {
                 .then((result: any) => {
                     result = JSON.parse(result)
                     if (result != undefined && result != null && result?.data != undefined && result?.data != null)
+                        AllBriefwahl = result?.data;
+                    else
+                        AllBriefwahl = [];
+                })
+                .catch(error => console.log('error', error));
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+        getTabledata("WKCandidatesInfo");
+    };
+    const getTabledata = async (tableName) => {
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "table": `${tableName}`
+            });
+
+            var requestOptions: any = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            await fetch("https://gruene-weltweit.de/SPPublicAPIs/getDataAll.php", requestOptions)
+                .then(response => response.text())
+                .then((result: any) => {
+                    result = JSON.parse(result)
+                    if (result != undefined && result != null && result?.data != undefined && result?.data != null) {
+                        result?.data.map((wk) => {
+                            AllBriefwahl.map((bwhl) => {
+                                if (wk.WKNo == bwhl.Wahlkreis) {
+                                    wk.PLZ = bwhl.PLZ
+                                    wk.ZipCodes = bwhl.ZipCodes
+                                    wk.Gemeinde = bwhl.Gemeinde
+                                }
+                            })
+                        })
+                        KandidatinnendataBackup = result?.data
                         setAllkandidatinnen(result?.data);
+                    }
                     else
                         setAllkandidatinnen([]);
                 })
+
                 .catch(error => console.log('error', error));
         } catch (error) {
             console.error('An error occurred:', error);
@@ -202,10 +246,10 @@ const Kandidatinnen = (props: any) => {
                 accessorKey: "", placeholder: "Image Name", header: "", id: "ImageName", size: 5,
                 cell: ({ row }: any) => (
                     <>
-                       
+
                         <div className="columnFixedTitle">
-                        <span style={{width: '100px', display: 'block' }}> {row?.original?.Image != undefined && row?.original?.Image != ""  ?
-                                <img src={row?.original?.Image} className="KandidatinImg me-1" /> : <img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" className="KandidatinImg me-1" /> }
+                            <span style={{ width: '100px', display: 'block' }}> {row?.original?.Image != undefined && row?.original?.Image != "" ?
+                                <img src={row?.original?.Image} className="KandidatinImg me-1" /> : <img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" className="KandidatinImg me-1" />}
                             </span>
                         </div>
                     </>
@@ -219,7 +263,7 @@ const Kandidatinnen = (props: any) => {
                 accessorKey: "Name", placeholder: "FullName", header: "", id: "Name", size: 20,
                 cell: ({ row }: any) => (
                     <>
-                        <div style={{width: '300px' }}><a onClick={() => openModal(row?.original)}>{row?.original?.Name}</a></div> 
+                        <div style={{ width: '300px' }}><a onClick={() => openModal(row?.original)}>{row?.original?.Name}</a></div>
                     </>
                 ),
             },
@@ -227,19 +271,19 @@ const Kandidatinnen = (props: any) => {
                 accessorKey: "WKNo", placeholder: "WKNo", header: "", id: "WKNo", size: 15,
                 cell: ({ row }: any) => (
                     <>
-                        <div style={{ width: '200px'}}>{row?.original?.WKNo}</div> 
+                        <div style={{ width: '200px' }}>{row?.original?.WKNo}</div>
                     </>
                 ),
             },
 
             {
-                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName", 
+                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName",
                 cell: ({ row }: any) => (
                     <>
-                       <span style={{width: '250px' }}>
-                       <a onClick={() => openModal(row?.original)}>
-                            {row?.original?.WKName}
-                        </a></span> 
+                        <span style={{ width: '250px' }}>
+                            <a onClick={() => openModal(row?.original)}>
+                                {row?.original?.WKName}
+                            </a></span>
                     </>
                 ),
             },
@@ -250,6 +294,83 @@ const Kandidatinnen = (props: any) => {
     const callBackData = (data: any) => {
         console.log(data)
     }
+    const normalizeString = (str: string, reverse: string) => {
+        if (!str) return str;
+
+        // If reverse flag is set, perform English to German conversion
+        if (reverse == '1') {
+            return str
+                .replace(/ae/g, 'ä')
+                .replace(/oe/g, 'ö')
+                .replace(/ue/g, 'ü')
+                .replace(/ss/g, 'ß')
+                .toLowerCase();
+        } else if (reverse == '2') {
+            return str
+                .replace(/ä/g, 'ae')  // Replace ä with ae
+                .replace(/ö/g, 'oe')  // Replace ö with oe
+                .replace(/ü/g, 'ue')  // Replace ü with ue
+                .replace(/ß/g, 'ss')  // Replace ß with ss
+                .toLowerCase();  // Convert to lowercase for case-insensitive comparison
+        } else if (reverse == '3') {
+            return str
+                .replace(/ä/g, 'a')  // Replace ä with ae
+                .replace(/ö/g, 'o')  // Replace ö with oe
+                .replace(/ü/g, 'u')  // Replace ü with ue
+                .replace(/ß/g, 's')  // Replace ß with ss
+                .toLowerCase();  // Convert to lowercase for case-insensitive comparison
+        }
+
+        // Default: German to English conversion
+
+    };
+    const clearSearchButton = () => {
+        setSearchTerm('')
+        setAllkandidatinnen([...KandidatinnendataBackup]);
+    }
+    const handleSearch = (searchTerm: string) => {
+        const trimmedSearchTerm = searchTerm.trim(); // Trim any leading/trailing spaces
+        const filtered = KandidatinnendataBackup.filter((item: any) => {
+            const originalGemeinde = String(item.Gemeinde || '').toLowerCase();
+            const normalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '1');
+            const reverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '2');
+            const myreverseNormalizedGemeinde = normalizeString(String(item.Gemeinde || ''), '3');
+            const concatenatedGemeinde = originalGemeinde + " " + normalizedGemeinde + " " + reverseNormalizedGemeinde + " " + myreverseNormalizedGemeinde;
+
+            return (
+                concatenatedGemeinde.toLowerCase().indexOf(trimmedSearchTerm.toLowerCase()) !== -1 ||
+                String(item.PLZ || '').indexOf(trimmedSearchTerm) !== -1 ||
+                String(item.ZipCodes || '').indexOf(trimmedSearchTerm) !== -1 ||
+                String(item.WKName || '').indexOf(trimmedSearchTerm) !== -1
+            );
+        });
+
+        // Sort the filtered results based on PLZ value
+        const sortedFiltered = filtered.sort((a: any, b: any) => {
+            const plzA = String(a.PLZ || '');
+            const plzB = String(b.PLZ || '');
+
+            // Check if both PLZ values contain the search term
+            const indexA = plzA.indexOf(trimmedSearchTerm);
+            const indexB = plzB.indexOf(trimmedSearchTerm);
+
+            // If the search term exists in both, prioritize based on the value of PLZ itself (numeric order)
+            if (indexA !== -1 && indexB !== -1) {
+                return parseInt(plzA) - parseInt(plzB);  // Sort numerically to ensure smaller values come first
+            }
+
+            // If only one contains the search term, prioritize that entry
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+
+            // If neither contains the search term, sort based on numeric PLZ values
+            return parseInt(plzA) - parseInt(plzB); // Sort numerically
+        });
+
+        setAllkandidatinnen([...sortedFiltered]); // Update filtered items with sorted results
+
+
+    };
 
     return (
         <>
@@ -257,6 +378,28 @@ const Kandidatinnen = (props: any) => {
                 <header className="page-header">
                     <h1 className="page-title heading text-center">Grüne Weltweit kandidatinnen</h1>
                 </header>
+                <div className="flex-searchrowWithBtn">
+                    <div className="CustomSearchInputWithBtn">
+                        <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M13.3333 4C8.17867 4 4 8.17867 4 13.3333C4 18.488 8.17867 22.6667 13.3333 22.6667C15.5213 22.6701 17.6404 21.9014 19.3173 20.496L26.5773 27.756C26.6547 27.8334 26.7466 27.8948 26.8477 27.9367C26.9488 27.9786 27.0572 28.0001 27.1667 28.0001C27.2761 28.0001 27.3845 27.9786 27.4856 27.9367C27.5867 27.8948 27.6786 27.8334 27.756 27.756C27.8334 27.6786 27.8948 27.5867 27.9367 27.4856C27.9786 27.3845 28.0001 27.2761 28.0001 27.1667C28.0001 27.0572 27.9786 26.9488 27.9367 26.8477C27.8948 26.7466 27.8334 26.6547 27.756 26.5773L20.496 19.3173C21.9012 17.6403 22.6699 15.5213 22.6667 13.3333C22.6667 8.17867 18.488 4 13.3333 4ZM5.66667 13.3333C5.66667 9.09933 9.09933 5.66667 13.3333 5.66667C17.5673 5.66667 21 9.09933 21 13.3333C21 17.5673 17.5673 21 13.3333 21C9.09933 21 5.66667 17.5673 5.66667 13.3333Z" fill="#00893A" />
+                        </svg>
+                        </span>
+                        <input
+                            type="text"
+                            className="CustomSearchInput"
+                            placeholder="Gib hier Deine Gemeinde oder Postleitzahl (PLZ) ein..."
+                            value={searchTerm}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value); // Update searchTerm on typing
+                                handleSearch(e.target.value); // Call handleSearch whenever typing
+                            }}
+                        />
+                        <span className="BtnCrossIcon" onClick={clearSearchButton}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 33" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M23.0711 22.628L22.5997 23.0994L22.1282 23.5708L16 17.4426L9.87175 23.5708L9.40035 23.0994L8.92896 22.628L15.0572 16.4998L8.92896 10.3715L9.40035 9.90011L9.87175 9.42871L16 15.557L22.1282 9.42871L22.5997 9.90011L23.0711 10.3715L16.9428 16.4998L23.0711 22.628Z" fill="#333333" />
+                        </svg>
+                        </span>
+                    </div>
+                </div>
                 <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
                 {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
             </div >
@@ -297,7 +440,7 @@ const Kandidatinnen = (props: any) => {
                                     background: 'transparent',
                                     border: 'none',
                                     cursor: 'pointer',
-                                   
+
                                 }}
                             >
 
@@ -313,7 +456,7 @@ const Kandidatinnen = (props: any) => {
                                     {condidateInfo ? (
                                         <><div className="expand-AccordionContent clearfix">
                                             <div className="KandidatinnenDetails">
-                                                {condidateInfo.Image!=undefined && condidateInfo.Image!=""?(<img className='KandidatinnenImg' src={condidateInfo.Image} />):(<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
+                                                {condidateInfo.Image != undefined && condidateInfo.Image != "" ? (<img className='KandidatinnenImg' src={condidateInfo.Image} />) : (<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
                                                 <div className='KandidatinnenDescription'>
                                                     <span className='KandidatinnenName'>{condidateInfo.Name}</span>
                                                     <a className='KandidatinnenURL' href={condidateInfo.Link} target="_blank" rel="noopener noreferrer">{condidateInfo.Link}</a>
