@@ -1794,20 +1794,13 @@ input.react-autosuggest__input {margin: 0;}
 .KandidatinnenDetails > img.KandidatinnenImg { width: 100px;height: auto;border-radius: 8px;}
 .KandidatinnenDetails > .KandidatinnenDescription {display: flex; flex-direction: column;justify-content: center;gap: 4px;}
 .KandidatinnenDetails> .KandidatinnenDescription > a.KandidatinnenURL {width: 100%;word-break: break-all;}
-.kandidatinnenPageTable .tbl-headings {
-  background: var(--primary-color) !important;
-  color: #fff;
-  display: none;
-}
+.KandidatinnenPopup .infoBox .infoBox-itemBox {display: flex;align-items: center;gap: 48px;align-self: stretch;}
+.KandidatinnenPopup .infoBox {display: flex;flex-direction: column;align-items: flex-start;gap: 8px;align-self: stretch;padding: 12px;background: #F5F5F5;}
+.KandidatinnenPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item {display: flex;flex-direction: row;align-items: flex-start;gap: 8px;}
+.KandidatinnenPopup .infoBox .infoBox-itemBox .infoBox-itemBox-item:first-child {width: 100px;}
+.kandidatinnenPageTable .KandidatinImg {width: 60px;height: 60px;object-fit: contain;object-position: center;max-width: 100%;max-height: 100%;}
+.kandidatinnenPageTable .tbl-headings {background: var(--primary-color) !important;color: #fff;display: none;}
 
-.kandidatinnenPageTable .KandidatinImg {
-width: 60px;
-  height: 60px;
-  object-fit: contain;
-  object-position: center;
-  max-width: 100%;
-  max-height: 100%;
-}
 /************* Table ************/
 .BotschaftskurierePageTable .tbl-headings span.svg__iconbox {
   height: 30px;
@@ -2416,6 +2409,10 @@ div#box1content .modal-content, div#box2content .modal-content, div#box3content 
 .BriefwahlInformationPopup .modal-footer>button {height: auto;width: 100%;}
 .BriefwahlInformationPopup .modal-footer>.captcha-container {flex-direction: column;margin-bottom: 16px;width: 100%;}
 .BriefwahlInformationPopup .modal-footer > .captcha-container > span {font-size: 14px;}
+.KandidatinnenPopup {padding: 15px;font-size: 16px;}
+.KandidatinnenPopup h3.modal-title {font-size: 19px;}
+.KandidatinnenDetails span.KandidatinnenName {font-size: 18px;}
+.KandidatinnenPopup .infoBox .infoBox-itemBox {flex-direction: column;gap: 8px;align-items: baseline;}
 section.section.container .contact-form-container {padding: 25px 0px;}
 .contact-form-container {padding: 25px 15px;}
 div.ExpandLinkFooter {display: block;}

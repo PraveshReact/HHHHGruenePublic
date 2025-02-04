@@ -11,7 +11,7 @@ import { cursorTo } from 'readline';
 import AlertPopup from './AlertPopup';
 import { getAllTableData } from './service';
 import { filterDataByUsingDynamicColumnValue } from './service';
-let PopuTitle = 'Briefwahl Information'
+let PopuTitle = 'Candidate Information'
 const Kandidatinnen = (props: any) => {
     const [Allkandidatinnen, setAllkandidatinnen]: any = useState([]);
     const [showAlert, setShowAlert] = useState(false);
@@ -21,6 +21,7 @@ const Kandidatinnen = (props: any) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [CondidateName, setCondidateName] = useState('');
     const [CondidateLink, setCondidateLink] = useState('');
+    const [CopyRight, setCopyRight] = useState('');
     const [captchaInput, setCaptchaInput] = useState('');
     const [captchaText, setCaptchaText] = useState('');
     const [isCaptchaValid, setIsCaptchaValid] = useState(false);
@@ -29,7 +30,7 @@ const Kandidatinnen = (props: any) => {
         setShowAlert(false);
     };
     const handleToggleExpand = () => {
-        PopuTitle = 'Briefwahl Feedback'
+        PopuTitle = 'Candidate Feedback'
         setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
     };
     useEffect(() => {
@@ -108,7 +109,10 @@ const Kandidatinnen = (props: any) => {
     const closeModal = () => {
         setIsModalOpen(false);
         setIsExpanded(false)
-        PopuTitle = 'Briefwahl Information'
+        setCondidateName('')
+        setCondidateLink('')
+        setCopyRight('')
+        PopuTitle = 'Candidate Information'
     };
     const getPublicServerData = async (tableName: any, id: any) => {
         try {
@@ -144,13 +148,13 @@ const Kandidatinnen = (props: any) => {
         try {
             try {
                 const postDataArray = [{
-                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Created: new Date()
+                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" }, Created: new Date()
                         .toISOString()
                         .slice(0, 19)
                         .replace("T", " "),
                 }];
                 const updatepostDataArray = [{
-                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Modified: new Date()
+                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" }, Modified: new Date()
                         .toISOString()
                         .slice(0, 19)
                         .replace("T", " "),
@@ -167,6 +171,7 @@ const Kandidatinnen = (props: any) => {
                     setShowAlert(true)
                     setCondidateName('')
                     setCondidateLink('')
+                    setCopyRight('')
                 } else {
                     console.error('Error sending data to server:', response.statusText);
                 }
@@ -194,49 +199,51 @@ const Kandidatinnen = (props: any) => {
                 id: 'Id',
             },
             {
-                accessorKey: "ImageName", placeholder: "Image Name", header: "", id: "ImageName",
+                accessorKey: "", placeholder: "Image Name", header: "", id: "ImageName", size: 5,
                 cell: ({ row }: any) => (
                     <>
+                       
                         <div className="columnFixedTitle">
-                            {row?.original?.Image != undefined ?
-                                <img src={row?.original?.Image} className="KandidatinImg me-1" /> : ''}
+                        <span style={{width: '100px', display: 'block' }}> {row?.original?.Image != undefined && row?.original?.Image != ""  ?
+                                <img src={row?.original?.Image} className="KandidatinImg me-1" /> : <img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" className="KandidatinImg me-1" /> }
+                            </span>
                         </div>
                     </>
                 ),
                 resetColumnFilters: false,
                 isAdvanceSearchVisible: true,
-                size: 45,
                 resetSorting: false,
                 isColumnVisible: true
             },
             {
-                accessorKey: "Name", placeholder: "FullName", header: "", id: "Name", size: 70,
+                accessorKey: "Name", placeholder: "FullName", header: "", id: "Name", size: 20,
                 cell: ({ row }: any) => (
                     <>
-                    <a onClick={() => openModal(row?.original)}><span>{row?.original?.Name}</span></a>   
+                        <div style={{width: '300px' }}><a onClick={() => openModal(row?.original)}>{row?.original?.Name}</a></div> 
                     </>
                 ),
             },
             {
-                accessorKey: "WKNo", placeholder: "WKNo", header: "", id: "WKNo", size: 65,
+                accessorKey: "WKNo", placeholder: "WKNo", header: "", id: "WKNo", size: 15,
                 cell: ({ row }: any) => (
                     <>
-                        <span style={{ wordBreak: 'break-all', width: '120px', display: 'block' }}></span> {row?.original?.WKNo}
+                        <div style={{ width: '200px'}}>{row?.original?.WKNo}</div> 
                     </>
                 ),
             },
 
             {
-                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName", size: 55,
+                accessorKey: "WKName", placeholder: "WKName", header: "", id: "WKName", 
                 cell: ({ row }: any) => (
                     <>
-                        <a onClick={() => openModal(row?.original)}>
+                       <span style={{width: '250px' }}>
+                       <a onClick={() => openModal(row?.original)}>
                             {row?.original?.WKName}
-                        </a>
+                        </a></span> 
                     </>
                 ),
             },
-          
+
         ],
         [Allkandidatinnen]
     );
@@ -274,7 +281,7 @@ const Kandidatinnen = (props: any) => {
                                 backgroundColor: 'white',
                                 borderRadius: '4px',
                                 width: '100%',
-                                maxWidth: '620px',
+                                maxWidth: '650px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '20px',
@@ -290,6 +297,7 @@ const Kandidatinnen = (props: any) => {
                                     background: 'transparent',
                                     border: 'none',
                                     cursor: 'pointer',
+                                   
                                 }}
                             >
 
@@ -305,7 +313,7 @@ const Kandidatinnen = (props: any) => {
                                     {condidateInfo ? (
                                         <><div className="expand-AccordionContent clearfix">
                                             <div className="KandidatinnenDetails">
-                                                <img className='KandidatinnenImg' src={condidateInfo.Image} />
+                                                {condidateInfo.Image!=undefined && condidateInfo.Image!=""?(<img className='KandidatinnenImg' src={condidateInfo.Image} />):(<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
                                                 <div className='KandidatinnenDescription'>
                                                     <span className='KandidatinnenName'>{condidateInfo.Name}</span>
                                                     <a className='KandidatinnenURL' href={condidateInfo.Link} target="_blank" rel="noopener noreferrer">{condidateInfo.Link}</a>
@@ -314,25 +322,43 @@ const Kandidatinnen = (props: any) => {
                                             </div>
                                         </div></>
                                     ) : ("")}
-                                    {isExpanded && <><div className='infoBox'>
-                                        <div className='col' style={{ width: '100%' }}>
-                                            <input className="form-control m-0 rounded-0"
-                                                type="text"
-                                                value={CondidateName}
-                                                onChange={(e) => setCondidateName(e.target.value)}
-                                                placeholder="Richtige Name melden:"
-                                                style={{ width: '100%' }} />
+                                    {isExpanded && <>
+                                        <div className='infoBox mt-2'>
+                                            <div className="infoBox-itemBox">
+                                                <div className='infoBox-itemBox-item'><strong>WKNo:</strong>{condidateInfo?.WKNo}</div>
+                                                <div className='infoBox-itemBox-item'><strong>WK Name:</strong>{condidateInfo?.WKName}</div>
+                                            </div>
                                         </div>
-                                    </div><div className='infoBox'>
+                                        <div className='infoBox'>
                                             <div className='col' style={{ width: '100%' }}>
                                                 <input className="form-control m-0 rounded-0"
-                                                    type="CondidateLink"
+                                                    type="text"
+                                                    value={CondidateName}
+                                                    onChange={(e) => setCondidateName(e.target.value)}
+                                                    placeholder="Richtige Name melden:"
+                                                    style={{ width: '100%' }} />
+                                            </div>
+                                        </div><div className='infoBox'>
+                                            <div className='col' style={{ width: '100%' }}>
+                                                <input className="form-control m-0 rounded-0"
+                                                    type="text"
                                                     value={CondidateLink}
                                                     onChange={(e) => setCondidateLink(e.target.value)}
                                                     placeholder="Richtigen Link melden:"
                                                     style={{ width: '100%' }} />
                                             </div>
-                                        </div></>}
+                                        </div>
+                                        <div className='infoBox'>
+                                            <div className='col' style={{ width: '100%' }}>
+                                                <input className="form-control m-0 rounded-0"
+                                                    type="text"
+                                                    value={CopyRight}
+                                                    onChange={(e) => setCopyRight(e.target.value)}
+                                                    placeholder="Richtigen Copyright melden:"
+                                                    style={{ width: '100%' }} />
+                                            </div>
+                                        </div>
+                                    </>}
                                 </div>
                                 {isExpanded && (
                                     <div className='modal-footer'>
