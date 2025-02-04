@@ -924,7 +924,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                         <tbody>
                             {before > 0 && (
                                 <tr>
-                                    <td className="col-span-full" style={{ height: before }}></td>
+                                    <td className="col-span-full" style={{ height: before }}  ></td>
                                 </tr>
                             )}
                             {virtualizer.getVirtualItems().map((virtualRow: any, index: any) => {
@@ -936,7 +936,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                                         key={row.id} data-index={virtualRow.index} ref={virtualizer.measureElement}>
                                         {row.getVisibleCells().map((cell: any) => {
                                             return (
-                                                <td className={row?.original?.boldRow} key={cell.id} style={row?.original?.fontColorTask != undefined ? { color: `${row?.original?.fontColorTask}` } : { color: `${row?.original?.PortfolioType?.Color}` }}>
+                                                <td onClick={() => items?.openModel(row?.original)} className={row?.original?.boldRow} key={cell.id} style={row?.original?.fontColorTask != undefined ? { color: `${row?.original?.fontColorTask}` } : { color: `${row?.original?.PortfolioType?.Color}` }}>
                                                     {flexRender(
                                                         cell.column.columnDef.cell,
                                                         cell.getContext()
