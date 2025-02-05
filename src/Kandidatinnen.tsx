@@ -379,7 +379,7 @@ const Kandidatinnen = (props: any) => {
         <>
             <div className="container mb-5">
                 <header className="page-header">
-                    <h1 className="page-title heading text-center">Bundestagswahl 2025 - Unsere Direktkandidat*innen</h1>
+                    <h1 className="page-title heading text-center">Bundestagswahl 2025 - Homepages aller Direktkandidat*innen</h1>
                 </header>
                 <div className="col position-relative kandidatinnen">
                 <div className="flex-searchrowWithBtn">
