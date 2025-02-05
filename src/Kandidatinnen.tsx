@@ -469,7 +469,7 @@ const Kandidatinnen = (props: any) => {
                                     {condidateInfo ? (
                                         <><div className="expand-AccordionContent clearfix">
                                             <div className="KandidatinnenDetails">
-                                                {condidateInfo.Image != undefined && condidateInfo.Image != "" ? (<img className='KandidatinnenImg' src={condidateInfo.Image} />) : (<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
+                                                {condidateInfo.Image != undefined && condidateInfo.Image != "" ? (<div className='KandidatinnenImgSection'><img className='KandidatinnenImg' src={condidateInfo.Image} /><span className='copyrightInfo'>&copy; {condidateInfo.CopyRight}</span></div>) : (<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
                                                 <div className='KandidatinnenDescription'>
                                                     <span className='KandidatinnenName'>{condidateInfo.Name}</span>
                                                     <a className='KandidatinnenURL' href={condidateInfo.Link} target="_blank" rel="noopener noreferrer">{condidateInfo.Link}</a>
