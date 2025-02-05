@@ -157,13 +157,13 @@ const Briefwahl2021 = () => {
     try {
       try {
         const postDataArray = [{
-          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Created: new Date()
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Created: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
         }];
         const updatepostDataArray = [{
-          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Modified: new Date()
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Modified: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
