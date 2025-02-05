@@ -80,7 +80,7 @@ const Botschaftskuriere = (props: any) => {
                 accessorKey: "City", placeholder: "Stadt", header: "", id: "City", size: 65,
                 cell: ({ row }: any) => (
                     <>
-                     <span style={{wordBreak: 'break-all', width: '120px', display: 'block' }}></span> {row?.original?.City}
+                        <span style={{ wordBreak: 'break-all', width: '120px', display: 'block' }}></span> {row?.original?.City}
                     </>
                 ),
             },
@@ -93,7 +93,7 @@ const Botschaftskuriere = (props: any) => {
                     </>
                 ),
             },
-          
+
 
             // {
             //     accessorKey: "DeadlineTime", placeholder: "Lokale Uhrzeit", header: "", id: "DeadlineTime", size: 280,
@@ -108,7 +108,7 @@ const Botschaftskuriere = (props: any) => {
                 accessorKey: "Link", placeholder: "Mehr Informationen", header: "", id: "Link", size: 70,
                 cell: ({ row }: any) => (
                     <>
-                        <span style={{wordBreak: 'break-all', width: '460px', display: 'block' }}><a target='_blank' href={row?.original?.Link}>{row?.original?.Link}</a></span>
+                        <span style={{ wordBreak: 'break-all', width: '460px', display: 'block' }}><a target='_blank' href={row?.original?.Link}>{row?.original?.Link}</a></span>
                     </>
                 ),
             },
@@ -189,22 +189,31 @@ const Botschaftskuriere = (props: any) => {
                     <details open>
                         <summary><a> <span>Wichtig zu wissen</span></a></summary>
                         <div className="expand-AccordionContent clearfix">
-                        <ul className='GreenDots-List'>
-                        <li>Mit der <a href='https://gruene-weltweit.de/Briefwahl' target='_blank'>Grüne Weltweit Briefwahlsuchmaschine</a> kommst du in drei Klicks zu deinem Briefwahlantrag Online-Formular.</li>
-                        <li>Der Kurier-Service in beide Richtungen kann von allen Wahlberechtigten in Anspruch genommen werden. </li>
-                        <li>Das Zeitfenster für das Abholen und Zurücksenden an der Auslandsvertretung ist sehr kurz (meist zwischen 13. und 18. Februar, variiert je nach Auslandsvertretung). <strong>Stelle sicher, dass du an diesen Tagen zur Auslandsvertretung kommen kannst.</strong></li>
-                        <li>Weitere Informationen gibt es auf der <a href='https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/deutsche-im-ausland.html#d6e90c11-e284-4a14-9484-de8d557a097b' target='_blank'>Seite der Bundeswahlleiterin</a>.</li>
-                        <li>Die Unterlagen können persönlich (Ausweis nicht vergessen!) oder durch eine bevollmächtigte Person abgeholt werden.</li>
-                        <li>in vielen grenznahen EU-Staaten ist der Kurierweg nicht schneller als der reguläre Postweg.</li>
-                        <li>Das Auswärtige Amt übernimmt keinerlei Haftung für verspätet oder nicht eingegangene Wahlunterlagen.</li>
-                    </ul>
+                            <ul className='GreenDots-List'>
+                                <li>Mit der <a href='https://gruene-weltweit.de/Briefwahl' target='_blank'>Grüne Weltweit Briefwahlsuchmaschine</a> kommst du in drei Klicks zu deinem Briefwahlantrag Online-Formular.</li>
+                                <li>Der Kurier-Service in beide Richtungen kann von allen Wahlberechtigten in Anspruch genommen werden. </li>
+                                <li>Das Zeitfenster für das Abholen und Zurücksenden an der Auslandsvertretung ist sehr kurz (meist zwischen 13. und 18. Februar, variiert je nach Auslandsvertretung). <strong>Stelle sicher, dass du an diesen Tagen zur Auslandsvertretung kommen kannst.</strong></li>
+                                <li>Weitere Informationen gibt es auf der <a href='https://www.bundeswahlleiterin.de/bundestagswahlen/2025/informationen-waehler/deutsche-im-ausland.html#d6e90c11-e284-4a14-9484-de8d557a097b' target='_blank'>Seite der Bundeswahlleiterin</a>.</li>
+                                <li>Die Unterlagen können persönlich (Ausweis nicht vergessen!) oder durch eine bevollmächtigte Person abgeholt werden.</li>
+                                <li>in vielen grenznahen EU-Staaten ist der Kurierweg nicht schneller als der reguläre Postweg.</li>
+                                <li>Das Auswärtige Amt übernimmt keinerlei Haftung für verspätet oder nicht eingegangene Wahlunterlagen.</li>
+                            </ul>
                         </div>
                     </details>
-                    
+
                 </div>
 
             </div>
             {/* popup content ends */}
+            <a
+                href="https://gruene-weltweit.de/Kontakt"
+                style={{ marginLeft: '967px' }}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Alle Angaben ohne Gewähr. Fehler melden
+            </a>
+
             <div className="BotschaftskurierePageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} data={AllBotschaftskuriere} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
             {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
         </div >
