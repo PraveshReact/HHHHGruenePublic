@@ -9,6 +9,7 @@ import Highlighter from "react-highlight-words";
 import axios from 'axios';
 import { cursorTo } from 'readline';
 import AlertPopup from './AlertPopup';
+import { Helmet } from 'react-helmet';
 import { getAllTableData } from './service';
 import { filterDataByUsingDynamicColumnValue } from './service';
 let PopuTitle = 'Candidate Information'
@@ -252,7 +253,7 @@ const Kandidatinnen = (props: any) => {
                     <>
 
                         <div className="columnFixedTitle">
-                            <span style={{ width: '100px', display: 'block' }}> {row?.original?.Image != undefined && row?.original?.Image != "" ?
+                            <span style={{ width: '60px', display: 'block' }}> {row?.original?.Image != undefined && row?.original?.Image != "" ?
                                 <img src={row?.original?.Image} className="KandidatinImg me-1" /> : <img src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" className="KandidatinImg me-1" />}
                             </span>
                         </div>
@@ -264,18 +265,18 @@ const Kandidatinnen = (props: any) => {
                 isColumnVisible: true
             },
             {
-                accessorKey: "Name", placeholder: "Name", header: "", id: "Name", size: 20,
+                accessorKey: "Name", placeholder: "Name", header: "", id: "Name", size: 15,
                 cell: ({ row }: any) => (
                     <>
-                        <div style={{ width: '300px' }}><a onClick={() => openModal(row?.original)}>{row?.original?.Name}</a></div>
+                        <div style={{ width: '260px' }}><a onClick={() => openModal(row?.original)}><strong>{row?.original?.Name}</strong></a></div>
                     </>
                 ),
             },
             {
-                accessorKey: "WKNo", placeholder: "WK-Nummer", header: "", id: "WKNo", size: 12,
+                accessorKey: "WKNo", placeholder: "WK-Nummer", header: "", id: "WKNo", size: 7,
                 cell: ({ row }: any) => (
                     <>
-                        <div style={{ width: '200px' }}>{row?.original?.WKNo}</div>
+                        <div style={{ width: '130px' }}>{row?.original?.WKNo}</div>
                     </>
                 ),
             },
@@ -377,10 +378,15 @@ const Kandidatinnen = (props: any) => {
 
     return (
         <>
+          <Helmet>
+                  <title>Bundestagswahl 2025 - Homepages aller Direktkandidat*innen</title>
+                    <meta name="description" content="Finde hier die direkten Links zu den Homepages aller grünen Direktkandidat*innen zur Bundestagswahl 2025" />
+                </Helmet>
             <div className="container mb-5">
                 <header className="page-header">
                     <h1 className="page-title heading text-center">Bundestagswahl 2025 - Homepages aller Direktkandidat*innen</h1>
                 </header>
+                <div className="kandidatinnenpage">
                 <div className="col position-relative kandidatinnen">
                 <div className="flex-searchrowWithBtn">
                     <div className="CustomSearchInputWithBtn">
@@ -407,6 +413,7 @@ const Kandidatinnen = (props: any) => {
                 </div>
                
                 <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} openModel={openModal} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
+               </div>
                 {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
             </div >
             {
