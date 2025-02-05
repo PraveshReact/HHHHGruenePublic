@@ -49,6 +49,7 @@ const Briefwahl2021 = () => {
   const [captchaText, setCaptchaText] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [condidateInfo, setCondidateInfo]: any = useState([]);
+  const [CopyRight, setCopyRight] = useState('');
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -180,6 +181,7 @@ const Briefwahl2021 = () => {
           setShowAlert(true)
           setCondidateName('')
           setCondidateLink('')
+          setCopyRight('')
         } else {
           console.error('Error sending data to server:', response.statusText);
         }
@@ -446,6 +448,9 @@ const Briefwahl2021 = () => {
     setIsExpanded(false)
     setEmail('')
     setLinkOnlineFormular('')
+    setCopyRight('')
+    setCondidateName('')
+    setCondidateLink('')
     PopuTitle = 'Briefwahl Information'
   };
   const closeModalinformation = () => {
@@ -1119,7 +1124,18 @@ const Briefwahl2021 = () => {
                                   placeholder="Richtigen Link melden:"
                                   style={{ width: '100%' }} />
                               </div>
-                            </div></>}
+                            </div>
+                            <div className='infoBox'>
+                              <div className='col' style={{ width: '100%' }}>
+                                <input className="form-control m-0 rounded-0"
+                                  type="text"
+                                  value={CopyRight}
+                                  onChange={(e) => setCopyRight(e.target.value)}
+                                  placeholder="Richtigen Copyright melden:"
+                                  style={{ width: '100%' }} />
+                              </div>
+                            </div>
+                          </>}
                         </div>
                         {isExpanded && (
                           <div className='modal-footer'>
