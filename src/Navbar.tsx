@@ -213,7 +213,7 @@ const Navbarcomponent = () => {
             {item.children.map((child: any) => (
               <li key={child.id} className="dropdown-submenu">
                 <a
-                  href={child?.Title?.toLowerCase() == "botschaftskuriere"?"/Briefwahl/Botschaftskuriere":child?.Title?.toLowerCase() == "kandidatinnen"?"/Briefwahl/kandidatinnen":`/${removeSpacialChar(cleanedTitles[child.id] || child.KeyTitle)}`}
+                  href={child?.Title?.toLowerCase() == "botschaftskuriere"?"/Briefwahl/Botschaftskuriere":child?.Title?.toLowerCase() == "homepages aller direktkandidat*innen"?"/Briefwahl/kandidatinnen":`/${removeSpacialChar(cleanedTitles[child.id] || child.KeyTitle)}`}
                   className="nav-link dropdown-item"
                   onClick={() => handleLinkClick(child?.Title, child)}
                 >
