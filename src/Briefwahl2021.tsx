@@ -1112,7 +1112,7 @@ const Briefwahl2021 = () => {
                                 type="text"
                                 value={CondidateName}
                                 onChange={(e) => setCondidateName(e.target.value)}
-                                placeholder="Richtige Name melden:"
+                                placeholder="Richtigen Namen melden:"
                                 style={{ width: '100%' }} />
                             </div>
                           </div><div className='infoBox'>
@@ -1131,7 +1131,7 @@ const Briefwahl2021 = () => {
                                   type="text"
                                   value={CopyRight}
                                   onChange={(e) => setCopyRight(e.target.value)}
-                                  placeholder="Richtigen Copyright melden:"
+                                  placeholder="Richtige Copyright Information melden:"
                                   style={{ width: '100%' }} />
                               </div>
                             </div>
