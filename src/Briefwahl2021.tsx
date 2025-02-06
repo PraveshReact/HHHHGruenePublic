@@ -157,13 +157,13 @@ const Briefwahl2021 = () => {
     try {
       try {
         const postDataArray = [{
-          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Created: new Date()
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" }, Created: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
         }];
         const updatepostDataArray = [{
-          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", EmailStatus: "For-Approval" }, Modified: new Date()
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" }, Modified: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
@@ -1112,7 +1112,7 @@ const Briefwahl2021 = () => {
                                 type="text"
                                 value={CondidateName}
                                 onChange={(e) => setCondidateName(e.target.value)}
-                                placeholder="Richtige Name melden:"
+                                placeholder="Richtigen Namen melden:"
                                 style={{ width: '100%' }} />
                             </div>
                           </div><div className='infoBox'>
@@ -1131,7 +1131,7 @@ const Briefwahl2021 = () => {
                                   type="text"
                                   value={CopyRight}
                                   onChange={(e) => setCopyRight(e.target.value)}
-                                  placeholder="Richtigen Copyright melden:"
+                                  placeholder="Richtige Copyright Information melden:"
                                   style={{ width: '100%' }} />
                               </div>
                             </div>

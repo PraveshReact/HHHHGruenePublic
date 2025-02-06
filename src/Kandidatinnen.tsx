@@ -273,7 +273,7 @@ const Kandidatinnen = (props: any) => {
                 ),
             },
             {
-                accessorKey: "WKNo", placeholder: "WK-Nummer", header: "", id: "WKNo", size: 7,
+                accessorKey: "WKNo", placeholder: "WK-Nr.", header: "", id: "WKNo", size: 7,
                 cell: ({ row }: any) => (
                     <>
                         <div style={{ width: '130px', textAlign: "center" }}>{row?.original?.WKNo}</div>
@@ -282,7 +282,7 @@ const Kandidatinnen = (props: any) => {
             },
 
             {
-                accessorKey: "WKName", placeholder: "Wahlkreis", header: "", id: "WKName", 
+                accessorKey: "WKName", placeholder: "Wahlkreis", header: "", id: "WKName",
                 cell: ({ row }: any) => (
                     <>
                         <span style={{ width: '250px' }}>
@@ -378,42 +378,42 @@ const Kandidatinnen = (props: any) => {
 
     return (
         <>
-          <Helmet>
-                  <title>Bundestagswahl 2025 - Homepages aller Direktkandidat*innen</title>
-                    <meta name="description" content="Finde hier die direkten Links zu den Homepages aller grünen Direktkandidat*innen zur Bundestagswahl 2025" />
-                </Helmet>
+            <Helmet>
+                <title>Bundestagswahl 2025 - Homepages aller Direktkandidat*innen</title>
+                <meta name="description" content="Finde hier die direkten Links zu den Homepages aller grünen Direktkandidat*innen zur Bundestagswahl 2025" />
+            </Helmet>
             <div className="container mb-5">
                 <header className="page-header">
                     <h1 className="page-title heading text-center">Bundestagswahl 2025 - Homepages aller Direktkandidat*innen</h1>
                 </header>
                 <div className="kandidatinnenpage">
-                <div className="col position-relative kandidatinnen">
-                <div className="flex-searchrowWithBtn">
-                    <div className="CustomSearchInputWithBtn">
-                        <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M13.3333 4C8.17867 4 4 8.17867 4 13.3333C4 18.488 8.17867 22.6667 13.3333 22.6667C15.5213 22.6701 17.6404 21.9014 19.3173 20.496L26.5773 27.756C26.6547 27.8334 26.7466 27.8948 26.8477 27.9367C26.9488 27.9786 27.0572 28.0001 27.1667 28.0001C27.2761 28.0001 27.3845 27.9786 27.4856 27.9367C27.5867 27.8948 27.6786 27.8334 27.756 27.756C27.8334 27.6786 27.8948 27.5867 27.9367 27.4856C27.9786 27.3845 28.0001 27.2761 28.0001 27.1667C28.0001 27.0572 27.9786 26.9488 27.9367 26.8477C27.8948 26.7466 27.8334 26.6547 27.756 26.5773L20.496 19.3173C21.9012 17.6403 22.6699 15.5213 22.6667 13.3333C22.6667 8.17867 18.488 4 13.3333 4ZM5.66667 13.3333C5.66667 9.09933 9.09933 5.66667 13.3333 5.66667C17.5673 5.66667 21 9.09933 21 13.3333C21 17.5673 17.5673 21 13.3333 21C9.09933 21 5.66667 17.5673 5.66667 13.3333Z" fill="#00893A" />
-                        </svg>
-                        </span>
-                        <input
-                            type="text"
-                            className="CustomSearchInput"
-                            placeholder="Gib hier Deine Gemeinde oder Postleitzahl (PLZ) ein..."
-                            value={searchTerm}
-                            onChange={(e) => {
-                                setSearchTerm(e.target.value); // Update searchTerm on typing
-                                handleSearch(e.target.value); // Call handleSearch whenever typing
-                            }}
-                        />
-                        <span className="BtnCrossIcon" onClick={clearSearchButton}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 33" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M23.0711 22.628L22.5997 23.0994L22.1282 23.5708L16 17.4426L9.87175 23.5708L9.40035 23.0994L8.92896 22.628L15.0572 16.4998L8.92896 10.3715L9.40035 9.90011L9.87175 9.42871L16 15.557L22.1282 9.42871L22.5997 9.90011L23.0711 10.3715L16.9428 16.4998L23.0711 22.628Z" fill="#333333" />
-                        </svg>
-                        </span>
+                    <div className="col position-relative kandidatinnen">
+                        <div className="flex-searchrowWithBtn">
+                            <div className="CustomSearchInputWithBtn">
+                                <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                    <path d="M13.3333 4C8.17867 4 4 8.17867 4 13.3333C4 18.488 8.17867 22.6667 13.3333 22.6667C15.5213 22.6701 17.6404 21.9014 19.3173 20.496L26.5773 27.756C26.6547 27.8334 26.7466 27.8948 26.8477 27.9367C26.9488 27.9786 27.0572 28.0001 27.1667 28.0001C27.2761 28.0001 27.3845 27.9786 27.4856 27.9367C27.5867 27.8948 27.6786 27.8334 27.756 27.756C27.8334 27.6786 27.8948 27.5867 27.9367 27.4856C27.9786 27.3845 28.0001 27.2761 28.0001 27.1667C28.0001 27.0572 27.9786 26.9488 27.9367 26.8477C27.8948 26.7466 27.8334 26.6547 27.756 26.5773L20.496 19.3173C21.9012 17.6403 22.6699 15.5213 22.6667 13.3333C22.6667 8.17867 18.488 4 13.3333 4ZM5.66667 13.3333C5.66667 9.09933 9.09933 5.66667 13.3333 5.66667C17.5673 5.66667 21 9.09933 21 13.3333C21 17.5673 17.5673 21 13.3333 21C9.09933 21 5.66667 17.5673 5.66667 13.3333Z" fill="#00893A" />
+                                </svg>
+                                </span>
+                                <input
+                                    type="text"
+                                    className="CustomSearchInput"
+                                    placeholder="Gib hier Deine Gemeinde oder Postleitzahl (PLZ) ein..."
+                                    value={searchTerm}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value); // Update searchTerm on typing
+                                        handleSearch(e.target.value); // Call handleSearch whenever typing
+                                    }}
+                                />
+                                <span className="BtnCrossIcon" onClick={clearSearchButton}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 33" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.0711 22.628L22.5997 23.0994L22.1282 23.5708L16 17.4426L9.87175 23.5708L9.40035 23.0994L8.92896 22.628L15.0572 16.4998L8.92896 10.3715L9.40035 9.90011L9.87175 9.42871L16 15.557L22.1282 9.42871L22.5997 9.90011L23.0711 10.3715L16.9428 16.4998L23.0711 22.628Z" fill="#333333" />
+                                </svg>
+                                </span>
+                            </div>
+                        </div>
                     </div>
+
+                    <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} openModel={openModal} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
                 </div>
-                </div>
-               
-                <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} openModel={openModal} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
-               </div>
                 {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
             </div >
             {
@@ -460,7 +460,7 @@ const Kandidatinnen = (props: any) => {
                             </button>
                             <div className='KandidatinnenPopup'>
                                 <div className='modal-header'>
-                                    <h3 className='modal-title'>Direktkandidat*in Wahlkreis {condidateInfo?.WKNo} - {condidateInfo?.WKName}</h3>
+                                    <h3 className='modal-title'>Feedback Formular - {condidateInfo?.WKNo} - {condidateInfo?.WKName}</h3>
                                     <span className='closePopupBtn' style={{ cursor: 'pointer' }} onClick={closeModal}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg></span>
@@ -469,7 +469,7 @@ const Kandidatinnen = (props: any) => {
                                     {condidateInfo ? (
                                         <><div className="expand-AccordionContent clearfix">
                                             <div className="KandidatinnenDetails">
-                                                {condidateInfo.Image != undefined && condidateInfo.Image != "" ? (<div className='KandidatinnenImgSection'><img className='KandidatinnenImg' src={condidateInfo.Image} />{condidateInfo.CopyRight!=undefined && condidateInfo.CopyRight!=null && condidateInfo.CopyRight!="" ?(<span className='copyrightInfo'>&copy; {condidateInfo.CopyRight}</span>):""}</div>) : (<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
+                                                {condidateInfo.Image != undefined && condidateInfo.Image != "" ? (<div className='KandidatinnenImgSection'><img className='KandidatinnenImg' src={condidateInfo.Image} />{condidateInfo.CopyRight != undefined && condidateInfo.CopyRight != null && condidateInfo.CopyRight != "" ? (<span className='copyrightInfo'>&copy; {condidateInfo.CopyRight}</span>) : ""}</div>) : (<img className='KandidatinnenImg' src="https://gruene-weltweit.de/Site%20Collection%20Images/ICONS/32/icon_user.jpg" />)}
                                                 <div className='KandidatinnenDescription'>
                                                     <span className='KandidatinnenName'>{condidateInfo.Name}</span>
                                                     <a className='KandidatinnenURL' href={condidateInfo.Link} target="_blank" rel="noopener noreferrer">{condidateInfo.Link}</a>
@@ -491,7 +491,7 @@ const Kandidatinnen = (props: any) => {
                                                     type="text"
                                                     value={CondidateName}
                                                     onChange={(e) => setCondidateName(e.target.value)}
-                                                    placeholder="Richtige Name melden:"
+                                                    placeholder="Richtigen Namen melden:"
                                                     style={{ width: '100%' }} />
                                             </div>
                                         </div><div className='infoBox'>
@@ -510,14 +510,18 @@ const Kandidatinnen = (props: any) => {
                                                     type="text"
                                                     value={CopyRight}
                                                     onChange={(e) => setCopyRight(e.target.value)}
-                                                    placeholder="Richtigen Copyright melden:"
+                                                    placeholder="Richtige Copyright Information melden:"
                                                     style={{ width: '100%' }} />
                                             </div>
                                         </div>
+                                        <span style={{ marginLeft: '314px', fontSize: '14px'}}>
+                                            Korrekturen per Email an <a href="mailto:info@gruene-weltweit.de">info@gruene-weltweit.de</a>
+                                        </span>
                                     </>}
                                 </div>
                                 {isExpanded && (
                                     <div className='modal-footer'>
+
                                         {isExpanded && (
                                             <div className="captcha-container">
                                                 <span>Geben Sie das Wort ein:
@@ -573,7 +577,7 @@ const Kandidatinnen = (props: any) => {
                                             <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
                                         </>
                                     )}
-                                    <span className='footer_text_right'>Alle Angaben ohne Gewähr</span>
+                                    <span className='footer_text_right'></span>
                                 </div>
                             </div>
                         </div>
