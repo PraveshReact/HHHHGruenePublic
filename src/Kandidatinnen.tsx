@@ -267,7 +267,7 @@ const Kandidatinnen = (props: any) => {
                 isColumnVisible: true
             },
             {
-                accessorKey: "Name", placeholder: "Name", header: "", id: "Name", size: 15,
+                accessorKey: "Name", placeholder: "Name", header: "", id: "Name", size: 30,
                 cell: ({ row }: any) => (
                     <>
                         <div style={{ width: '260px' }}><a onClick={() => openModal(row?.original)}><strong>{row?.original?.Name}</strong></a></div>
@@ -275,7 +275,7 @@ const Kandidatinnen = (props: any) => {
                 ),
             },
             {
-                accessorKey: "WKNo", placeholder: "WK-Nr.", header: "", id: "WKNo", size: 2,
+                accessorKey: "WKNo", placeholder: "WK-Nr.", header: "", id: "WKNo", size: 10,
                 cell: ({ row }: any) => (
                     <>
                         <div style={{ width: '105px', textAlign: "center" }}>{row?.original?.WKNo}</div>
@@ -284,7 +284,7 @@ const Kandidatinnen = (props: any) => {
             },
 
             {
-                accessorKey: "WKName", placeholder: "Wahlkreis", header: "", id: "WKName",
+                accessorKey: "WKName", placeholder: "Wahlkreis", header: "", id: "WKName", size: 55,
                 cell: ({ row }: any) => (
                     <>
                         <span style={{ width: '250px' }}>
