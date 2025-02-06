@@ -516,9 +516,9 @@ const Kandidatinnen = (props: any) => {
                                                     style={{ width: '100%' }} />
                                             </div>
                                         </div>
-                                        <span style={{ marginLeft: '314px', fontSize: '14px'}}>
+                                        <div style={{ textAlign: 'right', fontSize: '13px'}}>
                                             Korrekturen per Email an <a href="mailto:info@gruene-weltweit.de">info@gruene-weltweit.de</a>
-                                        </span>
+                                        </div>
                                     </>}
                                 </div>
                                 {isExpanded && (
