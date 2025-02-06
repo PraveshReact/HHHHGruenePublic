@@ -276,7 +276,7 @@ const Kandidatinnen = (props: any) => {
                 accessorKey: "WKNo", placeholder: "WK-Nr.", header: "", id: "WKNo", size: 7,
                 cell: ({ row }: any) => (
                     <>
-                        <div style={{ width: '130px' }}>{row?.original?.WKNo}</div>
+                        <div style={{ width: '130px', textAlign: "center" }}>{row?.original?.WKNo}</div>
                     </>
                 ),
             },
