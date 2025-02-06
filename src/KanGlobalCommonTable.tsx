@@ -887,7 +887,7 @@ const GlobalCommanTable = (items: any, ref: any) => {
                                 <tr key={headerGroup.id} >
                                     {headerGroup.headers.map((header: any) => {
                                         return (
-                                            <th key={header.id} colSpan={header.colSpan} style={header.column.columnDef.size != undefined && header.column.columnDef.size != 150 ? { width: header.column.columnDef.size + "px" } : {}}>
+                                            <th key={header.id} colSpan={header.colSpan} style={header.column.columnDef.size != undefined && header.column.columnDef.size != 150 ? { width: header.column.columnDef.size + "%" } : {}}>
                                                 {header.isPlaceholder ? null : (
                                                     <div className='position-relative' style={{ display: "flex" }}>
                                                         {flexRender(
