@@ -12,7 +12,7 @@ import AlertPopup from './AlertPopup';
 import { Helmet } from 'react-helmet';
 import { getAllTableData } from './service';
 import { filterDataByUsingDynamicColumnValue } from './service';
-let PopuTitle = 'Candidate Information'
+let PopuTitle = 'Direktkandidat*in Wahlkreis '
 let AllBriefwahl = [];
 let KandidatinnendataBackup: any = [];
 const Kandidatinnen = (props: any) => {
@@ -34,7 +34,7 @@ const Kandidatinnen = (props: any) => {
         setShowAlert(false);
     };
     const handleToggleExpand = () => {
-        PopuTitle = 'Candidate Feedback'
+        PopuTitle = 'Feedback Formular -'
         setIsExpanded(!isExpanded);  // Toggle between expanded and collapsed
     };
     useEffect(() => {
@@ -163,7 +163,7 @@ const Kandidatinnen = (props: any) => {
         setCondidateLink('')
         setCopyRight('')
         setCaptchaInput('')
-        PopuTitle = 'Candidate Information'
+        PopuTitle = 'Direktkandidat*in Wahlkreis '
     };
     const getPublicServerData = async (tableName: any, id: any) => {
         try {
@@ -462,7 +462,7 @@ const Kandidatinnen = (props: any) => {
                             </button>
                             <div className='KandidatinnenPopup'>
                                 <div className='modal-header'>
-                                    <h3 className='modal-title'>Feedback Formular - {condidateInfo?.WKNo} - {condidateInfo?.WKName}</h3>
+                                    <h3 className='modal-title'>{PopuTitle}{condidateInfo?.WKNo} - {condidateInfo?.WKName}</h3>
                                     <span className='closePopupBtn' style={{ cursor: 'pointer' }} onClick={closeModal}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M6 18L18 6M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg></span>
@@ -577,9 +577,10 @@ const Kandidatinnen = (props: any) => {
                                     ) : (
                                         <>
                                             <a onClick={handleToggleExpand}>Falsche Informationen melden</a>
+                                            <span className='footer_text_right'>Alle Angaben ohne Gewähr</span>
                                         </>
                                     )}
-                                    <span className='footer_text_right'></span>
+                                  
                                 </div>
                             </div>
                         </div>
