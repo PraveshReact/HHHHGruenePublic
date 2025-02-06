@@ -311,6 +311,9 @@ li.dynamic {
   padding: 5px !important;
   font-size: 20px;
 }
+.smartpageContent .panel-default>.panel-body .publishdata span {
+  font-size: 15px;
+}
 .smartpageContent .panel{
   margin-bottom: 15px;
 }
