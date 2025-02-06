@@ -12,10 +12,12 @@ import AlertPopup from './AlertPopup';
 import { Helmet } from 'react-helmet';
 import { getAllTableData } from './service';
 import { filterDataByUsingDynamicColumnValue } from './service';
+import { TailSpin } from "react-loader-spinner";
 let PopuTitle = 'Direktkandidat*in Wahlkreis '
 let AllBriefwahl = [];
 let KandidatinnendataBackup: any = [];
 const Kandidatinnen = (props: any) => {
+    const [loading, setLoading] = useState(true);
     const [Allkandidatinnen, setAllkandidatinnen]: any = useState([]);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -127,9 +129,11 @@ const Kandidatinnen = (props: any) => {
                         })
                         KandidatinnendataBackup = result?.data
                         setAllkandidatinnen(result?.data);
+                        setLoading(false);
                     }
                     else
                         setAllkandidatinnen([]);
+                    setLoading(false);
                 })
 
                 .catch(error => console.log('error', error));
@@ -149,7 +153,7 @@ const Kandidatinnen = (props: any) => {
         };
     };
     const openModal = (item: any) => {
-        let e:any='';
+        let e: any = '';
         setIsModalOpen(true);
         getCondidateInfo('WKCandidatesInfo', 'WKNo', item?.WKNo)
         refreshCaptcha()
@@ -199,13 +203,13 @@ const Kandidatinnen = (props: any) => {
         try {
             try {
                 const postDataArray = [{
-                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Created: new Date()
+                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo: condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval", CopyRightStatus: "For-Approval" }, Created: new Date()
                         .toISOString()
                         .slice(0, 19)
                         .replace("T", " "),
                 }];
                 const updatepostDataArray = [{
-                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Modified: new Date()
+                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo: condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval", CopyRightStatus: "For-Approval" }, Modified: new Date()
                         .toISOString()
                         .slice(0, 19)
                         .replace("T", " "),
@@ -413,8 +417,20 @@ const Kandidatinnen = (props: any) => {
                             </div>
                         </div>
                     </div>
+                  
+                        {loading ? (
+                            <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
+                                <TailSpin
+                                    color="#005437"
+                                    height={60}
+                                    width={60}
+                                />
+                            </div>
+                        ) : (
+                            <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} openModel={openModal} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
+                        )}
+                   
 
-                    <div className="kandidatinnenPageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} openModel={openModal} data={Allkandidatinnen} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
                 </div>
                 {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
             </div >
@@ -516,7 +532,7 @@ const Kandidatinnen = (props: any) => {
                                                     style={{ width: '100%' }} />
                                             </div>
                                         </div>
-                                        <div style={{ textAlign: 'right', fontSize: '13px'}}>
+                                        <div style={{ textAlign: 'right', fontSize: '13px' }}>
                                             Korrekturen per Email an <a href="mailto:info@gruene-weltweit.de">info@gruene-weltweit.de</a>
                                         </div>
                                     </>}
@@ -580,7 +596,7 @@ const Kandidatinnen = (props: any) => {
                                             <span className='footer_text_right'>Alle Angaben ohne Gewähr</span>
                                         </>
                                     )}
-                                  
+
                                 </div>
                             </div>
                         </div>
