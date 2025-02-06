@@ -436,6 +436,7 @@ const Briefwahl2021 = () => {
     setIsModalOpen(true);
     setIsCopied(false);
     getCondidateInfo('WKCandidatesInfo', 'WKNo', item?.Wahlkreis)
+    refreshCaptcha()
   };
 
   // Close modal

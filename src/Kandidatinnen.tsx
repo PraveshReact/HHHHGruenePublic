@@ -149,8 +149,10 @@ const Kandidatinnen = (props: any) => {
         };
     };
     const openModal = (item: any) => {
+        let e:any='';
         setIsModalOpen(true);
         getCondidateInfo('WKCandidatesInfo', 'WKNo', item?.WKNo)
+        refreshCaptcha()
     };
 
     // Close modal
