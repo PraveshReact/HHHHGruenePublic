@@ -1862,7 +1862,10 @@ thead.fixedSmart-Header tr th div.position-relative span.searchClear, thead.fixe
 .on-search-cross:placeholder-shown + .searchClear {
   display: none;
 }
-
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
 /*********** page popup content*******************/
 .popup-content-header > .popup-content-header-lowerText {
   color: #333;
