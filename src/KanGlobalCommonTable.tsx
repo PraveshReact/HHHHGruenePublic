@@ -108,7 +108,7 @@ export function Filter({
     // style={{ width: placeholder?.size }}
     return (
         <>
-        <input style={{ width: "100%" }} className="my-1 mx-1 on-search-cross pe-10"
+        <input style={{ width: "100%" }} className="my-1 on-search-cross pe-10"
             // type="text"
             title={placeholder?.placeholder}
             type="search"

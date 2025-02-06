@@ -1791,7 +1791,7 @@ input.react-autosuggest__input {margin: 0;}
 .KandidatinnenPopup .modal-header {color: var(--primary-color);font-family: var(--body-font);font-family: var(--body-font);font-size: 28px;font-style: normal;font-weight: 700;line-height: normal;padding: 0 !important;}
 .KandidatinnenPopup h3.modal-title {font-size: 20px;font-weight: normal;color: #333;}
 .KandidatinnenPopup .infoBox {align-items: flex-start;align-self: stretch;display: flex;flex-direction: column;gap: 8px;padding: 12px 0px;}
-.KandidatinnenDetails {display: flex;gap: 15px;flex-direction: row; align-items: flex-start;margin-bottom: 10px;}
+.KandidatinnenDetails {display: flex;gap: 15px;flex-direction: row; align-items: flex-start;}
 .KandidatinnenDetails span.KandidatinnenName {font-size: 26px;font-weight: 600;color: var(--primary-color);}
 .KandidatinnenImgSection {position: relative;}
 .copyrightInfo {position: absolute;top: 50%;left: 0;transform: translate(0, -50%);color: white;font-size: 10px;background: rgba(0, 0, 0, 0.12);padding: 0px 0px 0px 1px;writing-mode: vertical-lr;height: 100%;border-radius: 8px 0 0 8px;text-align: center;}
