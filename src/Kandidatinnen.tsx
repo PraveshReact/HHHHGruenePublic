@@ -199,13 +199,13 @@ const Kandidatinnen = (props: any) => {
         try {
             try {
                 const postDataArray = [{
-                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Created: new Date()
+                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Created: new Date()
                         .toISOString()
                         .slice(0, 19)
                         .replace("T", " "),
                 }];
                 const updatepostDataArray = [{
-                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Modified: new Date()
+                    id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight: CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Modified: new Date()
                         .toISOString()
                         .slice(0, 19)
                         .replace("T", " "),
@@ -275,10 +275,10 @@ const Kandidatinnen = (props: any) => {
                 ),
             },
             {
-                accessorKey: "WKNo", placeholder: "WK-Nr.", header: "", id: "WKNo", size: 7,
+                accessorKey: "WKNo", placeholder: "WK-Nr.", header: "", id: "WKNo", size: 2,
                 cell: ({ row }: any) => (
                     <>
-                        <div style={{ width: '130px', textAlign: "center" }}>{row?.original?.WKNo}</div>
+                        <div style={{ width: '105px', textAlign: "center" }}>{row?.original?.WKNo}</div>
                     </>
                 ),
             },
