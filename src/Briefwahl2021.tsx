@@ -157,13 +157,13 @@ const Briefwahl2021 = () => {
     try {
       try {
         const postDataArray = [{
-          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Created: new Date()
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "Not yet verified", CandidateNameStatus: "Not yet verified" , CopyRightStatus: "Not yet verified"}, Created: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
         }];
         const updatepostDataArray = [{
-          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "For-Approval", CandidateNameStatus: "For-Approval" , CopyRightStatus: "For-Approval"}, Modified: new Date()
+          id: condidateInfo?.id, Name: CondidateName, Link: CondidateLink, WKNo:condidateInfo.WKNo, CopyRight:CopyRight, ExistingName: condidateInfo?.Name, ExistingLink: condidateInfo?.Link, ExistingCopyRight: condidateInfo?.CopyRight, Status: { LinkStatus: "Not yet verified", CandidateNameStatus: "Not yet verified" , CopyRightStatus: "Not yet verified"}, Modified: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
