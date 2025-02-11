@@ -112,13 +112,13 @@ const Briefwahl2021 = () => {
     try {
       try {
         const postDataArray = [{
-          id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "Not yet verified", EmailStatus: "Not yet verified" }, Created: new Date()
+          id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, ZipCodes:selectedItem?.ZipCodes, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "Not yet verified", EmailStatus: "Not yet verified" }, Created: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
         }];
         const updatepostDataArray = [{
-          id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "Not yet verified", EmailStatus: "Not yet verified" }, Modified: new Date()
+          id: selectedItem?.id, Email: Email, LinkBundestag: LinkOnlineFormular, Title: selectedItem?.Title, Gemeinde: selectedItem?.Gemeinde, ZipCodes:selectedItem?.ZipCodes, Wahlkreis: selectedItem?.Wahlkreis, WKName: selectedItem?.WKName, PLZ: selectedItem?.PLZ, Bevolkerung: selectedItem?.Bevolkerung, ExistingEmail: selectedItem?.Email, ExistingLinkBundestag: selectedItem?.LinkBundestag, Status: { LinkStatus: "Not yet verified", EmailStatus: "Not yet verified" }, Modified: new Date()
             .toISOString()
             .slice(0, 19)
             .replace("T", " "),
@@ -700,7 +700,7 @@ const Briefwahl2021 = () => {
             <div className="row clearfix Homepage position-relative">
               <div className="flex-searchrowWithBtn">
                 <div className="CustomSearchInputWithBtn">
-                  <span className="BtnSearchIcon" onClick={() => setSearchTerm('')}><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <span className="BtnSearchIcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M13.3333 4C8.17867 4 4 8.17867 4 13.3333C4 18.488 8.17867 22.6667 13.3333 22.6667C15.5213 22.6701 17.6404 21.9014 19.3173 20.496L26.5773 27.756C26.6547 27.8334 26.7466 27.8948 26.8477 27.9367C26.9488 27.9786 27.0572 28.0001 27.1667 28.0001C27.2761 28.0001 27.3845 27.9786 27.4856 27.9367C27.5867 27.8948 27.6786 27.8334 27.756 27.756C27.8334 27.6786 27.8948 27.5867 27.9367 27.4856C27.9786 27.3845 28.0001 27.2761 28.0001 27.1667C28.0001 27.0572 27.9786 26.9488 27.9367 26.8477C27.8948 26.7466 27.8334 26.6547 27.756 26.5773L20.496 19.3173C21.9012 17.6403 22.6699 15.5213 22.6667 13.3333C22.6667 8.17867 18.488 4 13.3333 4ZM5.66667 13.3333C5.66667 9.09933 9.09933 5.66667 13.3333 5.66667C17.5673 5.66667 21 9.09933 21 13.3333C21 17.5673 17.5673 21 13.3333 21C9.09933 21 5.66667 17.5673 5.66667 13.3333Z" fill="#00893A" />
                   </svg>
                   </span>
