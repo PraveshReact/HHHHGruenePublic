@@ -158,7 +158,7 @@ export const RelevantWebPart = (props: any) => {
                                                                     {/* <span className="key-documents__documentYear">(2011)</span> */}
                                                                     <span className={iconClass} aria-label={`${keyitem?.File_x0020_Type} icon`}>
                                                                     </span>
-                                                                    {keyitem?.Title}
+                                                                    {keyitem?.Title} ({keyitem?.Year})
 
                                                                 </a>
                                                             </span>
