@@ -141,7 +141,7 @@ const Botschaftskuriere = (props: any) => {
                 <h1 className="page-title heading text-center" style={{ display: "none" }}>Grüne Weltweit Botschaftskuriere</h1>
             </header>
             {/* popup content starts */}
-            <div className="popup-content mb-3">
+            <div className="popup-content mb-2">
                 <div className="popup-content-header">
                     <span className='popup-content-header-lowerText'>Anleitung</span>
                     <div className="popup-content-header-title">Botschaftskurier in beide Richtungen</div>
@@ -205,14 +205,8 @@ const Botschaftskuriere = (props: any) => {
 
             </div>
             {/* popup content ends */}
-            <a
-                href="https://gruene-weltweit.de/Kontakt"
-                style={{ marginLeft: '967px' }}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Alle Angaben ohne Gewähr. Fehler melden
-            </a>
+            <div className='text-right'><a href="https://gruene-weltweit.de/Kontakt" target="_blank" rel="noopener noreferrer">
+                Alle Angaben ohne Gewähr. Fehler melden</a></div>
 
             <div className="BotschaftskurierePageTable border" style={{ userSelect: "none" }}><GlobalCommanTable columns={columns} data={AllBotschaftskuriere} showHeader={true} callBackData={callBackData} expandIcon={true} hideTeamIcon={true} hideOpenNewTableIcon={true} /></div>
             {showAlert && <AlertPopup message={alertMessage} onClose={handleCloseAlert} />}
